@@ -10,19 +10,22 @@ import SwiftUI
 
 struct ContentView: View {
 	@ObservedObject var cameraManager = CameraManager.shared
-	@State var isAddingCamera: Bool = false
 	
 	var body: some View {
-		Button(action: {
-			isAddingCamera.toggle()
-		}, label: {
-			Text("Add Camera")
-		})
-			.padding()
-			.sheet(isPresented: $isAddingCamera) {
-				AddCameraView(isOpen: $isAddingCamera)
-					.environmentObject(cameraManager)
+		VStack {
+			HStack(alignment: .top) {
+				CameraHeadingView()
+				
+				PresetsView()
 			}
-			.environmentObject(cameraManager)
+		}
+		.fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+		.environmentObject(cameraManager)
+	}
+}
+
+struct ContentView_Previews: PreviewProvider {
+	static var previews: some View {
+		ContentView()
 	}
 }

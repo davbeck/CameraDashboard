@@ -13,6 +13,12 @@
 		7A8CFB9024E35E50002D71D0 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB8F24E35E50002D71D0 /* Formatters.swift */; };
 		7A8CFB9324E35FA5002D71D0 /* VISCAClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB9224E35FA5002D71D0 /* VISCAClient.swift */; };
 		7A8CFB9624E36BDE002D71D0 /* CameraSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB9524E36BDE002D71D0 /* CameraSettingsView.swift */; };
+		7A8CFB9A24E44ED7002D71D0 /* CameraConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB9924E44ED7002D71D0 /* CameraConnectionView.swift */; };
+		7A8CFB9D24E4509D002D71D0 /* ConnectionStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB9C24E4509D002D71D0 /* ConnectionStatusIndicator.swift */; };
+		7A8CFB9F24E45D1E002D71D0 /* PresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB9E24E45D1E002D71D0 /* PresetView.swift */; };
+		7A8CFBA124E4B373002D71D0 /* ConnectionPresetsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA024E4B373002D71D0 /* ConnectionPresetsRow.swift */; };
+		7A8CFBA324E4B3C7002D71D0 /* PresetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA224E4B3C7002D71D0 /* PresetsView.swift */; };
+		7A8CFBA524E4B3FC002D71D0 /* CameraHeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA424E4B3FC002D71D0 /* CameraHeadingView.swift */; };
 		7AF77AED24D9FFC800C765F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF77AEC24D9FFC800C765F5 /* AppDelegate.swift */; };
 		7AF77AEF24D9FFC800C765F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF77AEE24D9FFC800C765F5 /* ContentView.swift */; };
 		7AF77AF124D9FFC900C765F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF77AF024D9FFC900C765F5 /* Assets.xcassets */; };
@@ -47,6 +53,12 @@
 		7A8CFB8F24E35E50002D71D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		7A8CFB9224E35FA5002D71D0 /* VISCAClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAClient.swift; sourceTree = "<group>"; };
 		7A8CFB9524E36BDE002D71D0 /* CameraSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsView.swift; sourceTree = "<group>"; };
+		7A8CFB9924E44ED7002D71D0 /* CameraConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraConnectionView.swift; sourceTree = "<group>"; };
+		7A8CFB9C24E4509D002D71D0 /* ConnectionStatusIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusIndicator.swift; sourceTree = "<group>"; };
+		7A8CFB9E24E45D1E002D71D0 /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
+		7A8CFBA024E4B373002D71D0 /* ConnectionPresetsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPresetsRow.swift; sourceTree = "<group>"; };
+		7A8CFBA224E4B3C7002D71D0 /* PresetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsView.swift; sourceTree = "<group>"; };
+		7A8CFBA424E4B3FC002D71D0 /* CameraHeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHeadingView.swift; sourceTree = "<group>"; };
 		7AF77AE924D9FFC800C765F5 /* CameraDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF77AEC24D9FFC800C765F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AF77AEE24D9FFC800C765F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,6 +134,16 @@
 			path = EditCameras;
 			sourceTree = "<group>";
 		};
+		7A8CFB9B24E45082002D71D0 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				7A8CFB9924E44ED7002D71D0 /* CameraConnectionView.swift */,
+				7A8CFB9C24E4509D002D71D0 /* ConnectionStatusIndicator.swift */,
+				7A8CFB9E24E45D1E002D71D0 /* PresetView.swift */,
+			);
+			path = Connections;
+			sourceTree = "<group>";
+		};
 		7AF77AE024D9FFC800C765F5 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +170,10 @@
 				7AF77AEC24D9FFC800C765F5 /* AppDelegate.swift */,
 				7A8CFB8A24E35439002D71D0 /* CameraManager.swift */,
 				7AF77AEE24D9FFC800C765F5 /* ContentView.swift */,
+				7A8CFBA424E4B3FC002D71D0 /* CameraHeadingView.swift */,
+				7A8CFBA224E4B3C7002D71D0 /* PresetsView.swift */,
+				7A8CFBA024E4B373002D71D0 /* ConnectionPresetsRow.swift */,
+				7A8CFB9B24E45082002D71D0 /* Connections */,
 				7A8CFB9424E36BC6002D71D0 /* EditCameras */,
 				7AF77B1B24D9FFDC00C765F5 /* SwitcherButton.swift */,
 				7A8CFB9124E35F99002D71D0 /* VISCA */,
@@ -319,15 +345,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A8CFBA524E4B3FC002D71D0 /* CameraHeadingView.swift in Sources */,
 				7AF77B1C24D9FFDC00C765F5 /* SwitcherButton.swift in Sources */,
+				7A8CFB9F24E45D1E002D71D0 /* PresetView.swift in Sources */,
 				7A38D7B924DC916A007F3EFC /* Column.swift in Sources */,
+				7A8CFBA324E4B3C7002D71D0 /* PresetsView.swift in Sources */,
 				7A8CFB9024E35E50002D71D0 /* Formatters.swift in Sources */,
 				7AF77AEF24D9FFC800C765F5 /* ContentView.swift in Sources */,
 				7A8CFB8D24E35709002D71D0 /* AddCameraView.swift in Sources */,
 				7A8CFB9624E36BDE002D71D0 /* CameraSettingsView.swift in Sources */,
 				7A8CFB8B24E35439002D71D0 /* CameraManager.swift in Sources */,
+				7A8CFBA124E4B373002D71D0 /* ConnectionPresetsRow.swift in Sources */,
+				7A8CFB9D24E4509D002D71D0 /* ConnectionStatusIndicator.swift in Sources */,
 				7AF77AED24D9FFC800C765F5 /* AppDelegate.swift in Sources */,
 				7A8CFB9324E35FA5002D71D0 /* VISCAClient.swift in Sources */,
+				7A8CFB9A24E44ED7002D71D0 /* CameraConnectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
