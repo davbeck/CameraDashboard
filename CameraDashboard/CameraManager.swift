@@ -12,9 +12,24 @@ import Combine
 
 struct Camera: Codable, Hashable, Identifiable {
 	private(set) var id = UUID()
-	var name: String?
+	var name: String = ""
 	var address: String
 	var port: UInt16?
+	
+	init(name: String = "", address: String, port: UInt16? = nil) {
+		self.name = name
+		self.address = address
+		self.port = port
+	}
+	
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		self.id = try container.decode(UUID.self, forKey: .id)
+		self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+		self.address = try container.decode(String.self, forKey: .address)
+		self.port = try container.decodeIfPresent(UInt16.self, forKey: .port)
+	}
 }
 
 struct CameraConfig: Codable, Hashable {
@@ -31,6 +46,10 @@ struct CameraConnection: Hashable, Identifiable {
 }
 
 class CameraManager: ObservableObject {
+	enum Error: Swift.Error {
+		case cameraDoesNotExist
+	}
+	
 	static let shared: CameraManager = {
 		let url = try? FileManager.default
 			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -86,13 +105,27 @@ class CameraManager: ObservableObject {
 	
 	private(set) var connections: [CameraConnection] = []
 	
-	func add(camera: Camera, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
+	func save(camera: Camera, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
+		if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }),
+			connections[index].camera.address == camera.address,
+			connections[index].camera.port == camera.port
+		{
+			connections[index].camera = camera
+			return completion(.success(connections[index]))
+		}
+		
 		let connection = CameraConnection(camera: camera, client: VISCAClient(camera))
 		
 		connection.client.start { result in
 			switch result {
 			case .success:
-				self.connections.append(connection)
+				if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
+					self.connections[index].client.stop()
+					self.connections[index] = connection
+				} else {
+					self.connections.append(connection)
+				}
+				
 				self.saveConfig()
 				
 				completion(.success(connection))

@@ -10,17 +10,45 @@ import SwiftUI
 import Network
 
 struct CameraSettingsView: View {
-	var isLoading: Bool
+	@EnvironmentObject var cameraManager: CameraManager
 	
-	var save: (Camera) -> Void
-	var cancel: () -> Void
+	@State var camera: Camera
+	@Binding var isOpen: Bool
 	
-	@State var name: String = ""
-	@State var address: String = ""
-	@State var port: UInt16? = nil
+	@State var isLoading: Bool = false
+	@State var error: Swift.Error?
 	
 	var isValid: Bool {
-		!self.address.isEmpty
+		!self.camera.address.isEmpty
+	}
+	
+	var body: some View {
+		_CameraSettingsView(camera: $camera) {
+			cameraManager.save(camera: camera) { result in
+				isLoading = false
+				
+				switch result {
+				case .success:
+					self.isOpen = false
+				case .failure(let error):
+					self.error = error
+				}
+			}
+		} cancel: {
+			self.isOpen = false
+		}
+		.disabled(isLoading)
+		.alert($error)
+	}
+}
+
+struct _CameraSettingsView: View {
+	@Binding var camera: Camera
+	var save: () -> Void
+	var cancel: () -> Void
+	
+	var isValid: Bool {
+		!self.camera.address.isEmpty
 	}
 	
 	var body: some View {
@@ -30,18 +58,18 @@ struct CameraSettingsView: View {
 				HStack(spacing: 5) {
 					Text("Name:")
 						.column(0, alignment: .trailing)
-					TextField("(Optional)", text: $name)
+					TextField("(Optional)", text: $camera.name)
 				}
 				HStack(spacing: 16) {
 					HStack(spacing: 5) {
 						Text("Address:")
 							.column(0, alignment: .trailing)
-						TextField("0.0.0.0", text: $address)
+						TextField("0.0.0.0", text: $camera.address)
 					}
 					
 					HStack(spacing: 5) {
 						Text("Port:")
-						TextField("\(NWEndpoint.Port.visca.rawValue)", value: $port, formatter: portFormatter)
+						TextField("\(NWEndpoint.Port.visca.rawValue)", value: $camera.port, formatter: portFormatter)
 							.frame(width: 80)
 					}
 				}
@@ -50,7 +78,9 @@ struct CameraSettingsView: View {
 			HStack(spacing: 16) {
 				Spacer()
 				
-				Button(action: self.cancel, label: {
+				Button(action: {
+					self.cancel()
+				}, label: {
 					Text("Cancel")
 						.padding(.horizontal, 10)
 						.column("Buttons", alignment: .center)
@@ -58,11 +88,7 @@ struct CameraSettingsView: View {
 				// .keyboardShortcut(.cancelAction)
 				
 				Button(action: {
-					self.save(Camera(
-						name: name,
-						address: address,
-						port: port
-					))
+					self.save()
 				}, label: {
 					Text("Save")
 						.padding(.horizontal, 10)
@@ -72,17 +98,25 @@ struct CameraSettingsView: View {
 				// .keyboardShortcut(.defaultAction)
 			}
 		}
-		.disabled(isLoading)
 		.columnGuide()
 		.padding()
 	}
 }
 
-struct AddCameraView_Previews: PreviewProvider {
-	static var previews: some View {
-		Group {
-			CameraSettingsView(isLoading: false, save: { _ in }, cancel: {})
-			CameraSettingsView(isLoading: true, save: { _ in }, cancel: {})
+ struct AddCameraView_Previews: PreviewProvider {
+	struct CameraSettingsView: View {
+		@State var camera: Camera
+		
+		var body: some View {
+			_CameraSettingsView(camera: $camera, save: {}, cancel: {})
 		}
 	}
-}
+		
+	
+	static var previews: some View {
+		Group {
+			CameraSettingsView(camera: Camera(address: ""))
+			CameraSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234))
+		}
+	}
+ }
