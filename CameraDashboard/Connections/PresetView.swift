@@ -20,8 +20,8 @@ struct PresetStateOverlay: View {
 				.opacity(animatedOff ? 0 : 1)
 				.onAppear {
 					withAnimation(Animation.linear(duration: 0.2)
-									.delay(0.2)
-									.repeatForever(autoreverses: true)) {
+						.delay(0.2)
+						.repeatForever(autoreverses: true)) {
 						self.animatedOff = true
 					}
 				}
@@ -33,6 +33,7 @@ struct PresetStateOverlay: View {
 }
 
 struct PresetView: View {
+	var preset: VISCAPreset
 	var isActive: Bool
 	var isSwitching: Bool
 	
@@ -44,7 +45,7 @@ struct PresetView: View {
 					Text("Scripture lorem ipsum")
 						.lineLimit(2)
 						.font(.headline)
-					Text("Preset 3")
+					Text("Preset \(preset.rawValue)")
 						.font(.subheadline)
 				}
 			}
@@ -71,12 +72,26 @@ struct PresetView: View {
 struct PresetView_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
-			PresetView(isActive: false, isSwitching: false)
-				.padding()
-			PresetView(isActive: false, isSwitching: true)
-				.padding()
-			PresetView(isActive: true, isSwitching: false)
-				.padding()
+			PresetView(
+				preset: VISCAPreset(rawValue: 1)!,
+				isActive: false,
+				isSwitching: false
+			)
+			.padding()
+			
+			PresetView(
+				preset: VISCAPreset(rawValue: 2)!,
+				isActive: false,
+				isSwitching: true
+			)
+			.padding()
+			
+			PresetView(
+				preset: VISCAPreset(rawValue: 3)!,
+				isActive: true,
+				isSwitching: false
+			)
+			.padding()
 		}
 	}
 }
