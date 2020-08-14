@@ -10,32 +10,6 @@ import Foundation
 import Network
 import Combine
 
-struct Camera: Codable, Hashable, Identifiable {
-	private(set) var id = UUID()
-	var name: String = ""
-	var address: String
-	var port: UInt16?
-	
-	init(name: String = "", address: String, port: UInt16? = nil) {
-		self.name = name
-		self.address = address
-		self.port = port
-	}
-	
-	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		self.id = try container.decode(UUID.self, forKey: .id)
-		self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-		self.address = try container.decode(String.self, forKey: .address)
-		self.port = try container.decodeIfPresent(UInt16.self, forKey: .port)
-	}
-}
-
-struct CameraConfig: Codable, Hashable {
-	var cameras: [Camera]
-}
-
 struct CameraConnection: Hashable, Identifiable {
 	var camera: Camera
 	let client: VISCAClient
@@ -72,6 +46,23 @@ class CameraManager: ObservableObject {
 	
 	let configURL: URL?
 	
+	struct CameraConfig: Codable, Hashable {
+		var cameras: [Camera]
+		var presetConfigs: [PresetConfig] = []
+		
+		init(cameras: [Camera], presetConfigs: [PresetConfig] = []) {
+			self.cameras = cameras
+			self.presetConfigs = presetConfigs
+		}
+		
+		init(from decoder: Decoder) throws {
+			let container = try decoder.container(keyedBy: CodingKeys.self)
+			
+			self.cameras = try container.decodeIfPresent([Camera].self, forKey: .cameras) ?? []
+			self.presetConfigs = try container.decodeIfPresent([PresetConfig].self, forKey: .presetConfigs) ?? []
+		}
+	}
+	
 	func loadConfig() {
 		do {
 			guard let configURL = configURL else { return }
@@ -85,6 +76,7 @@ class CameraManager: ObservableObject {
 					port: camera.port.map(NWEndpoint.Port.init) ?? .visca
 				))
 			}
+			self.presetConfigs = config.presetConfigs
 		} catch {
 			print("failed to load config", error)
 		}
@@ -94,7 +86,12 @@ class CameraManager: ObservableObject {
 		do {
 			guard let configURL = configURL else { return }
 			
-			let data = try JSONEncoder().encode(CameraConfig(cameras: connections.map { $0.camera }))
+			let config = CameraConfig(
+				cameras: connections.map { $0.camera },
+				presetConfigs: presetConfigs
+			)
+			
+			let data = try JSONEncoder().encode(config)
 			try data.write(to: configURL, options: .atomic)
 		} catch {
 			print("failed to save confing", error)
@@ -135,6 +132,28 @@ class CameraManager: ObservableObject {
 				completion(.failure(error))
 			}
 		}
+	}
+	
+	// MARK: - Preset Config
+	
+	@Published private var presetConfigs: [PresetConfig] = []
+	
+	func presets(for camera: Camera) -> [PresetConfig] {
+		VISCAPreset.allCases.map { preset in
+			presetConfigs.first(where: {
+				$0.cameraID == camera.id && $0.preset == preset
+			}) ?? PresetConfig(cameraID: camera.id, preset: preset)
+		}
+	}
+	
+	func save(_ presetConfig: PresetConfig) {
+		if let index = presetConfigs.firstIndex(where: { $0.cameraID == presetConfig.cameraID && $0.preset == presetConfig.preset }) {
+			presetConfigs[index] = presetConfig
+		} else {
+			presetConfigs.append(presetConfig)
+		}
+		
+		self.saveConfig()
 	}
 }
 

@@ -33,25 +33,41 @@ struct PresetStateOverlay: View {
 }
 
 struct PresetView: View {
-	var preset: VISCAPreset
+	@EnvironmentObject var cameraManager: CameraManager
+	
+	var presetConfig: PresetConfig
 	var isActive: Bool
 	var isSwitching: Bool
+	
+	@State var isShowingEdit: Bool = false
 	
 	var body: some View {
 		HStack {
 			VStack(spacing: 0) {
-				Spacer(minLength: 0)
 				VStack(alignment: .leading) {
-					Text("Scripture lorem ipsum")
-						.lineLimit(2)
-						.font(.headline)
-					Text("Preset \(preset.rawValue)")
-						.font(.subheadline)
+					HStack {
+						Text(presetConfig.name)
+							.lineLimit(2)
+							.font(.headline)
+						Spacer()
+					}
+					Spacer(minLength: 0)
+					HStack(alignment: .bottom) {
+						Text("Preset \(presetConfig.preset.rawValue)")
+							.font(.subheadline)
+						Spacer()
+							
+						Button(action: {
+							self.isShowingEdit = true
+						}, label: {
+							Image("ellipsis.circle.fill")
+						}).buttonStyle(PlainButtonStyle())
+							.contentShape(Rectangle())
+					}
 				}
 			}
-			Spacer()
 		}
-		.padding()
+		.padding(12)
 		.foregroundColor(.white)
 		.frame(width: 140, height: 100)
 		.background(LinearGradient(gradient: Gradient(colors: [
@@ -66,6 +82,13 @@ struct PresetView: View {
 				isSwitching: isSwitching
 			)
 		)
+		.sheet(isPresented: $isShowingEdit, content: {
+			PresetEditView(
+				presetConfig: presetConfig,
+				isOpen: $isShowingEdit
+			)
+			.environmentObject(cameraManager)
+		})
 	}
 }
 
@@ -73,21 +96,21 @@ struct PresetView_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
 			PresetView(
-				preset: VISCAPreset(rawValue: 1)!,
+				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 1)!),
 				isActive: false,
 				isSwitching: false
 			)
 			.padding()
 			
 			PresetView(
-				preset: VISCAPreset(rawValue: 2)!,
+				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 2)!),
 				isActive: false,
 				isSwitching: true
 			)
 			.padding()
 			
 			PresetView(
-				preset: VISCAPreset(rawValue: 3)!,
+				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 3)!),
 				isActive: true,
 				isSwitching: false
 			)

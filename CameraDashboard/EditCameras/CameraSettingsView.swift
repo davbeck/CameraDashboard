@@ -69,8 +69,12 @@ struct _CameraSettingsView: View {
 					
 					HStack(spacing: 5) {
 						Text("Port:")
-						TextField("\(NWEndpoint.Port.visca.rawValue)", value: $camera.port, formatter: portFormatter)
-							.frame(width: 80)
+						TextField(
+							"\(NSNumber(value: NWEndpoint.Port.visca.rawValue), formatter: portFormatter)",
+							value: $camera.port,
+							formatter: portFormatter
+						)
+						.frame(width: 80)
 					}
 				}
 			}
@@ -103,7 +107,7 @@ struct _CameraSettingsView: View {
 	}
 }
 
- struct AddCameraView_Previews: PreviewProvider {
+struct AddCameraView_Previews: PreviewProvider {
 	struct CameraSettingsView: View {
 		@State var camera: Camera
 		
@@ -112,11 +116,10 @@ struct _CameraSettingsView: View {
 		}
 	}
 		
-	
 	static var previews: some View {
 		Group {
 			CameraSettingsView(camera: Camera(address: ""))
 			CameraSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234))
 		}
 	}
- }
+}

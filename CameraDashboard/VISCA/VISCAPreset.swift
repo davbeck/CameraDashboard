@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct VISCAPreset: Hashable, RawRepresentable {
+struct VISCAPreset: Codable, Hashable, RawRepresentable {
 	var rawValue: UInt8
 	
 	init?(rawValue: UInt8) {

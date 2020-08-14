@@ -9,18 +9,20 @@
 import SwiftUI
 
 struct ConnectionPresetsRow: View {
+	@EnvironmentObject var cameraManager: CameraManager
 	@ObservedObject var client: VISCAClient
+	var camera: Camera
 	
 	var body: some View {
 		HStack(spacing: 15) {
-			ForEach(VISCAPreset.allCases) { preset in
+			ForEach(cameraManager.presets(for: camera)) { presetConfig in
 				PresetView(
-					preset: preset,
-					isActive: client.currentPreset == preset,
-					isSwitching: client.nextPreset == preset
+					presetConfig: presetConfig,
+					isActive: client.currentPreset == presetConfig.preset,
+					isSwitching: client.nextPreset == presetConfig.preset
 				)
 				.onTapGesture {
-					client.recall(preset: preset)
+					client.recall(preset: presetConfig.preset)
 				}
 			}
 			Spacer().frame(width: 0)

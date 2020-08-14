@@ -15,7 +15,7 @@ struct PresetsView: View {
 		ScrollView(.horizontal, showsIndicators: true, content: {
 			VStack(spacing: 15) {
 				ForEach(cameraManager.connections) { connection in
-					ConnectionPresetsRow(client: connection.client)
+					ConnectionPresetsRow(client: connection.client, camera: connection.camera)
 				}
 			}
 			.padding(.vertical)

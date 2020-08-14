@@ -19,7 +19,8 @@ struct ContentView: View {
 				PresetsView()
 			}
 		}
-		.fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+		.frame(minWidth: 600, minHeight: 300)
+		.fixedSize(horizontal: false, vertical: true)
 		.environmentObject(cameraManager)
 	}
 }
