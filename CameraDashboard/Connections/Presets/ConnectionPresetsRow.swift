@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ConnectionPresetsRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
+	@EnvironmentObject var errorReporter: ErrorReporter
 	@ObservedObject var client: VISCAClient
 	var camera: Camera
 	
@@ -24,6 +26,7 @@ struct ConnectionPresetsRow: View {
 				)
 				.onTapGesture {
 					client.recall(preset: preset)
+						.sink(into: errorReporter)
 				}
 			}
 			Spacer().frame(width: 0)

@@ -21,6 +21,7 @@
 		7A8CFBA724E4B7F2002D71D0 /* IntegerFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA624E4B7F2002D71D0 /* IntegerFormatting.swift */; };
 		7A8CFBA924E5A2B3002D71D0 /* VISCAPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA824E5A2B3002D71D0 /* VISCAPreset.swift */; };
 		7A8CFBAF24E5AF11002D71D0 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBAE24E5AF11002D71D0 /* ErrorAlert.swift */; };
+		7AA8DD0C24E73D1000148754 /* ErrorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */; };
 		7AF0617D24E60B9F005A0317 /* PresetEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0617C24E60B9F005A0317 /* PresetEditView.swift */; };
 		7AF0618024E60DBF005A0317 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0617F24E60DBF005A0317 /* Camera.swift */; };
 		7AF0618224E60DD4005A0317 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0618124E60DD4005A0317 /* PresetConfig.swift */; };
@@ -69,6 +70,7 @@
 		7A8CFBA624E4B7F2002D71D0 /* IntegerFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerFormatting.swift; sourceTree = "<group>"; };
 		7A8CFBA824E5A2B3002D71D0 /* VISCAPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAPreset.swift; sourceTree = "<group>"; };
 		7A8CFBAE24E5AF11002D71D0 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReporter.swift; sourceTree = "<group>"; };
 		7AF0617C24E60B9F005A0317 /* PresetEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditView.swift; sourceTree = "<group>"; };
 		7AF0617F24E60DBF005A0317 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7AF0618124E60DD4005A0317 /* PresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetConfig.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				7AF77AEC24D9FFC800C765F5 /* AppDelegate.swift */,
 				7AF0617E24E60DB0005A0317 /* CameraManager */,
 				7AF77AEE24D9FFC800C765F5 /* ContentView.swift */,
+				7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */,
 				7A8CFB9B24E45082002D71D0 /* Connections */,
 				7A8CFB9424E36BC6002D71D0 /* EditCameras */,
 				7AF77B1B24D9FFDC00C765F5 /* SwitcherButton.swift */,
@@ -404,6 +407,7 @@
 				7AF77AEF24D9FFC800C765F5 /* ContentView.swift in Sources */,
 				7A8CFBA924E5A2B3002D71D0 /* VISCAPreset.swift in Sources */,
 				7AF0618824E63C5A005A0317 /* PresetColorPicker.swift in Sources */,
+				7AA8DD0C24E73D1000148754 /* ErrorReporter.swift in Sources */,
 				7A8CFB9624E36BDE002D71D0 /* CameraSettingsView.swift in Sources */,
 				7A8CFB8B24E35439002D71D0 /* CameraManager.swift in Sources */,
 				7AF0618024E60DBF005A0317 /* Camera.swift in Sources */,

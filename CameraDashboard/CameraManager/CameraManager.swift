@@ -20,10 +20,6 @@ struct CameraConnection: Hashable, Identifiable {
 }
 
 class CameraManager: ObservableObject {
-	enum Error: Swift.Error {
-		case cameraDoesNotExist
-	}
-	
 	static let shared: CameraManager = {
 		let url = try? FileManager.default
 			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

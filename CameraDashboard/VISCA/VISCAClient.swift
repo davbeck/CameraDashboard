@@ -45,12 +45,27 @@ extension NWConnection {
 class VISCAClient: ObservableObject {
 	let connection: NWConnection
 	
-	enum Error: Swift.Error {
+	enum Error: Swift.Error, LocalizedError {
 		case invalidInitialResponseByte
 		case unexpectedBytes
 		case missingAck
 		case missingCompletion
 		case notReady
+		
+		var errorDescription: String? {
+			switch self {
+			case .invalidInitialResponseByte:
+				return "Received an invalid response from the camera."
+			case .unexpectedBytes:
+				return "Received unexpected data from the camera."
+			case .missingAck:
+				return "The camera did not respond."
+			case .missingCompletion:
+				return "The camera did not respond after updating."
+			case .notReady:
+				return "The camera is not connected."
+			}
+		}
 	}
 	
 	enum State {
@@ -188,23 +203,6 @@ class VISCAClient: ObservableObject {
 			.eraseToAnyPublisher()
 	}
 	
-	private func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
-		return self.send(.viscaCommand, payload: payload)
-			.flatMap {
-				self.receive()
-			}
-			.tryMap { (data) -> Void in
-				guard data == Data([0x41]) else { throw Error.missingAck }
-			}
-			.flatMap {
-				self.receive()
-			}
-			.tryMap { (data) -> Void in
-				guard data == Data([0x51]) else { throw Error.missingCompletion }
-			}
-			.eraseToAnyPublisher()
-	}
-	
 	private func receive() -> Future<Data, Swift.Error> {
 		let connection = self.connection
 		
@@ -253,6 +251,23 @@ class VISCAClient: ObservableObject {
 		}
 	}
 	
+	private func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
+		return self.send(.viscaCommand, payload: payload)
+			.flatMap {
+				self.receive()
+			}
+			.tryMap { (data) -> Void in
+				guard data == Data([0x41]) else { throw Error.missingAck }
+			}
+			.flatMap {
+				self.receive()
+			}
+			.tryMap { (data) -> Void in
+				guard data == Data([0x51]) else { throw Error.missingCompletion }
+			}
+			.eraseToAnyPublisher()
+	}
+	
 	func resetSequence() {
 		self.send(.controlCommand, payload: Data([0x01]))
 			.sink { completion in
@@ -278,8 +293,7 @@ class VISCAClient: ObservableObject {
 				switch completion {
 				case .finished:
 					self.currentPreset = preset
-				case .failure(let error):
-					print("failed to switch to preset", error)
+				case .failure:
 					self.nextPreset = nil
 				}
 			} receiveValue: {}
