@@ -49,15 +49,6 @@ struct PresetKey: Codable, Hashable {
 }
 
 struct PresetConfig: Codable, Hashable {
-	var cameraID: UUID
-	var preset: VISCAPreset
-	
 	var name: String = ""
 	var color: PresetColor = .gray
-}
-
-extension PresetConfig: Identifiable {
-	var id: PresetKey {
-		return PresetKey(cameraID: cameraID, preset: preset)
-	}
 }

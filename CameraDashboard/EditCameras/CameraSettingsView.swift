@@ -79,28 +79,7 @@ struct _CameraSettingsView: View {
 				}
 			}
 			
-			HStack(spacing: 16) {
-				Spacer()
-				
-				Button(action: {
-					self.cancel()
-				}, label: {
-					Text("Cancel")
-						.padding(.horizontal, 10)
-						.column("Buttons", alignment: .center)
-				})
-				// .keyboardShortcut(.cancelAction)
-				
-				Button(action: {
-					self.save()
-				}, label: {
-					Text("Save")
-						.padding(.horizontal, 10)
-						.column("Buttons", alignment: .center)
-				})
-					.disabled(!isValid)
-				// .keyboardShortcut(.defaultAction)
-			}
+			SaveButtonsView(save: save, cancel: cancel)
 		}
 		.columnGuide()
 		.padding()

@@ -45,12 +45,13 @@ class CameraManager: ObservableObject {
 	// MARK: - Config
 	
 	let configURL: URL?
+	let queue = DispatchQueue(label: "CameraManager")
 	
 	struct CameraConfig: Codable, Hashable {
 		var cameras: [Camera]
-		var presetConfigs: [PresetConfig] = []
+		var presetConfigs: [PresetKey:PresetConfig] = [:]
 		
-		init(cameras: [Camera], presetConfigs: [PresetConfig] = []) {
+		init(cameras: [Camera], presetConfigs: [PresetKey:PresetConfig] = [:]) {
 			self.cameras = cameras
 			self.presetConfigs = presetConfigs
 		}
@@ -59,7 +60,7 @@ class CameraManager: ObservableObject {
 			let container = try decoder.container(keyedBy: CodingKeys.self)
 			
 			self.cameras = try container.decodeIfPresent([Camera].self, forKey: .cameras) ?? []
-			self.presetConfigs = try container.decodeIfPresent([PresetConfig].self, forKey: .presetConfigs) ?? []
+			self.presetConfigs = (try? container.decodeIfPresent([PresetKey:PresetConfig].self, forKey: .presetConfigs)) ?? [:]
 		}
 	}
 	
@@ -83,18 +84,20 @@ class CameraManager: ObservableObject {
 	}
 	
 	func saveConfig() {
-		do {
-			guard let configURL = configURL else { return }
-			
-			let config = CameraConfig(
-				cameras: connections.map { $0.camera },
-				presetConfigs: presetConfigs
-			)
-			
-			let data = try JSONEncoder().encode(config)
-			try data.write(to: configURL, options: .atomic)
-		} catch {
-			print("failed to save confing", error)
+		queue.async {
+			do {
+				guard let configURL = self.configURL else { return }
+				
+				let config = CameraConfig(
+					cameras: self.connections.map { $0.camera },
+					presetConfigs: self.presetConfigs
+				)
+				
+				let data = try JSONEncoder().encode(config)
+				try data.write(to: configURL, options: .atomic)
+			} catch {
+				print("failed to save confing", error)
+			}
 		}
 	}
 	
@@ -136,24 +139,18 @@ class CameraManager: ObservableObject {
 	
 	// MARK: - Preset Config
 	
-	@Published private var presetConfigs: [PresetConfig] = []
+	@Published private var presetConfigs: [PresetKey:PresetConfig] = [:]
 	
-	func presets(for camera: Camera) -> [PresetConfig] {
-		VISCAPreset.allCases.map { preset in
-			presetConfigs.first(where: {
-				$0.cameraID == camera.id && $0.preset == preset
-			}) ?? PresetConfig(cameraID: camera.id, preset: preset)
+	subscript(camera: Camera, preset: VISCAPreset) -> PresetConfig {
+		get {
+			presetConfigs[PresetKey(cameraID: camera.id, preset: preset)] ??
+				PresetConfig()
 		}
-	}
-	
-	func save(_ presetConfig: PresetConfig) {
-		if let index = presetConfigs.firstIndex(where: { $0.cameraID == presetConfig.cameraID && $0.preset == presetConfig.preset }) {
-			presetConfigs[index] = presetConfig
-		} else {
-			presetConfigs.append(presetConfig)
+		set(newValue) {
+			presetConfigs[PresetKey(cameraID: camera.id, preset: preset)] = newValue
+			
+			self.saveConfig()
 		}
-		
-		self.saveConfig()
 	}
 }
 

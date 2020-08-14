@@ -35,7 +35,8 @@ struct PresetStateOverlay: View {
 struct PresetView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
-	var presetConfig: PresetConfig
+	var preset: VISCAPreset
+	@Binding var presetConfig: PresetConfig
 	var isActive: Bool
 	var isSwitching: Bool
 	
@@ -53,7 +54,7 @@ struct PresetView: View {
 					}
 					Spacer(minLength: 0)
 					HStack(alignment: .bottom) {
-						Text("Preset \(presetConfig.preset.rawValue)")
+						Text("Preset \(preset.rawValue)")
 							.font(.subheadline)
 						Spacer()
 							
@@ -61,8 +62,19 @@ struct PresetView: View {
 							self.isShowingEdit = true
 						}, label: {
 							Image("ellipsis.circle.fill")
-						}).buttonStyle(PlainButtonStyle())
+						})
+							.buttonStyle(PlainButtonStyle())
 							.contentShape(Rectangle())
+							.popover(
+								isPresented: $isShowingEdit,
+								arrowEdge: .bottom
+							) {
+								PresetEditView(
+									presetConfig: $presetConfig,
+									isOpen: $isShowingEdit
+								)
+								.environmentObject(cameraManager)
+							}
 					}
 				}
 			}
@@ -71,10 +83,10 @@ struct PresetView: View {
 		.foregroundColor(.white)
 		.frame(width: 140, height: 100)
 		.background(LinearGradient(gradient: Gradient(colors: [
-			Color(white: 0, opacity: 0),
-			Color(white: 0, opacity: 0.1),
+			Color(white: 1, opacity: 0.1),
+			Color(white: 1, opacity: 0),
 		]), startPoint: .top, endPoint: .bottom))
-		.background(Color.gray)
+		.background(Color(presetConfig.color))
 		.cornerRadius(15)
 		.overlay(
 			PresetStateOverlay(
@@ -82,13 +94,6 @@ struct PresetView: View {
 				isSwitching: isSwitching
 			)
 		)
-		.sheet(isPresented: $isShowingEdit, content: {
-			PresetEditView(
-				presetConfig: presetConfig,
-				isOpen: $isShowingEdit
-			)
-			.environmentObject(cameraManager)
-		})
 	}
 }
 
@@ -96,21 +101,24 @@ struct PresetView_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
 			PresetView(
-				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 1)!),
+				preset: VISCAPreset.allCases[1],
+				presetConfig: .constant(PresetConfig()),
 				isActive: false,
 				isSwitching: false
 			)
 			.padding()
 			
 			PresetView(
-				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 2)!),
+				preset: VISCAPreset.allCases[2],
+				presetConfig: .constant(PresetConfig()),
 				isActive: false,
 				isSwitching: true
 			)
 			.padding()
 			
 			PresetView(
-				presetConfig: PresetConfig(cameraID: UUID(), preset: VISCAPreset(rawValue: 3)!),
+				preset: VISCAPreset.allCases[3],
+				presetConfig: .constant(PresetConfig()),
 				isActive: true,
 				isSwitching: false
 			)

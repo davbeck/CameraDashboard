@@ -15,14 +15,15 @@ struct ConnectionPresetsRow: View {
 	
 	var body: some View {
 		HStack(spacing: 15) {
-			ForEach(cameraManager.presets(for: camera)) { presetConfig in
+			ForEach(VISCAPreset.allCases) { preset in
 				PresetView(
-					presetConfig: presetConfig,
-					isActive: client.currentPreset == presetConfig.preset,
-					isSwitching: client.nextPreset == presetConfig.preset
+					preset: preset,
+					presetConfig: $cameraManager[camera, preset],
+					isActive: client.currentPreset == preset,
+					isSwitching: client.nextPreset == preset
 				)
 				.onTapGesture {
-					client.recall(preset: presetConfig.preset)
+					client.recall(preset: preset)
 				}
 			}
 			Spacer().frame(width: 0)

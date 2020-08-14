@@ -10,11 +10,17 @@ import SwiftUI
 
 struct PresetColorControl: View {
 	var presetColor: PresetColor
+	var isSelected: Bool
 	
     var body: some View {
 		Circle()
 			.fill(Color(presetColor))
-			.frame(width: 20, height: 20)
+			.frame(width: 25, height: 25)
+			.overlay(
+				Image("checkmark")
+					.foregroundColor(.white)
+					.opacity(isSelected ? 1 : 0)
+			)
 			.overlay(
 				Circle()
 					.strokeBorder(Color.gray, lineWidth: 1)
@@ -25,6 +31,9 @@ struct PresetColorControl: View {
 
 struct PresetColorControl_Previews: PreviewProvider {
     static var previews: some View {
-		PresetColorControl(presetColor: .blue).padding()
+		Group {
+			PresetColorControl(presetColor: .blue, isSelected: false).padding()
+			PresetColorControl(presetColor: .red, isSelected: true).padding()
+		}
     }
 }
