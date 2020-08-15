@@ -14,7 +14,10 @@ struct PresetStateOverlay: View {
 	@State private var animatedOff: Bool = false
 	
 	var body: some View {
-		if isSwitching {
+		ZStack {
+			RoundedRectangle(cornerRadius: 15)
+				.stroke(Color.blue, lineWidth: 4)
+				.opacity(isActive ? 1 : 0)
 			RoundedRectangle(cornerRadius: 15)
 				.stroke(Color.blue, lineWidth: 4)
 				.opacity(animatedOff ? 0 : 1)
@@ -25,9 +28,7 @@ struct PresetStateOverlay: View {
 						self.animatedOff = true
 					}
 				}
-		} else if isActive {
-			RoundedRectangle(cornerRadius: 15)
-				.stroke(Color.blue, lineWidth: 4)
+				.opacity(isSwitching ? 1 : 0)
 		}
 	}
 }
