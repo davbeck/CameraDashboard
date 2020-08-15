@@ -29,7 +29,6 @@ struct ConnectionPresetsRow: View {
 						.sink(into: errorReporter)
 				}
 			}
-			Spacer().frame(width: 0)
 		}
 	}
 }

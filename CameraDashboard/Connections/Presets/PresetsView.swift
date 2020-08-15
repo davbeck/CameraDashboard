@@ -18,7 +18,7 @@ struct PresetsView: View {
 					ConnectionPresetsRow(client: connection.client, camera: connection.camera)
 				}
 			}
-			.padding(.vertical)
+			.padding()
 		})
     }
 }
