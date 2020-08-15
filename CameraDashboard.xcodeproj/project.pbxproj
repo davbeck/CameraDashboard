@@ -586,6 +586,7 @@
 				CODE_SIGN_ENTITLEMENTS = CameraDashboard/Canera_Switcher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"CameraDashboard/Preview Content\"";
 				DEVELOPMENT_TEAM = 7TR2B85D62;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -609,6 +610,7 @@
 				CODE_SIGN_ENTITLEMENTS = CameraDashboard/Canera_Switcher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"CameraDashboard/Preview Content\"";
 				DEVELOPMENT_TEAM = 7TR2B85D62;
 				ENABLE_HARDENED_RUNTIME = YES;
