@@ -43,7 +43,7 @@ extension NWConnection {
 }
 
 class VISCAClient: ObservableObject {
-	let connection: NWConnection
+	private var connection: NWConnection?
 	
 	enum Error: Swift.Error, LocalizedError {
 		case invalidInitialResponseByte
@@ -82,10 +82,30 @@ class VISCAClient: ObservableObject {
 	
 	private var observers: Set<AnyCancellable> = []
 	
+	let host: NWEndpoint.Host
+	let port: NWEndpoint.Port
+	
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port) {
+		self.host = host
+		self.port = port
+	}
+	
+	private var connectionCallback: ((Result<Void, NWError>) -> Void)?
+	
+	private func sendCallback(_ result: Result<Void, NWError>) {
+		if let connectionCallback = self.connectionCallback {
+			connectionCallback(result)
+			self.connectionCallback = nil
+		}
+	}
+	
+	func start(_ completion: ((Result<Void, NWError>) -> Void)? = nil) {
+		self.connectionCallback = completion
+		state = .connecting
+		
 		self.connection = NWConnection(host: host, port: port, using: .tcp)
 		
-		connection.stateUpdateHandler = { [weak self] state in
+		connection?.stateUpdateHandler = { [weak self] state in
 			guard let self = self else { return }
 			
 			print("VISCAClient.stateUpdateHandler", state)
@@ -128,22 +148,8 @@ class VISCAClient: ObservableObject {
 				break
 			}
 		}
-	}
-	
-	private var connectionCallback: ((Result<Void, NWError>) -> Void)?
-	
-	private func sendCallback(_ result: Result<Void, NWError>) {
-		if let connectionCallback = self.connectionCallback {
-			connectionCallback(result)
-			self.connectionCallback = nil
-		}
-	}
-	
-	func start(_ completion: ((Result<Void, NWError>) -> Void)? = nil) {
-		self.connectionCallback = completion
-		state = .connecting
 		
-		connection.start(queue: .main)
+		connection?.start(queue: .main)
 	}
 	
 	func restart() {
@@ -151,13 +157,13 @@ class VISCAClient: ObservableObject {
 			return
 		}
 		
-		connection.cancel()
+		connection?.cancel()
 	}
 	
 	func stop() {
 		state = .inactive
 		
-		connection.cancel()
+		connection?.cancel()
 	}
 	
 	// MARK: - Payloads
@@ -171,7 +177,7 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func send(_ type: PayloadType, payload: Data) -> AnyPublisher<Void, Swift.Error> {
-		guard case .ready = state else {
+		guard let connection = connection, case .ready = state else {
 			return Fail(error: Error.notReady).eraseToAnyPublisher()
 		}
 		
@@ -210,9 +216,11 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func receive() -> Future<Data, Swift.Error> {
-		let connection = self.connection
-		
 		return Future<Data, Swift.Error> { promise in
+			guard let connection = self.connection else {
+				return promise(.failure(Error.notReady))
+			}
+			
 			var responsePacket = Data()
 			
 			func readByte(completion: @escaping (UInt8) -> Void) {
@@ -225,7 +233,7 @@ class VISCAClient: ObservableObject {
 					}
 					
 					guard let data = data, data.count == 1 else {
-						self.connection.cancel()
+						connection.cancel()
 						promise(.failure(Error.unexpectedBytes))
 						return
 					}
@@ -247,7 +255,7 @@ class VISCAClient: ObservableObject {
 			
 			readByte { byte in
 				guard byte == 0x90 else {
-					self.connection.cancel()
+					connection.cancel()
 					promise(.failure(Error.invalidInitialResponseByte))
 					return
 				}
