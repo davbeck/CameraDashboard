@@ -51,6 +51,7 @@ class VISCAClient: ObservableObject {
 		case missingAck
 		case missingCompletion
 		case notReady
+		case timeout
 		
 		var errorDescription: String? {
 			switch self {
@@ -64,6 +65,8 @@ class VISCAClient: ObservableObject {
 				return "The camera did not respond after updating."
 			case .notReady:
 				return "The camera is not connected."
+			case .timeout:
+				return "The operation timed out."
 			}
 		}
 	}
@@ -200,6 +203,9 @@ class VISCAClient: ObservableObject {
 		
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
+			.map { _ -> Void in
+				self.sequence += 1
+			}
 			.eraseToAnyPublisher()
 	}
 	
@@ -251,7 +257,7 @@ class VISCAClient: ObservableObject {
 		}
 	}
 	
-	private func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
+	private func sendVISCACommand(payload: Data, attempt: Int = 0) -> AnyPublisher<Void, Swift.Error> {
 		return self.send(.viscaCommand, payload: payload)
 			.flatMap {
 				self.receive()
@@ -265,6 +271,28 @@ class VISCAClient: ObservableObject {
 			.tryMap { (data) -> Void in
 				guard data == Data([0x51]) else { throw Error.missingCompletion }
 			}
+			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
+				Error.timeout
+			})
+			.tryCatch({ (error) -> AnyPublisher<Void, Swift.Error> in
+				if error as? Error == Error.timeout && attempt < 3 {
+					return self.sendVISCACommand(payload: payload, attempt: attempt + 1)
+				} else {
+					self.restart()
+					throw error
+				}
+			})
+			.eraseToAnyPublisher()
+	}
+	
+	private func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
+		self.send(.viscaInquery, payload: payload)
+			.flatMap {
+				self.receive()
+			}
+			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
+				Error.timeout
+			})
 			.eraseToAnyPublisher()
 	}
 	
