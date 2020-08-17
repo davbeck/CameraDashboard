@@ -22,6 +22,17 @@
 		7A8CFBA924E5A2B3002D71D0 /* VISCAPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBA824E5A2B3002D71D0 /* VISCAPreset.swift */; };
 		7A8CFBAF24E5AF11002D71D0 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFBAE24E5AF11002D71D0 /* ErrorAlert.swift */; };
 		7AA8DD0C24E73D1000148754 /* ErrorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */; };
+		7AA8DD0E24E855F000148754 /* CameraWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD0D24E855F000148754 /* CameraWindowManager.swift */; };
+		7AA8DD1024E857B900148754 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD0F24E857B900148754 /* CameraContentView.swift */; };
+		7AA8DD1224E85DF600148754 /* ConnectionWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */; };
+		7AA8DD1524E8656600148754 /* CameraPTZControlTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */; };
+		7AA8DD1724E86FFD00148754 /* PanTiltControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */; };
+		7AA8DD1924E9E65700148754 /* PanTiltButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */; };
+		7AA8DD1B24E9E68500148754 /* PanTiltDirectionShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */; };
+		7AA8DD1D24E9E6A100148754 /* PanTiltSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */; };
+		7AA8DD1F24E9E6B800148754 /* PanTiltThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */; };
+		7AA8DD2124EA1AC400148754 /* PTZDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD2024EA1AC400148754 /* PTZDirection.swift */; };
+		7AA8DD2324EAC46E00148754 /* Angle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD2224EAC46E00148754 /* Angle+Additions.swift */; };
 		7AF0617D24E60B9F005A0317 /* PresetEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0617C24E60B9F005A0317 /* PresetEditView.swift */; };
 		7AF0618024E60DBF005A0317 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0617F24E60DBF005A0317 /* Camera.swift */; };
 		7AF0618224E60DD4005A0317 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0618124E60DD4005A0317 /* PresetConfig.swift */; };
@@ -71,6 +82,17 @@
 		7A8CFBA824E5A2B3002D71D0 /* VISCAPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAPreset.swift; sourceTree = "<group>"; };
 		7A8CFBAE24E5AF11002D71D0 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReporter.swift; sourceTree = "<group>"; };
+		7AA8DD0D24E855F000148754 /* CameraWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraWindowManager.swift; sourceTree = "<group>"; };
+		7AA8DD0F24E857B900148754 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
+		7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionWindowController.swift; sourceTree = "<group>"; };
+		7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPTZControlTab.swift; sourceTree = "<group>"; };
+		7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltControl.swift; sourceTree = "<group>"; };
+		7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltButtonStyle.swift; sourceTree = "<group>"; };
+		7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltDirectionShape.swift; sourceTree = "<group>"; };
+		7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltSeparators.swift; sourceTree = "<group>"; };
+		7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltThumb.swift; sourceTree = "<group>"; };
+		7AA8DD2024EA1AC400148754 /* PTZDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTZDirection.swift; sourceTree = "<group>"; };
+		7AA8DD2224EAC46E00148754 /* Angle+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Angle+Additions.swift"; sourceTree = "<group>"; };
 		7AF0617C24E60B9F005A0317 /* PresetEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditView.swift; sourceTree = "<group>"; };
 		7AF0617F24E60DBF005A0317 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7AF0618124E60DD4005A0317 /* PresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetConfig.swift; sourceTree = "<group>"; };
@@ -134,6 +156,7 @@
 			children = (
 				7A8CFB8F24E35E50002D71D0 /* Formatters.swift */,
 				7A8CFBA624E4B7F2002D71D0 /* IntegerFormatting.swift */,
+				7AA8DD2224EAC46E00148754 /* Angle+Additions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -142,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				7A8CFB9224E35FA5002D71D0 /* VISCAClient.swift */,
+				7AA8DD2024EA1AC400148754 /* PTZDirection.swift */,
 				7A8CFBA824E5A2B3002D71D0 /* VISCAPreset.swift */,
 			);
 			path = VISCA;
@@ -187,6 +211,20 @@
 			path = Presets;
 			sourceTree = "<group>";
 		};
+		7AA8DD1324E8654A00148754 /* CameraDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7AA8DD0F24E857B900148754 /* CameraContentView.swift */,
+				7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */,
+				7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */,
+				7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */,
+				7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */,
+				7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */,
+				7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */,
+			);
+			path = CameraDetail;
+			sourceTree = "<group>";
+		};
 		7AF0617E24E60DB0005A0317 /* CameraManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,8 +259,11 @@
 			isa = PBXGroup;
 			children = (
 				7AF77AEC24D9FFC800C765F5 /* AppDelegate.swift */,
+				7AA8DD0D24E855F000148754 /* CameraWindowManager.swift */,
+				7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */,
 				7AF0617E24E60DB0005A0317 /* CameraManager */,
 				7AF77AEE24D9FFC800C765F5 /* ContentView.swift */,
+				7AA8DD1324E8654A00148754 /* CameraDetail */,
 				7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */,
 				7A8CFB9B24E45082002D71D0 /* Connections */,
 				7A8CFB9424E36BC6002D71D0 /* EditCameras */,
@@ -402,23 +443,34 @@
 				7A38D7B924DC916A007F3EFC /* Column.swift in Sources */,
 				7A8CFBAF24E5AF11002D71D0 /* ErrorAlert.swift in Sources */,
 				7AF0617D24E60B9F005A0317 /* PresetEditView.swift in Sources */,
+				7AA8DD1924E9E65700148754 /* PanTiltButtonStyle.swift in Sources */,
 				7A8CFBA324E4B3C7002D71D0 /* PresetsView.swift in Sources */,
+				7AA8DD1524E8656600148754 /* CameraPTZControlTab.swift in Sources */,
 				7A8CFB9024E35E50002D71D0 /* Formatters.swift in Sources */,
 				7AF77AEF24D9FFC800C765F5 /* ContentView.swift in Sources */,
 				7A8CFBA924E5A2B3002D71D0 /* VISCAPreset.swift in Sources */,
 				7AF0618824E63C5A005A0317 /* PresetColorPicker.swift in Sources */,
 				7AA8DD0C24E73D1000148754 /* ErrorReporter.swift in Sources */,
+				7AA8DD0E24E855F000148754 /* CameraWindowManager.swift in Sources */,
+				7AA8DD1024E857B900148754 /* CameraContentView.swift in Sources */,
 				7A8CFB9624E36BDE002D71D0 /* CameraSettingsView.swift in Sources */,
 				7A8CFB8B24E35439002D71D0 /* CameraManager.swift in Sources */,
+				7AA8DD1D24E9E6A100148754 /* PanTiltSeparators.swift in Sources */,
+				7AA8DD2324EAC46E00148754 /* Angle+Additions.swift in Sources */,
+				7AA8DD1224E85DF600148754 /* ConnectionWindowController.swift in Sources */,
 				7AF0618024E60DBF005A0317 /* Camera.swift in Sources */,
+				7AA8DD1724E86FFD00148754 /* PanTiltControl.swift in Sources */,
 				7A8CFBA124E4B373002D71D0 /* ConnectionPresetsRow.swift in Sources */,
 				7AF0618424E60E45005A0317 /* PresetColorControl.swift in Sources */,
+				7AA8DD1B24E9E68500148754 /* PanTiltDirectionShape.swift in Sources */,
 				7AF0618624E6377A005A0317 /* SaveButtonsView.swift in Sources */,
 				7A8CFBA724E4B7F2002D71D0 /* IntegerFormatting.swift in Sources */,
 				7A8CFB9D24E4509D002D71D0 /* ConnectionStatusIndicator.swift in Sources */,
 				7AF77AED24D9FFC800C765F5 /* AppDelegate.swift in Sources */,
 				7A8CFB9324E35FA5002D71D0 /* VISCAClient.swift in Sources */,
+				7AA8DD1F24E9E6B800148754 /* PanTiltThumb.swift in Sources */,
 				7AF0618224E60DD4005A0317 /* PresetConfig.swift in Sources */,
+				7AA8DD2124EA1AC400148754 /* PTZDirection.swift in Sources */,
 				7A8CFB9A24E44ED7002D71D0 /* CameraConnectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

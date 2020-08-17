@@ -28,4 +28,8 @@ struct Camera: Codable, Hashable, Identifiable {
 		self.address = try container.decode(String.self, forKey: .address)
 		self.port = try container.decodeIfPresent(UInt16.self, forKey: .port)
 	}
+	
+	func displayName(cameraNumber: Int) -> String {
+		name.isEmpty ? "Camera \(cameraNumber)" : name
+	}
 }

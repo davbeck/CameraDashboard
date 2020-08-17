@@ -20,7 +20,8 @@ struct CameraConnectionView: View {
 	var body: some View {
 		_CameraConnectionView(
 			state: client.state,
-			name: camera.name.isEmpty ? "Camera \(cameraNumber)" : camera.name
+			name: camera.displayName(cameraNumber: cameraNumber),
+			camera: camera
 		) {
 			self.isSettingsOpen = true
 		}
@@ -34,6 +35,7 @@ struct CameraConnectionView: View {
 struct _CameraConnectionView: View {
 	var state: VISCAClient.State
 	var name: String
+	var camera: Camera
 	
 	var openSettings: (() -> Void)? = nil
 	
@@ -47,6 +49,10 @@ struct _CameraConnectionView: View {
 			Button("Settings") {
 				openSettings?()
 			}
+			
+			Button("Open") {
+				CameraWindowManager.shared.open(camera)
+			}
 		}
 	}
 }
@@ -56,7 +62,8 @@ struct CameraConnectionView_Previews: PreviewProvider {
 		Group {
 			_CameraConnectionView(
 				state: .ready,
-				name: "Stage right"
+				name: "Stage right",
+				camera: Camera(address: "")
 			)
 		}
 	}

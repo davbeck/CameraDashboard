@@ -28,12 +28,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.setFrameAutosaveName("Main Window")
 		window.contentView = NSHostingView(rootView: contentView)
 		window.makeKeyAndOrderFront(nil)
+		window.title = "Cameras"
+		window.isReleasedWhenClosed = false
+		
+		CameraManager.shared.start()
+		CameraWindowManager.shared.start()
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
-
-
 }
 

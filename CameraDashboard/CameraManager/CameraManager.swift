@@ -32,7 +32,11 @@ class CameraManager: ObservableObject {
 		self.configURL = configURL
 		
 		loadConfig()
-		
+	}
+	
+	var isActive: Bool = false
+	
+	func start() {
 		for connection in connections {
 			connection.client.start()
 		}
@@ -45,9 +49,9 @@ class CameraManager: ObservableObject {
 	
 	struct CameraConfig: Codable, Hashable {
 		var cameras: [Camera]
-		var presetConfigs: [PresetKey:PresetConfig] = [:]
+		var presetConfigs: [PresetKey: PresetConfig] = [:]
 		
-		init(cameras: [Camera], presetConfigs: [PresetKey:PresetConfig] = [:]) {
+		init(cameras: [Camera], presetConfigs: [PresetKey: PresetConfig] = [:]) {
 			self.cameras = cameras
 			self.presetConfigs = presetConfigs
 		}
@@ -56,7 +60,7 @@ class CameraManager: ObservableObject {
 			let container = try decoder.container(keyedBy: CodingKeys.self)
 			
 			self.cameras = try container.decodeIfPresent([Camera].self, forKey: .cameras) ?? []
-			self.presetConfigs = (try? container.decodeIfPresent([PresetKey:PresetConfig].self, forKey: .presetConfigs)) ?? [:]
+			self.presetConfigs = (try? container.decodeIfPresent([PresetKey: PresetConfig].self, forKey: .presetConfigs)) ?? [:]
 		}
 	}
 	
@@ -99,7 +103,7 @@ class CameraManager: ObservableObject {
 	
 	// MARK: - Cameras
 	
-	private(set) var connections: [CameraConnection] = []
+	@Published private(set) var connections: [CameraConnection] = []
 	
 	func save(camera: Camera, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
 		if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }),
@@ -112,30 +116,41 @@ class CameraManager: ObservableObject {
 		
 		let connection = CameraConnection(camera: camera, client: VISCAClient(camera))
 		
-		connection.client.start { result in
-			switch result {
-			case .success:
-				if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
-					self.connections[index].client.stop()
-					self.connections[index] = connection
-				} else {
-					self.connections.append(connection)
+		if self.isActive {
+			connection.client.start { result in
+				switch result {
+				case .success:
+					if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
+						self.connections[index].client.stop()
+						self.connections[index] = connection
+					} else {
+						self.connections.append(connection)
+					}
+				
+					self.saveConfig()
+				
+					completion(.success(connection))
+				case .failure(let error):
+					connection.client.stop()
+				
+					completion(.failure(error))
 				}
-				
-				self.saveConfig()
-				
-				completion(.success(connection))
-			case .failure(let error):
-				connection.client.stop()
-				
-				completion(.failure(error))
 			}
+		} else {
+			if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
+				self.connections[index].client.stop()
+				self.connections[index] = connection
+			} else {
+				self.connections.append(connection)
+			}
+			
+			self.saveConfig()
 		}
 	}
 	
 	// MARK: - Preset Config
 	
-	@Published private var presetConfigs: [PresetKey:PresetConfig] = [:]
+	@Published private var presetConfigs: [PresetKey: PresetConfig] = [:]
 	
 	subscript(camera: Camera, preset: VISCAPreset) -> PresetConfig {
 		get {
@@ -158,3 +173,14 @@ extension VISCAClient {
 		)
 	}
 }
+
+#if DEBUG
+extension CameraConnection {
+	init() {
+		self.init(
+			camera: Camera(address: ""),
+			client: VISCAClient(host: "0.0.0.0", port: 1234)
+		)
+	}
+}
+#endif
