@@ -11,6 +11,8 @@ import SwiftUI
 struct PanTiltThumb: View {
 	@Environment(\.displayScale) var displayScale
 	
+	var size: CGFloat
+	
 	var body: some View {
 		ZStack {
 			Circle()
@@ -19,7 +21,7 @@ struct PanTiltThumb: View {
 					startPoint: .top,
 					endPoint: .bottom
 				))
-				.frame(width: 26, height: 26)
+				.frame(width: size + 2, height: size + 2)
 				.shadow(color: Color.black.opacity(0.2), radius: 1, x: 0, y: 1 / displayScale)
 			Circle()
 				.fill(LinearGradient(
@@ -27,7 +29,7 @@ struct PanTiltThumb: View {
 					startPoint: .top,
 					endPoint: .bottom
 				))
-				.frame(width: 25, height: 25)
+				.frame(width: size, height: size)
 		}
 	}
 }

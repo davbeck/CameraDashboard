@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A001E5D24EDCFA50070E423 /* PanTiltRelativeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */; };
+		7A001E5F24EDE1F90070E423 /* acceptsFirstMouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5E24EDE1F90070E423 /* acceptsFirstMouse.swift */; };
+		7A1BA06224F04C8D00DADA1C /* ReplaySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BA06124F04C8D00DADA1C /* ReplaySubject.swift */; };
+		7A1BA06424F04D8A00DADA1C /* Uncancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BA06324F04D8A00DADA1C /* Uncancellable.swift */; };
 		7A38D7B924DC916A007F3EFC /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A38D7B824DC916A007F3EFC /* Column.swift */; };
 		7A8CFB8B24E35439002D71D0 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB8A24E35439002D71D0 /* CameraManager.swift */; };
 		7A8CFB9024E35E50002D71D0 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8CFB8F24E35E50002D71D0 /* Formatters.swift */; };
@@ -27,7 +31,7 @@
 		7AA8DD1224E85DF600148754 /* ConnectionWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */; };
 		7AA8DD1524E8656600148754 /* CameraPTZControlTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */; };
 		7AA8DD1724E86FFD00148754 /* PanTiltControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */; };
-		7AA8DD1924E9E65700148754 /* PanTiltButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */; };
+		7AA8DD1924E9E65700148754 /* PanTiltButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1824E9E65700148754 /* PanTiltButton.swift */; };
 		7AA8DD1B24E9E68500148754 /* PanTiltDirectionShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */; };
 		7AA8DD1D24E9E6A100148754 /* PanTiltSeparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */; };
 		7AA8DD1F24E9E6B800148754 /* PanTiltThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */; };
@@ -67,6 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltRelativeControl.swift; sourceTree = "<group>"; };
+		7A001E5E24EDE1F90070E423 /* acceptsFirstMouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = acceptsFirstMouse.swift; sourceTree = "<group>"; };
+		7A1BA06124F04C8D00DADA1C /* ReplaySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaySubject.swift; sourceTree = "<group>"; };
+		7A1BA06324F04D8A00DADA1C /* Uncancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uncancellable.swift; sourceTree = "<group>"; };
 		7A38D7B824DC916A007F3EFC /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		7A8CFB8A24E35439002D71D0 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		7A8CFB8F24E35E50002D71D0 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
@@ -87,7 +95,7 @@
 		7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionWindowController.swift; sourceTree = "<group>"; };
 		7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPTZControlTab.swift; sourceTree = "<group>"; };
 		7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltControl.swift; sourceTree = "<group>"; };
-		7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltButtonStyle.swift; sourceTree = "<group>"; };
+		7AA8DD1824E9E65700148754 /* PanTiltButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltButton.swift; sourceTree = "<group>"; };
 		7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltDirectionShape.swift; sourceTree = "<group>"; };
 		7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltSeparators.swift; sourceTree = "<group>"; };
 		7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltThumb.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 				7A38D7B824DC916A007F3EFC /* Column.swift */,
 				7A8CFBAE24E5AF11002D71D0 /* ErrorAlert.swift */,
 				7AF0618524E6377A005A0317 /* SaveButtonsView.swift */,
+				7A001E5E24EDE1F90070E423 /* acceptsFirstMouse.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -157,6 +166,8 @@
 				7A8CFB8F24E35E50002D71D0 /* Formatters.swift */,
 				7A8CFBA624E4B7F2002D71D0 /* IntegerFormatting.swift */,
 				7AA8DD2224EAC46E00148754 /* Angle+Additions.swift */,
+				7A1BA06124F04C8D00DADA1C /* ReplaySubject.swift */,
+				7A1BA06324F04D8A00DADA1C /* Uncancellable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -217,10 +228,11 @@
 				7AA8DD0F24E857B900148754 /* CameraContentView.swift */,
 				7AA8DD1424E8656600148754 /* CameraPTZControlTab.swift */,
 				7AA8DD1624E86FFD00148754 /* PanTiltControl.swift */,
+				7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */,
 				7AA8DD1E24E9E6B800148754 /* PanTiltThumb.swift */,
 				7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */,
 				7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */,
-				7AA8DD1824E9E65700148754 /* PanTiltButtonStyle.swift */,
+				7AA8DD1824E9E65700148754 /* PanTiltButton.swift */,
 			);
 			path = CameraDetail;
 			sourceTree = "<group>";
@@ -369,7 +381,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "David Beck";
 				TargetAttributes = {
 					7AF77AE824D9FFC800C765F5 = {
@@ -443,7 +455,7 @@
 				7A38D7B924DC916A007F3EFC /* Column.swift in Sources */,
 				7A8CFBAF24E5AF11002D71D0 /* ErrorAlert.swift in Sources */,
 				7AF0617D24E60B9F005A0317 /* PresetEditView.swift in Sources */,
-				7AA8DD1924E9E65700148754 /* PanTiltButtonStyle.swift in Sources */,
+				7AA8DD1924E9E65700148754 /* PanTiltButton.swift in Sources */,
 				7A8CFBA324E4B3C7002D71D0 /* PresetsView.swift in Sources */,
 				7AA8DD1524E8656600148754 /* CameraPTZControlTab.swift in Sources */,
 				7A8CFB9024E35E50002D71D0 /* Formatters.swift in Sources */,
@@ -451,12 +463,14 @@
 				7A8CFBA924E5A2B3002D71D0 /* VISCAPreset.swift in Sources */,
 				7AF0618824E63C5A005A0317 /* PresetColorPicker.swift in Sources */,
 				7AA8DD0C24E73D1000148754 /* ErrorReporter.swift in Sources */,
+				7A1BA06424F04D8A00DADA1C /* Uncancellable.swift in Sources */,
 				7AA8DD0E24E855F000148754 /* CameraWindowManager.swift in Sources */,
 				7AA8DD1024E857B900148754 /* CameraContentView.swift in Sources */,
 				7A8CFB9624E36BDE002D71D0 /* CameraSettingsView.swift in Sources */,
 				7A8CFB8B24E35439002D71D0 /* CameraManager.swift in Sources */,
 				7AA8DD1D24E9E6A100148754 /* PanTiltSeparators.swift in Sources */,
 				7AA8DD2324EAC46E00148754 /* Angle+Additions.swift in Sources */,
+				7A001E5D24EDCFA50070E423 /* PanTiltRelativeControl.swift in Sources */,
 				7AA8DD1224E85DF600148754 /* ConnectionWindowController.swift in Sources */,
 				7AF0618024E60DBF005A0317 /* Camera.swift in Sources */,
 				7AA8DD1724E86FFD00148754 /* PanTiltControl.swift in Sources */,
@@ -469,8 +483,10 @@
 				7AF77AED24D9FFC800C765F5 /* AppDelegate.swift in Sources */,
 				7A8CFB9324E35FA5002D71D0 /* VISCAClient.swift in Sources */,
 				7AA8DD1F24E9E6B800148754 /* PanTiltThumb.swift in Sources */,
+				7A1BA06224F04C8D00DADA1C /* ReplaySubject.swift in Sources */,
 				7AF0618224E60DD4005A0317 /* PresetConfig.swift in Sources */,
 				7AA8DD2124EA1AC400148754 /* PTZDirection.swift in Sources */,
+				7A001E5F24EDE1F90070E423 /* acceptsFirstMouse.swift in Sources */,
 				7A8CFB9A24E44ED7002D71D0 /* CameraConnectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,6 +560,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -604,6 +621,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -636,6 +654,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CameraDashboard/Canera_Switcher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
@@ -660,6 +679,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CameraDashboard/Canera_Switcher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum PTZDirection: CaseIterable {
 	case up
@@ -17,4 +18,9 @@ enum PTZDirection: CaseIterable {
 	case downLeft
 	case left
 	case upLeft
+}
+
+enum PTZVector: Equatable {
+	case direction(PTZDirection)
+	case relative(angle: Angle, speed: Double)
 }

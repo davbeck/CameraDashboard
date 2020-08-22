@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct PanTiltSeparators: Shape {
+	var outerRingSize: CGFloat
+	
 	func path(in rect: CGRect) -> Path {
 		let radius = min(rect.width, rect.height) / 2
-		let innerRadius = radius - 30
+		let innerRadius = radius - outerRingSize
 		let center = CGPoint(x: rect.maxX / 2, y: rect.maxY / 2)
 		
 		var path = Path()
@@ -28,6 +30,8 @@ struct PanTiltSeparators: Shape {
 				y: center.y + radius * sin(CGFloat(angle.radians))
 			))
 		}
+		
+		path.addEllipse(in: rect.insetBy(dx: outerRingSize, dy: outerRingSize))
 		
 		return path
 	}

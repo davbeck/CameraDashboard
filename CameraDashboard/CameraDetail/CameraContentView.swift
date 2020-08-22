@@ -14,7 +14,7 @@ struct CameraContentView: View {
 	
 	var body: some View {
 		TabView(content: {
-			CameraPTZControlTab(connection: connection)
+			CameraPTZControlTab(client: connection.client, camera: connection.camera)
 		})
 			.padding()
 			.frame(
