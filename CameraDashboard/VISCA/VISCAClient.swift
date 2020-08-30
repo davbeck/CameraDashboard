@@ -104,6 +104,7 @@ class VISCAClient: ObservableObject {
 		case connecting
 		case error(Swift.Error)
 		case ready
+		case executing
 	}
 	
 	@Published private(set) var state: State = .inactive
@@ -205,7 +206,7 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func send(_ type: PayloadType, payload: Data) -> AnyPublisher<Void, Swift.Error> {
-		guard let connection = connection, case .ready = state else {
+		guard let connection = connection else {
 			return Fail(error: Error.notReady).eraseToAnyPublisher()
 		}
 		
@@ -294,6 +295,11 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func sendVISCACommand(payload: Data, attempt: Int = 0) -> AnyPublisher<Void, Swift.Error> {
+		guard case .ready = state else {
+			return Fail(error: Error.notReady).eraseToAnyPublisher()
+		}
+		self.state = .executing
+		
 		let payload = Data([0x81]) + payload + Data([0xFF])
 		
 		return self.send(.viscaCommand, payload: payload)
@@ -312,6 +318,11 @@ class VISCAClient: ObservableObject {
 			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
 				Error.timeout
 			})
+			.handleEvents(receiveCompletion: { completion in
+				self.state = .ready
+			}, receiveCancel: {
+				self.state = .ready
+			})
 			.tryCatch { (error) -> AnyPublisher<Void, Swift.Error> in
 				if error as? Error == Error.timeout && attempt < 3 {
 					return self.sendVISCACommand(payload: payload, attempt: attempt + 1)
@@ -325,12 +336,22 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
-		self.send(.viscaInquery, payload: payload)
+		guard case .ready = state else {
+			return Fail(error: Error.notReady).eraseToAnyPublisher()
+		}
+		self.state = .executing
+		
+		return self.send(.viscaInquery, payload: payload)
 			.flatMap {
 				self.receive()
 			}
 			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
 				Error.timeout
+			})
+			.handleEvents(receiveCompletion: { completion in
+				self.state = .ready
+			}, receiveCancel: {
+				self.state = .ready
 			})
 			.disableCancellation()
 			.eraseToAnyPublisher()
@@ -373,6 +394,7 @@ class VISCAClient: ObservableObject {
 			self.updateVector()
 		}
 	}
+
 	@Published var vectorSpeed: Double = 0.5
 
 	@Published var vectorError: Swift.Error? = nil
@@ -414,14 +436,26 @@ class VISCAClient: ObservableObject {
 						payload.append(contentsOf: [0x01, 0x01])
 					}
 				case .relative(angle: let angle, speed: let speed):
-					payload.append(0x03)
-					payload.append(UInt8(self.vectorSpeed * speed)) // pan speed 0x01 - 0x18
-					payload.append(UInt8(self.vectorSpeed * speed)) // tilt speed 0x01 - 0x14
+					let x = cos(angle.radians)
+					let y = sin(angle.radians)
 					
-					let pan = Int16(speed * 2359 * cos(angle.radians))
-					payload += Data(bitPadded: pan) // pan
-					let tilt = Int16(speed * 2359 * sin(angle.radians))
-					payload += Data(bitPadded: -tilt) // tilt
+					payload.append(0x01)
+					
+					// use speed to control angle
+					payload.append(UInt8(self.vectorSpeed * speed * 0x18 * abs(x))) // pan speed 0x01 - 0x18
+					payload.append(UInt8(self.vectorSpeed * speed * 0x18 * abs(y))) // tilt speed 0x01 - 0x14
+					
+					// pick a direction based on quadrant
+					switch (x > 0, y > 0) {
+					case (true, true): // downRight
+						payload.append(contentsOf: [0x02, 0x02])
+					case (true, false): // upRight
+						payload.append(contentsOf: [0x02, 0x01])
+					case (false, true): // downLeft
+						payload.append(contentsOf: [0x01, 0x02])
+					case (false, false): // upLeft
+						payload.append(contentsOf: [0x01, 0x01])
+					}
 				case .none:
 					// cancel
 					payload.append(0x01)

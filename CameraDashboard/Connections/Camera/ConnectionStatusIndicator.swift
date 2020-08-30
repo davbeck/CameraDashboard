@@ -19,7 +19,7 @@ struct ConnectionStatusDetails: View {
 			Text("Connecting...")
 		case .error(let error):
 			Text(error.localizedDescription)
-		case .ready:
+		case .ready, .executing:
 			Text("Ready")
 		}
 	}
@@ -37,7 +37,7 @@ struct ConnectionStatusIndicator: View {
 			return Color.orange
 		case .error:
 			return Color.red
-		case .ready:
+		case .ready, .executing:
 			return Color.green
 		}
 	}
