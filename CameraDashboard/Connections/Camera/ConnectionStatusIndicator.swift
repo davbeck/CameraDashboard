@@ -11,6 +11,7 @@ import SwiftUI
 struct ConnectionStatusDetails: View {
 	var state: VISCAClient.State
 	
+    @ViewBuilder
 	var body: some View {
 		switch state {
 		case .inactive:
