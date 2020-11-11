@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61765005255B942100F0C17F /* NavigationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61765004255B942100F0C17F /* NavigationList.swift */; };
+		6176500E255B99B600F0C17F /* CameraNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6176500D255B99B600F0C17F /* CameraNavigationRow.swift */; };
+		61863CA7255B8AA500B40D25 /* PresetsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61863CA6255B8AA500B40D25 /* PresetsOverviewView.swift */; };
 		7A001E5D24EDCFA50070E423 /* PanTiltRelativeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */; };
 		7A001E5F24EDE1F90070E423 /* acceptsFirstMouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5E24EDE1F90070E423 /* acceptsFirstMouse.swift */; };
 		7A1BA06224F04C8D00DADA1C /* ReplaySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BA06124F04C8D00DADA1C /* ReplaySubject.swift */; };
@@ -71,6 +74,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		61765004255B942100F0C17F /* NavigationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
+		6176500D255B99B600F0C17F /* CameraNavigationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
+		61863CA6255B8AA500B40D25 /* PresetsOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsOverviewView.swift; sourceTree = "<group>"; };
 		7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltRelativeControl.swift; sourceTree = "<group>"; };
 		7A001E5E24EDE1F90070E423 /* acceptsFirstMouse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = acceptsFirstMouse.swift; sourceTree = "<group>"; };
 		7A1BA06124F04C8D00DADA1C /* ReplaySubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaySubject.swift; sourceTree = "<group>"; };
@@ -149,6 +155,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61765009255B99A400F0C17F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				61765004255B942100F0C17F /* NavigationList.swift */,
+				6176500D255B99B600F0C17F /* CameraNavigationRow.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		7A38D7B724DC9150007F3EFC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +290,8 @@
 				7AA8DD1124E85DF600148754 /* ConnectionWindowController.swift */,
 				7AF0617E24E60DB0005A0317 /* CameraManager */,
 				7AF77AEE24D9FFC800C765F5 /* ContentView.swift */,
+				61765009255B99A400F0C17F /* Navigation */,
+				61863CA6255B8AA500B40D25 /* PresetsOverviewView.swift */,
 				7AA8DD1324E8654A00148754 /* CameraDetail */,
 				7AA8DD0B24E73D1000148754 /* ErrorReporter.swift */,
 				7A8CFB9B24E45082002D71D0 /* Connections */,
@@ -454,6 +471,7 @@
 				7A8CFB9F24E45D1E002D71D0 /* PresetView.swift in Sources */,
 				7A38D7B924DC916A007F3EFC /* Column.swift in Sources */,
 				7A8CFBAF24E5AF11002D71D0 /* ErrorAlert.swift in Sources */,
+				61863CA7255B8AA500B40D25 /* PresetsOverviewView.swift in Sources */,
 				7AF0617D24E60B9F005A0317 /* PresetEditView.swift in Sources */,
 				7AA8DD1924E9E65700148754 /* PanTiltButton.swift in Sources */,
 				7A8CFBA324E4B3C7002D71D0 /* PresetsView.swift in Sources */,
@@ -475,7 +493,9 @@
 				7AF0618024E60DBF005A0317 /* Camera.swift in Sources */,
 				7AA8DD1724E86FFD00148754 /* PanTiltControl.swift in Sources */,
 				7A8CFBA124E4B373002D71D0 /* ConnectionPresetsRow.swift in Sources */,
+				6176500E255B99B600F0C17F /* CameraNavigationRow.swift in Sources */,
 				7AF0618424E60E45005A0317 /* PresetColorControl.swift in Sources */,
+				61765005255B942100F0C17F /* NavigationList.swift in Sources */,
 				7AA8DD1B24E9E68500148754 /* PanTiltDirectionShape.swift in Sources */,
 				7AF0618624E6377A005A0317 /* SaveButtonsView.swift in Sources */,
 				7A8CFBA724E4B7F2002D71D0 /* IntegerFormatting.swift in Sources */,

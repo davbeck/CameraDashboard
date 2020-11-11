@@ -12,8 +12,8 @@ import SwiftUI
 class ConnectionWindowController: NSWindowController {
 	let hostingController: NSHostingController<CameraContentView>
 	
-	init(connection: CameraConnection, cameraNumber: Int) {
-		hostingController = NSHostingController(rootView: CameraContentView(connection: connection, cameraNumber: cameraNumber))
+	init(connection: CameraConnection) {
+		hostingController = NSHostingController(rootView: CameraContentView(connection: connection))
 		let window = NSWindow(contentViewController: hostingController)
 		
 		super.init(window: window)

@@ -13,10 +13,15 @@ struct PresetsView: View {
 	
     var body: some View {
 		ScrollView(.horizontal, showsIndicators: true, content: {
-			VStack(spacing: 15) {
+            VStack(spacing: 15) {
 				ForEach(cameraManager.connections) { connection in
-					ConnectionPresetsRow(client: connection.client, camera: connection.camera)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(connection.displayName)
+                            .font(.headline)
+                        ConnectionPresetsRow(client: connection.client, camera: connection.camera)
+                    }
 				}
+                Spacer()
 			}
 			.padding()
 		})
