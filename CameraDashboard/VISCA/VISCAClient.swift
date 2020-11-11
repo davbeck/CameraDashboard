@@ -254,7 +254,7 @@ class VISCAClient: ObservableObject {
 			
 			func readByte(completion: @escaping (UInt8) -> Void) {
 				connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
-					print("receiveMessage", data?.map { $0.hexDescription }.joined(separator: " "), context, isComplete, error)
+                    print("receiveMessage", data?.map { $0.hexDescription }.joined(separator: " ") ?? "", context as Any, isComplete, error as Any)
 					
 					if let error = error {
 						promise(.failure(error))
