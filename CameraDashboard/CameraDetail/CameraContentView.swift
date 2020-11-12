@@ -12,16 +12,23 @@ struct CameraContentView: View {
     var connection: CameraConnection
     
     var body: some View {
-        TabView(content: {
-            CameraPTZControlTab(client: connection.client, camera: connection.camera)
-		})
-            .padding()
-            .frame(
-                minWidth: 400,
-                maxWidth: .infinity,
-                minHeight: 300,
-                maxHeight: .infinity
-            )
+        VStack {
+            TabView(content: {
+                CameraPTZControlTab(client: connection.client, camera: connection.camera)
+            })
+            HStack {
+                Spacer()
+                
+                CameraSettingsButton(camera: connection.camera)
+            }
+        }
+        .padding()
+        .frame(
+            minWidth: 400,
+            maxWidth: .infinity,
+            minHeight: 300,
+            maxHeight: .infinity
+        )
     }
 }
 

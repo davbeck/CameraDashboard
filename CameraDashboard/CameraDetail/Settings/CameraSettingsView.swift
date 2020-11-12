@@ -1,5 +1,5 @@
 //
-//  CameraSettingsView.swift
+//  CameraConnectionSettingsView.swift
 //  CameraDashboard
 //
 //  Created by David Beck on 8/11/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import Network
 
-struct CameraSettingsView: View {
+struct CameraConnectionSettingsView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	@State var camera: Camera
@@ -23,7 +23,7 @@ struct CameraSettingsView: View {
 	}
 	
 	var body: some View {
-		_CameraSettingsView(camera: $camera) {
+		_CameraConnectionSettingsView(camera: $camera) {
 			cameraManager.save(camera: camera) { result in
 				isLoading = false
 				
@@ -42,7 +42,7 @@ struct CameraSettingsView: View {
 	}
 }
 
-struct _CameraSettingsView: View {
+struct _CameraConnectionSettingsView: View {
 	@Binding var camera: Camera
 	var save: () -> Void
 	var cancel: () -> Void
@@ -87,18 +87,18 @@ struct _CameraSettingsView: View {
 }
 
 struct AddCameraView_Previews: PreviewProvider {
-	struct CameraSettingsView: View {
+	struct CameraConnectionSettingsView: View {
 		@State var camera: Camera
 		
 		var body: some View {
-			_CameraSettingsView(camera: $camera, save: {}, cancel: {})
+			_CameraConnectionSettingsView(camera: $camera, save: {}, cancel: {})
 		}
 	}
 		
 	static var previews: some View {
 		Group {
-			CameraSettingsView(camera: Camera(address: ""))
-			CameraSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234))
+			CameraConnectionSettingsView(camera: Camera(address: ""))
+			CameraConnectionSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234))
 		}
 	}
 }
