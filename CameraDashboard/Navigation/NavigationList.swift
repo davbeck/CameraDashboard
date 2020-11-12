@@ -13,15 +13,24 @@ struct NavigationList: View {
     
     var body: some View {
         List {
-            NavigationLink(destination: PresetsView().environmentObject(cameraManager)) {
-                Text("Presets")
-            }
-            
-            ForEach(cameraManager.connections) { connection in
-                NavigationLink(destination: CameraContentView(connection: connection)) {
-                    CameraNavigationRow(connection: connection)
+            Section {
+                NavigationLink(destination: PresetsView().environmentObject(cameraManager)) {
+                    Text("Presets")
                 }
             }
+            .collapsible(false)
+            
+            Section(header: Text("Cameras")) {
+                ForEach(cameraManager.connections) { connection in
+                    NavigationLink(destination: CameraDetail(connection: connection)) {
+                        CameraNavigationRow(connection: connection)
+                    }
+                    .onTapGesture(count: 2) {
+                        CameraWindowManager.shared.open(connection.camera)
+                    }
+                }
+            }
+            .collapsible(false)
         }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 200)

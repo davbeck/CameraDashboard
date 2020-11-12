@@ -9,31 +9,17 @@
 import SwiftUI
 
 struct CameraContentView: View {
+    var cameraManager: CameraManager
     var connection: CameraConnection
     
     var body: some View {
-        VStack {
-            TabView(content: {
-                CameraPTZControlTab(client: connection.client, camera: connection.camera)
-            })
-            HStack {
-                Spacer()
-                
-                CameraSettingsButton(camera: connection.camera)
-            }
-        }
-        .padding()
-        .frame(
-            minWidth: 400,
-            maxWidth: .infinity,
-            minHeight: 300,
-            maxHeight: .infinity
-        )
+        CameraDetail(connection: connection)
+        .environmentObject(cameraManager)
     }
 }
 
 struct CameraContentView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraContentView(connection: CameraConnection())
+        CameraContentView(cameraManager: .shared, connection: CameraConnection())
     }
 }

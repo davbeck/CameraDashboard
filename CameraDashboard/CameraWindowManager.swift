@@ -11,25 +11,6 @@ import AppKit
 import Combine
 import SwiftUI
 
-class CameraWindow: NSWindow {
-    let hostingView: NSHostingView<CameraContentView>
-    
-    init(connection: CameraConnection, cameraNumber: Int) {
-        hostingView = NSHostingView(rootView: CameraContentView(connection: connection))
-        
-        super.init(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false
-        )
-        self.center()
-        self.setFrameAutosaveName(connection.camera.id.uuidString)
-        
-        title = connection.displayName
-        contentView = hostingView
-    }
-}
-
 class CameraWindowManager {
     private var observers: Set<AnyCancellable> = []
     private var windowControllers: [UUID: ConnectionWindowController] = [:]
@@ -53,7 +34,10 @@ class CameraWindowManager {
                         
                         controller.hostingController.rootView.connection = connection
                     } else {
-                        let controller = ConnectionWindowController(connection: connection)
+                        let controller = ConnectionWindowController(
+                            cameraManager: self.cameraManager,
+                            connection: connection
+                        )
                         controller.window?.title = connection.displayName
                         
                         //						window.makeKeyAndOrderFront(nil)

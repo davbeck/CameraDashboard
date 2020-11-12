@@ -119,6 +119,7 @@ class CameraManager: ObservableObject {
             connections[index].camera.address == camera.address,
             connections[index].camera.port == camera.port {
             connections[index].camera = camera
+            self.saveConfig()
             return completion(.success(connections[index]))
         }
         

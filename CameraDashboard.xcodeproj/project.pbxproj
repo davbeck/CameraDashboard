@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		614BB1CB255CB9A6002AB409 /* CameraSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1CA255CB9A6002AB409 /* CameraSettingsButton.swift */; };
+		614BB1E2255CE669002AB409 /* CameraDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1E1255CE669002AB409 /* CameraDetail.swift */; };
 		61765005255B942100F0C17F /* NavigationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61765004255B942100F0C17F /* NavigationList.swift */; };
 		6176500E255B99B600F0C17F /* CameraNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6176500D255B99B600F0C17F /* CameraNavigationRow.swift */; };
 		7A001E5D24EDCFA50070E423 /* PanTiltRelativeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		614BB1CA255CB9A6002AB409 /* CameraSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsButton.swift; sourceTree = "<group>"; };
+		614BB1E1255CE669002AB409 /* CameraDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetail.swift; sourceTree = "<group>"; };
 		61765004255B942100F0C17F /* NavigationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
 		6176500D255B99B600F0C17F /* CameraNavigationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
 		7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltRelativeControl.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA8DD0F24E857B900148754 /* CameraContentView.swift */,
+				614BB1E1255CE669002AB409 /* CameraDetail.swift */,
 				61765043255CB53F00F0C17F /* PTZControl */,
 				61765047255CB54A00F0C17F /* Settings */,
 			);
@@ -489,6 +492,7 @@
 				7AF0618424E60E45005A0317 /* PresetColorControl.swift in Sources */,
 				61765005255B942100F0C17F /* NavigationList.swift in Sources */,
 				7AA8DD1B24E9E68500148754 /* PanTiltDirectionShape.swift in Sources */,
+				614BB1E2255CE669002AB409 /* CameraDetail.swift in Sources */,
 				7AF0618624E6377A005A0317 /* SaveButtonsView.swift in Sources */,
 				7A8CFBA724E4B7F2002D71D0 /* IntegerFormatting.swift in Sources */,
 				7A8CFB9D24E4509D002D71D0 /* ConnectionStatusIndicator.swift in Sources */,
