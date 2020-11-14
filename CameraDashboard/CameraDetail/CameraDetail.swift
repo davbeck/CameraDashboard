@@ -29,6 +29,7 @@ struct CameraDetail: View {
             minHeight: 300,
             maxHeight: .infinity
         )
+        .id(connection.id)
     }
 }
 

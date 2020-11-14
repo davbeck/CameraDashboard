@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		614BB1CB255CB9A6002AB409 /* CameraSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1CA255CB9A6002AB409 /* CameraSettingsButton.swift */; };
 		614BB1E2255CE669002AB409 /* CameraDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1E1255CE669002AB409 /* CameraDetail.swift */; };
+		614BB1E7255CEF85002AB409 /* FocusControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1E6255CEF85002AB409 /* FocusControl.swift */; };
+		614BB1EF255CF495002AB409 /* ZoomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614BB1EE255CF495002AB409 /* ZoomControl.swift */; };
 		61765005255B942100F0C17F /* NavigationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61765004255B942100F0C17F /* NavigationList.swift */; };
 		6176500E255B99B600F0C17F /* CameraNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6176500D255B99B600F0C17F /* CameraNavigationRow.swift */; };
 		7A001E5D24EDCFA50070E423 /* PanTiltRelativeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */; };
@@ -75,6 +77,8 @@
 /* Begin PBXFileReference section */
 		614BB1CA255CB9A6002AB409 /* CameraSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsButton.swift; sourceTree = "<group>"; };
 		614BB1E1255CE669002AB409 /* CameraDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetail.swift; sourceTree = "<group>"; };
+		614BB1E6255CEF85002AB409 /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
+		614BB1EE255CF495002AB409 /* ZoomControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomControl.swift; sourceTree = "<group>"; };
 		61765004255B942100F0C17F /* NavigationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
 		6176500D255B99B600F0C17F /* CameraNavigationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
 		7A001E5C24EDCFA50070E423 /* PanTiltRelativeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltRelativeControl.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				7AA8DD1C24E9E6A100148754 /* PanTiltSeparators.swift */,
 				7AA8DD1A24E9E68500148754 /* PanTiltDirectionShape.swift */,
 				7AA8DD1824E9E65700148754 /* PanTiltButton.swift */,
+				614BB1E6255CEF85002AB409 /* FocusControl.swift */,
+				614BB1EE255CF495002AB409 /* ZoomControl.swift */,
 			);
 			path = PTZControl;
 			sourceTree = "<group>";
@@ -348,6 +354,8 @@
 			dependencies = (
 			);
 			name = CameraDashboard;
+			packageProductDependencies = (
+			);
 			productName = "Canera Switcher";
 			productReference = 7AF77AE924D9FFC800C765F5 /* CameraDashboard.app */;
 			productType = "com.apple.product-type.application";
@@ -420,6 +428,8 @@
 				Base,
 			);
 			mainGroup = 7AF77AE024D9FFC800C765F5;
+			packageReferences = (
+			);
 			productRefGroup = 7AF77AEA24D9FFC800C765F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -496,9 +506,11 @@
 				7AF0618624E6377A005A0317 /* SaveButtonsView.swift in Sources */,
 				7A8CFBA724E4B7F2002D71D0 /* IntegerFormatting.swift in Sources */,
 				7A8CFB9D24E4509D002D71D0 /* ConnectionStatusIndicator.swift in Sources */,
+				614BB1EF255CF495002AB409 /* ZoomControl.swift in Sources */,
 				7AF77AED24D9FFC800C765F5 /* AppDelegate.swift in Sources */,
 				7A8CFB9324E35FA5002D71D0 /* VISCAClient.swift in Sources */,
 				7AA8DD1F24E9E6B800148754 /* PanTiltThumb.swift in Sources */,
+				614BB1E7255CEF85002AB409 /* FocusControl.swift in Sources */,
 				7A1BA06224F04C8D00DADA1C /* ReplaySubject.swift in Sources */,
 				7AF0618224E60DD4005A0317 /* PresetConfig.swift in Sources */,
 				614BB1CB255CB9A6002AB409 /* CameraSettingsButton.swift in Sources */,
@@ -683,7 +695,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -708,7 +720,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -13,19 +13,21 @@ struct CameraPTZControlTab: View {
 	var camera: Camera
 	
 	var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                VStack {
-                    PanTiltControl(vector: $client.vector)
-                    Slider(value: $client.vectorSpeed, in: 0...1) {
-                        Text("Speed:")
-                    }
-                        .frame(width: 200)
-                }
-            }
-            
+        HStack {
             Spacer()
+                .layoutPriority(1)
+            VStack {
+                PanTiltControl(vector: $client.vector)
+                Slider(value: $client.vectorSpeed, in: 0...1) {
+                    Text("Speed:")
+                }
+                    .frame(width: 200)
+                
+                Spacer()
+                
+                ZoomControl()
+                FocusControl()
+            }
         }
 		.padding()
 		.tabItem {
