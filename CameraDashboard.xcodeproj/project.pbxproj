@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -93,6 +93,10 @@
 		7A7F653025603169008B33C6 /* NavigationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652B25603169008B33C6 /* NavigationList.swift */; };
 		7A7F653125603169008B33C6 /* CameraNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */; };
 		7A7F653225603169008B33C6 /* CameraNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */; };
+		7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7F653C256033B4008B33C6 /* SFSafeSymbols */; };
+		7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7F6543256033C1008B33C6 /* SFSafeSymbols */; };
+		7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F655C25603677008B33C6 /* AddCameraButton.swift */; };
+		7A7F655E25603677008B33C6 /* AddCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F655C25603677008B33C6 /* AddCameraButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +170,7 @@
 		7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionStatusIndicator.swift; sourceTree = "<group>"; };
 		7A7F652B25603169008B33C6 /* NavigationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
 		7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
+		7A7F655C25603677008B33C6 /* AddCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCameraButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +216,7 @@
 				7A7F64542560305B008B33C6 /* Tests iOS */,
 				7A7F645F2560305B008B33C6 /* Tests macOS */,
 				7A7F64422560305B008B33C6 /* Products */,
+				7A7F6542256033C1008B33C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -380,11 +388,19 @@
 		7A7F652925603169008B33C6 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */,
 				7A7F652B25603169008B33C6 /* NavigationList.swift */,
+				7A7F655C25603677008B33C6 /* AddCameraButton.swift */,
 				7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */,
+				7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		7A7F6542256033C1008B33C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +419,9 @@
 			dependencies = (
 			);
 			name = "CameraDashboard (iOS)";
+			packageProductDependencies = (
+				7A7F6543256033C1008B33C6 /* SFSafeSymbols */,
+			);
 			productName = "CameraDashboard (iOS)";
 			productReference = 7A7F64412560305B008B33C6 /* CameraDashboard.app */;
 			productType = "com.apple.product-type.application";
@@ -420,6 +439,9 @@
 			dependencies = (
 			);
 			name = "CameraDashboard (macOS)";
+			packageProductDependencies = (
+				7A7F653C256033B4008B33C6 /* SFSafeSymbols */,
+			);
 			productName = "CameraDashboard (macOS)";
 			productReference = 7A7F64492560305B008B33C6 /* CameraDashboard.app */;
 			productType = "com.apple.product-type.application";
@@ -494,6 +516,9 @@
 				Base,
 			);
 			mainGroup = 7A7F64342560305A008B33C6;
+			packageReferences = (
+				7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -570,6 +595,7 @@
 				7A7F64652560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65112560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				7A7F65152560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
+				7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */,
 				7A7F650F2560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65172560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
 				7A7F650D2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
@@ -618,6 +644,7 @@
 				7A7F64662560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65122560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				7A7F65162560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
+				7A7F655E25603677008B33C6 /* AddCameraButton.swift in Sources */,
 				7A7F65102560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65182560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
 				7A7F650E2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
@@ -1010,6 +1037,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A7F653C256033B4008B33C6 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		7A7F6543256033C1008B33C6 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7A7F64352560305A008B33C6 /* Project object */;
 }

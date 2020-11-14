@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct NavigationList: View {
     @EnvironmentObject var cameraManager: CameraManager
-    
+
     var body: some View {
         List {
             Section {
@@ -19,21 +20,29 @@ struct NavigationList: View {
                 }
             }
             .collapsible(false)
-            
+
             Section(header: Text("Cameras")) {
                 ForEach(cameraManager.connections) { connection in
                     NavigationLink(destination: CameraDetail(connection: connection)) {
                         CameraNavigationRow(connection: connection)
                     }
-                    .onTapGesture(count: 2) {
-                        // TODO: open new window
-//                        CameraWindowManager.shared.open(connection.camera)
-                    }
+                    // TODO: open new window
+//                    .onTapGesture(count: 2) {
+                    //                        CameraWindowManager.shared.open(connection.camera)
+//                    }
                 }
             }
             .collapsible(false)
         }
         .listStyle(SidebarListStyle())
+        .toolbar(content: {
+            ToolbarItem {
+                Spacer()
+            }
+            ToolbarItem {
+                AddCameraButton()
+            }
+        })
         .frame(minWidth: 200)
     }
 }

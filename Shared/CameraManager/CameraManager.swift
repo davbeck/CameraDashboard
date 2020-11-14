@@ -45,6 +45,8 @@ class CameraManager: ObservableObject {
         for connection in connections {
             connection.client.start()
         }
+        
+        self.isActive = true
     }
     
     // MARK: - Config
