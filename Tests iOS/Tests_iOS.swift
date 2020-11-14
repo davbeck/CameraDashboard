@@ -1,14 +1,13 @@
 //
-//  Canera_SwitcherUITests.swift
-//  Canera SwitcherUITests
+//  Tests_iOS.swift
+//  Tests iOS
 //
-//  Created by David Beck on 8/4/20.
-//  Copyright © 2020 David Beck. All rights reserved.
+//  Created by David Beck on 11/14/20.
 //
 
 import XCTest
 
-class Canera_SwitcherUITests: XCTestCase {
+class Tests_iOS: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -35,7 +34,7 @@ class Canera_SwitcherUITests: XCTestCase {
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
+            measure(metrics: [XCTApplicationLaunchMetric()]) {
                 XCUIApplication().launch()
             }
         }

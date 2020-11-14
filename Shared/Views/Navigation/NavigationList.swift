@@ -26,7 +26,8 @@ struct NavigationList: View {
                         CameraNavigationRow(connection: connection)
                     }
                     .onTapGesture(count: 2) {
-                        CameraWindowManager.shared.open(connection.camera)
+                        // TODO: open new window
+//                        CameraWindowManager.shared.open(connection.camera)
                     }
                 }
             }
