@@ -26,7 +26,6 @@ struct ConnectionPresetsRow: View {
 				)
 				.onTapGesture {
 					client.recall(preset: preset)
-						.sink(into: errorReporter)
 				}
 				.acceptsFirstMouse()
 			}

@@ -26,8 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        window.makeKeyAndOrderFront(nil)
 //        window.title = "Cameras"
 //        window.isReleasedWhenClosed = false
-        
-        CameraManager.shared.start()
+    
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

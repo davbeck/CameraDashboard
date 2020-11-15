@@ -21,7 +21,9 @@ struct CameraNavigationRow: View {
         HStack {
             Text(connection.displayName)
             Spacer()
-            ConnectionStatusIndicator(state: client.state)
+            if let error = client.error {
+                ConnectionStatusIndicator(error: error)
+            }
         }
     }
 }

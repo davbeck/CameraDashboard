@@ -97,6 +97,16 @@
 		7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7F6543256033C1008B33C6 /* SFSafeSymbols */; };
 		7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F655C25603677008B33C6 /* AddCameraButton.swift */; };
 		7A7F655E25603677008B33C6 /* AddCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F655C25603677008B33C6 /* AddCameraButton.swift */; };
+		7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */; };
+		7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */; };
+		7A7F65732560CA88008B33C6 /* VISCAConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65722560CA88008B33C6 /* VISCAConnection.swift */; };
+		7A7F65742560CA88008B33C6 /* VISCAConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65722560CA88008B33C6 /* VISCAConnection.swift */; };
+		7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65792560CAA9008B33C6 /* VISCAPool.swift */; };
+		7A7F657B2560CAA9008B33C6 /* VISCAPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65792560CAA9008B33C6 /* VISCAPool.swift */; };
+		7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65802560E052008B33C6 /* VISCAVersion.swift */; };
+		7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65802560E052008B33C6 /* VISCAVersion.swift */; };
+		7A7F65882560E968008B33C6 /* await.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65872560E968008B33C6 /* await.swift */; };
+		7A7F65892560E968008B33C6 /* await.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65872560E968008B33C6 /* await.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +181,11 @@
 		7A7F652B25603169008B33C6 /* NavigationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
 		7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
 		7A7F655C25603677008B33C6 /* AddCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCameraButton.swift; sourceTree = "<group>"; };
+		7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWConnection+Combine.swift"; sourceTree = "<group>"; };
+		7A7F65722560CA88008B33C6 /* VISCAConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAConnection.swift; sourceTree = "<group>"; };
+		7A7F65792560CAA9008B33C6 /* VISCAPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAPool.swift; sourceTree = "<group>"; };
+		7A7F65802560E052008B33C6 /* VISCAVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAVersion.swift; sourceTree = "<group>"; };
+		7A7F65872560E968008B33C6 /* await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = await.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,8 +297,8 @@
 		7A7F647B25603092008B33C6 /* CameraManager */ = {
 			isa = PBXGroup;
 			children = (
-				7A7F647C25603092008B33C6 /* PresetConfig.swift */,
 				7A7F647D25603092008B33C6 /* CameraManager.swift */,
+				7A7F647C25603092008B33C6 /* PresetConfig.swift */,
 				7A7F647E25603092008B33C6 /* Camera.swift */,
 			);
 			path = CameraManager;
@@ -305,6 +320,9 @@
 			isa = PBXGroup;
 			children = (
 				7A7F648B256030C3008B33C6 /* VISCAClient.swift */,
+				7A7F65722560CA88008B33C6 /* VISCAConnection.swift */,
+				7A7F65792560CAA9008B33C6 /* VISCAPool.swift */,
+				7A7F65802560E052008B33C6 /* VISCAVersion.swift */,
 				7A7F648C256030C3008B33C6 /* PTZDirection.swift */,
 				7A7F648D256030C3008B33C6 /* VISCAPreset.swift */,
 			);
@@ -319,6 +337,8 @@
 				7A7F64A1256030F9008B33C6 /* IntegerFormatting.swift */,
 				7A7F64AF25603119008B33C6 /* ReplaySubject.swift */,
 				7A7F64B62560311E008B33C6 /* Uncancellable.swift */,
+				7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */,
+				7A7F65872560E968008B33C6 /* await.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -339,8 +359,8 @@
 		7A7F64DD2560314D008B33C6 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
-				7A7F64DE2560314D008B33C6 /* PresetColorControl.swift */,
 				7A7F64DF2560314D008B33C6 /* PresetsView.swift */,
+				7A7F64DE2560314D008B33C6 /* PresetColorControl.swift */,
 				7A7F64E02560314D008B33C6 /* PresetColorPicker.swift */,
 				7A7F64E12560314D008B33C6 /* PresetEditView.swift */,
 				7A7F64E22560314D008B33C6 /* ConnectionPresetsRow.swift */,
@@ -578,6 +598,7 @@
 				7A7F64A925603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651B2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
@@ -590,9 +611,12 @@
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
+				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
+				7A7F65732560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649B256030F1008B33C6 /* Formatters.swift in Sources */,
 				7A7F65192560315F008B33C6 /* ZoomControl.swift in Sources */,
 				7A7F64652560305B008B33C6 /* ContentView.swift in Sources */,
+				7A7F65882560E968008B33C6 /* await.swift in Sources */,
 				7A7F65112560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				7A7F65152560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
 				7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */,
@@ -611,6 +635,7 @@
 				7A7F64C625603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C425603134008B33C6 /* SaveButtonsView.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
+				7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +652,7 @@
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A7F64B82560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */,
 				7A7F64E92560314D008B33C6 /* PresetColorPicker.swift in Sources */,
@@ -639,9 +665,12 @@
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
 				7A7F653025603169008B33C6 /* NavigationList.swift in Sources */,
+				7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
+				7A7F65742560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649C256030F1008B33C6 /* Formatters.swift in Sources */,
 				7A7F651A2560315F008B33C6 /* ZoomControl.swift in Sources */,
 				7A7F64662560305B008B33C6 /* ContentView.swift in Sources */,
+				7A7F65892560E968008B33C6 /* await.swift in Sources */,
 				7A7F65122560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				7A7F65162560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
 				7A7F655E25603677008B33C6 /* AddCameraButton.swift in Sources */,
@@ -660,6 +689,7 @@
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C525603134008B33C6 /* SaveButtonsView.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
+				7A7F657B2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

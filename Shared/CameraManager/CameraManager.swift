@@ -39,16 +39,6 @@ class CameraManager: ObservableObject {
         loadConfig()
     }
     
-    var isActive: Bool = false
-    
-    func start() {
-        for connection in connections {
-            connection.client.start()
-        }
-        
-        self.isActive = true
-    }
-    
     // MARK: - Config
     
     let configURL: URL?
@@ -78,7 +68,7 @@ class CameraManager: ObservableObject {
             let data = try Data(contentsOf: configURL)
             let config = try JSONDecoder().decode(CameraConfig.self, from: data)
             
-            self.connections = config.cameras.enumerated().map { (number, camera) -> CameraConnection in
+            connections = config.cameras.enumerated().map { (number, camera) -> CameraConnection in
                 CameraConnection(
                     camera: camera,
                     client: VISCAClient(
@@ -88,7 +78,7 @@ class CameraManager: ObservableObject {
                     cameraNumber: number
                 )
             }
-            self.presetConfigs = config.presetConfigs
+            presetConfigs = config.presetConfigs
         } catch {
             print("failed to load config", error)
         }
@@ -117,49 +107,39 @@ class CameraManager: ObservableObject {
     @Published private(set) var connections: [CameraConnection] = []
     
     func save(camera: Camera, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
-        if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }),
-            connections[index].camera.address == camera.address,
-            connections[index].camera.port == camera.port {
+        if let index = connections.firstIndex(where: { $0.camera.id == camera.id }),
+           connections[index].camera.address == camera.address,
+           connections[index].camera.port == camera.port
+        {
             connections[index].camera = camera
-            self.saveConfig()
+            saveConfig()
             return completion(.success(connections[index]))
         }
         
         let connection = CameraConnection(
             camera: camera,
             client: VISCAClient(camera),
-            cameraNumber: self.connections.count
+            cameraNumber: connections.count
         )
         
-        if self.isActive {
-            connection.client.start { result in
-                switch result {
-                case .success:
-                    if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
-                        self.connections[index].client.stop()
-                        self.connections[index] = connection
-                    } else {
-                        self.connections.append(connection)
-                    }
-                    
-                    self.saveConfig()
-                    
-                    completion(.success(connection))
-                case .failure(let error):
-                    connection.client.stop()
-                    
-                    completion(.failure(error))
+        connection.client.inquireVersion { (result) in
+            switch result {
+            case .success:
+                if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
+                    self.connections[index].client.stop()
+                    self.connections[index] = connection
+                } else {
+                    self.connections.append(connection)
                 }
+                    
+                self.saveConfig()
+                    
+                completion(.success(connection))
+            case .failure(let error):
+                connection.client.stop()
+                    
+                completion(.failure(error))
             }
-        } else {
-            if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
-                self.connections[index].client.stop()
-                self.connections[index] = connection
-            } else {
-                self.connections.append(connection)
-            }
-            
-            self.saveConfig()
         }
     }
     
@@ -175,7 +155,7 @@ class CameraManager: ObservableObject {
         set(newValue) {
             presetConfigs[PresetKey(cameraID: camera.id, preset: preset)] = newValue
             
-            self.saveConfig()
+            saveConfig()
         }
     }
 }
