@@ -16,19 +16,6 @@ extension NWEndpoint.Port {
     }
 }
 
-private extension Data {
-    init(bitPadded value: Int16) {
-        let bits = UInt16(bitPattern: value)
-		
-        self.init([
-            UInt8((bits & 0xf000) >> 12),
-            UInt8((bits & 0x0f00) >> 8),
-            UInt8((bits & 0x00f0) >> 4),
-            UInt8((bits & 0x000f) >> 0),
-        ])
-    }
-}
-
 class VISCAClient: ObservableObject {
     private var connection: NWConnection?
 	
@@ -99,10 +86,11 @@ class VISCAClient: ObservableObject {
         }
         .tryMap { (data) -> VISCAVersion in
             guard data.count == 8 else { throw Error.unexpectedBytes }
-            let venderID = data.withUnsafeBytes { $0.load(fromByteOffset: 1, as: UInt16.self) }
-            let modelID = data.withUnsafeBytes { $0.load(fromByteOffset: 3, as: UInt16.self) }
-            let armVersion = data.withUnsafeBytes { $0.load(fromByteOffset: 5, as: UInt16.self) }
-            let reserve = data.withUnsafeBytes { $0.load(fromByteOffset: 7, as: UInt8.self) }
+            
+            let venderID = data.load(offset: 1, as: UInt16.self)
+            let modelID = data.load(offset: 3, as: UInt16.self)
+            let armVersion = data.load(offset: 5, as: UInt16.self)
+            let reserve = data.load(offset: 7, as: UInt8.self)
             
             return VISCAVersion(
                 venderID: venderID,

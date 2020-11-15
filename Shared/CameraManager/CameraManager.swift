@@ -122,7 +122,7 @@ class CameraManager: ObservableObject {
             cameraNumber: connections.count
         )
         
-        connection.client.inquireVersion { (result) in
+        connection.client.inquireVersion { result in
             switch result {
             case .success:
                 if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
@@ -131,13 +131,13 @@ class CameraManager: ObservableObject {
                 } else {
                     self.connections.append(connection)
                 }
-                    
+                
                 self.saveConfig()
-                    
+                
                 completion(.success(connection))
             case .failure(let error):
                 connection.client.stop()
-                    
+                
                 completion(.failure(error))
             }
         }

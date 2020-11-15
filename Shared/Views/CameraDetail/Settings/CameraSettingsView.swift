@@ -25,17 +25,14 @@ struct CameraConnectionSettingsView: View {
     
     var body: some View {
         _CameraConnectionSettingsView(camera: $camera) {
-            self.isOpen = false
-            
             DispatchQueue.main.async {
                 cameraManager.save(camera: camera) { result in
                     isLoading = false
                     
                     switch result {
                     case .success:
-                        break
+                        self.isOpen = false
                     case .failure(let error):
-                        self.isOpen = true
                         self.error = error
                     }
                 }
@@ -45,6 +42,7 @@ struct CameraConnectionSettingsView: View {
         }
         .disabled(isLoading)
         .alert($error)
+        .id(camera.id)
     }
 }
 

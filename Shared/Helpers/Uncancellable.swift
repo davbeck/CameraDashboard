@@ -68,7 +68,7 @@ struct Uncancellable<Upstream: Publisher>: Publisher {
 }
 
 extension Publisher {
-	func disableCancellation() -> Uncancellable<Self> {
-		return Uncancellable(self)
-	}
+    func disableCancellation() -> Uncancellable<Self> {
+        return Uncancellable(self)
+    }
 }

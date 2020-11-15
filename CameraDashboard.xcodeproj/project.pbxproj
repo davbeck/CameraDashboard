@@ -107,6 +107,16 @@
 		7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65802560E052008B33C6 /* VISCAVersion.swift */; };
 		7A7F65882560E968008B33C6 /* await.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65872560E968008B33C6 /* await.swift */; };
 		7A7F65892560E968008B33C6 /* await.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65872560E968008B33C6 /* await.swift */; };
+		7A7F659525618087008B33C6 /* VISCASimulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F659425618087008B33C6 /* VISCASimulatorApp.swift */; };
+		7A7F659725618087008B33C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F659625618087008B33C6 /* ContentView.swift */; };
+		7A7F659925618088008B33C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F659825618088008B33C6 /* Assets.xcassets */; };
+		7A7F659C25618088008B33C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F659B25618088008B33C6 /* Preview Assets.xcassets */; };
+		7A7F65A9256180E2008B33C6 /* VISCAServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65A8256180E2008B33C6 /* VISCAServer.swift */; };
+		7A7F65B5256180F1008B33C6 /* VISCAServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */; };
+		7A7F65C02561C7F2008B33C6 /* IntegerFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F64A1256030F9008B33C6 /* IntegerFormatting.swift */; };
+		7A7F65C72561DD2B008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
+		7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
+		7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +196,16 @@
 		7A7F65792560CAA9008B33C6 /* VISCAPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAPool.swift; sourceTree = "<group>"; };
 		7A7F65802560E052008B33C6 /* VISCAVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAVersion.swift; sourceTree = "<group>"; };
 		7A7F65872560E968008B33C6 /* await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = await.swift; sourceTree = "<group>"; };
+		7A7F659225618087008B33C6 /* VISCASimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VISCASimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A7F659425618087008B33C6 /* VISCASimulatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCASimulatorApp.swift; sourceTree = "<group>"; };
+		7A7F659625618087008B33C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7A7F659825618088008B33C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A7F659B25618088008B33C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7A7F659D25618088008B33C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A7F659E25618088008B33C6 /* VISCASimulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VISCASimulator.entitlements; sourceTree = "<group>"; };
+		7A7F65A8256180E2008B33C6 /* VISCAServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAServer.swift; sourceTree = "<group>"; };
+		7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAServerConnection.swift; sourceTree = "<group>"; };
+		7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +239,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A7F658F25618087008B33C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -230,6 +257,7 @@
 				7A7F644A2560305B008B33C6 /* macOS */,
 				7A7F64542560305B008B33C6 /* Tests iOS */,
 				7A7F645F2560305B008B33C6 /* Tests macOS */,
+				7A7F659325618087008B33C6 /* VISCASimulator */,
 				7A7F64422560305B008B33C6 /* Products */,
 				7A7F6542256033C1008B33C6 /* Frameworks */,
 			);
@@ -255,6 +283,7 @@
 				7A7F64492560305B008B33C6 /* CameraDashboard.app */,
 				7A7F64512560305B008B33C6 /* Tests iOS.xctest */,
 				7A7F645C2560305B008B33C6 /* Tests macOS.xctest */,
+				7A7F659225618087008B33C6 /* VISCASimulator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -335,6 +364,7 @@
 				7A7F649A256030F1008B33C6 /* Formatters.swift */,
 				7A7F64A825603101008B33C6 /* Angle+Additions.swift */,
 				7A7F64A1256030F9008B33C6 /* IntegerFormatting.swift */,
+				7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */,
 				7A7F64AF25603119008B33C6 /* ReplaySubject.swift */,
 				7A7F64B62560311E008B33C6 /* Uncancellable.swift */,
 				7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */,
@@ -383,8 +413,8 @@
 		7A7F64FD2560315F008B33C6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				7A7F64FE2560315F008B33C6 /* CameraSettingsButton.swift */,
 				7A7F64FF2560315F008B33C6 /* CameraSettingsView.swift */,
+				7A7F64FE2560315F008B33C6 /* CameraSettingsButton.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -421,6 +451,37 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A7F659325618087008B33C6 /* VISCASimulator */ = {
+			isa = PBXGroup;
+			children = (
+				7A7F659425618087008B33C6 /* VISCASimulatorApp.swift */,
+				7A7F659625618087008B33C6 /* ContentView.swift */,
+				7A7F65A7256180C5008B33C6 /* VISCAServer */,
+				7A7F659825618088008B33C6 /* Assets.xcassets */,
+				7A7F659D25618088008B33C6 /* Info.plist */,
+				7A7F659E25618088008B33C6 /* VISCASimulator.entitlements */,
+				7A7F659A25618088008B33C6 /* Preview Content */,
+			);
+			path = VISCASimulator;
+			sourceTree = "<group>";
+		};
+		7A7F659A25618088008B33C6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7A7F659B25618088008B33C6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7A7F65A7256180C5008B33C6 /* VISCAServer */ = {
+			isa = PBXGroup;
+			children = (
+				7A7F65A8256180E2008B33C6 /* VISCAServer.swift */,
+				7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */,
+			);
+			path = VISCAServer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,6 +563,23 @@
 			productReference = 7A7F645C2560305B008B33C6 /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		7A7F659125618087008B33C6 /* VISCASimulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A7F659F25618088008B33C6 /* Build configuration list for PBXNativeTarget "VISCASimulator" */;
+			buildPhases = (
+				7A7F658E25618087008B33C6 /* Sources */,
+				7A7F658F25618087008B33C6 /* Frameworks */,
+				7A7F659025618087008B33C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VISCASimulator;
+			productName = VISCASimulator;
+			productReference = 7A7F659225618087008B33C6 /* VISCASimulator.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -525,6 +603,9 @@
 						CreatedOnToolsVersion = 12.3;
 						TestTargetID = 7A7F64482560305B008B33C6;
 					};
+					7A7F659125618087008B33C6 = {
+						CreatedOnToolsVersion = 12.3;
+					};
 				};
 			};
 			buildConfigurationList = 7A7F64382560305A008B33C6 /* Build configuration list for PBXProject "CameraDashboard" */;
@@ -547,6 +628,7 @@
 				7A7F64482560305B008B33C6 /* CameraDashboard (macOS) */,
 				7A7F64502560305B008B33C6 /* Tests iOS */,
 				7A7F645B2560305B008B33C6 /* Tests macOS */,
+				7A7F659125618087008B33C6 /* VISCASimulator */,
 			);
 		};
 /* End PBXProject section */
@@ -582,6 +664,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A7F659025618087008B33C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7F659C25618088008B33C6 /* Preview Assets.xcassets in Resources */,
+				7A7F659925618088008B33C6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -610,6 +701,7 @@
 				7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
 				7A7F65732560CA88008B33C6 /* VISCAConnection.swift in Sources */,
@@ -664,6 +756,7 @@
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F653025603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
 				7A7F65742560CA88008B33C6 /* VISCAConnection.swift in Sources */,
@@ -706,6 +799,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A7F64612560305B008B33C6 /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A7F658E25618087008B33C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7F65A9256180E2008B33C6 /* VISCAServer.swift in Sources */,
+				7A7F659725618087008B33C6 /* ContentView.swift in Sources */,
+				7A7F659525618087008B33C6 /* VISCASimulatorApp.swift in Sources */,
+				7A7F65C72561DD2B008B33C6 /* Data+Helpers.swift in Sources */,
+				7A7F65B5256180F1008B33C6 /* VISCAServerConnection.swift in Sources */,
+				7A7F65C02561C7F2008B33C6 /* IntegerFormatting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,6 +1124,56 @@
 			};
 			name = Release;
 		};
+		7A7F65A025618088008B33C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VISCASimulator/VISCASimulator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"VISCASimulator/Preview Content\"";
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = VISCASimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.VISCASimulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7A7F65A125618088008B33C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VISCASimulator/VISCASimulator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"VISCASimulator/Preview Content\"";
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = VISCASimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.VISCASimulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1062,6 +1218,15 @@
 			buildConfigurations = (
 				7A7F64752560305B008B33C6 /* Debug */,
 				7A7F64762560305B008B33C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A7F659F25618088008B33C6 /* Build configuration list for PBXNativeTarget "VISCASimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A7F65A025618088008B33C6 /* Debug */,
+				7A7F65A125618088008B33C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

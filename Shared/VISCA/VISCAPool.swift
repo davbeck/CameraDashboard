@@ -57,7 +57,9 @@ class VISCAPool {
         
         func run(_ connection: VISCAConnection, completion done: @escaping (Swift.Error?) -> Void) {
             connection.start()
-                .flatMap { self.work(connection) }
+                .flatMap {
+                    self.work(connection)
+                }
                 .timeout(.seconds(30), scheduler: RunLoop.main, options: nil, customError: {
                     Error.timeout
                 })

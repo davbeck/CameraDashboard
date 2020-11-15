@@ -54,11 +54,9 @@ final class VISCAConnection {
             case .ready:
                 self.resetSequence()
                     .sink { completion in
-                        self.didConnect.send(completion: completion)
                         switch completion {
                         case .finished:
                             self.didConnect.send(true)
-                            self.didConnect.send(completion: .finished)
                         case .failure(let error):
                             self.didFail.send(error)
                             self.didConnect.send(completion: .failure(error))
@@ -93,6 +91,7 @@ final class VISCAConnection {
         return didConnect
             .filter { $0 }
             .map { _ in () }
+            .first()
             .eraseToAnyPublisher()
     }
     
@@ -151,8 +150,6 @@ final class VISCAConnection {
             
             func readByte(completion: @escaping (UInt8) -> Void) {
                 connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
-                    print("receiveMessage", data?.map { $0.hexDescription }.joined(separator: " ") ?? "", context as Any, isComplete, error as Any)
-                    
                     if let error = error {
                         promise(.failure(error))
                         return
@@ -171,6 +168,7 @@ final class VISCAConnection {
             func getNext() {
                 readByte { byte in
                     if byte == 0xff {
+                        print("receiveMessage", responsePacket.hexDescription)
                         promise(.success(responsePacket))
                     } else {
                         responsePacket.append(byte)
@@ -222,6 +220,8 @@ final class VISCAConnection {
     }
     
     func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
+        let payload = Data([0x81]) + payload + Data([0xff])
+        
         return send(.viscaInquery, payload: payload)
             .flatMap {
                 self.receive()

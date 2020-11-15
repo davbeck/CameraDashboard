@@ -25,7 +25,25 @@ extension BinaryInteger {
 }
 
 extension UInt8 {
-	var hexDescription: String {
-		String(format: "%02X", self)
-	}
+    var hexDescription: String {
+        String(format: "%02X", self)
+    }
+}
+
+extension UInt16 {
+    var hexDescription: String {
+        String(format: "%04X", self)
+    }
+}
+
+extension UInt32 {
+    var hexDescription: String {
+        String(format: "%08X", self)
+    }
+}
+
+extension Data {
+    var hexDescription: String {
+        self.map { $0.hexDescription }.joined(separator: " ")
+    }
 }
