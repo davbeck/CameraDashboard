@@ -11,6 +11,7 @@ import Network
 class VISCAServerConnection {
     enum Error: Swift.Error {
         case unrecognizedRequest(Data)
+        case unrecognizedCommand(Data)
     }
     
     let camera: Camera
@@ -94,17 +95,29 @@ class VISCAServerConnection {
     }
     
     private func handleViscaCommand(_ data: Data) {
-        let payload = data.dropFirst().dropLast()
-        if payload.prefix(4) == Data([0x01, 0x04, 0x3f, 0x02]) {
-            let memoryNumber = data[5]
-            print("memoryNumber", memoryNumber)
-            sendAck()
-            
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
-                self.sendCompletion()
+        do {
+            let payload = data.dropFirst().dropLast()
+            if payload.prefix(4) == Data([0x01, 0x04, 0x3f, 0x02]) {
+                let memoryNumber = data[5]
+                print("recall", memoryNumber)
+                
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+                    self.sendCompletion()
+                }
+            } else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
+                let zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
+                camera.zoom = zoomPosition
+                
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+                    self.sendCompletion()
+                }
+            } else {
+                throw Error.unrecognizedCommand(data)
             }
-        } else {
-            fail()
+            
+            sendAck()
+        } catch {
+            sendError()
         }
     }
     
@@ -144,6 +157,10 @@ class VISCAServerConnection {
     
     private func sendCompletion() {
         send(Data([0x51]))
+    }
+    
+    private func sendError() {
+        send(Data([0x60, 0x02]))
     }
 }
 

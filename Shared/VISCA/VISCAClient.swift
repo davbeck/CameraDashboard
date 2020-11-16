@@ -123,7 +123,11 @@ class VISCAClient: ObservableObject {
     
     // MARK: - Zoom
     
-    @Published var zoomPosition: Double = 0
+    @Published var zoomPosition: Double = 0 {
+        didSet {
+            setZoom(zoomPosition: UInt16(zoomPosition * Double(UInt16.max)))
+        }
+    }
 
     func inquireZoomPosition(completion: ((Result<Double, Swift.Error>) -> Void)? = nil) {
         pool.sendVISCAInquiry(payload: Data([0x09, 0x04, 0x47]))
@@ -136,12 +140,23 @@ class VISCAClient: ObservableObject {
                 }
             } receiveValue: { data in
                 let rawZoom = data.loadBitPadded(offset: 1, as: UInt16.self)
-                print("rawZoom", rawZoom)
                 let zoom = Double(rawZoom) / Double(UInt16.max)
-                print("zoom", zoom)
                 self.zoomPosition = zoom
                 completion?(.success(zoom))
             }
+            .store(in: &observers)
+    }
+    
+    func setZoom(zoomPosition: UInt16, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
+        pool.sendVISCACommand(payload: Data([0x01, 0x04, 0x47]) + zoomPosition.bitPadded)
+            .sink { sink in
+                switch sink {
+                case .finished:
+                    completion?(.success(()))
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+            } receiveValue: { data in }
             .store(in: &observers)
     }
 	
