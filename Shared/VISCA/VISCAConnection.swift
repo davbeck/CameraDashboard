@@ -189,7 +189,7 @@ final class VISCAConnection {
         }
     }
     
-    func sendVISCACommand(payload: Data, attempt: Int = 0) -> AnyPublisher<Void, Swift.Error> {
+    func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
         let payload = Data([0x81]) + payload + Data([0xff])
         
         return send(.viscaCommand, payload: payload)
@@ -208,13 +208,6 @@ final class VISCAConnection {
             .timeout(.seconds(10), scheduler: RunLoop.main, customError: {
                 Error.timeout
             })
-            .tryCatch { (error) -> AnyPublisher<Void, Swift.Error> in
-                if error as? Error == Error.timeout, attempt < 3 {
-                    return self.sendVISCACommand(payload: payload, attempt: attempt + 1)
-                } else {
-                    throw error
-                }
-            }
             .disableCancellation()
             .eraseToAnyPublisher()
     }

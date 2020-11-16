@@ -8,11 +8,8 @@
 import Foundation
 import Network
 
-struct CameraState: Codable {
-    var zoom: UInt16 = 0
-}
-
 class VISCAServer: ObservableObject {
+    let camera = Camera()
     let listener: NWListener
     @Published private(set) var connections: Set<VISCAServerConnection> = []
 
@@ -24,9 +21,10 @@ class VISCAServer: ObservableObject {
         }
         listener.newConnectionHandler = { [weak self] nwConnection in
             print("VISCAServer.newConnectionHandler", nwConnection)
+            guard let self = self else { return }
 
-            let connection = VISCAServerConnection(connection: nwConnection)
-            self?.connections.insert(connection)
+            let connection = VISCAServerConnection(camera: self.camera, connection: nwConnection)
+            self.connections.insert(connection)
             connection.didStopCallback = { [weak self] connection, error in
                 print("didStopCallback", error as Any)
                 self?.connections.remove(connection)
@@ -34,6 +32,4 @@ class VISCAServer: ObservableObject {
         }
         listener.start(queue: .main)
     }
-    
-    @Published var cameraState: CameraState = CameraState()
 }

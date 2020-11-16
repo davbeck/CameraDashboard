@@ -7,12 +7,25 @@
 
 import SwiftUI
 
+extension Binding where Value: FixedWidthInteger {
+    var asDouble: Binding<Double> {
+        return Binding<Double> {
+            Double(self.wrappedValue)
+        } set: { newValue in
+            self.wrappedValue = Value(newValue)
+        }
+    }
+}
+
 struct ContentView: View {
-    @EnvironmentObject var server: VISCAServer
+    @EnvironmentObject var camera: Camera
 
     var body: some View {
-        Text("Zoom: \(server.cameraState.zoom)")
-            .padding()
+        VStack(alignment: .leading) {
+            Text("Zoom: \(camera.zoom)")
+            Slider(value: $camera.zoom.asDouble, in: 0 ... Double(UInt16.max))
+        }
+        .padding()
     }
 }
 

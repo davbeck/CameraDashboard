@@ -133,4 +133,16 @@ class VISCAPool {
             request = nil
         }
     }
+    
+    func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
+        aquire { connection in
+            connection.sendVISCACommand(payload: payload).eraseToAnyPublisher()
+        }
+    }
+    
+    func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
+        aquire { connection in
+            connection.sendVISCAInquiry(payload: payload).eraseToAnyPublisher()
+        }
+    }
 }

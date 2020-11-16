@@ -9,12 +9,18 @@ import Foundation
 import Network
 
 class VISCAServerConnection {
+    enum Error: Swift.Error {
+        case unrecognizedRequest(Data)
+    }
+    
+    let camera: Camera
     let connection: NWConnection
     private var sequence: UInt32 = 1
     
-    var didStopCallback: ((VISCAServerConnection, Error?) -> Void)?
+    var didStopCallback: ((VISCAServerConnection, Swift.Error?) -> Void)?
     
-    init(connection: NWConnection) {
+    init(camera: Camera, connection: NWConnection) {
+        self.camera = camera
         self.connection = connection
         
         connection.stateUpdateHandler = { [weak self] state in
@@ -112,6 +118,12 @@ class VISCAServerConnection {
                 0x00, 0x01,
                 0x00,
             ]))
+        } else if payload == Data([0x09, 0x04, 0x47]) {
+            // CAM_ZoomPosInq
+            print("zoom", camera.zoom, camera.zoom.bitPadded.hexDescription)
+            send(Data([
+                0x50,
+            ]) + camera.zoom.bitPadded)
         } else {
             fail()
         }

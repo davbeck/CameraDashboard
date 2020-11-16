@@ -59,22 +59,6 @@ class VISCAClient: ObservableObject {
     
     @Published var error: Swift.Error?
     
-//    @Published var zoomPosition: Double
-//
-//    func inquireZoomPosition() -> AnyPublisher<Double, Swift.Error> {
-//        sendVISCAInquiry(payload: Data([0x09, 0x04, 0x47]))
-//            .handleEvents(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.currentPreset = preset
-//                case .failure:
-//                    self.nextPreset = nil
-//                }
-//            })
-//            .disableCancellation()
-//            .eraseToAnyPublisher()
-//    }
-    
     // MARK: - Version
     
     @Published var version: VISCAVersion?
@@ -135,6 +119,30 @@ class VISCAClient: ObservableObject {
             }
         } receiveValue: { _ in }
         .store(in: &observers)
+    }
+    
+    // MARK: - Zoom
+    
+    @Published var zoomPosition: Double = 0
+
+    func inquireZoomPosition(completion: ((Result<Double, Swift.Error>) -> Void)? = nil) {
+        pool.sendVISCAInquiry(payload: Data([0x09, 0x04, 0x47]))
+            .sink { sink in
+                switch sink {
+                case .finished:
+                    break
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+            } receiveValue: { data in
+                let rawZoom = data.loadBitPadded(offset: 1, as: UInt16.self)
+                print("rawZoom", rawZoom)
+                let zoom = Double(rawZoom) / Double(UInt16.max)
+                print("zoom", zoom)
+                self.zoomPosition = zoom
+                completion?(.success(zoom))
+            }
+            .store(in: &observers)
     }
 	
     // MARK: - PTZ

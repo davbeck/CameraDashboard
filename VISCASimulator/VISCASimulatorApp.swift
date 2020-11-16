@@ -14,7 +14,8 @@ struct VISCASimulatorApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(server)
+                .frame(minWidth: 400, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
+                .environmentObject(server.camera)
         }
     }
 }
