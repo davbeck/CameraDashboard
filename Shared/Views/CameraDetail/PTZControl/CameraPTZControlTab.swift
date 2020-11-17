@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CameraPTZControlTab: View {
 	@ObservedObject var client: VISCAClient
+	@AppStorage(VISCAClient.vectorSpeedKey) var vectorSpeed: Double = 0.5
 	var camera: Camera
 	
 	var body: some View {
@@ -10,16 +11,16 @@ struct CameraPTZControlTab: View {
 				.layoutPriority(1)
 			VStack {
 				PanTiltControl(vector: $client.vector)
-				Slider(value: $client.vectorSpeed, in: 0...1) {
+				Slider(value: $vectorSpeed, in: 0...1) {
 					Text("Speed:")
 				}
-				.frame(width: 200)
 				
 				Spacer()
 				
 				ZoomControl(client: client)
 				FocusControl()
 			}
+			.frame(width: 200)
 		}
 		.padding()
 		.tabItem {

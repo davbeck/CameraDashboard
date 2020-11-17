@@ -132,6 +132,8 @@
 		7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65D92561F69B008B33C6 /* Camera.swift */; };
+		7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
+		7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,6 +245,7 @@
 		7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAServerConnection.swift; sourceTree = "<group>"; };
 		7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
 		7A7F65D92561F69B008B33C6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +410,7 @@
 				7A7F64B62560311E008B33C6 /* Uncancellable.swift */,
 				7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */,
 				7A7F65872560E968008B33C6 /* await.swift */,
+				7ADA267E2563575A00A03CBE /* defaultsKey.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -750,6 +754,7 @@
 				7A7F64D725603142008B33C6 /* SwitcherButton.swift in Sources */,
 				7A7F652D25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */,
 				7A7F64EE2560314E008B33C6 /* PresetView.swift in Sources */,
+				7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EA2560314D008B33C6 /* PresetEditView.swift in Sources */,
 				7A7F64F525603158008B33C6 /* ErrorReporter.swift in Sources */,
 				7A7F651F2560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
@@ -805,6 +810,7 @@
 				7A7F64D825603142008B33C6 /* SwitcherButton.swift in Sources */,
 				7A7F652E25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */,
 				7A7F64EF2560314E008B33C6 /* PresetView.swift in Sources */,
+				7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EB2560314D008B33C6 /* PresetEditView.swift in Sources */,
 				7A7F64F625603158008B33C6 /* ErrorReporter.swift in Sources */,
 				7A7F65202560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,

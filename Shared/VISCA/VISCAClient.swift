@@ -9,8 +9,6 @@ extension NWEndpoint.Port {
 }
 
 class VISCAClient: ObservableObject {
-	private var connection: NWConnection?
-	
 	enum Error: Swift.Error, LocalizedError {
 		case invalidInitialResponseByte
 		case unexpectedBytes
@@ -160,7 +158,11 @@ class VISCAClient: ObservableObject {
 		}
 	}
 	
-	@Published var vectorSpeed: Double = 0.5
+	static let vectorSpeedKey: String = defaultsKey("VISCAClient.vectorSpeed", default: 0.5)
+	
+	var vectorSpeed: Double {
+		return UserDefaults.standard.double(forKey: Self.vectorSpeedKey)
+	}
 	
 	@Published var vectorError: Swift.Error?
 	
