@@ -4,10 +4,15 @@ import SFSafeSymbols
 struct NavigationList: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
+	@SceneStorage("NavigationSelection") var navigationSelection: NavigationSelection = ["presets"]
+	
 	var body: some View {
 		List {
 			Section {
-				NavigationLink(destination: PresetsView().environmentObject(cameraManager)) {
+				NavigationLink(
+					destination: PresetsView().environmentObject(cameraManager),
+					isActive: $navigationSelection[contains: "presets"]
+				) {
 					Text("Presets")
 				}
 			}
@@ -15,7 +20,10 @@ struct NavigationList: View {
 			
 			Section(header: Text("Cameras")) {
 				ForEach(cameraManager.connections) { connection in
-					NavigationLink(destination: CameraDetail(connection: connection)) {
+					NavigationLink(
+						destination: CameraDetail(connection: connection),
+						isActive: $navigationSelection[contains: connection.id.uuidString]
+					) {
 						CameraNavigationRow(connection: connection)
 					}
 					// TODO: open new window
