@@ -37,6 +37,12 @@ struct CameraDashboardApp: App {
 		WindowGroup {
 			ContentView()
 				.frame(minWidth: 800, minHeight: 500)
+				.inspectWindow { window in
+					window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
+				}
+		}
+		.commands {
+			CommandGroup(replacing: CommandGroupPlacement.newItem) {}
 		}
 	}
 }

@@ -6,20 +6,6 @@
 	objectVersion = 52;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		7ADA265B2563527F00A03CBE /* SwiftFormat */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 7ADA265E2563527F00A03CBE /* Build configuration list for PBXAggregateTarget "SwiftFormat" */;
-			buildPhases = (
-				7ADA26652563528600A03CBE /* Run Script */,
-			);
-			dependencies = (
-			);
-			name = SwiftFormat;
-			productName = SwiftFormat;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		7A7F64562560305B008B33C6 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F64552560305B008B33C6 /* Tests_iOS.swift */; };
 		7A7F64612560305B008B33C6 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F64602560305B008B33C6 /* Tests_macOS.swift */; };
@@ -134,6 +120,8 @@
 		7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65D92561F69B008B33C6 /* Camera.swift */; };
 		7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 		7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
+		7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA269A2563728000A03CBE /* NSWindowInspector.swift */; };
+		7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA269A2563728000A03CBE /* NSWindowInspector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,27 +138,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A7F64482560305B008B33C6;
 			remoteInfo = "CameraDashboard (macOS)";
-		};
-		7ADA266C256352A400A03CBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7ADA265B2563527F00A03CBE;
-			remoteInfo = SwiftFormat;
-		};
-		7ADA266E256352AB00A03CBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7ADA265B2563527F00A03CBE;
-			remoteInfo = SwiftFormat;
-		};
-		7ADA2670256352AF00A03CBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7ADA265B2563527F00A03CBE;
-			remoteInfo = SwiftFormat;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -246,6 +213,8 @@
 		7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
 		7A7F65D92561F69B008B33C6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
+		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
+		7ADA269A2563728000A03CBE /* NSWindowInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +261,7 @@
 		7A7F64342560305A008B33C6 = {
 			isa = PBXGroup;
 			children = (
+				7ADA26942563726500A03CBE /* .swiftformat */,
 				7A7F64392560305A008B33C6 /* Shared */,
 				7A7F64432560305B008B33C6 /* iOS */,
 				7A7F644A2560305B008B33C6 /* macOS */,
@@ -424,6 +394,7 @@
 				7A7F64BF25603134008B33C6 /* SaveButtonsView.swift */,
 				7A7F64C025603134008B33C6 /* ErrorAlert.swift */,
 				7A7F64C125603134008B33C6 /* acceptsFirstMouse.swift */,
+				7ADA269A2563728000A03CBE /* NSWindowInspector.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -537,11 +508,11 @@
 				7A7F643D2560305B008B33C6 /* Sources */,
 				7A7F643E2560305B008B33C6 /* Frameworks */,
 				7A7F643F2560305B008B33C6 /* Resources */,
+				7ADA268D25636EBB00A03CBE /* SwiftFormat */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7ADA266D256352A400A03CBE /* PBXTargetDependency */,
 			);
 			name = "CameraDashboard (iOS)";
 			packageProductDependencies = (
@@ -558,11 +529,11 @@
 				7A7F64452560305B008B33C6 /* Sources */,
 				7A7F64462560305B008B33C6 /* Frameworks */,
 				7A7F64472560305B008B33C6 /* Resources */,
+				7ADA268E25636EC800A03CBE /* SwiftFormat */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7ADA266F256352AB00A03CBE /* PBXTargetDependency */,
 			);
 			name = "CameraDashboard (macOS)";
 			packageProductDependencies = (
@@ -615,11 +586,11 @@
 				7A7F658E25618087008B33C6 /* Sources */,
 				7A7F658F25618087008B33C6 /* Frameworks */,
 				7A7F659025618087008B33C6 /* Resources */,
+				7ADA268C25636E9F00A03CBE /* SwiftFormat */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7ADA2671256352AF00A03CBE /* PBXTargetDependency */,
 			);
 			name = VISCASimulator;
 			productName = VISCASimulator;
@@ -652,9 +623,6 @@
 					7A7F659125618087008B33C6 = {
 						CreatedOnToolsVersion = 12.3;
 					};
-					7ADA265B2563527F00A03CBE = {
-						CreatedOnToolsVersion = 12.3;
-					};
 				};
 			};
 			buildConfigurationList = 7A7F64382560305A008B33C6 /* Build configuration list for PBXProject "CameraDashboard" */;
@@ -678,7 +646,6 @@
 				7A7F64502560305B008B33C6 /* Tests iOS */,
 				7A7F645B2560305B008B33C6 /* Tests macOS */,
 				7A7F659125618087008B33C6 /* VISCASimulator */,
-				7ADA265B2563527F00A03CBE /* SwiftFormat */,
 			);
 		};
 /* End PBXProject section */
@@ -726,7 +693,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7ADA26652563528600A03CBE /* Run Script */ = {
+		7ADA268C25636E9F00A03CBE /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -735,7 +702,43 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		7ADA268D25636EBB00A03CBE /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		7ADA268E25636EC800A03CBE /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -799,6 +802,7 @@
 				7A7F64C625603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C425603134008B33C6 /* SaveButtonsView.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
+				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,6 +859,7 @@
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C525603134008B33C6 /* SaveButtonsView.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
+				7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				7A7F657B2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -901,21 +906,6 @@
 			isa = PBXTargetDependency;
 			target = 7A7F64482560305B008B33C6 /* CameraDashboard (macOS) */;
 			targetProxy = 7A7F645D2560305B008B33C6 /* PBXContainerItemProxy */;
-		};
-		7ADA266D256352A400A03CBE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7ADA265B2563527F00A03CBE /* SwiftFormat */;
-			targetProxy = 7ADA266C256352A400A03CBE /* PBXContainerItemProxy */;
-		};
-		7ADA266F256352AB00A03CBE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7ADA265B2563527F00A03CBE /* SwiftFormat */;
-			targetProxy = 7ADA266E256352AB00A03CBE /* PBXContainerItemProxy */;
-		};
-		7ADA2671256352AF00A03CBE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7ADA265B2563527F00A03CBE /* SwiftFormat */;
-			targetProxy = 7ADA2670256352AF00A03CBE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1263,24 +1253,6 @@
 			};
 			name = Release;
 		};
-		7ADA265C2563527F00A03CBE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7TR2B85D62;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		7ADA265D2563527F00A03CBE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7TR2B85D62;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1334,15 +1306,6 @@
 			buildConfigurations = (
 				7A7F65A025618088008B33C6 /* Debug */,
 				7A7F65A125618088008B33C6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7ADA265E2563527F00A03CBE /* Build configuration list for PBXAggregateTarget "SwiftFormat" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7ADA265C2563527F00A03CBE /* Debug */,
-				7ADA265D2563527F00A03CBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

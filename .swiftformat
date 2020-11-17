@@ -1,3 +1,4 @@
+--swiftversion 5
 --header strip
 --ranges no-space
 --disable redundantGet,redundantRawValues,sortedImports,unusedArguments
