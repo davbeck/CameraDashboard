@@ -1,0 +1,6 @@
+--header strip
+--ranges no-space
+--disable redundantGet,redundantRawValues,sortedImports,unusedArguments
+--trimwhitespace "nonblank-lines"
+--indent tab
+--enable isEmpty

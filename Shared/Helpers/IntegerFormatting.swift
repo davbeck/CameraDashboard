@@ -1,11 +1,3 @@
-//
-//  IntegerFormatting.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/12/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import Foundation
 
 extension BinaryInteger {
@@ -14,7 +6,7 @@ extension BinaryInteger {
 		var internalNumber = self
 		var counter = 0
 		
-		for _ in 1...self.bitWidth {
+		for _ in 1...bitWidth {
 			binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
 			internalNumber >>= 1
 			counter += 1
@@ -25,25 +17,25 @@ extension BinaryInteger {
 }
 
 extension UInt8 {
-    var hexDescription: String {
-        String(format: "%02X", self)
-    }
+	var hexDescription: String {
+		String(format: "%02X", self)
+	}
 }
 
 extension UInt16 {
-    var hexDescription: String {
-        String(format: "%04X", self)
-    }
+	var hexDescription: String {
+		String(format: "%04X", self)
+	}
 }
 
 extension UInt32 {
-    var hexDescription: String {
-        String(format: "%08X", self)
-    }
+	var hexDescription: String {
+		String(format: "%08X", self)
+	}
 }
 
 extension Data {
-    var hexDescription: String {
-        self.map { $0.hexDescription }.joined(separator: " ")
-    }
+	var hexDescription: String {
+		map { $0.hexDescription }.joined(separator: " ")
+	}
 }

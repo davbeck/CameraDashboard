@@ -1,11 +1,3 @@
-//
-//  Camera.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/13/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import Foundation
 
 struct Camera: Codable, Hashable, Identifiable {
@@ -23,9 +15,9 @@ struct Camera: Codable, Hashable, Identifiable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		self.id = try container.decode(UUID.self, forKey: .id)
-		self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-		self.address = try container.decode(String.self, forKey: .address)
-		self.port = try container.decodeIfPresent(UInt16.self, forKey: .port)
+		id = try container.decode(UUID.self, forKey: .id)
+		name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+		address = try container.decode(String.self, forKey: .address)
+		port = try container.decodeIfPresent(UInt16.self, forKey: .port)
 	}
 }

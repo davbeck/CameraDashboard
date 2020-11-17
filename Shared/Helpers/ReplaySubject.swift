@@ -25,34 +25,34 @@ final class ReplaySubject<Output, Failure: Error>: Subject {
 	private var completion: Subscribers.Completion<Failure>?
 	
 	func receive<Downstream: Subscriber>(subscriber: Downstream) where Downstream.Failure == Failure, Downstream.Input == Output {
-		self.lock.lock(); defer { lock.unlock() }
+		lock.lock(); defer { lock.unlock() }
 		let subscription = ReplaySubjectSubscription<Output, Failure>(downstream: AnySubscriber(subscriber))
 		subscriber.receive(subscription: subscription)
-		self.subscriptions.append(subscription)
-		subscription.replay(self.buffer, completion: self.completion)
+		subscriptions.append(subscription)
+		subscription.replay(buffer, completion: completion)
 	}
 	
 	/// Establishes demand for a new upstream subscriptions
 	func send(subscription: Subscription) {
-		self.lock.lock(); defer { lock.unlock() }
+		lock.lock(); defer { lock.unlock() }
 		subscription.request(.unlimited)
 	}
 	
 	/// Sends a value to the subscriber.
 	func send(_ value: Output) {
-		self.lock.lock(); defer { lock.unlock() }
-		self.buffer.append(value)
+		lock.lock(); defer { lock.unlock() }
+		buffer.append(value)
 		if let maxValues = maxValues {
-			self.buffer = self.buffer.suffix(maxValues)
+			buffer = buffer.suffix(maxValues)
 		}
-		self.subscriptions.forEach { $0.receive(value) }
+		subscriptions.forEach { $0.receive(value) }
 	}
 	
 	/// Sends a completion event to the subscriber.
 	func send(completion: Subscribers.Completion<Failure>) {
-		self.lock.lock(); defer { lock.unlock() }
+		lock.lock(); defer { lock.unlock() }
 		self.completion = completion
-		self.subscriptions.forEach { subscription in subscription.receive(completion: completion) }
+		subscriptions.forEach { subscription in subscription.receive(completion: completion) }
 	}
 }
 
@@ -66,29 +66,29 @@ final class ReplaySubjectSubscription<Output, Failure: Error>: Subscription {
 	}
 	
 	func request(_ newDemand: Subscribers.Demand) {
-		self.demand += newDemand
+		demand += newDemand
 	}
 	
 	func cancel() {
-		self.isCompleted = true
+		isCompleted = true
 	}
 	
 	func receive(_ value: Output) {
-		guard !self.isCompleted, self.demand > 0 else { return }
+		guard !isCompleted, demand > 0 else { return }
 		
-		self.demand += self.downstream.receive(value)
-		self.demand -= 1
+		demand += downstream.receive(value)
+		demand -= 1
 	}
 	
 	func receive(completion: Subscribers.Completion<Failure>) {
-		guard !self.isCompleted else { return }
-		self.isCompleted = true
-		self.downstream.receive(completion: completion)
+		guard !isCompleted else { return }
+		isCompleted = true
+		downstream.receive(completion: completion)
 	}
 	
 	func replay(_ values: [Output], completion: Subscribers.Completion<Failure>?) {
-		guard !self.isCompleted else { return }
+		guard !isCompleted else { return }
 		values.forEach { value in receive(value) }
-		if let completion = completion { self.receive(completion: completion) }
+		if let completion = completion { receive(completion: completion) }
 	}
 }

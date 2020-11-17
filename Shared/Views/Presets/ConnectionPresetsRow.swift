@@ -1,11 +1,3 @@
-//
-//  ConnectionPresetsRow.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/12/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import SwiftUI
 import Combine
 

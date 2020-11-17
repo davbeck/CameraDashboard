@@ -1,11 +1,3 @@
-//
-//  PresetConfig.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/13/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 

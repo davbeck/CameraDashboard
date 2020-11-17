@@ -1,11 +1,3 @@
-//
-//  PresetView.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/12/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import SwiftUI
 
 struct PresetStateOverlay: View {
@@ -58,7 +50,7 @@ struct PresetView: View {
 						Text("Preset \(preset.rawValue)")
 							.font(.subheadline)
 						Spacer()
-							
+						
 						Button(action: {
 							self.isShowingEdit = true
 						}, label: {

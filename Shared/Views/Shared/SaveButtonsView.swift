@@ -1,18 +1,10 @@
-//
-//  SaveButtonsView.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/13/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import SwiftUI
 
 struct SaveButtonsView: View {
 	var save: () -> Void
 	var cancel: () -> Void
 	
-    var body: some View {
+	var body: some View {
 		HStack(spacing: 16) {
 			Spacer()
 			
@@ -35,11 +27,11 @@ struct SaveButtonsView: View {
 			// .keyboardShortcut(.defaultAction)
 		}
 		.columnGuide()
-    }
+	}
 }
 
 struct SaveButtonsView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		SaveButtonsView(save: {}, cancel: {})
-    }
+	}
 }

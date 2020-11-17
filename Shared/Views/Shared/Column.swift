@@ -1,11 +1,3 @@
-//
-//  Column.swift
-//  Canera Switcher
-//
-//  Created by David Beck on 8/6/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import SwiftUI
 
 struct ColumnWidthPreference: Equatable {

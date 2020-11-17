@@ -1,11 +1,3 @@
-//
-//  Uncancellable.swift
-//  CameraDashboard
-//
-//  Created by David Beck on 8/21/20.
-//  Copyright © 2020 David Beck. All rights reserved.
-//
-
 import Foundation
 import Combine
 
@@ -19,7 +11,7 @@ struct Uncancellable<Upstream: Publisher>: Publisher {
 		self.root = root
 	}
 	
-	func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
+	func receive<S>(subscriber: S) where S: Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
 		let subscription = Subscription<S>(root: root, target: subscriber)
 		subscriber.receive(subscription: subscription)
 	}
@@ -48,7 +40,7 @@ struct Uncancellable<Upstream: Publisher>: Publisher {
 		
 		func cancel() {
 			// don't forward cancel
-			self.target = nil
+			target = nil
 		}
 		
 		// MARK: - Subscriber
@@ -68,7 +60,7 @@ struct Uncancellable<Upstream: Publisher>: Publisher {
 }
 
 extension Publisher {
-    func disableCancellation() -> Uncancellable<Self> {
-        return Uncancellable(self)
-    }
+	func disableCancellation() -> Uncancellable<Self> {
+		return Uncancellable(self)
+	}
 }
