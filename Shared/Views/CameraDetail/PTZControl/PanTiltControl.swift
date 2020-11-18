@@ -21,12 +21,12 @@ struct PanTiltControl: View {
 			ForEach(Array(PTZDirection.allCases.enumerated()), id: \.1) { index, direction in
 				PanTiltButton(isPressed: Binding(get: {
 					self.vector == .direction(direction)
-					}, set: { newValue in
-						if newValue {
-							self.vector = .direction(direction)
-						} else {
-							self.vector = nil
-						}
+				}, set: { newValue in
+					if newValue {
+						self.vector = .direction(direction)
+					} else {
+						self.vector = nil
+					}
 				}))
 					.rotationEffect(.degrees(360 / 8) * Double(index))
 			}

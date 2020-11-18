@@ -1,17 +1,6 @@
 import Foundation
 
 extension Data {
-	init(bitPadded value: Int16) {
-		let bits = UInt16(bitPattern: value)
-		
-		self.init([
-			UInt8((bits & 0xF000) >> 12),
-			UInt8((bits & 0x0F00) >> 8),
-			UInt8((bits & 0x00F0) >> 4),
-			UInt8((bits & 0x000F) >> 0),
-		])
-	}
-	
 	func load<T: FixedWidthInteger>(offset: Int = 0, as: T.Type = T.self) -> T {
 		let data = dropFirst(offset)
 		var value: T = 0
