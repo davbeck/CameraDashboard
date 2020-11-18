@@ -25,6 +25,12 @@ struct PresetStateOverlay: View {
 	}
 }
 
+#if os(macOS)
+	private let isMacOS = true
+#else
+	private let isMacOS = false
+#endif
+
 struct PresetView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
@@ -34,6 +40,7 @@ struct PresetView: View {
 	var isSwitching: Bool
 	
 	@State var isShowingEdit: Bool = false
+	@State var isHovering: Bool = false
 	
 	var body: some View {
 		HStack {
@@ -51,23 +58,25 @@ struct PresetView: View {
 							.font(.subheadline)
 						Spacer()
 						
-						Button(action: {
-							self.isShowingEdit = true
-						}, label: {
-							Image(systemSymbol: .ellipsisCircleFill)
-						})
-							.buttonStyle(PlainButtonStyle())
-							.contentShape(Rectangle())
-							.popover(
-								isPresented: $isShowingEdit,
-								arrowEdge: .bottom
-							) {
-								PresetEditView(
-									presetConfig: $presetConfig,
-									isOpen: $isShowingEdit
-								)
-								.environmentObject(cameraManager)
-							}
+						if isShowingEdit || isHovering || !isMacOS {
+							Button(action: {
+								self.isShowingEdit = true
+							}, label: {
+								Image(systemSymbol: .ellipsisCircleFill)
+							})
+								.buttonStyle(PlainButtonStyle())
+								.contentShape(Rectangle())
+								.popover(
+									isPresented: $isShowingEdit,
+									arrowEdge: .bottom
+								) {
+									PresetEditView(
+										presetConfig: $presetConfig,
+										isOpen: $isShowingEdit
+									)
+									.environmentObject(cameraManager)
+								}
+						}
 					}
 				}
 			}
@@ -87,6 +96,9 @@ struct PresetView: View {
 				isSwitching: isSwitching
 			)
 		)
+		.onHover(perform: { hovering in
+			isHovering = hovering
+		})
 	}
 }
 
