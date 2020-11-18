@@ -161,7 +161,7 @@ final class VISCAConnection {
 			func getNext() {
 				readByte { byte in
 					if byte == 0xFF {
-						print("receiveMessage", responsePacket.hexDescription)
+						print("⬇️", responsePacket.hexDescription)
 						promise(.success(responsePacket))
 					} else {
 						responsePacket.append(byte)
