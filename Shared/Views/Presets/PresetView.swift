@@ -54,7 +54,7 @@ struct PresetView: View {
 						Button(action: {
 							self.isShowingEdit = true
 						}, label: {
-							Image("ellipsis.circle.fill")
+							Image(systemSymbol: .ellipsisCircleFill)
 						})
 							.buttonStyle(PlainButtonStyle())
 							.contentShape(Rectangle())

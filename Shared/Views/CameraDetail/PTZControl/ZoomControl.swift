@@ -11,11 +11,11 @@ struct ZoomControl: View {
 			}
 			
 			HStack {
-				Image("minus.magnifyingglass")
+				Image(systemSymbol: .minusMagnifyingglass)
 				
 				Slider(value: $client.zoomPosition, in: 0...1)
 				
-				Image("plus.magnifyingglass")
+				Image(systemSymbol: .plusMagnifyingglass)
 			}
 			.foregroundColor(.accentColor)
 		}

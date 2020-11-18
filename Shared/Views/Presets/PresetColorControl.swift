@@ -9,7 +9,7 @@ struct PresetColorControl: View {
 			.fill(Color(presetColor))
 			.frame(width: 25, height: 25)
 			.overlay(
-				Image("checkmark")
+				Image(systemSymbol: .checkmark)
 					.foregroundColor(.white)
 					.opacity(isSelected ? 1 : 0)
 			)
