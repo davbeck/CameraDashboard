@@ -122,6 +122,16 @@
 		7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBE12566105100617A70 /* ToggleButton.swift */; };
 		7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */; };
 		7A8ABBF0256612B800617A70 /* Binding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */; };
+		7A8ABBF725661D8700617A70 /* VISCACommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBF625661D8700617A70 /* VISCACommand.swift */; };
+		7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBF625661D8700617A70 /* VISCACommand.swift */; };
+		7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */; };
+		7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */; };
+		7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
+		7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
+		7A8ABC152566CAF300617A70 /* VISCAVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */; };
+		7A8ABC162566CAF300617A70 /* VISCAVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */; };
+		7A8ABC1D2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */; };
+		7A8ABC1E2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -224,6 +234,11 @@
 		7A7F65D92561F69B008B33C6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7A8ABBE12566105100617A70 /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Helpers.swift"; sourceTree = "<group>"; };
+		7A8ABBF625661D8700617A70 /* VISCACommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCACommand.swift; sourceTree = "<group>"; };
+		7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAInquiry.swift; sourceTree = "<group>"; };
+		7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ExpressibleByArrayLiteral.swift"; sourceTree = "<group>"; };
+		7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAVersionResponse.swift; sourceTree = "<group>"; };
+		7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAZoomPositionResponse.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -377,6 +392,8 @@
 				7A7F648B256030C3008B33C6 /* VISCAClient.swift */,
 				7A7F65722560CA88008B33C6 /* VISCAConnection.swift */,
 				7A7F65792560CAA9008B33C6 /* VISCAPool.swift */,
+				7A8ABBF625661D8700617A70 /* VISCACommand.swift */,
+				7A8ABC0E2566CAE900617A70 /* Inquiry */,
 				7A7F65802560E052008B33C6 /* VISCAVersion.swift */,
 				7A7F648C256030C3008B33C6 /* PTZDirection.swift */,
 				7A7F648D256030C3008B33C6 /* VISCAPreset.swift */,
@@ -397,6 +414,7 @@
 				7A7F65872560E968008B33C6 /* await.swift */,
 				7ADA267E2563575A00A03CBE /* defaultsKey.swift */,
 				7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */,
+				7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -510,6 +528,16 @@
 				7A7F65D92561F69B008B33C6 /* Camera.swift */,
 			);
 			path = VISCAServer;
+			sourceTree = "<group>";
+		};
+		7A8ABC0E2566CAE900617A70 /* Inquiry */ = {
+			isa = PBXGroup;
+			children = (
+				7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */,
+				7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */,
+				7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */,
+			);
+			path = Inquiry;
 			sourceTree = "<group>";
 		};
 		7AAF43DD25660E9700C82EC3 /* PanTiltControl */ = {
@@ -795,15 +823,19 @@
 				7A7F64A925603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651B2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ADA26A325638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C225603134008B33C6 /* Column.swift in Sources */,
+				7A8ABC1D2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */,
 				7A7F64E62560314D008B33C6 /* PresetsView.swift in Sources */,
+				7A8ABC152566CAF300617A70 /* VISCAVersionResponse.swift in Sources */,
 				7A7F648325603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653125603169008B33C6 /* CameraNavigationRow.swift in Sources */,
+				7A8ABBF725661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B025603119008B33C6 /* ReplaySubject.swift in Sources */,
 				7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
@@ -836,6 +868,7 @@
 				7A7F648E256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C625603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C425603134008B33C6 /* SaveButtonsView.swift in Sources */,
+				7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
@@ -856,15 +889,19 @@
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A7F64B82560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ADA26A425638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E92560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C325603134008B33C6 /* Column.swift in Sources */,
+				7A8ABC1E2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */,
 				7A7F64E72560314D008B33C6 /* PresetsView.swift in Sources */,
+				7A8ABC162566CAF300617A70 /* VISCAVersionResponse.swift in Sources */,
 				7A7F648425603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653225603169008B33C6 /* CameraNavigationRow.swift in Sources */,
+				7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B125603119008B33C6 /* ReplaySubject.swift in Sources */,
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
@@ -897,6 +934,7 @@
 				7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C525603134008B33C6 /* SaveButtonsView.swift in Sources */,
+				7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				7A7F657B2560CAA9008B33C6 /* VISCAPool.swift in Sources */,

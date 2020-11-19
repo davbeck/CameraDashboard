@@ -12,8 +12,12 @@ final class VISCAConnection {
 		case unexpectedBytes
 		case missingAck
 		case missingCompletion
+		case syntaxError
+		case notExecutable
 		case notReady
 		case timeout
+		case commandInProgress
+		case requestInProgress
 		
 		var errorDescription: String? {
 			switch self {
@@ -29,6 +33,14 @@ final class VISCAConnection {
 				return "The camera is not connected."
 			case .timeout:
 				return "The operation timed out."
+			case .commandInProgress:
+				return "Command already in progress."
+			case .requestInProgress:
+				return "Request already in progress."
+			case .syntaxError:
+				return "Something went wrong."
+			case .notExecutable:
+				return "The camera does not support this feature."
 			}
 		}
 	}
@@ -55,6 +67,7 @@ final class VISCAConnection {
 						switch completion {
 						case .finished:
 							self.didConnect.send(true)
+							self.receive()
 						case let .failure(error):
 							self.didFail.send(error)
 							self.didConnect.send(completion: .failure(error))
@@ -140,69 +153,132 @@ final class VISCAConnection {
 			.eraseToAnyPublisher()
 	}
 	
-	func receive() -> Future<Data, Swift.Error> {
-		let connection = self.connection
+	enum ResponsePacket: Equatable {
+		case ack
+		case completion
+		case syntaxError
+		case notExecutable
 		
-		return Future<Data, Swift.Error> { promise in
-			var responsePacket = Data()
-			
-			func readByte(completion: @escaping (UInt8) -> Void) {
-				connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
-					if let error = error {
-						promise(.failure(error))
-						return
-					}
-					
-					guard let data = data, data.count == 1 else {
-						connection.cancel()
-						promise(.failure(Error.unexpectedBytes))
-						return
-					}
-					
-					completion(data[0])
-				}
-			}
-			
-			func getNext() {
-				readByte { byte in
-					if byte == 0xFF {
-						print("⬇️", responsePacket.hexDescription)
-						promise(.success(responsePacket))
-					} else {
-						responsePacket.append(byte)
-						getNext()
-					}
-				}
-			}
-			
-			readByte { byte in
-				guard byte == 0x90 else {
-					connection.cancel()
-					promise(.failure(Error.invalidInitialResponseByte))
-					return
-				}
-				
-				getNext()
+		case inquiryResponse(Data)
+		
+		init(_ data: Data) {
+			if data == Data([0x41]) {
+				self = .ack
+			} else if data == Data([0x51]) {
+				self = .completion
+			} else if data == Data([0x60, 0x02]) {
+				self = .syntaxError
+			} else if data == Data([0x61, 0x41]) {
+				self = .notExecutable
+			} else {
+				self = .inquiryResponse(data)
 			}
 		}
 	}
 	
-	func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
+	private let responses = PassthroughSubject<ResponsePacket, Never>()
+	private func receive() {
+		let connection = self.connection
+		
+		var responsePacket = Data()
+		
+		func readByte(completion: @escaping (UInt8) -> Void) {
+			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
+				if let error = error {
+					print("receive failed", error)
+					connection.cancel()
+					return
+				}
+				guard let byte = data?.first, data?.count == 1 else {
+					print("receive nothing", data as Any)
+					return
+				}
+				
+				completion(byte)
+			}
+		}
+		
+		func getNext() {
+			readByte { byte in
+				if byte == 0xFF {
+					print("⬇️", responsePacket.hexDescription)
+					
+					self.responses.send(ResponsePacket(responsePacket))
+					self.receive()
+				} else {
+					responsePacket.append(byte)
+					getNext()
+				}
+			}
+		}
+		
+		readByte { byte in
+			guard byte == 0x90 else {
+				connection.cancel()
+				return
+			}
+			
+			getNext()
+		}
+	}
+	
+	private(set) var isExecuting: Bool = false
+	
+	private var current: (sequence: UInt32, command: VISCACommand.Group)?
+	var currentCommandGroup: VISCACommand.Group? {
+		return current?.command
+	}
+	
+	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
+		guard !isExecuting else {
+			return Fail(error: Error.requestInProgress)
+				.eraseToAnyPublisher()
+		}
+		guard currentCommandGroup == nil || currentCommandGroup == command.group else {
+			return Fail(error: Error.commandInProgress)
+				.eraseToAnyPublisher()
+		}
+		
+		let sequence = self.sequence
+		current = (sequence, command.group)
+		
+		return sendVISCACommand(payload: command.payload)
+			.handleEvents(receiveCompletion: { _ in
+				guard self.current?.sequence == sequence else { return }
+				self.current = nil
+			})
+			.disableCancellation()
+			.eraseToAnyPublisher()
+	}
+	
+	private func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
+		isExecuting = true
+		
 		let payload = Data([0x81]) + payload + Data([0xFF])
 		
 		return send(.viscaCommand, payload: payload)
 			.flatMap {
-				self.receive()
+				self.responses.first()
 			}
-			.tryMap { (data) -> Void in
-				guard data == Data([0x41]) else { throw Error.missingAck }
+			.tryMap { (response) -> Void in
+				switch response {
+				case .ack:
+					return
+				case .notExecutable:
+					throw Error.notExecutable
+				case .syntaxError:
+					throw Error.syntaxError
+				default:
+					throw Error.unexpectedBytes
+				}
 			}
+			.handleEvents(receiveCompletion: { _ in
+				self.isExecuting = false
+			})
 			.flatMap {
-				self.receive()
+				self.responses.filter { $0 == .completion }.first()
 			}
-			.tryMap { (data) -> Void in
-				guard data == Data([0x51]) else { throw Error.missingCompletion }
-			}
+			.map { (data) -> Void in }
 			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
 				Error.timeout
 			})
@@ -210,12 +286,43 @@ final class VISCAConnection {
 			.eraseToAnyPublisher()
 	}
 	
-	func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
+	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
+		guard !isExecuting else {
+			return Fail(error: Error.requestInProgress)
+				.eraseToAnyPublisher()
+		}
+		isExecuting = true
+		
+		return sendVISCAInquiry(payload: inquiry.payload)
+			.tryMap { (payload) -> Response in
+				guard let response = inquiry.parseResponse(payload) else { throw Error.unexpectedBytes }
+				return response
+			}
+			.handleEvents(receiveCompletion: { _ in
+				self.isExecuting = false
+			})
+			.disableCancellation()
+			.eraseToAnyPublisher()
+	}
+	
+	private func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
 		let payload = Data([0x81]) + payload + Data([0xFF])
 		
 		return send(.viscaInquery, payload: payload)
 			.flatMap {
-				self.receive()
+				self.responses.filter { $0 != .completion }.first()
+			}
+			.tryMap { (response) -> Data in
+				switch response {
+				case let .inquiryResponse(data):
+					return data
+				case .notExecutable:
+					throw Error.notExecutable
+				case .syntaxError:
+					throw Error.syntaxError
+				default:
+					throw Error.unexpectedBytes
+				}
 			}
 			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
 				Error.timeout
