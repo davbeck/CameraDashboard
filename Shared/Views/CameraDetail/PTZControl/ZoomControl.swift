@@ -11,12 +11,20 @@ struct ZoomControl: View {
 			}
 			
 			HStack {
-				Image(systemSymbol: .minusMagnifyingglass)
+				ToggleButton(isPressed: $client.zoomDirection.equalTo(.wide)) {
+					Image(systemSymbol: .minusMagnifyingglass)
+						.opacity(client.zoomDirection == .wide ? 0.8 : 1)
+				}
 				
 				Slider(value: $client.zoomPosition.local, in: 0...UInt16.max)
 				
-				Image(systemSymbol: .plusMagnifyingglass)
+				ToggleButton(isPressed: $client.zoomDirection.equalTo(.tele)) {
+					Image(systemSymbol: .plusMagnifyingglass)
+						.opacity(client.zoomDirection == .tele ? 0.8 : 1)
+				}
 			}
+			.font(.headline)
+			.imageScale(.large)
 			.foregroundColor(.accentColor)
 		}
 		.onAppear {

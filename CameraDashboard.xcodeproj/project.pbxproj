@@ -118,6 +118,10 @@
 		7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65D92561F69B008B33C6 /* Camera.swift */; };
+		7A8ABBE22566105100617A70 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBE12566105100617A70 /* ToggleButton.swift */; };
+		7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBE12566105100617A70 /* ToggleButton.swift */; };
+		7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */; };
+		7A8ABBF0256612B800617A70 /* Binding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -218,6 +222,8 @@
 		7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAServerConnection.swift; sourceTree = "<group>"; };
 		7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
 		7A7F65D92561F69B008B33C6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		7A8ABBE12566105100617A70 /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Helpers.swift"; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -405,6 +411,8 @@
 				7A7F64C025603134008B33C6 /* ErrorAlert.swift */,
 				7A7F64C125603134008B33C6 /* acceptsFirstMouse.swift */,
 				7ADA269A2563728000A03CBE /* NSWindowInspector.swift */,
+				7A8ABBE12566105100617A70 /* ToggleButton.swift */,
+				7A8ABBEE256612B800617A70 /* Binding+Helpers.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -446,14 +454,9 @@
 			isa = PBXGroup;
 			children = (
 				7A7F65042560315F008B33C6 /* CameraPTZControlTab.swift */,
-				7A7F65012560315F008B33C6 /* PanTiltRelativeControl.swift */,
-				7A7F65022560315F008B33C6 /* FocusControl.swift */,
-				7A7F65032560315F008B33C6 /* PanTiltSeparators.swift */,
+				7AAF43DD25660E9700C82EC3 /* PanTiltControl */,
 				7A7F65052560315F008B33C6 /* ZoomControl.swift */,
-				7A7F65062560315F008B33C6 /* PanTiltThumb.swift */,
-				7A7F65072560315F008B33C6 /* PanTiltControl.swift */,
-				7A7F65082560315F008B33C6 /* PanTiltDirectionShape.swift */,
-				7A7F65092560315F008B33C6 /* PanTiltButton.swift */,
+				7A7F65022560315F008B33C6 /* FocusControl.swift */,
 			);
 			path = PTZControl;
 			sourceTree = "<group>";
@@ -507,6 +510,19 @@
 				7A7F65D92561F69B008B33C6 /* Camera.swift */,
 			);
 			path = VISCAServer;
+			sourceTree = "<group>";
+		};
+		7AAF43DD25660E9700C82EC3 /* PanTiltControl */ = {
+			isa = PBXGroup;
+			children = (
+				7A7F65072560315F008B33C6 /* PanTiltControl.swift */,
+				7A7F65062560315F008B33C6 /* PanTiltThumb.swift */,
+				7A7F65082560315F008B33C6 /* PanTiltDirectionShape.swift */,
+				7A7F65092560315F008B33C6 /* PanTiltButton.swift */,
+				7A7F65012560315F008B33C6 /* PanTiltRelativeControl.swift */,
+				7A7F65032560315F008B33C6 /* PanTiltSeparators.swift */,
+			);
+			path = PanTiltControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -792,6 +808,7 @@
 				7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7A8ABBE22566105100617A70 /* ToggleButton.swift in Sources */,
 				7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
@@ -809,6 +826,7 @@
 				7A7F650D2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
 				7A7F648125603092008B33C6 /* CameraManager.swift in Sources */,
 				7A7F6492256030C3008B33C6 /* VISCAPreset.swift in Sources */,
+				7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */,
 				7A7F64C825603134008B33C6 /* acceptsFirstMouse.swift in Sources */,
 				7A7F651D2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650B2560315F008B33C6 /* CameraDetail.swift in Sources */,
@@ -851,6 +869,7 @@
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */,
 				7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F653025603169008B33C6 /* NavigationList.swift in Sources */,
@@ -868,6 +887,7 @@
 				7A7F650E2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
 				7A7F648225603092008B33C6 /* CameraManager.swift in Sources */,
 				7A7F6493256030C3008B33C6 /* VISCAPreset.swift in Sources */,
+				7A8ABBF0256612B800617A70 /* Binding+Helpers.swift in Sources */,
 				7A7F64C925603134008B33C6 /* acceptsFirstMouse.swift in Sources */,
 				7A7F651E2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650C2560315F008B33C6 /* CameraDetail.swift in Sources */,

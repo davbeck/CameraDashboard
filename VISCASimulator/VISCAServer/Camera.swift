@@ -23,8 +23,8 @@ final class Camera: ObservableObject {
 	
 	enum ZoomDestination: Equatable {
 		case direct(Int)
-		case max
-		case min
+		case tele
+		case wide
 	}
 	
 	private var zoomTimer: Timer? {
@@ -56,12 +56,18 @@ final class Camera: ObservableObject {
 						if destination == self.zoom {
 							self.zoomDestination = nil
 						}
-					case .min:
-						break
-//						self.zoom -= step
-					case .max:
-						break
-//						self.zoom += step
+					case .wide:
+						self.zoom = max(self.zoom - step, 0)
+						
+						if self.zoom == 0 {
+							self.zoomDestination = nil
+						}
+					case .tele:
+						self.zoom = min(self.zoom + step, Int(UInt16.max))
+						
+						if self.zoom == Int(UInt16.max) {
+							self.zoomDestination = nil
+						}
 					}
 				})
 			} else {

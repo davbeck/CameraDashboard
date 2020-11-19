@@ -21,6 +21,7 @@ struct FocusControl: View {
 				
 				Image(systemSymbol: .plusMagnifyingglass)
 			}
+			.font(.headline)
 			.disabled(isAutoFocusOn)
 			.foregroundColor(.accentColor)
 		}

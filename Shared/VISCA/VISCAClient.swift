@@ -10,12 +10,18 @@ extension NWEndpoint.Port {
 
 let throttleMS = 100
 
+extension Publisher {
+	func viscaThrottle() -> Publishers.Throttle<Self, DispatchQueue> {
+		throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.visca, latest: true)
+	}
+}
+
 extension Publisher where Failure == Never {
 	func filterUserEvents<T>() -> AnyPublisher<T, Never> where Output == VISCAClient.RemoteValue<T> {
 		filter { $0.needsUpdate }
 			.compactMap { $0.local }
 			.removeDuplicates()
-			.throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.visca, latest: true)
+			.viscaThrottle()
 			.eraseToAnyPublisher()
 	}
 	
@@ -23,7 +29,7 @@ extension Publisher where Failure == Never {
 		filter { $0.needsUpdate }
 			.compactMap { $0.local }
 			.removeDuplicates()
-			.throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.visca, latest: true)
+			.viscaThrottle()
 			.eraseToAnyPublisher()
 	}
 }
@@ -75,11 +81,18 @@ class VISCAClient: ObservableObject {
 				self?.setZoom(zoomPosition: zoomPosition)
 			}
 			.store(in: &observers)
+		$zoomDirection
+			.removeDuplicates()
+			.viscaThrottle()
+			.sink { [weak self] value in
+				self?.zoom(value)
+			}
+			.store(in: &observers)
 		
 		$vector
 			.compactMap { $0 }
 			.removeDuplicates()
-			.throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.visca, latest: true)
+			.viscaThrottle()
 			.sink { [weak self] value in
 				self?.updateVector(vector: value)
 			}
@@ -169,6 +182,13 @@ class VISCAClient: ObservableObject {
 	
 	@Published var zoomPosition: RemoteValue<UInt16> = .init(remote: 0)
 	
+	enum ZoomDirection {
+		case tele
+		case wide
+	}
+	
+	@Published var zoomDirection: ZoomDirection?
+	
 	func inquireZoomPosition(completion: ((Result<Double, Swift.Error>) -> Void)? = nil) {
 		print("inquireZoomPosition")
 		pool.sendVISCAInquiry(payload: Data([0x09, 0x04, 0x47]))
@@ -189,7 +209,7 @@ class VISCAClient: ObservableObject {
 			.store(in: &observers)
 	}
 	
-	func setZoom(zoomPosition: UInt16, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
+	private func setZoom(zoomPosition: UInt16, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
 		print("setZoom", zoomPosition, zoomPosition.hexDescription)
 		pool.sendVISCACommand(payload: Data([0x01, 0x04, 0x47]) + zoomPosition.bitPadded)
 			.receive(on: RunLoop.main)
@@ -206,6 +226,48 @@ class VISCAClient: ObservableObject {
 				}
 			} receiveValue: { _ in
 			}
+			.store(in: &observers)
+	}
+	
+	private var zoomUpdateTimer: Timer? {
+		didSet {
+			oldValue?.invalidate()
+		}
+	}
+	
+	private func zoom(_ direction: ZoomDirection?) {
+		print("zoom", direction as Any)
+		var payload = Data([0x01, 0x04, 0x07])
+		switch direction {
+		case .tele:
+			payload.append(0x02)
+		case .wide:
+			payload.append(0x03)
+		case .none:
+			// stop
+			payload.append(0x00)
+		}
+		
+		pool.sendVISCACommand(payload: payload)
+			.receive(on: RunLoop.main)
+			.sink { completion in
+				switch completion {
+				case let .failure(error):
+					self.error = error
+				case .finished:
+					self.error = nil
+				}
+				
+				switch direction {
+				case .tele, .wide:
+					self.zoomUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: { timer in
+						self.inquireZoomPosition()
+					})
+				case .none:
+					self.zoomUpdateTimer = nil
+					self.inquireZoomPosition()
+				}
+			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
 	

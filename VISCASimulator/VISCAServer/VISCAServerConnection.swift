@@ -93,12 +93,14 @@ class VISCAServerConnection {
 	private func handleViscaCommand(_ data: Data) {
 		do {
 			let payload = data.dropFirst().dropLast()
+			
 			if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x02]) {
 				let memoryNumber = data[5]
 				print("recall", memoryNumber)
 				
 				camera.preset = memoryNumber
 				
+				sendAck()
 				Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
 					self.sendCompletion()
 				}
@@ -107,6 +109,7 @@ class VISCAServerConnection {
 				print("setting zoom", zoomPosition)
 				camera.zoomDestination = .direct(Int(zoomPosition))
 				
+				sendAck()
 				camera.$zoomDestination
 					.dropFirst()
 					.first()
@@ -114,11 +117,24 @@ class VISCAServerConnection {
 						self.sendCompletion()
 					}
 					.store(in: &observers)
+			} else if payload.prefix(3) == Data([0x01, 0x04, 0x07]), let directionBit = payload.dropFirst(3).first {
+				print("zoom", directionBit.hexDescription)
+				switch directionBit {
+				case 0x00:
+					camera.zoomDestination = nil
+				case 0x02:
+					camera.zoomDestination = .tele
+				case 0x03:
+					camera.zoomDestination = .wide
+				default:
+					throw Error.unrecognizedCommand(data)
+				}
+				
+				sendAck()
+				sendCompletion()
 			} else {
 				throw Error.unrecognizedCommand(data)
 			}
-			
-			sendAck()
 		} catch {
 			sendError()
 		}
