@@ -118,6 +118,10 @@
 		7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */; };
 		7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65D92561F69B008B33C6 /* Camera.swift */; };
+		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
+		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
+		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
+		7AAF43D72565FE3800C82EC3 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7AAF43D62565FE3800C82EC3 /* Defaults */; };
 		7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 		7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 		7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA269A2563728000A03CBE /* NSWindowInspector.swift */; };
@@ -214,6 +218,7 @@
 		7A7F65B4256180F1008B33C6 /* VISCAServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAServerConnection.swift; sourceTree = "<group>"; };
 		7A7F65C62561DD2B008B33C6 /* Data+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Helpers.swift"; sourceTree = "<group>"; };
 		7A7F65D92561F69B008B33C6 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		7ADA269A2563728000A03CBE /* NSWindowInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowInspector.swift; sourceTree = "<group>"; };
@@ -255,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AAF43D72565FE3800C82EC3 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +390,7 @@
 				7A7F656B2560CA5E008B33C6 /* NWConnection+Combine.swift */,
 				7A7F65872560E968008B33C6 /* await.swift */,
 				7ADA267E2563575A00A03CBE /* defaultsKey.swift */,
+				7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -597,6 +604,9 @@
 			dependencies = (
 			);
 			name = VISCASimulator;
+			packageProductDependencies = (
+				7AAF43D62565FE3800C82EC3 /* Defaults */,
+			);
 			productName = VISCASimulator;
 			productReference = 7A7F659225618087008B33C6 /* VISCASimulator.app */;
 			productType = "com.apple.product-type.application";
@@ -640,6 +650,7 @@
 			mainGroup = 7A7F64342560305A008B33C6;
 			packageReferences = (
 				7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
@@ -781,6 +792,7 @@
 				7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
@@ -839,6 +851,7 @@
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
+				7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F653025603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
@@ -897,6 +910,7 @@
 				7A7F65B5256180F1008B33C6 /* VISCAServerConnection.swift in Sources */,
 				7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */,
 				7A7F65C02561C7F2008B33C6 /* IntegerFormatting.swift in Sources */,
+				7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1341,14 @@
 				minimumVersion = 2.0.2;
 			};
 		};
+		7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1339,6 +1361,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		7AAF43D62565FE3800C82EC3 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

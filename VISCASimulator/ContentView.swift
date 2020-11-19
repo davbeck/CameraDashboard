@@ -1,23 +1,19 @@
 import SwiftUI
 
-extension Binding where Value: FixedWidthInteger {
-	var asDouble: Binding<Double> {
-		return Binding<Double> {
-			Double(self.wrappedValue)
-		} set: { newValue in
-			self.wrappedValue = Value(newValue)
-		}
-	}
-}
-
 struct ContentView: View {
 	@EnvironmentObject var camera: Camera
 	
 	var body: some View {
-		VStack(alignment: .leading) {
-			Text("Zoom: \(camera.zoom)")
-			Slider(value: $camera.zoom.asDouble, in: 0...Double(UInt16.max))
+		VStack(alignment: .leading, spacing: 10) {
+			Text("Preset: \(camera.preset)")
+			
+			HStack {
+				Text("Zoom")
+				Slider(value: $camera.zoom, in: 0...Int(UInt16.max))
+				Text("\(camera.zoom)")
+			}
 		}
+		.font(Font.body.monospacedDigit())
 		.padding()
 	}
 }

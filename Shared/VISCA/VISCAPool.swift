@@ -53,7 +53,7 @@ class VISCAPool {
 				.flatMap {
 					self.work(connection)
 				}
-				.timeout(.seconds(30), scheduler: RunLoop.main, options: nil, customError: {
+				.timeout(.seconds(30), scheduler: DispatchQueue.visca, options: nil, customError: {
 					Error.timeout
 				})
 				.sink { completion in
@@ -109,6 +109,11 @@ class VISCAPool {
 			connection = availableConnections.removeFirst()
 		} else if connections.count < maxConnections {
 			connection = VISCAConnection(host: host, port: port)
+			connections.insert(connection)
+			connection.didCancel = { [weak self] connection in
+				self?.connections.remove(connection)
+				self?.availableConnections.remove(connection)
+			}
 		} else {
 			return
 		}
@@ -124,6 +129,8 @@ class VISCAPool {
 			}
 			
 			request = nil
+			
+			self.dequeue()
 		}
 	}
 	

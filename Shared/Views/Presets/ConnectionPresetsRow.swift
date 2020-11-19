@@ -13,11 +13,11 @@ struct ConnectionPresetsRow: View {
 				PresetView(
 					preset: preset,
 					presetConfig: $cameraManager[camera, preset],
-					isActive: client.currentPreset == preset,
-					isSwitching: client.nextPreset == preset
+					isActive: client.preset.remote == preset,
+					isSwitching: client.preset.local == preset
 				)
 				.onTapGesture {
-					client.recall(preset: preset)
+					client.preset.local = preset
 				}
 				.acceptsFirstMouse()
 			}

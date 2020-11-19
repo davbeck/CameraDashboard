@@ -13,7 +13,7 @@ struct ZoomControl: View {
 			HStack {
 				Image(systemSymbol: .minusMagnifyingglass)
 				
-				Slider(value: $client.zoomPosition, in: 0...1)
+				Slider(value: $client.zoomPosition.local, in: 0...UInt16.max)
 				
 				Image(systemSymbol: .plusMagnifyingglass)
 			}

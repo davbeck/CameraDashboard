@@ -2,6 +2,10 @@ import Foundation
 import Combine
 import Network
 
+extension DispatchQueue {
+	static let visca = DispatchQueue(label: "VISCAConnection")
+}
+
 final class VISCAConnection {
 	enum Error: Swift.Error, LocalizedError {
 		case invalidInitialResponseByte
@@ -35,6 +39,7 @@ final class VISCAConnection {
 	
 	private let didConnect = CurrentValueSubject<Bool, Swift.Error>(false)
 	let didFail = PassthroughSubject<Swift.Error, Never>()
+	var didCancel: ((VISCAConnection) -> Void)?
 	
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
@@ -67,7 +72,7 @@ final class VISCAConnection {
 			case .preparing:
 				break
 			case .cancelled:
-				break
+				self.didCancel?(self)
 			@unknown default:
 				break
 			}
@@ -78,7 +83,7 @@ final class VISCAConnection {
 	func start() -> AnyPublisher<Void, Swift.Error> {
 		if !hasStarted {
 			hasStarted = true
-			connection.start(queue: .main)
+			connection.start(queue: .visca)
 		}
 		
 		return didConnect
@@ -198,7 +203,7 @@ final class VISCAConnection {
 			.tryMap { (data) -> Void in
 				guard data == Data([0x51]) else { throw Error.missingCompletion }
 			}
-			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
+			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
 				Error.timeout
 			})
 			.disableCancellation()
@@ -212,7 +217,7 @@ final class VISCAConnection {
 			.flatMap {
 				self.receive()
 			}
-			.timeout(.seconds(10), scheduler: RunLoop.main, customError: {
+			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
 				Error.timeout
 			})
 			.disableCancellation()

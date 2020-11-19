@@ -1,11 +1,14 @@
 import Foundation
 import Network
+import Combine
 
 class VISCAServerConnection {
 	enum Error: Swift.Error {
 		case unrecognizedRequest(Data)
 		case unrecognizedCommand(Data)
 	}
+	
+	private var observers: Set<AnyCancellable> = []
 	
 	let camera: Camera
 	let connection: NWConnection
@@ -40,21 +43,21 @@ class VISCAServerConnection {
 	}
 	
 	private func receive() {
-		print("waiting")
-		
 		connection.receive(minimumIncompleteLength: 8, maximumLength: 8) { [weak self] data, _, isComplete, error in
 			guard let self = self else { return }
 			guard let data = data else {
 				self.fail(error)
 				return
 			}
-			print("VISCAServerConnection.receive", data.hexDescription)
+//			print("⬇️📦", data.hexDescription)
 			
 			let command = data.load(offset: 0, as: UInt16.self)
 			let size = Int(data.load(offset: 2, as: UInt16.self))
 			let sequence = data.load(offset: 4, as: UInt32.self)
+			// TODO: Send error if these don't match
+			self.sequence = sequence + 1
 			
-			print("command", command.hexDescription, size, sequence)
+//			print("command", command.hexDescription, size, sequence)
 			
 			self.connection.receive(minimumIncompleteLength: size, maximumLength: size) { [weak self] data, context, isComplete, error in
 				guard let self = self else { return }
@@ -62,7 +65,7 @@ class VISCAServerConnection {
 					self.fail(error)
 					return
 				}
-				print("VISCAServerConnection.receive", data.hexDescription)
+				print("⬇️", data.hexDescription)
 				
 				switch command {
 				case 0x0100:
@@ -94,16 +97,23 @@ class VISCAServerConnection {
 				let memoryNumber = data[5]
 				print("recall", memoryNumber)
 				
+				camera.preset = memoryNumber
+				
 				Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
 					self.sendCompletion()
 				}
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
 				let zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
-				camera.zoom = zoomPosition
+				print("setting zoom", zoomPosition)
+				camera.zoomDestination = .direct(Int(zoomPosition))
 				
-				Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
-					self.sendCompletion()
-				}
+				camera.$zoomDestination
+					.dropFirst()
+					.first()
+					.sink { _ in
+						self.sendCompletion()
+					}
+					.store(in: &observers)
 			} else {
 				throw Error.unrecognizedCommand(data)
 			}
