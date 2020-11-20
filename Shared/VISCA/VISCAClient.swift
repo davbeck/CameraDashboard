@@ -82,6 +82,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 		$zoomDirection
+			.dropFirst()
 			.removeDuplicates()
 			.viscaThrottle()
 			.sink { [weak self] value in

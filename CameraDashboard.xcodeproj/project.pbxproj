@@ -390,8 +390,8 @@
 			isa = PBXGroup;
 			children = (
 				7A7F648B256030C3008B33C6 /* VISCAClient.swift */,
-				7A7F65722560CA88008B33C6 /* VISCAConnection.swift */,
 				7A7F65792560CAA9008B33C6 /* VISCAPool.swift */,
+				7A7F65722560CA88008B33C6 /* VISCAConnection.swift */,
 				7A8ABBF625661D8700617A70 /* VISCACommand.swift */,
 				7A8ABC0E2566CAE900617A70 /* Inquiry */,
 				7A7F65802560E052008B33C6 /* VISCAVersion.swift */,

@@ -18,8 +18,10 @@ class VISCAPool {
 		}
 	}
 	
+	private var observers: Set<AnyCancellable> = []
+	
 	private var connections: Set<VISCAConnection> = []
-	private var availableConnections: Set<VISCAConnection> = []
+	private var connectionNumber: Int = 0
 	
 	let maxConnections: Int
 	let host: NWEndpoint.Host
@@ -36,113 +38,70 @@ class VISCAPool {
 			connection.stop()
 		}
 		connections = []
-		availableConnections = []
 	}
 	
-	private class Request<Return>: AnyVISCAPoolRequest {
-		private var observers: Set<AnyCancellable> = []
-		let work: (VISCAConnection) -> AnyPublisher<Return, Swift.Error>
-		let done = CurrentValueSubject<Return?, Swift.Error>(nil)
-		
-		init(work: @escaping (VISCAConnection) -> AnyPublisher<Return, Swift.Error>) {
-			self.work = work
+	private var requestQueue: [(command: VISCACommand.Group?, subject: PassthroughSubject<VISCAConnection, Never>)] = []
+	
+	private func createConnection() -> VISCAConnection {
+		connectionNumber += 1
+		let connection = VISCAConnection(host: host, port: port, connectionNumber: connectionNumber)
+		connections.insert(connection)
+		connection.didCancel = { [weak self] connection in
+			self?.connections.remove(connection)
 		}
-		
-		func run(_ connection: VISCAConnection, completion done: @escaping (Swift.Error?) -> Void) {
-			connection.start()
-				.flatMap {
-					self.work(connection)
-				}
-				.timeout(.seconds(30), scheduler: DispatchQueue.visca, options: nil, customError: {
-					Error.timeout
-				})
-				.sink { completion in
-					self.done.send(completion: completion)
-					switch completion {
-					case .finished:
-						done(nil)
-					case let .failure(error):
-						done(error)
-					}
-					
-					for observer in self.observers {
-						observer.cancel()
-					}
-				} receiveValue: { value in
-					self.done.send(value)
-				}
-				.store(in: &observers)
-			
-			connection.didFail
-				.sink { error in
-					self.done.send(completion: .failure(error))
-					done(error)
-					
-					for observer in self.observers {
-						observer.cancel()
-					}
-				}
-				.store(in: &observers)
+		connection.didExecute = { [weak self] connection in
+			self?.dequeue()
 		}
+		connection.didCompleteCommand = { [weak self] connection in
+			self?.dequeue()
+		}
+		return connection
 	}
 	
-	private var requests: [AnyVISCAPoolRequest] = []
-	
-	private var currentRequestObserver: AnyCancellable?
-	
-	func aquire<Value>(_ work: @escaping (VISCAConnection) -> AnyPublisher<Value, Swift.Error>) -> AnyPublisher<Value, Swift.Error> {
-		let request = Request(work: work)
-		requests.append(request)
-		
-		dequeue()
-		
-		return request.done
-			.compactMap { $0 }
-			.eraseToAnyPublisher()
+	private func getConnection(command: VISCACommand.Group? = nil) -> VISCAConnection? {
+		if let connection = connections.first(where: { $0.canSend(command: command) }) {
+			return connection
+		} else if connections.count < maxConnections {
+			return createConnection()
+		} else {
+			return nil
+		}
 	}
 	
 	private func dequeue() {
-		guard !requests.isEmpty else { return }
+		guard let request = requestQueue.first else { return }
+		guard let connection = getConnection(command: request.command) else { return }
+		requestQueue.removeFirst()
 		
-		let connection: VISCAConnection
-		if !availableConnections.isEmpty {
-			connection = availableConnections.removeFirst()
-		} else if connections.count < maxConnections {
-			connection = VISCAConnection(host: host, port: port)
-			connections.insert(connection)
-			connection.didCancel = { [weak self] connection in
-				self?.connections.remove(connection)
-				self?.availableConnections.remove(connection)
-			}
+		request.subject.send(connection)
+	}
+	
+	private func aquire(command: VISCACommand.Group? = nil) -> AnyPublisher<VISCAConnection, Swift.Error> {
+		if requestQueue.isEmpty, let connection = getConnection(command: command) {
+			return connection.start()
+				.map { connection }
+				.eraseToAnyPublisher()
 		} else {
-			return
-		}
-		
-		var request: AnyVISCAPoolRequest? = requests.removeFirst()
-		
-		request?.run(connection) { error in
-			if error != nil {
-				self.connections.remove(connection)
-				connection.stop()
-			} else {
-				self.availableConnections.insert(connection)
-			}
-			
-			request = nil
-			
-			self.dequeue()
+			let subject = PassthroughSubject<VISCAConnection, Never>()
+			requestQueue.append((command, subject))
+			return subject
+				.flatMap { connection in
+					connection.start()
+						.map { connection }
+				}
+				.eraseToAnyPublisher()
 		}
 	}
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
-		aquire { connection in
-			connection.send(command: command)
-		}
+		return aquire(command: command.group)
+			.flatMap { $0.send(command: command) }
+			.eraseToAnyPublisher()
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
-		aquire { connection in
-			connection.send(inquiry: inquiry)
-		}
+		return aquire()
+			.flatMap { $0.send(inquiry: inquiry) }
+			.eraseToAnyPublisher()
 	}
 }

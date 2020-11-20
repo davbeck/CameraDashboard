@@ -48,18 +48,23 @@ final class VISCAConnection {
 	private var observers: Set<AnyCancellable> = []
 	
 	private let connection: NWConnection
+	let connectionNumber: Int
 	
 	private let didConnect = CurrentValueSubject<Bool, Swift.Error>(false)
 	let didFail = PassthroughSubject<Swift.Error, Never>()
 	var didCancel: ((VISCAConnection) -> Void)?
+	var didExecute: ((VISCAConnection) -> Void)?
+	var didCompleteCommand: ((VISCAConnection) -> Void)?
 	
-	init(host: NWEndpoint.Host, port: NWEndpoint.Port) {
+	init(host: NWEndpoint.Host, port: NWEndpoint.Port, connectionNumber: Int) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
+		
+		self.connectionNumber = connectionNumber
 		
 		connection.stateUpdateHandler = { [weak self] state in
 			guard let self = self else { return }
 			
-			print("VISCAClient.stateUpdateHandler", state)
+			print("🔄#\(connectionNumber)", state)
 			switch state {
 			case .ready:
 				self.resetSequence()
@@ -143,7 +148,7 @@ final class VISCAConnection {
 		
 		message.append(payload)
 		
-		print("⬆️", message.map { $0.hexDescription }.joined(separator: " "))
+		print("⬆️#\(connectionNumber)", message.map { $0.hexDescription }.joined(separator: " "))
 		
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
@@ -185,12 +190,12 @@ final class VISCAConnection {
 		func readByte(completion: @escaping (UInt8) -> Void) {
 			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
 				if let error = error {
-					print("receive failed", error)
+					print("❌#\(self.connectionNumber) receive failed", error)
 					connection.cancel()
 					return
 				}
 				guard let byte = data?.first, data?.count == 1 else {
-					print("receive nothing", data as Any)
+					print("#\(self.connectionNumber) receive nothing", data as Any)
 					return
 				}
 				
@@ -201,7 +206,7 @@ final class VISCAConnection {
 		func getNext() {
 			readByte { byte in
 				if byte == 0xFF {
-					print("⬇️", responsePacket.hexDescription)
+					print("⬇️#\(self.connectionNumber)", responsePacket.hexDescription)
 					
 					self.responses.send(ResponsePacket(responsePacket))
 					self.receive()
@@ -229,6 +234,16 @@ final class VISCAConnection {
 		return current?.command
 	}
 	
+	func canSend(command: VISCACommand.Group?) -> Bool {
+		guard !isExecuting else { return false }
+		
+		if let command = command {
+			return currentCommandGroup == nil || currentCommandGroup == command
+		} else {
+			return true
+		}
+	}
+	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
@@ -246,6 +261,7 @@ final class VISCAConnection {
 			.handleEvents(receiveCompletion: { _ in
 				guard self.current?.sequence == sequence else { return }
 				self.current = nil
+				self.didCompleteCommand?(self)
 			})
 			.disableCancellation()
 			.eraseToAnyPublisher()
@@ -274,6 +290,7 @@ final class VISCAConnection {
 			}
 			.handleEvents(receiveCompletion: { _ in
 				self.isExecuting = false
+				self.didExecute?(self)
 			})
 			.flatMap {
 				self.responses.filter { $0 == .completion }.first()
@@ -300,6 +317,7 @@ final class VISCAConnection {
 			}
 			.handleEvents(receiveCompletion: { _ in
 				self.isExecuting = false
+				self.didExecute?(self)
 			})
 			.disableCancellation()
 			.eraseToAnyPublisher()
