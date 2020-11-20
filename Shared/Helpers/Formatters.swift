@@ -6,3 +6,23 @@ let portFormatter: NumberFormatter = {
 	formatter.usesGroupingSeparator = false
 	return formatter
 }()
+
+extension Double: ReferenceConvertible {
+	public typealias ReferenceType = NSNumber
+}
+
+extension Int: ReferenceConvertible {
+	public var debugDescription: String {
+		return description
+	}
+	
+	public typealias ReferenceType = NSNumber
+}
+
+extension UInt16: ReferenceConvertible {
+	public var debugDescription: String {
+		return description
+	}
+	
+	public typealias ReferenceType = NSNumber
+}

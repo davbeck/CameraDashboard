@@ -9,6 +9,9 @@ struct CameraDetail: View {
 				CameraPTZControlTab(client: connection.client, camera: connection.camera)
 			})
 			HStack {
+				Text("\(connection.camera.address):\(connection.camera.port ?? 5678, formatter: portFormatter)")
+					.font(Font.callout.monospacedDigit())
+				
 				Spacer()
 				
 				CameraSettingsButton(camera: connection.camera)
