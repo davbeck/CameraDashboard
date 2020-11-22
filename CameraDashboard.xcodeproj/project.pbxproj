@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
+		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7F64562560305B008B33C6 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F64552560305B008B33C6 /* Tests_iOS.swift */; };
 		7A7F64612560305B008B33C6 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F64602560305B008B33C6 /* Tests_macOS.swift */; };
 		7A7F64632560305B008B33C6 /* CameraDashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */; };
@@ -128,10 +130,7 @@
 		7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */; };
 		7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
 		7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
-		7A8ABC152566CAF300617A70 /* VISCAVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */; };
-		7A8ABC162566CAF300617A70 /* VISCAVersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */; };
-		7A8ABC1D2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */; };
-		7A8ABC1E2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */; };
+		7A9D39BD256A104D0090AD5F /* DataLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -159,9 +158,17 @@
 			remoteGlobalIDString = 7A7F64482560305B008B33C6;
 			remoteInfo = "CameraDashboard (macOS)";
 		};
+		7A9D39BF256A104D0090AD5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A7F64482560305B008B33C6;
+			remoteInfo = "CameraDashboard (macOS)";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
 		7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDashboardApp.swift; sourceTree = "<group>"; };
 		7A7F643B2560305A008B33C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A7F643C2560305B008B33C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -237,8 +244,9 @@
 		7A8ABBF625661D8700617A70 /* VISCACommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCACommand.swift; sourceTree = "<group>"; };
 		7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAInquiry.swift; sourceTree = "<group>"; };
 		7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ExpressibleByArrayLiteral.swift"; sourceTree = "<group>"; };
-		7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAVersionResponse.swift; sourceTree = "<group>"; };
-		7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAZoomPositionResponse.swift; sourceTree = "<group>"; };
+		7A9D39BA256A104D0090AD5F /* CameraDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CameraDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingTests.swift; sourceTree = "<group>"; };
+		7A9D39BE256A104D0090AD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -285,6 +293,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A9D39B7256A104D0090AD5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -293,9 +308,10 @@
 			children = (
 				7ADA26942563726500A03CBE /* .swiftformat */,
 				7A7F64392560305A008B33C6 /* Shared */,
+				7A9D39BB256A104D0090AD5F /* CameraDashboardTests */,
 				7A7F64432560305B008B33C6 /* iOS */,
-				7A7F644A2560305B008B33C6 /* macOS */,
 				7A7F64542560305B008B33C6 /* Tests iOS */,
+				7A7F644A2560305B008B33C6 /* macOS */,
 				7A7F645F2560305B008B33C6 /* Tests macOS */,
 				7A7F659325618087008B33C6 /* VISCASimulator */,
 				7A7F64422560305B008B33C6 /* Products */,
@@ -325,6 +341,7 @@
 				7A7F64512560305B008B33C6 /* Tests iOS.xctest */,
 				7A7F645C2560305B008B33C6 /* Tests macOS.xctest */,
 				7A7F659225618087008B33C6 /* VISCASimulator.app */,
+				7A9D39BA256A104D0090AD5F /* CameraDashboardTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -393,8 +410,9 @@
 				7A7F65792560CAA9008B33C6 /* VISCAPool.swift */,
 				7A7F65722560CA88008B33C6 /* VISCAConnection.swift */,
 				7A8ABBF625661D8700617A70 /* VISCACommand.swift */,
-				7A8ABC0E2566CAE900617A70 /* Inquiry */,
+				7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */,
 				7A7F65802560E052008B33C6 /* VISCAVersion.swift */,
+				7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */,
 				7A7F648C256030C3008B33C6 /* PTZDirection.swift */,
 				7A7F648D256030C3008B33C6 /* VISCAPreset.swift */,
 			);
@@ -530,14 +548,13 @@
 			path = VISCAServer;
 			sourceTree = "<group>";
 		};
-		7A8ABC0E2566CAE900617A70 /* Inquiry */ = {
+		7A9D39BB256A104D0090AD5F /* CameraDashboardTests */ = {
 			isa = PBXGroup;
 			children = (
-				7A8ABBFE2566C86E00617A70 /* VISCAInquiry.swift */,
-				7A8ABC142566CAF300617A70 /* VISCAVersionResponse.swift */,
-				7A8ABC1C2566CB0700617A70 /* VISCAZoomPositionResponse.swift */,
+				7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */,
+				7A9D39BE256A104D0090AD5F /* Info.plist */,
 			);
-			path = Inquiry;
+			path = CameraDashboardTests;
 			sourceTree = "<group>";
 		};
 		7AAF43DD25660E9700C82EC3 /* PanTiltControl */ = {
@@ -655,6 +672,24 @@
 			productReference = 7A7F659225618087008B33C6 /* VISCASimulator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7A9D39B9256A104D0090AD5F /* CameraDashboardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A9D39C3256A104D0090AD5F /* Build configuration list for PBXNativeTarget "CameraDashboardTests" */;
+			buildPhases = (
+				7A9D39B6256A104D0090AD5F /* Sources */,
+				7A9D39B7256A104D0090AD5F /* Frameworks */,
+				7A9D39B8256A104D0090AD5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A9D39C0256A104D0090AD5F /* PBXTargetDependency */,
+			);
+			name = CameraDashboardTests;
+			productName = CameraDashboardTests;
+			productReference = 7A9D39BA256A104D0090AD5F /* CameraDashboardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -681,6 +716,10 @@
 					7A7F659125618087008B33C6 = {
 						CreatedOnToolsVersion = 12.3;
 					};
+					7A9D39B9256A104D0090AD5F = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 7A7F64482560305B008B33C6;
+					};
 				};
 			};
 			buildConfigurationList = 7A7F64382560305A008B33C6 /* Build configuration list for PBXProject "CameraDashboard" */;
@@ -705,6 +744,7 @@
 				7A7F64502560305B008B33C6 /* Tests iOS */,
 				7A7F645B2560305B008B33C6 /* Tests macOS */,
 				7A7F659125618087008B33C6 /* VISCASimulator */,
+				7A9D39B9256A104D0090AD5F /* CameraDashboardTests */,
 			);
 		};
 /* End PBXProject section */
@@ -746,6 +786,13 @@
 			files = (
 				7A7F659C25618088008B33C6 /* Preview Assets.xcassets in Resources */,
 				7A7F659925618088008B33C6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A9D39B8256A104D0090AD5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,14 +872,13 @@
 				7A7F651B2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
 				7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
+				7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ADA26A325638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C225603134008B33C6 /* Column.swift in Sources */,
-				7A8ABC1D2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */,
 				7A7F64E62560314D008B33C6 /* PresetsView.swift in Sources */,
-				7A8ABC152566CAF300617A70 /* VISCAVersionResponse.swift in Sources */,
 				7A7F648325603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653125603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF725661D8700617A70 /* VISCACommand.swift in Sources */,
@@ -891,14 +937,13 @@
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
 				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
+				7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
 				7A7F64B82560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ADA26A425638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E92560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C325603134008B33C6 /* Column.swift in Sources */,
-				7A8ABC1E2566CB0700617A70 /* VISCAZoomPositionResponse.swift in Sources */,
 				7A7F64E72560314D008B33C6 /* PresetsView.swift in Sources */,
-				7A8ABC162566CAF300617A70 /* VISCAVersionResponse.swift in Sources */,
 				7A7F648425603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653225603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */,
@@ -972,6 +1017,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A9D39B6256A104D0090AD5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A9D39BD256A104D0090AD5F /* DataLoadingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -984,6 +1037,11 @@
 			isa = PBXTargetDependency;
 			target = 7A7F64482560305B008B33C6 /* CameraDashboard (macOS) */;
 			targetProxy = 7A7F645D2560305B008B33C6 /* PBXContainerItemProxy */;
+		};
+		7A9D39C0256A104D0090AD5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A7F64482560305B008B33C6 /* CameraDashboard (macOS) */;
+			targetProxy = 7A9D39BF256A104D0090AD5F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1331,6 +1389,50 @@
 			};
 			name = Release;
 		};
+		7A9D39C1256A104D0090AD5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				INFOPLIST_FILE = CameraDashboardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CameraDashboard.app/Contents/MacOS/CameraDashboard";
+			};
+			name = Debug;
+		};
+		7A9D39C2256A104D0090AD5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				INFOPLIST_FILE = CameraDashboardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CameraDashboard.app/Contents/MacOS/CameraDashboard";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1384,6 +1486,15 @@
 			buildConfigurations = (
 				7A7F65A025618088008B33C6 /* Debug */,
 				7A7F65A125618088008B33C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A9D39C3256A104D0090AD5F /* Build configuration list for PBXNativeTarget "CameraDashboardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9D39C1256A104D0090AD5F /* Debug */,
+				7A9D39C2256A104D0090AD5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

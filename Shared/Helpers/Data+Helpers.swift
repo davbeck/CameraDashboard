@@ -17,13 +17,13 @@ extension Data {
 			result = result | T(bit) << (4 * i)
 		}
 		
-		return T(bigEndian: result)
+		return T(result)
 	}
 }
 
 extension FixedWidthInteger {
 	var bitPadded: Data {
-		let data = withUnsafePointer(to: self) { pointer in
+		let data = withUnsafePointer(to: bigEndian) { pointer in
 			pointer.withMemoryRebound(to: UInt8.self, capacity: MemoryLayout<Self>.size) { pointer in
 				(0..<MemoryLayout<Self>.size)
 					.flatMap { [(pointer[$0] & 0xF0) >> 4, pointer[$0] & 0x0F] }

@@ -132,6 +132,47 @@ class VISCAServerConnection {
 				
 				sendAck()
 				sendCompletion()
+			} else if payload.prefix(3) == Data([0x01, 0x04, 0x48]) {
+				let position = payload.dropFirst(3).loadBitPadded(as: UInt16.self)
+				print("CAM_Focus Direct", position)
+				camera.focusDestination = .direct(Int(position))
+				
+				sendAck()
+				camera.$focusDestination
+					.dropFirst()
+					.first()
+					.sink { _ in
+						self.sendCompletion()
+					}
+					.store(in: &observers)
+			} else if payload.prefix(3) == Data([0x01, 0x04, 0x08]), let directionBit = payload.dropFirst(3).first {
+				print("CAM_Focus", directionBit.hexDescription)
+				switch directionBit {
+				case 0x00:
+					camera.focusDestination = nil
+				case 0x02:
+					camera.focusDestination = .far
+				case 0x03:
+					camera.focusDestination = .near
+				default:
+					throw Error.unrecognizedCommand(data)
+				}
+				
+				sendAck()
+				sendCompletion()
+			} else if payload.prefix(3) == Data([0x01, 0x04, 0x38]), let modeBit = payload.dropFirst(3).first {
+				print("CAM_Focus Mode", modeBit.hexDescription)
+				switch modeBit {
+				case 0x02:
+					camera.focusIsAuto = true
+				case 0x03:
+					camera.focusIsAuto = false
+				default:
+					throw Error.unrecognizedCommand(data)
+				}
+				
+				sendAck()
+				sendCompletion()
 			} else {
 				throw Error.unrecognizedCommand(data)
 			}
@@ -151,11 +192,21 @@ class VISCAServerConnection {
 				0x00,
 			]))
 		} else if payload == Data([0x09, 0x04, 0x47]) {
-			// CAM_ZoomPosInq
-			print("zoom", camera.zoom, camera.zoom.bitPadded.hexDescription)
+			print("CAM_ZoomPosInq", camera.zoom, camera.zoom.bitPadded.hexDescription)
 			send(Data([
 				0x50,
-			]) + camera.zoom.bitPadded)
+			]) + UInt16(camera.zoom).bitPadded)
+		} else if payload == Data([0x09, 0x04, 0x38]) {
+			print("CAM_FocusAFModeInq", camera.focusIsAuto)
+			send(Data([
+				0x50,
+				camera.focusIsAuto ? 0x02 : 0x03,
+			]))
+		} else if payload == Data([0x09, 0x04, 0x48]) {
+			print("CAM_FocusPosInq", camera.focus)
+			send(Data([
+				0x50,
+			]) + UInt16(camera.focus).bitPadded)
 		} else {
 			fail()
 		}

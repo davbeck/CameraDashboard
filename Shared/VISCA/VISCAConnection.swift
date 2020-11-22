@@ -56,6 +56,8 @@ final class VISCAConnection {
 	var didExecute: ((VISCAConnection) -> Void)?
 	var didCompleteCommand: ((VISCAConnection) -> Void)?
 	
+	private(set) var isReady = false
+	
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port, connectionNumber: Int) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
 		
@@ -73,6 +75,8 @@ final class VISCAConnection {
 						case .finished:
 							self.didConnect.send(true)
 							self.receive()
+							
+							self.isReady = true
 						case let .failure(error):
 							self.didFail.send(error)
 							self.didConnect.send(completion: .failure(error))
@@ -99,6 +103,8 @@ final class VISCAConnection {
 	
 	private var hasStarted: Bool = false
 	func start() -> AnyPublisher<Void, Swift.Error> {
+		dispatchPrecondition(condition: .onQueue(.visca))
+		
 		if !hasStarted {
 			hasStarted = true
 			connection.start(queue: .visca)
@@ -123,7 +129,7 @@ final class VISCAConnection {
 		case controlCommand
 	}
 	
-	func send(_ type: PayloadType, payload: Data) -> AnyPublisher<Void, Swift.Error> {
+	private func send(_ type: PayloadType, payload: Data) -> AnyPublisher<Void, Swift.Error> {
 		var message = Data()
 		// payload type
 		switch type {
@@ -229,13 +235,14 @@ final class VISCAConnection {
 	
 	private(set) var isExecuting: Bool = false
 	
-	private var current: (sequence: UInt32, command: VISCACommand.Group)?
-	var currentCommandGroup: VISCACommand.Group? {
+	private var current: (sequence: UInt32, command: VISCACommand.Group?)?
+	private var currentCommandGroup: VISCACommand.Group? {
 		return current?.command
 	}
 	
 	func canSend(command: VISCACommand.Group?) -> Bool {
-		guard !isExecuting else { return false }
+		dispatchPrecondition(condition: .onQueue(.visca))
+		guard isReady, !isExecuting else { return false }
 		
 		if let command = command {
 			return currentCommandGroup == nil || currentCommandGroup == command
@@ -245,11 +252,12 @@ final class VISCAConnection {
 	}
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
+		dispatchPrecondition(condition: .onQueue(.visca))
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
 				.eraseToAnyPublisher()
 		}
-		guard currentCommandGroup == nil || currentCommandGroup == command.group else {
+		guard canSend(command: command.group) else {
 			return Fail(error: Error.commandInProgress)
 				.eraseToAnyPublisher()
 		}
@@ -304,6 +312,8 @@ final class VISCAConnection {
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
+		dispatchPrecondition(condition: .onQueue(.visca))
+		
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
 				.eraseToAnyPublisher()

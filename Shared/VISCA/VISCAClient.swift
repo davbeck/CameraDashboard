@@ -90,8 +90,29 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 		
+		$focusPosition
+			.filterUserEvents()
+			.sink { [weak self] value in
+				self?.setFocus(focusPosition: value)
+			}
+			.store(in: &observers)
+		$focusDirection
+			.dropFirst()
+			.removeDuplicates()
+			.viscaThrottle()
+			.sink { [weak self] value in
+				self?.focus(value)
+			}
+			.store(in: &observers)
+		$focusMode
+			.filterUserEvents()
+			.sink { [weak self] value in
+				self?.set(value)
+			}
+			.store(in: &observers)
+		
 		$vector
-			.compactMap { $0 }
+			.dropFirst()
 			.removeDuplicates()
 			.viscaThrottle()
 			.sink { [weak self] value in
@@ -178,7 +199,7 @@ class VISCAClient: ObservableObject {
 	func inquireZoomPosition(completion: ((Result<Double, Swift.Error>) -> Void)? = nil) {
 		print("inquireZoomPosition")
 		pool.send(inquiry: .zoomPosition)
-			.receive(on: RunLoop.main)
+			.receive(on: DispatchQueue.main)
 			.sink { sink in
 				switch sink {
 				case .finished:
@@ -233,6 +254,111 @@ class VISCAClient: ObservableObject {
 		}
 		
 		pool.send(command: command)
+			.handleEvents(receiveCompletion: { completion in
+				switch direction {
+				case .tele, .wide:
+					print("zoomUpdateTimer")
+					self.zoomUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+						self.inquireZoomPosition()
+					})
+				case .none:
+					self.zoomUpdateTimer = nil
+					self.inquireZoomPosition()
+				}
+			})
+			.receive(on: RunLoop.main)
+			.sink { completion in
+				switch completion {
+				case let .failure(error):
+					self.error = error
+				case .finished:
+					self.error = nil
+				}
+			} receiveValue: { _ in }
+			.store(in: &observers)
+	}
+	
+	// MARK: - Focus
+	
+	@Published var focusPosition: RemoteValue<UInt16> = .init(remote: 0)
+	@Published var focusMode: RemoteValue<VISCAFocusMode> = .init(remote: .auto)
+	
+	enum FocusDirection {
+		case far
+		case near
+	}
+	
+	@Published var focusDirection: FocusDirection?
+	
+	func inquireFocusPosition(completion: ((Result<Double, Swift.Error>) -> Void)? = nil) {
+		print("inquireFocusPosition")
+		pool.send(inquiry: .focusPosition)
+			.receive(on: RunLoop.main)
+			.sink { sink in
+				switch sink {
+				case .finished:
+					break
+				case let .failure(error):
+					completion?(.failure(error))
+				}
+			} receiveValue: { rawFocus in
+				let focus = Double(rawFocus) / Double(UInt16.max)
+				self.focusPosition = .init(remote: rawFocus)
+				completion?(.success(focus))
+			}
+			.store(in: &observers)
+	}
+	
+	func inquireFocusMode() {
+		print("inquireFocusMode")
+		pool.send(inquiry: .focusMode)
+			.receive(on: RunLoop.main)
+			.sink { sink in
+			} receiveValue: { mode in
+				self.focusMode = .init(remote: mode)
+			}
+			.store(in: &observers)
+	}
+	
+	private func setFocus(focusPosition: UInt16, completion: ((Result<Void, Swift.Error>) -> Void)? = nil) {
+		print("setFocus", focusPosition, focusPosition.hexDescription)
+		pool.send(command: .focusDirect(focusPosition))
+			.receive(on: RunLoop.main)
+			.sink { sink in
+				switch sink {
+				case .finished:
+					if self.focusPosition.local == focusPosition {
+						self.focusPosition.remote = focusPosition
+					}
+					
+					completion?(.success(()))
+				case let .failure(error):
+					completion?(.failure(error))
+				}
+			} receiveValue: { _ in
+			}
+			.store(in: &observers)
+	}
+	
+	private var focusUpdateTimer: Timer? {
+		didSet {
+			oldValue?.invalidate()
+		}
+	}
+	
+	private func focus(_ direction: FocusDirection?) {
+		print("focus", direction as Any)
+		let command: VISCACommand
+		switch direction {
+		case .far:
+			command = .focusTele
+		case .near:
+			command = .focusWide
+		case .none:
+			command = .focusStop
+		}
+		
+		pool.send(command: command)
 			.receive(on: RunLoop.main)
 			.sink { completion in
 				switch completion {
@@ -243,13 +369,43 @@ class VISCAClient: ObservableObject {
 				}
 				
 				switch direction {
-				case .tele, .wide:
-					self.zoomUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: { timer in
-						self.inquireZoomPosition()
+				case .far, .near:
+					self.focusUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: { timer in
+						self.inquireFocusPosition()
 					})
 				case .none:
-					self.zoomUpdateTimer = nil
-					self.inquireZoomPosition()
+					self.focusUpdateTimer = nil
+					self.inquireFocusPosition()
+				}
+			} receiveValue: { _ in }
+			.store(in: &observers)
+	}
+	
+	private func set(_ focusMode: VISCAFocusMode) {
+		print("focusMode", focusMode)
+		let command: VISCACommand
+		switch focusMode {
+		case .auto:
+			command = .setAutoFocus
+		case .manual:
+			command = .setManualFocus
+		}
+		
+		pool.send(command: command)
+			.receive(on: RunLoop.main)
+			.sink { completion in
+				switch completion {
+				case let .failure(error):
+					self.error = error
+				case .finished:
+					self.error = nil
+				}
+				
+				switch focusMode {
+				case .auto:
+					self.focusUpdateTimer = nil
+				case .manual:
+					self.inquireFocusPosition()
 				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
@@ -264,10 +420,10 @@ class VISCAClient: ObservableObject {
 		return UserDefaults.standard.double(forKey: Self.vectorSpeedKey)
 	}
 	
-	private func updateVector(vector: PTZVector) {
+	private func updateVector(vector: PTZVector?) {
 		let command: VISCACommand
 		
-		switch self.vector {
+		switch vector {
 		case let .direction(direction):
 			command = .panTilt(
 				direction: direction,
@@ -310,10 +466,12 @@ class VISCAClient: ObservableObject {
 				)
 			}
 		case .none:
+			print("panTiltStop")
 			command = .panTiltStop
 		}
 		
 		pool.send(command: command)
+			.receive(on: RunLoop.main)
 			.sink { completion in
 				switch completion {
 				case let .failure(error):

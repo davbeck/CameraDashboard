@@ -7,10 +7,20 @@ struct ContentView: View {
 		VStack(alignment: .leading, spacing: 10) {
 			Text("Preset: \(camera.preset)")
 			
-			HStack {
-				Text("Zoom")
+			VStack(alignment: .leading, spacing: 0) {
+				Text("Zoom (\(camera.zoom))")
 				Slider(value: $camera.zoom, in: 0...Int(UInt16.max))
-				Text("\(camera.zoom)")
+			}
+			
+			VStack(alignment: .leading, spacing: 0) {
+				HStack {
+					Text("Focus (\(camera.focus))")
+					Spacer()
+					Toggle(isOn: $camera.focusIsAuto) {
+						Text("Auto")
+					}
+				}
+				Slider(value: $camera.focus, in: 0...Int(UInt16.max))
 			}
 		}
 		.font(Font.body.monospacedDigit())

@@ -18,7 +18,7 @@ struct CameraPTZControlTab: View {
 				Spacer()
 				
 				ZoomControl(client: client)
-				FocusControl()
+				FocusControl(client: client)
 			}
 			.frame(width: 200)
 		}
