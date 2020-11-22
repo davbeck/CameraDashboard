@@ -11,8 +11,7 @@ struct VISCAPreset: Codable, Hashable, RawRepresentable {
 
 extension VISCAPreset: CaseIterable {
 	static var allCases: [Self] {
-		// TODO: once we can use lazy stacks, increase this to 255
-		(0..<16).map { Self(rawValue: $0)! }
+		(0..<255).map { Self(rawValue: $0)! }
 	}
 }
 

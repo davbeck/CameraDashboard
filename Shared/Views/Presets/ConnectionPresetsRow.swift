@@ -9,7 +9,7 @@ struct ConnectionPresetsRow: View {
 	
 	var body: some View {
 		HStack(spacing: 15) {
-			ForEach(VISCAPreset.allCases) { preset in
+			ForEach(VISCAPreset.allCases.prefix(16)) { preset in
 				PresetView(
 					preset: preset,
 					presetConfig: $cameraManager[camera, preset],
