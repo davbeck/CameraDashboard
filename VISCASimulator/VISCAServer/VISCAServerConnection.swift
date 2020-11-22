@@ -105,8 +105,9 @@ class VISCAServerConnection {
 					self.sendCompletion()
 				}
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
-				let zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
+				var zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
 				print("setting zoom", zoomPosition)
+				zoomPosition = min(zoomPosition, UInt16(camera.maxZoom))
 				camera.zoomDestination = .direct(Int(zoomPosition))
 				
 				sendAck()
@@ -133,8 +134,9 @@ class VISCAServerConnection {
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x48]) {
-				let position = payload.dropFirst(3).loadBitPadded(as: UInt16.self)
+				var position = payload.dropFirst(3).loadBitPadded(as: UInt16.self)
 				print("CAM_Focus Direct", position)
+				position = min(position, UInt16(camera.maxFocus))
 				camera.focusDestination = .direct(Int(position))
 				
 				sendAck()

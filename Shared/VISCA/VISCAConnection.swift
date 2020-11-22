@@ -154,7 +154,7 @@ final class VISCAConnection {
 		
 		message.append(payload)
 		
-		print("⬆️#\(connectionNumber)", message.map { $0.hexDescription }.joined(separator: " "))
+		print("⬆️#\(connectionNumber)", CFAbsoluteTimeGetCurrent(), message.map { $0.hexDescription }.joined(separator: " "))
 		
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
@@ -212,7 +212,7 @@ final class VISCAConnection {
 		func getNext() {
 			readByte { byte in
 				if byte == 0xFF {
-					print("⬇️#\(self.connectionNumber)", responsePacket.hexDescription)
+					print("⬇️#\(self.connectionNumber)", CFAbsoluteTimeGetCurrent(), responsePacket.hexDescription)
 					
 					self.responses.send(ResponsePacket(responsePacket))
 					self.receive()

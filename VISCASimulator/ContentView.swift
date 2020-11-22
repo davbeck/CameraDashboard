@@ -9,7 +9,7 @@ struct ContentView: View {
 			
 			VStack(alignment: .leading, spacing: 0) {
 				Text("Zoom (\(camera.zoom))")
-				Slider(value: $camera.zoom, in: 0...Int(UInt16.max))
+				Slider(value: $camera.zoom, in: 0...camera.maxZoom)
 			}
 			
 			VStack(alignment: .leading, spacing: 0) {
@@ -20,7 +20,7 @@ struct ContentView: View {
 						Text("Auto")
 					}
 				}
-				Slider(value: $camera.focus, in: 0...Int(UInt16.max))
+				Slider(value: $camera.focus, in: 0...camera.maxFocus)
 			}
 		}
 		.font(Font.body.monospacedDigit())

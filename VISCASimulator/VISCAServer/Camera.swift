@@ -19,6 +19,7 @@ final class Camera: ObservableObject {
 	
 	// MARK: - Zoom
 	
+	let maxZoom = 0x4000
 	@Published var zoom: Int = Defaults[.zoom] {
 		didSet {
 			Defaults[.zoom] = zoom
@@ -41,7 +42,7 @@ final class Camera: ObservableObject {
 		didSet {
 			if let zoomDestination = zoomDestination {
 				// zoom from min to max in x seconds
-				let step = Int(Double(UInt16.max) / 5 * updateInterval)
+				let step = Int(Double(maxZoom) / 5 * updateInterval)
 				
 				zoomTimer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true, block: { [weak self] timer in
 					guard let self = self else {
@@ -67,9 +68,9 @@ final class Camera: ObservableObject {
 							self.zoomDestination = nil
 						}
 					case .tele:
-						self.zoom = min(self.zoom + step, Int(UInt16.max))
+						self.zoom = min(self.zoom + step, self.maxZoom)
 						
-						if self.zoom == Int(UInt16.max) {
+						if self.zoom == self.maxZoom {
 							self.zoomDestination = nil
 						}
 					}
@@ -82,6 +83,7 @@ final class Camera: ObservableObject {
 	
 	// MARK: - Focus
 	
+	let maxFocus = 0x049C
 	@Published var focus: Int = Defaults[.focus] {
 		didSet {
 			Defaults[.focus] = focus
@@ -110,7 +112,7 @@ final class Camera: ObservableObject {
 		didSet {
 			if let focusDestination = focusDestination {
 				// from min to max in x seconds
-				let step = Int(Double(UInt16.max) / 1 * updateInterval)
+				let step = Int(Double(maxFocus) / 1 * updateInterval)
 				
 				focusTimer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true, block: { [weak self] timer in
 					guard let self = self else {
@@ -136,9 +138,9 @@ final class Camera: ObservableObject {
 							self.focusDestination = nil
 						}
 					case .near:
-						self.focus = min(self.focus + step, Int(UInt16.max))
+						self.focus = min(self.focus + step, self.maxFocus)
 						
-						if self.focus == Int(UInt16.max) {
+						if self.focus == self.maxFocus {
 							self.focusDestination = nil
 						}
 					}

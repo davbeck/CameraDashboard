@@ -62,13 +62,13 @@ class VISCAPool {
 	
 	private func getConnection(command: VISCACommand.Group? = nil) -> VISCAConnection? {
 		if let connection = connections.first(where: { $0.canSend(command: command) }) {
-			print("returning available connection")
+//			print("returning available connection")
 			return connection
 		} else if connections.count < maxConnections, !connections.contains(where: { !$0.isReady }) {
-			print("create connection")
+//			print("create connection")
 			return createConnection()
 		} else {
-			print("no connection available")
+//			print("no connection available")
 			return nil
 		}
 	}
@@ -99,15 +99,15 @@ class VISCAPool {
 	}
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
-		return Just(()).receive(on: DispatchQueue.visca)
-			.flatMap { self.aquire(command: command.group) }
+		dispatchPrecondition(condition: .onQueue(.visca))
+		return aquire(command: command.group)
 			.flatMap { $0.send(command: command) }
 			.eraseToAnyPublisher()
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
-		return Just(()).receive(on: DispatchQueue.visca)
-			.flatMap { self.aquire() }
+		dispatchPrecondition(condition: .onQueue(.visca))
+		return aquire()
 			.flatMap { $0.send(inquiry: inquiry) }
 			.eraseToAnyPublisher()
 	}

@@ -16,7 +16,7 @@ struct ZoomControl: View {
 						.opacity(client.zoomDirection == .wide ? 0.8 : 1)
 				}
 				
-				Slider(value: $client.zoomPosition.local, in: 0...UInt16.max)
+				Slider(value: $client.zoomPosition.local, in: 0...VISCAClient.maxZoom)
 				
 				ToggleButton(isPressed: $client.zoomDirection.equalTo(.tele)) {
 					Image(systemSymbol: .plusMagnifyingglass)
