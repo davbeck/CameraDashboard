@@ -211,7 +211,7 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func _inquireZoomPosition() {
-		print("inquireZoomPosition", CFAbsoluteTimeGetCurrent())
+		print("inquireZoomPosition")
 		pool.send(inquiry: .zoomPosition)
 			.receive(on: DispatchQueue.main)
 			.sink { sink in
