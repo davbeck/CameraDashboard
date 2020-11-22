@@ -7,8 +7,11 @@ struct CameraPTZControlTab: View {
 	
 	var body: some View {
 		HStack {
-			Spacer()
+			CameraPresetsGrid(client: client, camera: camera)
 				.layoutPriority(1)
+			
+			Spacer()
+			
 			VStack {
 				PanTiltControl(vector: $client.vector)
 				Slider(value: $vectorSpeed, in: 0...1) {
@@ -21,8 +24,8 @@ struct CameraPTZControlTab: View {
 				FocusControl(client: client)
 			}
 			.frame(width: 200)
+			.padding()
 		}
-		.padding()
 		.tabItem {
 			Text("Controls")
 		}

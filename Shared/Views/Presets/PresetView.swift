@@ -83,7 +83,7 @@ struct PresetView: View {
 		}
 		.padding(12)
 		.foregroundColor(.white)
-		.frame(width: 140, height: 100)
+		.frame(height: 100)
 		.background(LinearGradient(gradient: Gradient(colors: [
 			Color(white: 1, opacity: 0.1),
 			Color(white: 1, opacity: 0),

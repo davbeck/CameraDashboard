@@ -16,6 +16,7 @@ struct ConnectionPresetsRow: View {
 					isActive: client.preset.remote == preset,
 					isSwitching: client.preset.local == preset
 				)
+				.frame(width: 140)
 				.onTapGesture {
 					client.preset.local = preset
 				}

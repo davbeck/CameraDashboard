@@ -131,6 +131,8 @@
 		7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
 		7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */; };
 		7A9D39BD256A104D0090AD5F /* DataLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */; };
+		7A9D39D7256B21120090AD5F /* CameraPresetsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */; };
+		7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -247,6 +249,7 @@
 		7A9D39BA256A104D0090AD5F /* CameraDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CameraDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingTests.swift; sourceTree = "<group>"; };
 		7A9D39BE256A104D0090AD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresetsGrid.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -457,10 +460,10 @@
 			isa = PBXGroup;
 			children = (
 				7A7F64DF2560314D008B33C6 /* PresetsView.swift */,
+				7A7F64E22560314D008B33C6 /* ConnectionPresetsRow.swift */,
 				7A7F64DE2560314D008B33C6 /* PresetColorControl.swift */,
 				7A7F64E02560314D008B33C6 /* PresetColorPicker.swift */,
 				7A7F64E12560314D008B33C6 /* PresetEditView.swift */,
-				7A7F64E22560314D008B33C6 /* ConnectionPresetsRow.swift */,
 				7A7F64E32560314D008B33C6 /* PresetView.swift */,
 			);
 			path = Presets;
@@ -493,6 +496,7 @@
 				7AAF43DD25660E9700C82EC3 /* PanTiltControl */,
 				7A7F65052560315F008B33C6 /* ZoomControl.swift */,
 				7A7F65022560315F008B33C6 /* FocusControl.swift */,
+				7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */,
 			);
 			path = PTZControl;
 			sourceTree = "<group>";
@@ -914,6 +918,7 @@
 				7A7F648E256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C625603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C425603134008B33C6 /* SaveButtonsView.swift in Sources */,
+				7A9D39D7256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
 				7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
@@ -979,6 +984,7 @@
 				7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A7F64C525603134008B33C6 /* SaveButtonsView.swift in Sources */,
+				7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
 				7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */,
