@@ -5,7 +5,23 @@ struct ContentView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 10) {
-			Text("Preset: \(camera.preset)")
+			Picker(selection: $camera.preset, label: Text("Preset")) {
+				ForEach(0...UInt8(255), id: \.self) { preset in
+					Text("\(preset)")
+						.foregroundColor(camera.presets.keys.contains(preset) ? Color.primary : Color.gray)
+						.font(Font.body.monospacedDigit())
+				}
+			}
+			
+			VStack(alignment: .leading, spacing: 0) {
+				Text("Pan (\(camera.pan))")
+				Slider(value: $camera.pan, in: camera.minPan...camera.maxPan)
+			}
+			
+			VStack(alignment: .leading, spacing: 0) {
+				Text("Tilt (\(camera.tilt))")
+				Slider(value: $camera.tilt, in: camera.minTilt...camera.maxTilt)
+			}
 			
 			VStack(alignment: .leading, spacing: 0) {
 				Text("Zoom (\(camera.zoom))")

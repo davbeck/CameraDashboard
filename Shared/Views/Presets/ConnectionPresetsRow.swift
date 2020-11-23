@@ -11,10 +11,9 @@ struct ConnectionPresetsRow: View {
 		HStack(spacing: 15) {
 			ForEach(VISCAPreset.allCases.prefix(16)) { preset in
 				PresetView(
+					camera: camera,
 					preset: preset,
-					presetConfig: $cameraManager[camera, preset],
-					isActive: client.preset.remote == preset,
-					isSwitching: client.preset.local == preset
+					client: client
 				)
 				.frame(width: 140)
 				.onTapGesture {

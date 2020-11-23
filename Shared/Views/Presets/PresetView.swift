@@ -3,6 +3,7 @@ import SwiftUI
 struct PresetStateOverlay: View {
 	var isActive: Bool
 	var isSwitching: Bool
+	
 	@State private var animatedOff: Bool = false
 	
 	var body: some View {
@@ -34,10 +35,21 @@ struct PresetStateOverlay: View {
 struct PresetView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
+	var camera: Camera
 	var preset: VISCAPreset
-	@Binding var presetConfig: PresetConfig
-	var isActive: Bool
-	var isSwitching: Bool
+	@ObservedObject var client: VISCAClient
+	
+	var presetConfig: PresetConfig {
+		cameraManager[camera, preset]
+	}
+	
+	var isActive: Bool {
+		client.preset.remote == preset
+	}
+	
+	var isSwitching: Bool {
+		client.preset.local == preset
+	}
 	
 	@State var isShowingEdit: Bool = false
 	@State var isHovering: Bool = false
@@ -71,8 +83,9 @@ struct PresetView: View {
 									arrowEdge: .bottom
 								) {
 									PresetEditView(
-										presetConfig: $presetConfig,
-										isOpen: $isShowingEdit
+										camera: camera,
+										preset: preset,
+										client: client
 									)
 									.environmentObject(cameraManager)
 								}
@@ -102,32 +115,32 @@ struct PresetView: View {
 	}
 }
 
-struct PresetView_Previews: PreviewProvider {
-	static var previews: some View {
-		Group {
-			PresetView(
-				preset: VISCAPreset.allCases[1],
-				presetConfig: .constant(PresetConfig()),
-				isActive: false,
-				isSwitching: false
-			)
-			.padding()
-			
-			PresetView(
-				preset: VISCAPreset.allCases[2],
-				presetConfig: .constant(PresetConfig()),
-				isActive: false,
-				isSwitching: true
-			)
-			.padding()
-			
-			PresetView(
-				preset: VISCAPreset.allCases[3],
-				presetConfig: .constant(PresetConfig()),
-				isActive: true,
-				isSwitching: false
-			)
-			.padding()
-		}
-	}
-}
+// struct PresetView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		Group {
+//			PresetView(
+//				preset: VISCAPreset.allCases[1],
+//				presetConfig: .constant(PresetConfig()),
+//				isActive: false,
+//				isSwitching: false
+//			)
+//			.padding()
+//
+//			PresetView(
+//				preset: VISCAPreset.allCases[2],
+//				presetConfig: .constant(PresetConfig()),
+//				isActive: false,
+//				isSwitching: true
+//			)
+//			.padding()
+//
+//			PresetView(
+//				preset: VISCAPreset.allCases[3],
+//				presetConfig: .constant(PresetConfig()),
+//				isActive: true,
+//				isSwitching: false
+//			)
+//			.padding()
+//		}
+//	}
+// }

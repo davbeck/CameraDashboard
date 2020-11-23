@@ -15,10 +15,9 @@ struct CameraPresetsGrid: View {
 			LazyVGrid(columns: columns) {
 				ForEach(VISCAPreset.allCases) { preset in
 					PresetView(
+						camera: camera,
 						preset: preset,
-						presetConfig: $cameraManager[camera, preset],
-						isActive: client.preset.remote == preset,
-						isSwitching: client.preset.local == preset
+						client: client
 					)
 					.frame(maxWidth: .infinity)
 					.onTapGesture {

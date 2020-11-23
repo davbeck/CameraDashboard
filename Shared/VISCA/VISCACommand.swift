@@ -4,11 +4,13 @@ struct VISCACommand: Equatable {
 	/// The command classification
 	///
 	/// Commands with the same classification cancel each other out. For instance, zoom tele cancels zoom wide. These are safe to issue concurrently because you will get completion for the previous command before confirmation of the next.
-	enum Group {
-		case zoom
-		case focus
-		case panTilt
-		case preset
+	struct Group: OptionSet {
+		let rawValue: UInt
+		
+		static let panTilt = Group(rawValue: 1 << 0)
+		static let zoom = Group(rawValue: 1 << 1)
+		static let focus = Group(rawValue: 1 << 2)
+		static let preset: Group = [.panTilt, .zoom]
 	}
 	
 	var group: Group?
@@ -37,6 +39,10 @@ struct VISCACommand: Equatable {
 	static let setManualFocus = VISCACommand(group: nil, payload: Data([0x01, 0x04, 0x38, 0x03]))
 	
 	// Presets
+	
+	static func set(_ preset: VISCAPreset) -> VISCACommand {
+		VISCACommand(group: .preset, payload: [0x01, 0x04, 0x3F, 0x01, preset.rawValue])
+	}
 	
 	static func recall(_ preset: VISCAPreset) -> VISCACommand {
 		VISCACommand(group: .preset, payload: Data([0x01, 0x04, 0x3F, 0x02, preset.rawValue]))

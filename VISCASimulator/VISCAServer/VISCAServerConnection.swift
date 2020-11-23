@@ -94,16 +94,40 @@ class VISCAServerConnection {
 		do {
 			let payload = data.dropFirst().dropLast()
 			
-			if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x02]) {
-				let memoryNumber = data[5]
+			if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x02]), let memoryNumber = payload.dropFirst(4).first {
 				print("recall", memoryNumber)
 				
+				guard let preset = camera.presets[memoryNumber] else {
+					sendNotExecutable()
+					return
+				}
+				camera.preset = memoryNumber
+				
+				camera.zoomDestination = .direct(preset.zoom)
+				camera.panTiltDestination = .init(direction: .direct(pan: preset.pan, tilt: preset.tilt), panSpeed: 0x18, tiltSpeed: 0x14)
+				
+				sendAck()
+				
+				let panTilt = camera.$panTiltDestination
+					.dropFirst()
+					.first()
+				
+				let zoom = camera.$zoomDestination
+					.dropFirst()
+					.first()
+				
+				panTilt.combineLatest(zoom)
+					.sink { _ in
+						self.sendCompletion()
+					}
+					.store(in: &observers)
+			} else if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x01]), let memoryNumber = payload.dropFirst(4).first {
+				print("set preset", memoryNumber)
+				camera.presets[memoryNumber] = Preset(pan: camera.pan, tilt: camera.tilt, zoom: camera.zoom)
 				camera.preset = memoryNumber
 				
 				sendAck()
-				Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
-					self.sendCompletion()
-				}
+				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
 				var zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
 				print("setting zoom", zoomPosition)
@@ -238,6 +262,10 @@ class VISCAServerConnection {
 	
 	private func sendError() {
 		send(Data([0x60, 0x02]))
+	}
+	
+	private func sendNotExecutable() {
+		send(Data([0x61, 0x41]))
 	}
 }
 

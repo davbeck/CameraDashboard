@@ -461,10 +461,10 @@
 			children = (
 				7A7F64DF2560314D008B33C6 /* PresetsView.swift */,
 				7A7F64E22560314D008B33C6 /* ConnectionPresetsRow.swift */,
+				7A7F64E32560314D008B33C6 /* PresetView.swift */,
+				7A7F64E12560314D008B33C6 /* PresetEditView.swift */,
 				7A7F64DE2560314D008B33C6 /* PresetColorControl.swift */,
 				7A7F64E02560314D008B33C6 /* PresetColorPicker.swift */,
-				7A7F64E12560314D008B33C6 /* PresetEditView.swift */,
-				7A7F64E32560314D008B33C6 /* PresetView.swift */,
 			);
 			path = Presets;
 			sourceTree = "<group>";

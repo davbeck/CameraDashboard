@@ -204,6 +204,30 @@ class VISCAClient: ObservableObject {
 					}
 					self.error = error
 				}
+				
+				self.inquirePreset()
+				self.inquireZoomPosition()
+			} receiveValue: { _ in }
+			.store(in: &observers)
+	}
+	
+	func set(_ preset: VISCAPreset) {
+		DispatchQueue.visca.async {
+			self._set(preset)
+		}
+	}
+	
+	private func _set(_ preset: VISCAPreset) {
+		pool.send(command: .set(preset))
+			.receive(on: DispatchQueue.main)
+			.sink { completion in
+				switch completion {
+				case .finished:
+					self.preset = .init(remote: preset)
+					self.error = nil
+				case let .failure(error):
+					self.error = error
+				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
