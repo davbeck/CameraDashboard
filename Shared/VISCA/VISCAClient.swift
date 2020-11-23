@@ -171,6 +171,23 @@ class VISCAClient: ObservableObject {
 	
 	@Published var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
 	
+	func inquirePreset() {
+		DispatchQueue.visca.async {
+			self._inquirePreset()
+		}
+	}
+	
+	private func _inquirePreset() {
+		print("inquirePreset")
+		pool.send(inquiry: .preset)
+			.receive(on: DispatchQueue.main)
+			.sink { sink in
+			} receiveValue: { value in
+				self.preset = .init(remote: value)
+			}
+			.store(in: &observers)
+	}
+	
 	private func recall(preset: VISCAPreset) {
 		pool.send(command: .recall(preset))
 			.receive(on: DispatchQueue.main)

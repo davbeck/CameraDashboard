@@ -23,6 +23,16 @@ extension VISCAInquiry where Response == VISCAVersion {
 	}
 }
 
+extension VISCAInquiry where Response == VISCAPreset {
+	static let preset = Self(payload: [0x09, 0x04, 0x3F]) { payload in
+		guard
+			payload.count == 2, payload.first == 0x50,
+			let value = payload.dropFirst(1).first
+		else { return nil }
+		return VISCAPreset(rawValue: value)
+	}
+}
+
 extension VISCAInquiry where Response == UInt16 {
 	static let zoomPosition = Self(payload: [0x09, 0x04, 0x47]) { payload in
 		guard payload.first == 0x50 else { return nil }

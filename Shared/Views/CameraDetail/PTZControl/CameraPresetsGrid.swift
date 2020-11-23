@@ -30,6 +30,9 @@ struct CameraPresetsGrid: View {
 			}
 			.padding()
 		}
+		.onAppear {
+			client.inquirePreset()
+		}
 	}
 }
 

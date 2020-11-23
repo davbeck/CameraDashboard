@@ -198,6 +198,11 @@ class VISCAServerConnection {
 			send(Data([
 				0x50,
 			]) + UInt16(camera.zoom).bitPadded)
+		} else if payload == Data([0x09, 0x04, 0x3F]) {
+			print("CAM_MemoryInq", camera.preset, camera.preset.hexDescription)
+			send(Data([
+				0x50, camera.preset,
+			]))
 		} else if payload == Data([0x09, 0x04, 0x38]) {
 			print("CAM_FocusAFModeInq", camera.focusIsAuto)
 			send(Data([

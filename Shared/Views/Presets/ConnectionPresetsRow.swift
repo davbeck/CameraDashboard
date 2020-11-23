@@ -23,6 +23,9 @@ struct ConnectionPresetsRow: View {
 				.acceptsFirstMouse()
 			}
 		}
+		.onAppear {
+			client.inquirePreset()
+		}
 	}
 }
 
