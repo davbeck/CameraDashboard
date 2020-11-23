@@ -13,31 +13,12 @@ struct ContentView: View {
 				}
 			}
 			
-			VStack(alignment: .leading, spacing: 0) {
-				Text("Pan (\(camera.pan))")
-				Slider(value: $camera.pan, in: camera.minPan...camera.maxPan)
-			}
+			PropertyControl(label: "Pan", property: camera.pan)
+			PropertyControl(label: "Tilt", property: camera.tilt)
 			
-			VStack(alignment: .leading, spacing: 0) {
-				Text("Tilt (\(camera.tilt))")
-				Slider(value: $camera.tilt, in: camera.minTilt...camera.maxTilt)
-			}
+			PropertyControl(label: "Zoom", property: camera.zoom)
 			
-			VStack(alignment: .leading, spacing: 0) {
-				Text("Zoom (\(camera.zoom))")
-				Slider(value: $camera.zoom, in: 0...camera.maxZoom)
-			}
-			
-			VStack(alignment: .leading, spacing: 0) {
-				HStack {
-					Text("Focus (\(camera.focus))")
-					Spacer()
-					Toggle(isOn: $camera.focusIsAuto) {
-						Text("Auto")
-					}
-				}
-				Slider(value: $camera.focus, in: 0...camera.maxFocus)
-			}
+			FocusControl(camera: camera, property: camera.focus)
 		}
 		.font(Font.body.monospacedDigit())
 		.padding()

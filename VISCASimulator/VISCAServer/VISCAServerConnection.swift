@@ -103,39 +103,81 @@ class VISCAServerConnection {
 				}
 				camera.preset = memoryNumber
 				
-				camera.zoomDestination = .direct(preset.zoom)
-				camera.panTiltDestination = .init(direction: .direct(pan: preset.pan, tilt: preset.tilt), panSpeed: 0x18, tiltSpeed: 0x14)
+				camera.zoom.destination = .init(direction: .direct(preset.zoom), speed: 0x0F * 5)
+				camera.pan.destination = .init(direction: .direct(preset.pan), speed: 0x18 * 10)
+				camera.tilt.destination = .init(direction: .direct(preset.tilt), speed: 0x14 * 10)
 				
 				sendAck()
 				
-				let panTilt = camera.$panTiltDestination
+				let pan = camera.pan.$value
 					.dropFirst()
 					.first()
 				
-				let zoom = camera.$zoomDestination
+				let tilt = camera.tilt.$value
 					.dropFirst()
 					.first()
 				
-				panTilt.combineLatest(zoom)
+				let zoom = camera.tilt.$value
+					.dropFirst()
+					.first()
+				
+				pan
+					.combineLatest(tilt)
+					.combineLatest(zoom)
 					.sink { _ in
 						self.sendCompletion()
 					}
 					.store(in: &observers)
 			} else if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x01]), let memoryNumber = payload.dropFirst(4).first {
 				print("set preset", memoryNumber)
-				camera.presets[memoryNumber] = Preset(pan: camera.pan, tilt: camera.tilt, zoom: camera.zoom)
+				camera.presets[memoryNumber] = Preset(
+					pan: camera.pan.value,
+					tilt: camera.tilt.value,
+					zoom: camera.zoom.value
+				)
 				camera.preset = memoryNumber
+				
+				sendAck()
+				sendCompletion()
+			} else if payload.prefix(3) == Data([0x01, 0x06, 0x01]),
+				let panSpeed = payload.dropFirst(3).first,
+				let tiltSpeed = payload.dropFirst(4).first,
+				let panDirection = payload.dropFirst(5).first,
+				let tiltDirection = payload.dropFirst(6).first {
+				print("pantilt", panDirection, tiltDirection)
+				
+				switch panDirection {
+				case 0x01:
+					camera.pan.destination = .init(direction: .down, speed: Int(panSpeed) * 10)
+				case 0x02:
+					camera.pan.destination = .init(direction: .up, speed: Int(panSpeed) * 10)
+				case 0x03:
+					camera.pan.destination = nil
+				default:
+					sendError()
+				}
+				
+				switch tiltDirection {
+				case 0x01:
+					camera.tilt.destination = .init(direction: .up, speed: Int(tiltSpeed) * 10)
+				case 0x02:
+					camera.tilt.destination = .init(direction: .down, speed: Int(tiltSpeed) * 10)
+				case 0x03:
+					camera.tilt.destination = nil
+				default:
+					sendError()
+				}
 				
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
 				var zoomPosition = payload.loadBitPadded(offset: 3, as: UInt16.self)
 				print("setting zoom", zoomPosition)
-				zoomPosition = min(zoomPosition, UInt16(camera.maxZoom))
-				camera.zoomDestination = .direct(Int(zoomPosition))
+				zoomPosition = min(zoomPosition, UInt16(camera.zoom.maxValue))
+				camera.zoom.destination = .init(direction: .direct(Int(zoomPosition)), speed: 0x0F * 5)
 				
 				sendAck()
-				camera.$zoomDestination
+				camera.zoom.$destination
 					.dropFirst()
 					.first()
 					.sink { _ in
@@ -146,11 +188,11 @@ class VISCAServerConnection {
 				print("zoom", directionBit.hexDescription)
 				switch directionBit {
 				case 0x00:
-					camera.zoomDestination = nil
+					camera.zoom.destination = nil
 				case 0x02:
-					camera.zoomDestination = .tele
+					camera.zoom.destination = .init(direction: .up, speed: 0x0F * 5)
 				case 0x03:
-					camera.zoomDestination = .wide
+					camera.zoom.destination = .init(direction: .down, speed: 0x0F * 5)
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
@@ -160,11 +202,11 @@ class VISCAServerConnection {
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x48]) {
 				var position = payload.dropFirst(3).loadBitPadded(as: UInt16.self)
 				print("CAM_Focus Direct", position)
-				position = min(position, UInt16(camera.maxFocus))
-				camera.focusDestination = .direct(Int(position))
+				position = min(position, UInt16(camera.focus.maxValue))
+				camera.focus.destination = .init(direction: .direct(Int(position)), speed: 0x0F * 5)
 				
 				sendAck()
-				camera.$focusDestination
+				camera.focus.$destination
 					.dropFirst()
 					.first()
 					.sink { _ in
@@ -175,11 +217,11 @@ class VISCAServerConnection {
 				print("CAM_Focus", directionBit.hexDescription)
 				switch directionBit {
 				case 0x00:
-					camera.focusDestination = nil
+					camera.focus.destination = nil
 				case 0x02:
-					camera.focusDestination = .far
+					camera.focus.destination = .init(direction: .up, speed: 0x0F * 5)
 				case 0x03:
-					camera.focusDestination = .near
+					camera.focus.destination = .init(direction: .down, speed: 0x0F * 5)
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
@@ -218,10 +260,10 @@ class VISCAServerConnection {
 				0x00,
 			]))
 		} else if payload == Data([0x09, 0x04, 0x47]) {
-			print("CAM_ZoomPosInq", camera.zoom, camera.zoom.bitPadded.hexDescription)
+			print("CAM_ZoomPosInq", camera.zoom, camera.zoom.value.bitPadded.hexDescription)
 			send(Data([
 				0x50,
-			]) + UInt16(camera.zoom).bitPadded)
+			]) + UInt16(camera.zoom.value).bitPadded)
 		} else if payload == Data([0x09, 0x04, 0x3F]) {
 			print("CAM_MemoryInq", camera.preset, camera.preset.hexDescription)
 			send(Data([
@@ -237,7 +279,7 @@ class VISCAServerConnection {
 			print("CAM_FocusPosInq", camera.focus)
 			send(Data([
 				0x50,
-			]) + UInt16(camera.focus).bitPadded)
+			]) + UInt16(camera.focus.value).bitPadded)
 		} else {
 			fail()
 		}

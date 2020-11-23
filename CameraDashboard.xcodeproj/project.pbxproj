@@ -135,6 +135,8 @@
 		7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */; };
 		7A9D3A15256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
 		7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
+		7A9D3A1E256B75AD0090AD5F /* FocusControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */; };
+		7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A25256B75D60090AD5F /* PropertyControl.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -253,6 +255,8 @@
 		7A9D39BE256A104D0090AD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresetsGrid.swift; sourceTree = "<group>"; };
 		7A9D3A14256B6F550090AD5F /* DirectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionButton.swift; sourceTree = "<group>"; };
+		7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
+		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 			children = (
 				7A7F659425618087008B33C6 /* VISCASimulatorApp.swift */,
 				7A7F659625618087008B33C6 /* ContentView.swift */,
+				7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */,
+				7A9D3A25256B75D60090AD5F /* PropertyControl.swift */,
 				7A7F65A7256180C5008B33C6 /* VISCAServer */,
 				7A7F659825618088008B33C6 /* Assets.xcassets */,
 				7A7F659D25618088008B33C6 /* Info.plist */,
@@ -1018,12 +1024,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */,
 				7A7F65A9256180E2008B33C6 /* VISCAServer.swift in Sources */,
 				7A7F659725618087008B33C6 /* ContentView.swift in Sources */,
 				7A7F659525618087008B33C6 /* VISCASimulatorApp.swift in Sources */,
 				7A7F65C72561DD2B008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F65B5256180F1008B33C6 /* VISCAServerConnection.swift in Sources */,
 				7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */,
+				7A9D3A1E256B75AD0090AD5F /* FocusControl.swift in Sources */,
 				7A7F65C02561C7F2008B33C6 /* IntegerFormatting.swift in Sources */,
 				7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */,
 			);
