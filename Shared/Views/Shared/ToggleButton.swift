@@ -6,24 +6,16 @@ struct ToggleButton<Content: View>: View {
 	let content: () -> Content
 	
 	var body: some View {
-		ZStack {
-			#if os(macOS)
-				Spacer().frame(width: 20, height: 20)
-			#else
-				Spacer().frame(width: 44, height: 44)
-			#endif
-			content()
-		}
-		.contentShape(Rectangle())
-		.gesture(
-			DragGesture(minimumDistance: 0)
-				.onChanged { value in
-					self.isPressed = true
-				}
-				.onEnded { value in
-					self.isPressed = false
-				}
-		)
+		content()
+			.gesture(
+				DragGesture(minimumDistance: 0)
+					.onChanged { value in
+						self.isPressed = true
+					}
+					.onEnded { value in
+						self.isPressed = false
+					}
+			)
 	}
 }
 

@@ -133,6 +133,8 @@
 		7A9D39BD256A104D0090AD5F /* DataLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */; };
 		7A9D39D7256B21120090AD5F /* CameraPresetsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */; };
 		7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */; };
+		7A9D3A15256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
+		7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -250,6 +252,7 @@
 		7A9D39BC256A104D0090AD5F /* DataLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingTests.swift; sourceTree = "<group>"; };
 		7A9D39BE256A104D0090AD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresetsGrid.swift; sourceTree = "<group>"; };
+		7A9D3A14256B6F550090AD5F /* DirectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionButton.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
@@ -496,6 +499,7 @@
 				7AAF43DD25660E9700C82EC3 /* PanTiltControl */,
 				7A7F65052560315F008B33C6 /* ZoomControl.swift */,
 				7A7F65022560315F008B33C6 /* FocusControl.swift */,
+				7A9D3A14256B6F550090AD5F /* DirectionButton.swift */,
 				7A9D39D6256B21120090AD5F /* CameraPresetsGrid.swift */,
 			);
 			path = PTZControl;
@@ -897,6 +901,7 @@
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
 				7A7F65732560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649B256030F1008B33C6 /* Formatters.swift in Sources */,
+				7A9D3A15256B6F550090AD5F /* DirectionButton.swift in Sources */,
 				7A7F65192560315F008B33C6 /* ZoomControl.swift in Sources */,
 				7A7F64652560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65882560E968008B33C6 /* await.swift in Sources */,
@@ -963,6 +968,7 @@
 				7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
 				7A7F65742560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649C256030F1008B33C6 /* Formatters.swift in Sources */,
+				7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */,
 				7A7F651A2560315F008B33C6 /* ZoomControl.swift in Sources */,
 				7A7F64662560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65892560E968008B33C6 /* await.swift in Sources */,

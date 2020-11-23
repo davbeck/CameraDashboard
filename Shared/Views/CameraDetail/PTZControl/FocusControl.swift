@@ -22,16 +22,14 @@ struct FocusControl: View {
 			}
 			
 			HStack {
-				ToggleButton(isPressed: $client.focusDirection.equalTo(.far)) {
+				DirectionButton(isActive: $client.focusDirection.equalTo(.far)) {
 					Image(systemSymbol: .minus)
-						.opacity(client.focusDirection == .near ? 0.8 : 1)
 				}
 				
 				Slider(value: $client.focusPosition.local, in: 0...VISCAClient.maxFocus)
 				
-				ToggleButton(isPressed: $client.focusDirection.equalTo(.near)) {
+				DirectionButton(isActive: $client.focusDirection.equalTo(.near)) {
 					Image(systemSymbol: .plus)
-						.opacity(client.focusDirection == .far ? 0.8 : 1)
 				}
 			}
 			.disabled(client.focusMode.local == .auto)
