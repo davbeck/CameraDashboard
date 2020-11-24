@@ -277,8 +277,18 @@ class VISCAClient: ObservableObject {
 	private func setZoom(zoomPosition: UInt16) {
 		print("setZoom", zoomPosition, zoomPosition.hexDescription)
 		pool.send(command: .zoomDirect(zoomPosition))
+			.receive(on: DispatchQueue.main)
 			.sink { sink in
-				self._inquireZoomPosition()
+				switch sink {
+				case .finished:
+					if self.zoomPosition.local == zoomPosition {
+						self.inquireZoomPosition()
+					}
+					self.error = nil
+				case let .failure(error):
+					self.inquireZoomPosition()
+					self.error = error
+				}
 			} receiveValue: { _ in
 			}
 			.store(in: &observers)

@@ -297,7 +297,7 @@ final class VISCAConnection {
 		
 		return send(.viscaCommand, payload: payload)
 			.flatMap {
-				self.responses.first()
+				self.responses.filter { $0 != .completion }.first()
 			}
 			.tryMap { (response) -> Void in
 				switch response {
@@ -349,7 +349,9 @@ final class VISCAConnection {
 		
 		return sendVISCAInquiry(payload: inquiry.payload)
 			.tryMap { (payload) -> Response in
-				guard let response = inquiry.parseResponse(payload) else { throw Error.unexpectedBytes }
+				guard let response = inquiry.parseResponse(payload) else {
+					throw Error.unexpectedBytes
+				}
 				return response
 			}
 			.handleEvents(receiveCompletion: { completion in
