@@ -18,6 +18,7 @@ final class VISCAConnection {
 		case timeout
 		case commandInProgress
 		case requestInProgress
+		case connectionClosed
 		
 		var errorDescription: String? {
 			switch self {
@@ -41,6 +42,8 @@ final class VISCAConnection {
 				return "Something went wrong."
 			case .notExecutable:
 				return "The camera does not support this feature."
+			case .connectionClosed:
+				return "The connection was closed."
 			}
 		}
 	}
@@ -80,20 +83,28 @@ final class VISCAConnection {
 						case let .failure(error):
 							self.didFail.send(error)
 							self.didConnect.send(completion: .failure(error))
+							self.connection.cancel()
 						}
 					} receiveValue: { _ in }
 					.store(in: &self.observers)
 			case let .failed(error):
+				print("❌#\(self.connectionNumber) failed", error)
+				self.responses.send(completion: .failure(error))
 				self.didFail.send(error)
 				self.didConnect.send(completion: .failure(error))
+				self.connection.cancel()
 			case let .waiting(error):
+				print("❌#\(self.connectionNumber) waiting", error)
+				self.responses.send(completion: .failure(error))
 				self.didFail.send(error)
 				self.didConnect.send(completion: .failure(error))
+				self.connection.cancel()
 			case .setup:
 				break
 			case .preparing:
 				break
 			case .cancelled:
+				self.responses.send(completion: .failure(Error.connectionClosed))
 				self.didCancel?(self)
 			@unknown default:
 				break
@@ -118,6 +129,7 @@ final class VISCAConnection {
 	}
 	
 	func stop() {
+		print("❌#\(connectionNumber) stopping")
 		connection.cancel()
 	}
 	
@@ -187,7 +199,7 @@ final class VISCAConnection {
 		}
 	}
 	
-	private let responses = PassthroughSubject<ResponsePacket, Never>()
+	private let responses = PassthroughSubject<ResponsePacket, Swift.Error>()
 	private func receive() {
 		let connection = self.connection
 		
@@ -197,6 +209,7 @@ final class VISCAConnection {
 			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
 				if let error = error {
 					print("❌#\(self.connectionNumber) receive failed", error)
+					self.responses.send(completion: .failure(Error.unexpectedBytes))
 					connection.cancel()
 					return
 				}
@@ -225,6 +238,8 @@ final class VISCAConnection {
 		
 		readByte { byte in
 			guard byte == 0x90 else {
+				print("❌#\(self.connectionNumber) receive failed")
+				self.responses.send(completion: .failure(Error.unexpectedBytes))
 				connection.cancel()
 				return
 			}
@@ -296,7 +311,22 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.handleEvents(receiveCompletion: { _ in
+			.timeout(.seconds(5), scheduler: DispatchQueue.visca, customError: {
+				Error.timeout
+			})
+			.handleEvents(receiveCompletion: { completion in
+				if case let .failure(error) = completion {
+					if let error = error as? Error {
+						switch error {
+						case .notExecutable, .syntaxError:
+							break
+						default:
+							self.connection.cancel()
+							return
+						}
+					}
+				}
+				
 				self.isExecuting = false
 				self.didExecute?(self)
 			})
@@ -304,9 +334,6 @@ final class VISCAConnection {
 				self.responses.filter { $0 == .completion }.first()
 			}
 			.map { (data) -> Void in }
-			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
-				Error.timeout
-			})
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
@@ -325,7 +352,19 @@ final class VISCAConnection {
 				guard let response = inquiry.parseResponse(payload) else { throw Error.unexpectedBytes }
 				return response
 			}
-			.handleEvents(receiveCompletion: { _ in
+			.handleEvents(receiveCompletion: { completion in
+				if case let .failure(error) = completion {
+					if let error = error as? Error {
+						switch error {
+						case .notExecutable, .syntaxError:
+							break
+						default:
+							self.connection.cancel()
+							return
+						}
+					}
+				}
+				
 				self.isExecuting = false
 				self.didExecute?(self)
 			})
@@ -352,7 +391,7 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
+			.timeout(.seconds(5), scheduler: DispatchQueue.visca, customError: {
 				Error.timeout
 			})
 			.disableCancellation()

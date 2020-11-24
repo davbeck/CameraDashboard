@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
 	@EnvironmentObject var camera: Camera
+	@EnvironmentObject var server: VISCAServer
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 10) {
@@ -19,6 +20,22 @@ struct ContentView: View {
 			PropertyControl(label: "Zoom", property: camera.zoom)
 			
 			FocusControl(camera: camera, property: camera.focus)
+			
+			VStack(alignment: .leading) {
+				Text("Connections")
+				
+				ForEach(server.connections) { connection in
+					HStack {
+						Text("\(connection.connection.endpoint.debugDescription)")
+						Spacer()
+						Button(action: {
+							connection.connection.forceCancel()
+						}, label: {
+							Text("Disconnect")
+						})
+					}
+				}
+			}
 		}
 		.font(Font.body.monospacedDigit())
 		.padding()

@@ -9,6 +9,7 @@ struct VISCASimulatorApp: App {
 			ContentView()
 				.frame(minWidth: 400, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
 				.environmentObject(server.camera)
+				.environmentObject(server)
 		}
 	}
 }

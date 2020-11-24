@@ -49,6 +49,7 @@ class VISCAPool {
 		let connection = VISCAConnection(host: host, port: port, connectionNumber: connectionNumber)
 		connections.insert(connection)
 		connection.didCancel = { [weak self] connection in
+			connection.didCancel = nil
 			self?.connections.remove(connection)
 		}
 		connection.didExecute = { [weak self] connection in
@@ -102,6 +103,9 @@ class VISCAPool {
 		dispatchPrecondition(condition: .onQueue(.visca))
 		return aquire(command: command.group)
 			.flatMap { $0.send(command: command) }
+			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
+				Error.timeout
+			})
 			.eraseToAnyPublisher()
 	}
 	
@@ -109,6 +113,9 @@ class VISCAPool {
 		dispatchPrecondition(condition: .onQueue(.visca))
 		return aquire()
 			.flatMap { $0.send(inquiry: inquiry) }
+			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
+				Error.timeout
+			})
 			.eraseToAnyPublisher()
 	}
 }

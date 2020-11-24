@@ -320,3 +320,9 @@ extension VISCAServerConnection: Hashable {
 		hasher.combine(ObjectIdentifier(self))
 	}
 }
+
+extension VISCAServerConnection: Identifiable {
+	var id: ObjectIdentifier {
+		return ObjectIdentifier(self)
+	}
+}
