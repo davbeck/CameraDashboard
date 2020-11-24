@@ -80,6 +80,7 @@ class VISCAPool {
 		requestQueue.removeFirst()
 		
 		request.subject.send(connection)
+		request.subject.send(completion: .finished)
 	}
 	
 	private func aquire(command: VISCACommand.Group? = nil) -> AnyPublisher<VISCAConnection, Swift.Error> {

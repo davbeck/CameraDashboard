@@ -109,15 +109,15 @@ class VISCAServerConnection {
 				
 				sendAck()
 				
-				let pan = camera.pan.$value
+				let pan = camera.pan.$destination
 					.dropFirst()
 					.first()
 				
-				let tilt = camera.tilt.$value
+				let tilt = camera.tilt.$destination
 					.dropFirst()
 					.first()
 				
-				let zoom = camera.tilt.$value
+				let zoom = camera.tilt.$destination
 					.dropFirst()
 					.first()
 				

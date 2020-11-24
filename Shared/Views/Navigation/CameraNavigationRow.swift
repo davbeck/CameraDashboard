@@ -19,5 +19,3 @@ struct CameraNavigationRow: View {
 		}
 	}
 }
-
-// o

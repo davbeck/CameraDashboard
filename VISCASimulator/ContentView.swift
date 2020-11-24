@@ -36,6 +36,8 @@ struct ContentView: View {
 					}
 				}
 			}
+			
+			Spacer()
 		}
 		.font(Font.body.monospacedDigit())
 		.padding()
