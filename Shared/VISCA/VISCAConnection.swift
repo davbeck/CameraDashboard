@@ -2,10 +2,6 @@ import Foundation
 import Combine
 import Network
 
-extension DispatchQueue {
-	static let visca = DispatchQueue(label: "VISCAConnection")
-}
-
 final class VISCAConnection {
 	enum Error: Swift.Error, LocalizedError {
 		case invalidInitialResponseByte
@@ -95,10 +91,10 @@ final class VISCAConnection {
 				self.connection.cancel()
 			case let .waiting(error):
 				print("❌#\(self.connectionNumber) waiting", error)
-				self.responses.send(completion: .failure(error))
-				self.didFail.send(error)
-				self.didConnect.send(completion: .failure(error))
-				self.connection.cancel()
+//				self.responses.send(completion: .failure(error))
+//				self.didFail.send(error)
+//				self.didConnect.send(completion: .failure(error))
+//				self.connection.cancel()
 			case .setup:
 				break
 			case .preparing:
@@ -114,11 +110,9 @@ final class VISCAConnection {
 	
 	private var hasStarted: Bool = false
 	func start() -> AnyPublisher<Void, Swift.Error> {
-		dispatchPrecondition(condition: .onQueue(.visca))
-		
 		if !hasStarted {
 			hasStarted = true
-			connection.start(queue: .visca)
+			connection.start(queue: .main)
 		}
 		
 		return didConnect
@@ -256,7 +250,6 @@ final class VISCAConnection {
 	}
 	
 	func canSend(command: VISCACommand.Group?) -> Bool {
-		dispatchPrecondition(condition: .onQueue(.visca))
 		guard isReady, !isExecuting else { return false }
 		
 		if let command = command {
@@ -267,7 +260,6 @@ final class VISCAConnection {
 	}
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
-		dispatchPrecondition(condition: .onQueue(.visca))
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
 				.eraseToAnyPublisher()
@@ -311,7 +303,7 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.timeout(.seconds(5), scheduler: DispatchQueue.visca, customError: {
+			.timeout(.seconds(5), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.handleEvents(receiveCompletion: { completion in
@@ -339,8 +331,6 @@ final class VISCAConnection {
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
-		dispatchPrecondition(condition: .onQueue(.visca))
-		
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
 				.eraseToAnyPublisher()
@@ -393,7 +383,7 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.timeout(.seconds(5), scheduler: DispatchQueue.visca, customError: {
+			.timeout(.seconds(5), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.disableCancellation()

@@ -12,7 +12,7 @@ let throttleMS = 100
 
 extension Publisher {
 	func viscaThrottle() -> Publishers.Throttle<Self, DispatchQueue> {
-		throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.visca, latest: true)
+		throttle(for: .milliseconds(throttleMS), scheduler: DispatchQueue.main, latest: true)
 	}
 }
 
@@ -146,14 +146,7 @@ class VISCAClient: ObservableObject {
 	@Published var version: VISCAVersion?
 	
 	func inquireVersion(completion: @escaping (Result<VISCAVersion, Swift.Error>) -> Void) {
-		DispatchQueue.visca.async {
-			self._inquireVersion(completion: completion)
-		}
-	}
-	
-	private func _inquireVersion(completion: @escaping (Result<VISCAVersion, Swift.Error>) -> Void) {
 		pool.send(inquiry: .version)
-			.receive(on: RunLoop.main)
 			.sink { result in
 				switch result {
 				case let .failure(error):
@@ -172,15 +165,8 @@ class VISCAClient: ObservableObject {
 	@Published var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
 	
 	func inquirePreset() {
-		DispatchQueue.visca.async {
-			self._inquirePreset()
-		}
-	}
-	
-	private func _inquirePreset() {
 		print("inquirePreset")
 		pool.send(inquiry: .preset)
-			.receive(on: DispatchQueue.main)
 			.sink { sink in
 			} receiveValue: { value in
 				self.preset = .init(remote: value)
@@ -190,7 +176,6 @@ class VISCAClient: ObservableObject {
 	
 	private func recall(preset: VISCAPreset) {
 		pool.send(command: .recall(preset))
-			.receive(on: DispatchQueue.main)
 			.sink { completion in
 				switch completion {
 				case .finished:
@@ -212,14 +197,7 @@ class VISCAClient: ObservableObject {
 	}
 	
 	func set(_ preset: VISCAPreset) {
-		DispatchQueue.visca.async {
-			self._set(preset)
-		}
-	}
-	
-	private func _set(_ preset: VISCAPreset) {
 		pool.send(command: .set(preset))
-			.receive(on: DispatchQueue.main)
 			.sink { completion in
 				switch completion {
 				case .finished:
@@ -246,15 +224,8 @@ class VISCAClient: ObservableObject {
 	@Published var zoomDirection: ZoomDirection?
 	
 	func inquireZoomPosition() {
-		DispatchQueue.visca.async {
-			self._inquireZoomPosition()
-		}
-	}
-	
-	private func _inquireZoomPosition() {
 		print("inquireZoomPosition")
 		pool.send(inquiry: .zoomPosition)
-			.receive(on: DispatchQueue.main)
 			.sink { sink in
 				switch sink {
 				case .finished:
@@ -264,8 +235,8 @@ class VISCAClient: ObservableObject {
 				}
 				
 				if self.zoomDirection != nil {
-					DispatchQueue.visca.asyncAfter(deadline: .now() + 0.05) {
-						self._inquireZoomPosition()
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+						self.inquireZoomPosition()
 					}
 				}
 			} receiveValue: { rawZoom in
@@ -277,7 +248,6 @@ class VISCAClient: ObservableObject {
 	private func setZoom(zoomPosition: UInt16) {
 		print("setZoom", zoomPosition, zoomPosition.hexDescription)
 		pool.send(command: .zoomDirect(zoomPosition))
-			.receive(on: DispatchQueue.main)
 			.sink { sink in
 				switch sink {
 				case .finished:
@@ -308,7 +278,7 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self._inquireZoomPosition()
+				self.inquireZoomPosition()
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -328,15 +298,8 @@ class VISCAClient: ObservableObject {
 	@Published var focusDirection: FocusDirection?
 	
 	func inquireFocusPosition() {
-		DispatchQueue.visca.async {
-			self._inquireFocusPosition()
-		}
-	}
-	
-	private func _inquireFocusPosition() {
 		print("inquireFocusPosition")
 		pool.send(inquiry: .focusPosition)
-			.receive(on: DispatchQueue.main)
 			.sink { sink in
 				switch sink {
 				case .finished:
@@ -346,8 +309,8 @@ class VISCAClient: ObservableObject {
 				}
 				
 				if self.focusDirection != nil {
-					DispatchQueue.visca.asyncAfter(deadline: .now() + 0.05) {
-						self._inquireFocusPosition()
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+						self.inquireFocusPosition()
 					}
 				}
 			} receiveValue: { rawFocus in
@@ -357,15 +320,8 @@ class VISCAClient: ObservableObject {
 	}
 	
 	func inquireFocusMode() {
-		DispatchQueue.visca.async {
-			self._inquireFocusMode()
-		}
-	}
-	
-	private func _inquireFocusMode() {
 		print("inquireFocusMode")
 		pool.send(inquiry: .focusMode)
-			.receive(on: DispatchQueue.main)
 			.sink { sink in
 			} receiveValue: { mode in
 				self.focusMode = .init(remote: mode)
@@ -377,7 +333,16 @@ class VISCAClient: ObservableObject {
 		print("setFocus", focusPosition, focusPosition.hexDescription)
 		pool.send(command: .focusDirect(focusPosition))
 			.sink { sink in
-				self._inquireFocusPosition()
+				switch sink {
+				case .finished:
+					if self.focusPosition.local == focusPosition {
+						self.inquireFocusPosition()
+					}
+					self.error = nil
+				case let .failure(error):
+					self.inquireFocusPosition()
+					self.error = error
+				}
 			} receiveValue: { value in
 			}
 			.store(in: &observers)
@@ -397,7 +362,7 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self._inquireFocusPosition()
+				self.inquireFocusPosition()
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -414,7 +379,7 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self._inquireFocusPosition()
+				self.inquireFocusPosition()
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -479,7 +444,6 @@ class VISCAClient: ObservableObject {
 		}
 		
 		pool.send(command: command)
-			.receive(on: RunLoop.main)
 			.sink { completion in
 				switch completion {
 				case let .failure(error):

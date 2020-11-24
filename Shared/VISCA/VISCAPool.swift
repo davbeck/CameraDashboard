@@ -34,12 +34,10 @@ class VISCAPool {
 	}
 	
 	func stop() {
-		DispatchQueue.visca.async {
-			for connection in self.connections {
-				connection.stop()
-			}
-			self.connections = []
+		for connection in connections {
+			connection.stop()
 		}
+		connections = []
 	}
 	
 	private var requestQueue: [(command: VISCACommand.Group?, subject: PassthroughSubject<VISCAConnection, Never>)] = []
@@ -101,20 +99,18 @@ class VISCAPool {
 	}
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
-		dispatchPrecondition(condition: .onQueue(.visca))
 		return aquire(command: command.group)
 			.flatMap { $0.send(command: command) }
-			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
+			.timeout(.seconds(10), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.eraseToAnyPublisher()
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
-		dispatchPrecondition(condition: .onQueue(.visca))
 		return aquire()
 			.flatMap { $0.send(inquiry: inquiry) }
-			.timeout(.seconds(10), scheduler: DispatchQueue.visca, customError: {
+			.timeout(.seconds(10), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.eraseToAnyPublisher()
