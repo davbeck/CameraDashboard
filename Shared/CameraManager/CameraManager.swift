@@ -98,6 +98,8 @@ class CameraManager: ObservableObject {
 	
 	@Published private(set) var connections: [CameraConnection] = []
 	
+	let didAddCamera = PassthroughSubject<Camera, Never>()
+	
 	func save(camera: Camera, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
 		if let index = connections.firstIndex(where: { $0.camera.id == camera.id }),
 			connections[index].camera.address == camera.address,
@@ -121,6 +123,8 @@ class CameraManager: ObservableObject {
 					self.connections[index] = connection
 				} else {
 					self.connections.append(connection)
+					
+					self.didAddCamera.send(camera)
 				}
 				
 				self.saveConfig()
@@ -132,6 +136,19 @@ class CameraManager: ObservableObject {
 				completion(.failure(error))
 			}
 		}
+	}
+	
+	let didRemoveCamera = PassthroughSubject<Camera, Never>()
+	
+	func remove(camera: Camera) {
+		for connection in connections.filter({ $0.camera.id == camera.id }) {
+			connection.client.stop()
+		}
+		
+		connections.removeAll(where: { $0.camera.id == camera.id })
+		saveConfig()
+		
+		didRemoveCamera.send(camera)
 	}
 	
 	// MARK: - Preset Config

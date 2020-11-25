@@ -44,6 +44,18 @@ struct NavigationList: View {
 			}
 		})
 		.frame(minWidth: 200)
+		.onReceive(cameraManager.didRemoveCamera) { camera in
+			if navigationSelection.items.contains(camera.id.uuidString) {
+				navigationSelection.items.remove(camera.id.uuidString)
+				
+				if navigationSelection.items.isEmpty {
+					navigationSelection = ["presets"]
+				}
+			}
+		}
+		.onReceive(cameraManager.didAddCamera) { camera in
+			navigationSelection = [camera.id.uuidString]
+		}
 	}
 }
 

@@ -75,7 +75,30 @@ struct _CameraConnectionSettingsView: View {
 				}
 			}
 			
-			SaveButtonsView(save: save, cancel: cancel)
+			HStack(spacing: 16) {
+				RemoveCameraButton(camera: camera)
+				
+				Spacer()
+				
+				Button(action: {
+					self.cancel()
+				}, label: {
+					Text("Cancel")
+						.padding(.horizontal, 10)
+						.column("Buttons", alignment: .center)
+				})
+					.keyboardShortcut(.cancelAction)
+				
+				Button(action: {
+					self.save()
+				}, label: {
+					Text("Save")
+						.padding(.horizontal, 10)
+						.column("Buttons", alignment: .center)
+				})
+					.keyboardShortcut(.defaultAction)
+			}
+			.columnGuide()
 		}
 		.columnGuide()
 		.padding()
