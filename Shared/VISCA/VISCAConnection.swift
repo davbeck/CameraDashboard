@@ -49,13 +49,33 @@ final class VISCAConnection {
 	private let connection: NWConnection
 	let connectionNumber: Int
 	
-	private let didConnect = CurrentValueSubject<Bool, Swift.Error>(false)
-	let didFail = PassthroughSubject<Swift.Error, Never>()
 	var didCancel: ((VISCAConnection) -> Void)?
 	var didExecute: ((VISCAConnection) -> Void)?
 	var didCompleteCommand: ((VISCAConnection) -> Void)?
 	
-	private(set) var isReady = false
+	enum State: Equatable {
+		static func == (lhs: VISCAConnection.State, rhs: VISCAConnection.State) -> Bool {
+			switch (lhs, rhs) {
+			case (.notReady, .notReady):
+				return true
+			case (.connecting, .connecting):
+				return true
+			case (.ready, .ready):
+				return true
+			case (.failed, .failed):
+				return true
+			default:
+				return false
+			}
+		}
+		
+		case notReady
+		case connecting
+		case ready
+		case failed(Swift.Error)
+	}
+	
+	@Published var state: State = .notReady
 	
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port, connectionNumber: Int) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
@@ -72,23 +92,16 @@ final class VISCAConnection {
 					.sink { completion in
 						switch completion {
 						case .finished:
-							self.didConnect.send(true)
+							self.state = .ready
 							self.receive()
-							
-							self.isReady = true
 						case let .failure(error):
-							self.didFail.send(error)
-							self.didConnect.send(completion: .failure(error))
-							self.connection.cancel()
+							self.fail(error)
 						}
 					} receiveValue: { _ in }
 					.store(in: &self.observers)
 			case let .failed(error):
 				print("❌#\(self.connectionNumber) failed", error)
-				self.responses.send(completion: .failure(error))
-				self.didFail.send(error)
-				self.didConnect.send(completion: .failure(error))
-				self.connection.cancel()
+				self.fail(error)
 			case let .waiting(error):
 				print("❌#\(self.connectionNumber) waiting", error)
 //				self.responses.send(completion: .failure(error))
@@ -100,25 +113,48 @@ final class VISCAConnection {
 			case .preparing:
 				break
 			case .cancelled:
-				self.responses.send(completion: .failure(Error.connectionClosed))
-				self.didCancel?(self)
+				self.fail(Error.connectionClosed)
 			@unknown default:
 				break
 			}
 		}
 	}
 	
-	private var hasStarted: Bool = false
+	func fail(_ error: Swift.Error) {
+		switch state {
+		case .failed:
+			break
+		default:
+			state = .failed(error)
+			responses.send(completion: .failure(error))
+			didCancel?(self)
+			
+			connection.cancel()
+		}
+	}
+	
 	func start() -> AnyPublisher<Void, Swift.Error> {
-		if !hasStarted {
-			hasStarted = true
+		if state == .notReady {
+			state = .connecting
 			connection.start(queue: .main)
 		}
 		
-		return didConnect
-			.filter { $0 }
+		return $state
+			.tryFilter { (state) -> Bool in
+				switch state {
+				case .ready:
+					return true
+				case let .failed(error):
+					throw error
+				default:
+					return false
+				}
+			}
 			.map { _ in () }
 			.first()
+			// Published fires before the actual value is updated
+			.receive(on: DispatchQueue.main)
+			.print("start \(connectionNumber)")
 			.eraseToAnyPublisher()
 	}
 	
@@ -203,8 +239,7 @@ final class VISCAConnection {
 			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
 				if let error = error {
 					print("❌#\(self.connectionNumber) receive failed", error)
-					self.responses.send(completion: .failure(Error.unexpectedBytes))
-					connection.cancel()
+					self.fail(Error.unexpectedBytes)
 					return
 				}
 				guard let byte = data?.first, data?.count == 1 else {
@@ -233,8 +268,7 @@ final class VISCAConnection {
 		readByte { byte in
 			guard byte == 0x90 else {
 				print("❌#\(self.connectionNumber) receive failed")
-				self.responses.send(completion: .failure(Error.unexpectedBytes))
-				connection.cancel()
+				self.fail(Error.unexpectedBytes)
 				return
 			}
 			
@@ -250,7 +284,7 @@ final class VISCAConnection {
 	}
 	
 	func canSend(command: VISCACommand.Group?) -> Bool {
-		guard isReady, !isExecuting else { return false }
+		guard state == .ready, !isExecuting else { return false }
 		
 		if let command = command {
 			return currentCommandGroup == nil || currentCommandGroup == command
@@ -313,7 +347,7 @@ final class VISCAConnection {
 						case .notExecutable, .syntaxError:
 							break
 						default:
-							self.connection.cancel()
+							self.fail(error)
 							return
 						}
 					}
@@ -351,7 +385,7 @@ final class VISCAConnection {
 						case .notExecutable, .syntaxError:
 							break
 						default:
-							self.connection.cancel()
+							self.fail(error)
 							return
 						}
 					}

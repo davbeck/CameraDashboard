@@ -49,6 +49,8 @@ class VISCAPool {
 		connection.didCancel = { [weak self] connection in
 			connection.didCancel = nil
 			self?.connections.remove(connection)
+			
+			self?.dequeue()
 		}
 		connection.didExecute = { [weak self] connection in
 			self?.dequeue()
@@ -63,7 +65,7 @@ class VISCAPool {
 		if let connection = connections.first(where: { $0.canSend(command: command) }) {
 //			print("returning available connection")
 			return connection
-		} else if connections.count < maxConnections, !connections.contains(where: { !$0.isReady }) {
+		} else if connections.count < maxConnections, !connections.contains(where: { $0.state != .connecting }) {
 //			print("create connection")
 			return createConnection()
 		} else {
@@ -100,19 +102,17 @@ class VISCAPool {
 	
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
 		return aquire(command: command.group)
-			.flatMap { $0.send(command: command) }
-			.timeout(.seconds(10), scheduler: DispatchQueue.main, customError: {
-				Error.timeout
-			})
+			.flatMap {
+				$0.send(command: command)
+			}
 			.eraseToAnyPublisher()
 	}
 	
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
 		return aquire()
-			.flatMap { $0.send(inquiry: inquiry) }
-			.timeout(.seconds(10), scheduler: DispatchQueue.main, customError: {
-				Error.timeout
-			})
+			.flatMap {
+				$0.send(inquiry: inquiry)
+			}
 			.eraseToAnyPublisher()
 	}
 }

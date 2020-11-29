@@ -14,6 +14,8 @@ class VISCAServerConnection {
 	let connection: NWConnection
 	private var sequence: UInt32 = 1
 	
+	var isActive: Bool = true
+	
 	var didStopCallback: ((VISCAServerConnection, Swift.Error?) -> Void)?
 	
 	init(camera: Camera, connection: NWConnection) {
@@ -286,6 +288,11 @@ class VISCAServerConnection {
 	}
 	
 	private func send(_ data: Data) {
+		guard isActive else {
+			print("not sending response")
+			return
+		}
+		
 		print("sending", data.hexDescription)
 		connection.send(content: [0x90] + data + [0xFF], completion: .contentProcessed { error in
 			if let error = error {

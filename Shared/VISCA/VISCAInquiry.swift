@@ -1,12 +1,13 @@
 import Foundation
 
 struct VISCAInquiry<Response> {
+	var name: String
 	var payload: Data
 	var parseResponse: (_ payload: Data) -> Response?
 }
 
 extension VISCAInquiry where Response == VISCAVersion {
-	static let version = Self(payload: [0x09, 0x00, 0x02]) { payload in
+	static let version = Self(name: "version", payload: [0x09, 0x00, 0x02]) { payload in
 		guard payload.count == 8 else { return nil }
 		
 		let venderID = payload.dropFirst(1).load(as: UInt16.self)
@@ -24,7 +25,7 @@ extension VISCAInquiry where Response == VISCAVersion {
 }
 
 extension VISCAInquiry where Response == VISCAPreset {
-	static let preset = Self(payload: [0x09, 0x04, 0x3F]) { payload in
+	static let preset = Self(name: "preset", payload: [0x09, 0x04, 0x3F]) { payload in
 		guard
 			payload.count == 2, payload.first == 0x50,
 			let value = payload.dropFirst(1).first
@@ -34,7 +35,7 @@ extension VISCAInquiry where Response == VISCAPreset {
 }
 
 extension VISCAInquiry where Response == UInt16 {
-	static let zoomPosition = Self(payload: [0x09, 0x04, 0x47]) { payload in
+	static let zoomPosition = Self(name: "zoomPosition", payload: [0x09, 0x04, 0x47]) { payload in
 		guard payload.first == 0x50 else { return nil }
 		let value = payload.dropFirst(1).loadBitPadded(as: UInt16.self)
 		print("zoomPosition", value)
@@ -43,14 +44,14 @@ extension VISCAInquiry where Response == UInt16 {
 }
 
 extension VISCAInquiry where Response == UInt16 {
-	static let focusPosition = Self(payload: [0x09, 0x04, 0x48]) { payload in
+	static let focusPosition = Self(name: "focusPosition", payload: [0x09, 0x04, 0x48]) { payload in
 		guard payload.first == 0x50 else { return nil }
 		return payload.dropFirst(1).loadBitPadded(as: UInt16.self)
 	}
 }
 
 extension VISCAInquiry where Response == VISCAFocusMode {
-	static let focusMode = Self(payload: [0x09, 0x04, 0x38]) { payload in
+	static let focusMode = Self(name: "focusMode", payload: [0x09, 0x04, 0x38]) { payload in
 		guard payload.first == 0x50 else { return nil }
 		switch payload.dropFirst(1).first {
 		case 0x02:
