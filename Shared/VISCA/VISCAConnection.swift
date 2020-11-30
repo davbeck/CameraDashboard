@@ -75,7 +75,8 @@ final class VISCAConnection {
 		case failed(Swift.Error)
 	}
 	
-	@Published var state: State = .notReady
+	// Published fires before the value is set, which is problematic
+	let state = CurrentValueSubject<State, Never>(.notReady)
 	
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port, connectionNumber: Int) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
@@ -92,7 +93,7 @@ final class VISCAConnection {
 					.sink { completion in
 						switch completion {
 						case .finished:
-							self.state = .ready
+							self.state.value = .ready
 							self.receive()
 						case let .failure(error):
 							self.fail(error)
@@ -121,11 +122,11 @@ final class VISCAConnection {
 	}
 	
 	func fail(_ error: Swift.Error) {
-		switch state {
+		switch state.value {
 		case .failed:
 			break
 		default:
-			state = .failed(error)
+			state.value = .failed(error)
 			responses.send(completion: .failure(error))
 			didCancel?(self)
 			
@@ -134,12 +135,12 @@ final class VISCAConnection {
 	}
 	
 	func start() -> AnyPublisher<Void, Swift.Error> {
-		if state == .notReady {
-			state = .connecting
+		if state.value == .notReady {
+			state.value = .connecting
 			connection.start(queue: .main)
 		}
 		
-		return $state
+		return state
 			.tryFilter { (state) -> Bool in
 				switch state {
 				case .ready:
@@ -152,8 +153,6 @@ final class VISCAConnection {
 			}
 			.map { _ in () }
 			.first()
-			// Published fires before the actual value is updated
-			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()
 	}
 	
@@ -283,7 +282,7 @@ final class VISCAConnection {
 	}
 	
 	func canSend(command: VISCACommand.Group?) -> Bool {
-		guard state == .ready, !isExecuting else { return false }
+		guard state.value == .ready, !isExecuting else { return false }
 		
 		if let command = command {
 			return currentCommandGroup == nil || currentCommandGroup == command

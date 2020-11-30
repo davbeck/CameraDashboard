@@ -95,7 +95,7 @@ class VISCAPool {
 		if let connection = connections.first(where: { $0.canSend(command: target.commandGroup) }) {
 //			print("returning available connection")
 			return connection
-		} else if connections.count < maxConnections, !connections.contains(where: { $0.state != .connecting }) {
+		} else if connections.count < maxConnections, !connections.contains(where: { $0.state.value != .connecting }) {
 //			print("create connection")
 			return createConnection()
 		} else {
