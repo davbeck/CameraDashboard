@@ -149,6 +149,8 @@
 		7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA269A2563728000A03CBE /* NSWindowInspector.swift */; };
 		7ADA26A325638A1F00A03CBE /* NavigationSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA26A225638A1F00A03CBE /* NavigationSelection.swift */; };
 		7ADA26A425638A1F00A03CBE /* NavigationSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA26A225638A1F00A03CBE /* NavigationSelection.swift */; };
+		7ADE9856257465F100227332 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE9855257465F100227332 /* Errors.swift */; };
+		7ADE9857257465F100227332 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE9855257465F100227332 /* Errors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,6 +267,7 @@
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		7ADA269A2563728000A03CBE /* NSWindowInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowInspector.swift; sourceTree = "<group>"; };
 		7ADA26A225638A1F00A03CBE /* NavigationSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSelection.swift; sourceTree = "<group>"; };
+		7ADE9855257465F100227332 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +431,7 @@
 				7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */,
 				7A7F648C256030C3008B33C6 /* PTZDirection.swift */,
 				7A7F648D256030C3008B33C6 /* VISCAPreset.swift */,
+				7ADE9855257465F100227332 /* Errors.swift */,
 			);
 			path = VISCA;
 			sourceTree = "<group>";
@@ -922,6 +926,7 @@
 				7A7F650F2560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65172560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
 				7A7F650D2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
+				7ADE9856257465F100227332 /* Errors.swift in Sources */,
 				7A7F648125603092008B33C6 /* CameraManager.swift in Sources */,
 				7A7F6492256030C3008B33C6 /* VISCAPreset.swift in Sources */,
 				7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */,
@@ -990,6 +995,7 @@
 				7A7F65102560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65182560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
 				7A7F650E2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
+				7ADE9857257465F100227332 /* Errors.swift in Sources */,
 				7A7F648225603092008B33C6 /* CameraManager.swift in Sources */,
 				7A7F6493256030C3008B33C6 /* VISCAPreset.swift in Sources */,
 				7A8ABBF0256612B800617A70 /* Binding+Helpers.swift in Sources */,

@@ -14,7 +14,7 @@ struct VISCACommand: Equatable {
 	}
 	
 	var name: String
-	var group: Group?
+	var group: Group
 	var payload: Data
 	
 	// MARK: Zoom
@@ -35,8 +35,8 @@ struct VISCACommand: Equatable {
 		VISCACommand(name: "focusDirect", group: .focus, payload: Data([0x01, 0x04, 0x48]) + position.bitPadded)
 	}
 	
-	static let setAutoFocus = VISCACommand(name: "setAutoFocus", group: nil, payload: Data([0x01, 0x04, 0x38, 0x02]))
-	static let setManualFocus = VISCACommand(name: "setManualFocus", group: nil, payload: Data([0x01, 0x04, 0x38, 0x03]))
+	static let setAutoFocus = VISCACommand(name: "setAutoFocus", group: .focus, payload: Data([0x01, 0x04, 0x38, 0x02]))
+	static let setManualFocus = VISCACommand(name: "setManualFocus", group: .focus, payload: Data([0x01, 0x04, 0x38, 0x03]))
 	
 	// Presets
 	

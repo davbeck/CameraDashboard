@@ -154,7 +154,6 @@ final class VISCAConnection {
 			.first()
 			// Published fires before the actual value is updated
 			.receive(on: DispatchQueue.main)
-			.print("start \(connectionNumber)")
 			.eraseToAnyPublisher()
 	}
 	
