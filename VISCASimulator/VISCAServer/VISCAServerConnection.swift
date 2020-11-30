@@ -119,7 +119,7 @@ class VISCAServerConnection {
 					.dropFirst()
 					.first()
 				
-				let zoom = camera.tilt.$destination
+				let zoom = camera.zoom.$destination
 					.dropFirst()
 					.first()
 				
