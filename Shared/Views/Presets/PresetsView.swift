@@ -4,18 +4,19 @@ struct PresetsView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	var body: some View {
-		ScrollView(.horizontal, showsIndicators: true, content: {
-			VStack(spacing: 15) {
+		ScrollView(.vertical, showsIndicators: true, content: {
+			VStack(alignment: .leading, spacing: 10) {
 				ForEach(cameraManager.connections) { connection in
-					VStack(alignment: .leading, spacing: 5) {
+					VStack(alignment: .leading, spacing: 0) {
 						Text(connection.displayName)
 							.font(.headline)
+							.padding(.horizontal)
 						ConnectionPresetsRow(client: connection.client, camera: connection.camera)
 					}
 				}
 				Spacer()
 			}
-			.padding()
+			.padding(.vertical)
 		})
 	}
 }
