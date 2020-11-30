@@ -141,6 +141,50 @@ class VISCAClient: ObservableObject {
 	
 	@Published var error: Swift.Error?
 	
+	enum Response: Equatable {
+		static func == (lhs: VISCAClient.Response, rhs: VISCAClient.Response) -> Bool {
+			switch (lhs, rhs) {
+			case (.finished, .finished):
+				return true
+			case (.failure, .failure):
+				return true
+			case (.cancelled, .cancelled):
+				return true
+			default:
+				return false
+			}
+		}
+		
+		case finished
+		case failure(Swift.Error)
+		case cancelled
+		
+		var error: Swift.Error? {
+			switch self {
+			case let .failure(error):
+				return error
+			default:
+				return nil
+			}
+		}
+	}
+	
+	@discardableResult
+	private func handle(_ completion: Subscribers.Completion<Swift.Error>) -> Response {
+		switch completion {
+		case .finished:
+			error = nil
+			return .finished
+		case let .failure(error):
+			if error is CommandOverriddenError {
+				return .cancelled
+			} else {
+				self.error = error
+				return .failure(error)
+			}
+		}
+	}
+	
 	// MARK: - Version
 	
 	@Published var version: VISCAVersion?
@@ -148,11 +192,8 @@ class VISCAClient: ObservableObject {
 	func inquireVersion(completion: @escaping (Result<VISCAVersion, Swift.Error>) -> Void) {
 		pool.send(inquiry: .version)
 			.sink { result in
-				switch result {
-				case let .failure(error):
+				if let error = self.handle(result).error {
 					completion(.failure(error))
-				case .finished:
-					break
 				}
 			} receiveValue: { version in
 				completion(.success(version))
@@ -165,9 +206,9 @@ class VISCAClient: ObservableObject {
 	@Published var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
 	
 	func inquirePreset() {
-		print("inquirePreset")
 		pool.send(inquiry: .preset)
 			.sink { sink in
+				self.handle(sink)
 			} receiveValue: { value in
 				self.preset = .init(remote: value)
 			}
@@ -177,21 +218,10 @@ class VISCAClient: ObservableObject {
 	private func recall(preset: VISCAPreset) {
 		pool.send(command: .recall(preset))
 			.sink { completion in
-				switch completion {
-				case .finished:
-					if self.preset.local == preset {
-						self.preset.remote = preset
-					}
-					self.error = nil
-				case let .failure(error):
-					if self.preset.local == preset {
-						self.preset.local = nil
-					}
-					self.error = error
+				if self.handle(completion) != .cancelled {
+					self.inquirePreset()
+					self.inquireZoomPosition()
 				}
-				
-				self.inquirePreset()
-				self.inquireZoomPosition()
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -199,12 +229,8 @@ class VISCAClient: ObservableObject {
 	func set(_ preset: VISCAPreset) {
 		pool.send(command: .set(preset))
 			.sink { completion in
-				switch completion {
-				case .finished:
+				if self.handle(completion) == .finished {
 					self.preset = .init(remote: preset)
-					self.error = nil
-				case let .failure(error):
-					self.error = error
 				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
@@ -222,22 +248,19 @@ class VISCAClient: ObservableObject {
 	}
 	
 	@Published var zoomDirection: ZoomDirection?
+	private var zoomTimer: Timer? {
+		didSet {
+			oldValue?.invalidate()
+		}
+	}
 	
 	func inquireZoomPosition() {
-		print("inquireZoomPosition")
 		pool.send(inquiry: .zoomPosition)
-			.sink { sink in
-				switch sink {
-				case .finished:
-					self.error = nil
-				case let .failure(error):
-					self.error = error
-				}
-				
-				if self.zoomDirection != nil {
-					DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+			.sink { completion in
+				if self.handle(completion) != .cancelled, self.zoomDirection != nil {
+					self.zoomTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { timer in
 						self.inquireZoomPosition()
-					}
+					})
 				}
 			} receiveValue: { rawZoom in
 				self.zoomPosition = .init(remote: rawZoom)
@@ -246,18 +269,10 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func setZoom(zoomPosition: UInt16) {
-		print("setZoom", zoomPosition, zoomPosition.hexDescription)
 		pool.send(command: .zoomDirect(zoomPosition))
-			.sink { sink in
-				switch sink {
-				case .finished:
-					if self.zoomPosition.local == zoomPosition {
-						self.inquireZoomPosition()
-					}
-					self.error = nil
-				case let .failure(error):
+			.sink { completion in
+				if self.handle(completion) != .cancelled, self.zoomPosition.local == zoomPosition {
 					self.inquireZoomPosition()
-					self.error = error
 				}
 			} receiveValue: { _ in
 			}
@@ -265,7 +280,6 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func zoom(_ direction: ZoomDirection?) {
-		print("zoom", direction as Any)
 		let command: VISCACommand
 		switch direction {
 		case .tele:
@@ -278,7 +292,9 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self.inquireZoomPosition()
+				if self.handle(completion) != .cancelled {
+					self.inquireZoomPosition()
+				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -296,22 +312,19 @@ class VISCAClient: ObservableObject {
 	}
 	
 	@Published var focusDirection: FocusDirection?
+	private var focusTimer: Timer? {
+		didSet {
+			oldValue?.invalidate()
+		}
+	}
 	
 	func inquireFocusPosition() {
-		print("inquireFocusPosition")
 		pool.send(inquiry: .focusPosition)
-			.sink { sink in
-				switch sink {
-				case .finished:
-					self.error = nil
-				case let .failure(error):
-					self.error = error
-				}
-				
-				if self.focusDirection != nil {
-					DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+			.sink { completion in
+				if self.handle(completion) != .cancelled, self.focusDirection != nil {
+					self.focusTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false, block: { timer in
 						self.inquireFocusPosition()
-					}
+					})
 				}
 			} receiveValue: { rawFocus in
 				self.focusPosition = .init(remote: rawFocus)
@@ -320,9 +333,9 @@ class VISCAClient: ObservableObject {
 	}
 	
 	func inquireFocusMode() {
-		print("inquireFocusMode")
 		pool.send(inquiry: .focusMode)
-			.sink { sink in
+			.sink { completion in
+				self.handle(completion)
 			} receiveValue: { mode in
 				self.focusMode = .init(remote: mode)
 			}
@@ -330,18 +343,10 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func setFocus(focusPosition: UInt16) {
-		print("setFocus", focusPosition, focusPosition.hexDescription)
 		pool.send(command: .focusDirect(focusPosition))
-			.sink { sink in
-				switch sink {
-				case .finished:
-					if self.focusPosition.local == focusPosition {
-						self.inquireFocusPosition()
-					}
-					self.error = nil
-				case let .failure(error):
+			.sink { completion in
+				if self.handle(completion) != .cancelled, self.focusPosition.local == focusPosition {
 					self.inquireFocusPosition()
-					self.error = error
 				}
 			} receiveValue: { value in
 			}
@@ -349,7 +354,6 @@ class VISCAClient: ObservableObject {
 	}
 	
 	private func focus(_ direction: FocusDirection?) {
-		print("focus", direction as Any)
 		let command: VISCACommand
 		switch direction {
 		case .far:
@@ -362,13 +366,14 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self.inquireFocusPosition()
+				if self.handle(completion) != .cancelled {
+					self.inquireFocusPosition()
+				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
 	
 	private func set(_ focusMode: VISCAFocusMode) {
-		print("focusMode", focusMode)
 		let command: VISCACommand
 		switch focusMode {
 		case .auto:
@@ -379,7 +384,9 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				self.inquireFocusPosition()
+				if self.handle(completion) != .cancelled {
+					self.inquireFocusPosition()
+				}
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
@@ -445,12 +452,7 @@ class VISCAClient: ObservableObject {
 		
 		pool.send(command: command)
 			.sink { completion in
-				switch completion {
-				case let .failure(error):
-					self.error = error
-				case .finished:
-					self.error = nil
-				}
+				self.handle(completion)
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}

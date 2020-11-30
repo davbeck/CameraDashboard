@@ -13,39 +13,39 @@ struct VISCACommand: Equatable {
 		static let preset: Group = [.panTilt, .zoom]
 	}
 	
-	var group: Group?
-	
+	var name: String
+	var group: Group
 	var payload: Data
 	
 	// MARK: Zoom
 	
-	static let zoomTele = VISCACommand(group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x02]))
-	static let zoomWide = VISCACommand(group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x03]))
-	static let zoomStop = VISCACommand(group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x00]))
+	static let zoomTele = VISCACommand(name: "zoomTele", group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x02]))
+	static let zoomWide = VISCACommand(name: "zoomWide", group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x03]))
+	static let zoomStop = VISCACommand(name: "zoomStop", group: .zoom, payload: Data([0x01, 0x04, 0x07, 0x00]))
 	static func zoomDirect(_ position: UInt16) -> VISCACommand {
-		VISCACommand(group: .zoom, payload: Data([0x01, 0x04, 0x47]) + position.bitPadded)
+		VISCACommand(name: "zoomDirect", group: .zoom, payload: Data([0x01, 0x04, 0x47]) + position.bitPadded)
 	}
 	
 	// MARK: Focus
 	
-	static let focusTele = VISCACommand(group: .focus, payload: Data([0x01, 0x04, 0x08, 0x02]))
-	static let focusWide = VISCACommand(group: .focus, payload: Data([0x01, 0x04, 0x08, 0x03]))
-	static let focusStop = VISCACommand(group: .focus, payload: Data([0x01, 0x04, 0x08, 0x00]))
+	static let focusTele = VISCACommand(name: "focusTele", group: .focus, payload: Data([0x01, 0x04, 0x08, 0x02]))
+	static let focusWide = VISCACommand(name: "focusWide", group: .focus, payload: Data([0x01, 0x04, 0x08, 0x03]))
+	static let focusStop = VISCACommand(name: "focusStop", group: .focus, payload: Data([0x01, 0x04, 0x08, 0x00]))
 	static func focusDirect(_ position: UInt16) -> VISCACommand {
-		VISCACommand(group: .focus, payload: Data([0x01, 0x04, 0x48]) + position.bitPadded)
+		VISCACommand(name: "focusDirect", group: .focus, payload: Data([0x01, 0x04, 0x48]) + position.bitPadded)
 	}
 	
-	static let setAutoFocus = VISCACommand(group: nil, payload: Data([0x01, 0x04, 0x38, 0x02]))
-	static let setManualFocus = VISCACommand(group: nil, payload: Data([0x01, 0x04, 0x38, 0x03]))
+	static let setAutoFocus = VISCACommand(name: "setAutoFocus", group: .focus, payload: Data([0x01, 0x04, 0x38, 0x02]))
+	static let setManualFocus = VISCACommand(name: "setManualFocus", group: .focus, payload: Data([0x01, 0x04, 0x38, 0x03]))
 	
 	// Presets
 	
 	static func set(_ preset: VISCAPreset) -> VISCACommand {
-		VISCACommand(group: .preset, payload: [0x01, 0x04, 0x3F, 0x01, preset.rawValue])
+		VISCACommand(name: "setPreset", group: .preset, payload: [0x01, 0x04, 0x3F, 0x01, preset.rawValue])
 	}
 	
 	static func recall(_ preset: VISCAPreset) -> VISCACommand {
-		VISCACommand(group: .preset, payload: Data([0x01, 0x04, 0x3F, 0x02, preset.rawValue]))
+		VISCACommand(name: "recallPreset", group: .preset, payload: Data([0x01, 0x04, 0x3F, 0x02, preset.rawValue]))
 	}
 	
 	// Pan Tilt
@@ -74,10 +74,10 @@ struct VISCACommand: Equatable {
 			payload.append(contentsOf: [0x01, 0x01])
 		}
 		
-		return VISCACommand(group: .panTilt, payload: payload)
+		return VISCACommand(name: "panTilt", group: .panTilt, payload: payload)
 	}
 	
-	static let panTiltStop = VISCACommand(group: .panTilt, payload: Data([
+	static let panTiltStop = VISCACommand(name: "panTiltStop", group: .panTilt, payload: Data([
 		0x01, 0x06, 0x01,
 		0x18, 0x18, // speed placeholder
 		0x03, 0x03,
