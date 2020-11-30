@@ -12,7 +12,7 @@ struct DirectionButton<Content: View>: View {
 				#else
 					Spacer().frame(width: 44, height: 44)
 				#endif
-				Image(systemSymbol: .plusMagnifyingglass)
+				content()
 					.opacity(isActive ? 0.8 : 1)
 			}
 			.contentShape(Rectangle())

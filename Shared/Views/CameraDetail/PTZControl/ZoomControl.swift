@@ -15,7 +15,11 @@ struct ZoomControl: View {
 					Image(systemSymbol: .minusMagnifyingglass)
 				}
 				
-				Slider(value: $client.zoomPosition.local, in: 0...VISCAClient.maxZoom)
+				if client.allowDirectControl {
+					Slider(value: $client.zoomPosition.local, in: 0...VISCAClient.maxZoom)
+				} else {
+					Spacer()
+				}
 				
 				DirectionButton(isActive: $client.zoomDirection.equalTo(.tele)) {
 					Image(systemSymbol: .plusMagnifyingglass)

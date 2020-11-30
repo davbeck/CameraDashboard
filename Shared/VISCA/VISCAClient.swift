@@ -125,6 +125,9 @@ class VISCAClient: ObservableObject {
 		pool.stop()
 	}
 	
+	// when we have presets, we can turn this on
+	var allowDirectControl: Bool = false
+	
 	struct RemoteValue<T: Equatable>: Equatable {
 		var remote: T
 		var local: T
@@ -255,6 +258,8 @@ class VISCAClient: ObservableObject {
 	}
 	
 	func inquireZoomPosition() {
+		guard allowDirectControl else { return }
+		
 		pool.send(inquiry: .zoomPosition)
 			.sink { completion in
 				if self.handle(completion) != .cancelled, self.zoomDirection != nil {
@@ -319,6 +324,8 @@ class VISCAClient: ObservableObject {
 	}
 	
 	func inquireFocusPosition() {
+		guard allowDirectControl else { return }
+		
 		pool.send(inquiry: .focusPosition)
 			.sink { completion in
 				if self.handle(completion) != .cancelled, self.focusDirection != nil {

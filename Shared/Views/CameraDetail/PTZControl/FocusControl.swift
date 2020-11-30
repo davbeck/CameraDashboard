@@ -26,7 +26,11 @@ struct FocusControl: View {
 					Image(systemSymbol: .minus)
 				}
 				
-				Slider(value: $client.focusPosition.local, in: 0...VISCAClient.maxFocus)
+				if client.allowDirectControl {
+					Slider(value: $client.focusPosition.local, in: 0...VISCAClient.maxFocus)
+				} else {
+					Spacer()
+				}
 				
 				DirectionButton(isActive: $client.focusDirection.equalTo(.near)) {
 					Image(systemSymbol: .plus)

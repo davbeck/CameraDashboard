@@ -205,7 +205,7 @@ class VISCAServerConnection {
 				var position = payload.dropFirst(3).loadBitPadded(as: UInt16.self)
 				print("CAM_Focus Direct", position)
 				position = min(position, UInt16(camera.focus.maxValue))
-				camera.focus.destination = .init(direction: .direct(Int(position)), speed: 0x0F * 5)
+				camera.focus.destination = .init(direction: .direct(Int(position)), speed: 0x0F)
 				
 				sendAck()
 				camera.focus.$destination
@@ -221,9 +221,9 @@ class VISCAServerConnection {
 				case 0x00:
 					camera.focus.destination = nil
 				case 0x02:
-					camera.focus.destination = .init(direction: .up, speed: 0x0F * 5)
+					camera.focus.destination = .init(direction: .up, speed: 0x0F)
 				case 0x03:
-					camera.focus.destination = .init(direction: .down, speed: 0x0F * 5)
+					camera.focus.destination = .init(direction: .down, speed: 0x0F)
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
