@@ -222,9 +222,6 @@ final class VISCAConnection {
 		
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
-			.map { _ -> Void in
-				self.sequence += 1
-			}
 			.eraseToAnyPublisher()
 	}
 	
@@ -377,6 +374,7 @@ final class VISCAConnection {
 					}
 				}
 				
+				self.sequence += 1
 				self.isExecuting = false
 				self.didExecute?(self)
 			})
@@ -417,6 +415,7 @@ final class VISCAConnection {
 					}
 				}
 				
+				self.sequence += 1
 				self.isExecuting = false
 				self.didExecute?(self)
 			})

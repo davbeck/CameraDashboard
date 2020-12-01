@@ -139,6 +139,7 @@
 		7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A25256B75D60090AD5F /* PropertyControl.swift */; };
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
+		7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867CD257693E400AA7B6E /* ConnectionRow.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -266,6 +267,7 @@
 		7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
+		7AA867CD257693E400AA7B6E /* ConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRow.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ABBA6E8256E1610001B4967 /* View+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extend.swift"; sourceTree = "<group>"; };
 		7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCameraButton.swift; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 			children = (
 				7A7F659425618087008B33C6 /* VISCASimulatorApp.swift */,
 				7A7F659625618087008B33C6 /* ContentView.swift */,
+				7AA867CD257693E400AA7B6E /* ConnectionRow.swift */,
 				7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */,
 				7A9D3A25256B75D60090AD5F /* PropertyControl.swift */,
 				7A7F65A7256180C5008B33C6 /* VISCAServer */,
@@ -1054,6 +1057,7 @@
 				7A7F659525618087008B33C6 /* VISCASimulatorApp.swift in Sources */,
 				7A7F65C72561DD2B008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F65B5256180F1008B33C6 /* VISCAServerConnection.swift in Sources */,
+				7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */,
 				7A7F65DA2561F69B008B33C6 /* Camera.swift in Sources */,
 				7A9D3A1E256B75AD0090AD5F /* FocusControl.swift in Sources */,
 				7A7F65C02561C7F2008B33C6 /* IntegerFormatting.swift in Sources */,
