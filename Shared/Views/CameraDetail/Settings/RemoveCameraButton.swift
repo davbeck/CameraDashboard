@@ -22,7 +22,6 @@ struct RemoveCameraButton: View {
 				alert.alertStyle = .warning
 				if let window = window {
 					alert.beginSheetModal(for: window) { response in
-						print("response", response, response == .alertFirstButtonReturn)
 						if response == .alertFirstButtonReturn {
 							removeCamera()
 						}

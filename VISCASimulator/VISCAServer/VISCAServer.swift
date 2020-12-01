@@ -19,7 +19,6 @@ class VISCAServer: ObservableObject {
 			let connection = VISCAServerConnection(camera: self.camera, connection: nwConnection)
 			self.connections.append(connection)
 			connection.didStopCallback = { [weak self] connection, error in
-				print("didStopCallback", error as Any)
 				self?.connections.removeAll(where: { $0 == connection })
 			}
 		}

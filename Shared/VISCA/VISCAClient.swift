@@ -453,7 +453,6 @@ class VISCAClient: ObservableObject {
 				)
 			}
 		case .none:
-			print("panTiltStop")
 			command = .panTiltStop
 		}
 		

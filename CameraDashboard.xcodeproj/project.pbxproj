@@ -137,6 +137,8 @@
 		7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
 		7A9D3A1E256B75AD0090AD5F /* FocusControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */; };
 		7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A25256B75D60090AD5F /* PropertyControl.swift */; };
+		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
+		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -263,6 +265,7 @@
 		7A9D3A14256B6F550090AD5F /* DirectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionButton.swift; sourceTree = "<group>"; };
 		7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
+		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ABBA6E8256E1610001B4967 /* View+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extend.swift"; sourceTree = "<group>"; };
 		7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCameraButton.swift; sourceTree = "<group>"; };
@@ -453,6 +456,7 @@
 				7ADA267E2563575A00A03CBE /* defaultsKey.swift */,
 				7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */,
 				7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */,
+				7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -899,6 +903,7 @@
 				7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
+				7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
 				7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
@@ -969,6 +974,7 @@
 				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
+				7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
 				7ABBA6F3256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B82560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */,

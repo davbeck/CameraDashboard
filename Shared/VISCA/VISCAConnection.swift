@@ -1,6 +1,30 @@
 import Foundation
 import Combine
 import Network
+import OSLog
+
+private let logger = Logger(category: "VISCAConnection")
+
+extension NWConnection.State: CustomStringConvertible {
+	public var description: String {
+		switch self {
+		case .setup:
+			return "setup"
+		case .waiting:
+			return "waiting"
+		case .preparing:
+			return "preparing"
+		case .ready:
+			return "ready"
+		case .failed:
+			return "failed"
+		case .cancelled:
+			return "cancelled"
+		@unknown default:
+			return "unknown"
+		}
+	}
+}
 
 final class VISCAConnection {
 	enum Error: Swift.Error, LocalizedError {
@@ -86,7 +110,7 @@ final class VISCAConnection {
 		connection.stateUpdateHandler = { [weak self] state in
 			guard let self = self else { return }
 			
-			print("🔄#\(connectionNumber)", state)
+			logger.debug("🔄#\(connectionNumber) \(state)")
 			switch state {
 			case .ready:
 				self.resetSequence()
@@ -101,10 +125,10 @@ final class VISCAConnection {
 					} receiveValue: { _ in }
 					.store(in: &self.observers)
 			case let .failed(error):
-				print("❌#\(self.connectionNumber) failed", error)
+				logger.error("❌#\(self.connectionNumber) failed \(error as NSError, privacy: .public)")
 				self.fail(error)
 			case let .waiting(error):
-				print("❌#\(self.connectionNumber) waiting", error)
+				logger.warning("❌#\(self.connectionNumber) waiting \(error as NSError, privacy: .public)")
 //				self.responses.send(completion: .failure(error))
 //				self.didFail.send(error)
 //				self.didConnect.send(completion: .failure(error))
@@ -157,7 +181,7 @@ final class VISCAConnection {
 	}
 	
 	func stop() {
-		print("❌#\(connectionNumber) stopping")
+		logger.warning("❌#\(self.connectionNumber) stopping")
 		connection.cancel()
 	}
 	
@@ -194,7 +218,7 @@ final class VISCAConnection {
 		
 		message.append(payload)
 		
-		print("⬆️#\(connectionNumber)", message.map { $0.hexDescription }.joined(separator: " "))
+		logger.info("⬆️#\(self.connectionNumber) \(message.hexDescription, privacy: .public)")
 		
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
@@ -236,12 +260,12 @@ final class VISCAConnection {
 		func readByte(completion: @escaping (UInt8) -> Void) {
 			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
 				if let error = error {
-					print("❌#\(self.connectionNumber) receive failed", error)
+					logger.error("❌#\(self.connectionNumber) receive failed \(error as NSError, privacy: .public)")
 					self.fail(Error.unexpectedBytes)
 					return
 				}
 				guard let byte = data?.first, data?.count == 1 else {
-					print("#\(self.connectionNumber) receive nothing", data as Any)
+					logger.warning("#\(self.connectionNumber) receive nothing")
 					return
 				}
 				
@@ -252,7 +276,7 @@ final class VISCAConnection {
 		func getNext() {
 			readByte { byte in
 				if byte == 0xFF {
-					print("⬇️#\(self.connectionNumber)", responsePacket.hexDescription)
+					logger.info("⬇️#\(self.connectionNumber) \(responsePacket.hexDescription, privacy: .public)")
 					
 					self.responses.send(ResponsePacket(responsePacket))
 					self.receive()
@@ -265,7 +289,7 @@ final class VISCAConnection {
 		
 		readByte { byte in
 			guard byte == 0x90 else {
-				print("❌#\(self.connectionNumber) receive failed")
+				logger.error("❌#\(self.connectionNumber) receive failed")
 				self.fail(Error.unexpectedBytes)
 				return
 			}
@@ -303,6 +327,8 @@ final class VISCAConnection {
 		
 		let sequence = self.sequence
 		current = (sequence, command.group)
+		
+		logger.info("⬆️#\(self.connectionNumber) \(command.name, privacy: .public)")
 		
 		return sendVISCACommand(payload: command.payload)
 			.handleEvents(receiveCompletion: { _ in
@@ -368,6 +394,8 @@ final class VISCAConnection {
 				.eraseToAnyPublisher()
 		}
 		isExecuting = true
+		
+		logger.info("⬆️#\(self.connectionNumber) \(inquiry.name, privacy: .public)")
 		
 		return sendVISCAInquiry(payload: inquiry.payload)
 			.tryMap { (payload) -> Response in

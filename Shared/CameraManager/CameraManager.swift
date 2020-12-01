@@ -1,6 +1,9 @@
 import Foundation
 import Network
 import Combine
+import OSLog
+
+private let logger = Logger(category: "CameraManager")
 
 struct CameraConnection: Hashable, Identifiable {
 	var camera: Camera
@@ -72,7 +75,7 @@ class CameraManager: ObservableObject {
 			}
 			presetConfigs = config.presetConfigs
 		} catch {
-			print("failed to load config", error)
+			logger.error("failed to load config: \(error as NSError, privacy: .public)")
 		}
 	}
 	
@@ -89,7 +92,7 @@ class CameraManager: ObservableObject {
 				let data = try JSONEncoder().encode(config)
 				try data.write(to: configURL, options: .atomic)
 			} catch {
-				print("failed to save confing", error)
+				logger.error("failed to save config: \(error as NSError, privacy: .public)")
 			}
 		}
 	}
