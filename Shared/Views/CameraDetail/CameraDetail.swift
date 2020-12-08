@@ -28,8 +28,10 @@ struct CameraDetail: View {
 	}
 }
 
-struct CameraDetail_Previews: PreviewProvider {
-	static var previews: some View {
-		CameraDetail(connection: CameraConnection())
+#if DEBUG
+	struct CameraDetail_Previews: PreviewProvider {
+		static var previews: some View {
+			CameraDetail(connection: CameraConnection())
+		}
 	}
-}
+#endif
