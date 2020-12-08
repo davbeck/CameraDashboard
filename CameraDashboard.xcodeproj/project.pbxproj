@@ -140,6 +140,10 @@
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867CD257693E400AA7B6E /* ConnectionRow.swift */; };
+		7AA8680925769D3700AA7B6E /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA867FC25769D2400AA7B6E /* Mixpanel.framework */; };
+		7AA8680A25769D3700AA7B6E /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA867FC25769D2400AA7B6E /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7AA8681225769EC500AA7B6E /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8681125769EC500AA7B6E /* Tracking.swift */; };
+		7AA8681325769EC500AA7B6E /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8681125769EC500AA7B6E /* Tracking.swift */; };
 		7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
@@ -180,7 +184,49 @@
 			remoteGlobalIDString = 7A7F64482560305B008B33C6;
 			remoteInfo = "CameraDashboard (macOS)";
 		};
+		7AA867F725769D2400AA7B6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E115947D1CFF1491007F8B4F;
+			remoteInfo = Mixpanel;
+		};
+		7AA867F925769D2400AA7B6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E12782B31D4AB4B30025FB05;
+			remoteInfo = Mixpanel_tvOS;
+		};
+		7AA867FB25769D2400AA7B6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1F15FC91E64A10700391AE3;
+			remoteInfo = Mixpanel_macOS;
+		};
+		7AA867FD25769D2400AA7B6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 86F86E81224404BD00B69832;
+			remoteInfo = Mixpanel_watchOS;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7AA8680B25769D3700AA7B6E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7AA8680A25769D3700AA7B6E /* Mixpanel.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
@@ -268,6 +314,8 @@
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
 		7AA867CD257693E400AA7B6E /* ConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRow.swift; sourceTree = "<group>"; };
+		7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mixpanel.xcodeproj; path = "mixpanel-swift/Mixpanel.xcodeproj"; sourceTree = "<group>"; };
+		7AA8681125769EC500AA7B6E /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ABBA6E8256E1610001B4967 /* View+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extend.swift"; sourceTree = "<group>"; };
 		7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCameraButton.swift; sourceTree = "<group>"; };
@@ -291,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA8680925769D3700AA7B6E /* Mixpanel.framework in Frameworks */,
 				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +388,7 @@
 				7A7F645F2560305B008B33C6 /* Tests macOS */,
 				7A7F659325618087008B33C6 /* VISCASimulator */,
 				7A7F64422560305B008B33C6 /* Products */,
+				7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */,
 				7A7F6542256033C1008B33C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -459,6 +509,7 @@
 				7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */,
 				7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */,
 				7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */,
+				7AA8681125769EC500AA7B6E /* Tracking.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -590,6 +641,17 @@
 			path = CameraDashboardTests;
 			sourceTree = "<group>";
 		};
+		7AA867F125769D2400AA7B6E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7AA867F825769D2400AA7B6E /* Mixpanel.framework */,
+				7AA867FA25769D2400AA7B6E /* Mixpanel.framework */,
+				7AA867FC25769D2400AA7B6E /* Mixpanel.framework */,
+				7AA867FE25769D2400AA7B6E /* Mixpanel.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7AAF43DD25660E9700C82EC3 /* PanTiltControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +697,7 @@
 				7A7F64462560305B008B33C6 /* Frameworks */,
 				7A7F64472560305B008B33C6 /* Resources */,
 				7ADA268E25636EC800A03CBE /* SwiftFormat */,
+				7AA8680B25769D3700AA7B6E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -770,6 +833,12 @@
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7AA867F125769D2400AA7B6E /* Products */;
+					ProjectRef = 7AA867F025769D2400AA7B6E /* Mixpanel.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7A7F64402560305B008B33C6 /* CameraDashboard (iOS) */,
@@ -781,6 +850,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7AA867F825769D2400AA7B6E /* Mixpanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mixpanel.framework;
+			remoteRef = 7AA867F725769D2400AA7B6E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7AA867FA25769D2400AA7B6E /* Mixpanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mixpanel.framework;
+			remoteRef = 7AA867F925769D2400AA7B6E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7AA867FC25769D2400AA7B6E /* Mixpanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mixpanel.framework;
+			remoteRef = 7AA867FB25769D2400AA7B6E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7AA867FE25769D2400AA7B6E /* Mixpanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mixpanel.framework;
+			remoteRef = 7AA867FD25769D2400AA7B6E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7A7F643F2560305B008B33C6 /* Resources */ = {
@@ -898,6 +998,7 @@
 				7A7F64EE2560314E008B33C6 /* PresetView.swift in Sources */,
 				7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EA2560314D008B33C6 /* PresetEditView.swift in Sources */,
+				7AA8681225769EC500AA7B6E /* Tracking.swift in Sources */,
 				7A7F64F525603158008B33C6 /* ErrorReporter.swift in Sources */,
 				7A7F651F2560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
 				7A7F64A925603101008B33C6 /* Angle+Additions.swift in Sources */,
@@ -969,6 +1070,7 @@
 				7A7F64EF2560314E008B33C6 /* PresetView.swift in Sources */,
 				7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EB2560314D008B33C6 /* PresetEditView.swift in Sources */,
+				7AA8681325769EC500AA7B6E /* Tracking.swift in Sources */,
 				7A7F64F625603158008B33C6 /* ErrorReporter.swift in Sources */,
 				7A7F65202560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
@@ -1305,7 +1407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7TR2B85D62;
 				INFOPLIST_FILE = "Tests iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1327,7 +1429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7TR2B85D62;
 				INFOPLIST_FILE = "Tests iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

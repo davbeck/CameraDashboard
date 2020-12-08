@@ -120,7 +120,7 @@ class CameraManager: ObservableObject {
 		
 		connection.client.inquireVersion { result in
 			switch result {
-			case .success:
+			case let .success(version):
 				if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
 					self.connections[index].client.stop()
 					self.connections[index] = connection
@@ -133,10 +133,13 @@ class CameraManager: ObservableObject {
 				self.saveConfig()
 				
 				completion(.success(connection))
+				
+				Tracker.trackCameraAdd(version: version, port: camera.port ?? 5678)
 			case let .failure(error):
 				connection.client.stop()
-				
 				completion(.failure(error))
+				
+				Tracker.trackCameraAddFailed(error)
 			}
 		}
 	}
