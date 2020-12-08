@@ -10,8 +10,10 @@ struct CameraContentView: View {
 	}
 }
 
-struct CameraContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		CameraContentView(cameraManager: .shared, connection: CameraConnection())
+#if DEBUG
+	struct CameraContentView_Previews: PreviewProvider {
+		static var previews: some View {
+			CameraContentView(cameraManager: .shared, connection: CameraConnection())
+		}
 	}
-}
+#endif
