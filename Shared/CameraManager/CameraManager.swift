@@ -74,6 +74,8 @@ class CameraManager: ObservableObject {
 				)
 			}
 			presetConfigs = config.presetConfigs
+			
+			Tracker.track(numberOfCameras: connections.count)
 		} catch {
 			logger.error("failed to load config: \(error as NSError, privacy: .public)")
 		}
@@ -126,8 +128,9 @@ class CameraManager: ObservableObject {
 					self.connections[index] = connection
 				} else {
 					self.connections.append(connection)
-					
 					self.didAddCamera.send(camera)
+					
+					Tracker.track(numberOfCameras: self.connections.count)
 				}
 				
 				self.saveConfig()
@@ -155,6 +158,8 @@ class CameraManager: ObservableObject {
 		saveConfig()
 		
 		didRemoveCamera.send(camera)
+		
+		Tracker.track(numberOfCameras: self.connections.count)
 	}
 	
 	// MARK: - Preset Config

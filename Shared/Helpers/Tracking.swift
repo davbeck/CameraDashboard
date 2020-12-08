@@ -2,6 +2,10 @@ import Foundation
 import Mixpanel
 
 enum Tracker {
+	static func track(numberOfCameras count: Int) {
+		Mixpanel.mainInstance().people.set(properties: ["Number of Cameras": count])
+	}
+	
 	static func trackCameraAdd(version: VISCAVersion, port: UInt16) {
 		Mixpanel.mainInstance().track(event: "Camera Added", properties: [
 			"Vendor": Int(version.venderID),
