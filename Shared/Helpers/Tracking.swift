@@ -27,4 +27,17 @@ enum Tracker {
 			"Code": nsError.code,
 		])
 	}
+	
+	static func track(error: Swift.Error, operation: String, payload: Data) {
+		let nsError = error as NSError
+		
+		Mixpanel.mainInstance().track(event: "Message Error", properties: [
+			"Description": nsError.localizedDescription,
+			"User Info": nsError.userInfo,
+			"Domain": nsError.domain,
+			"Code": nsError.code,
+			"Operation": operation,
+			"Payload": payload.hexDescription,
+		])
+	}
 }

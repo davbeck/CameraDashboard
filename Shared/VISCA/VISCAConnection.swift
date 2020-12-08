@@ -328,7 +328,11 @@ final class VISCAConnection {
 		logger.info("⬆️#\(self.connectionNumber) \(command.name, privacy: .public)")
 		
 		return sendVISCACommand(payload: command.payload)
-			.handleEvents(receiveCompletion: { _ in
+			.handleEvents(receiveCompletion: { completion in
+				if case let .failure(error) = completion {
+					Tracker.track(error: error, operation: command.name, payload: command.payload)
+				}
+				
 				guard self.current?.sequence == sequence else { return }
 				self.current = nil
 				self.didCompleteCommand?(self)
@@ -413,6 +417,8 @@ final class VISCAConnection {
 							return
 						}
 					}
+					
+					Tracker.track(error: error, operation: inquiry.name, payload: inquiry.payload)
 				}
 				
 				self.sequence += 1
