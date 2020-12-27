@@ -236,7 +236,7 @@
 		7A7F643C2560305B008B33C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A7F64412560305B008B33C6 /* CameraDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7F64442560305B008B33C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A7F64492560305B008B33C6 /* CameraDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A7F64492560305B008B33C6 /* Camera Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Dashboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7F644B2560305B008B33C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A7F644C2560305B008B33C6 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		7A7F64512560305B008B33C6 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -411,7 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				7A7F64412560305B008B33C6 /* CameraDashboard.app */,
-				7A7F64492560305B008B33C6 /* CameraDashboard.app */,
+				7A7F64492560305B008B33C6 /* Camera Dashboard.app */,
 				7A7F64512560305B008B33C6 /* Tests iOS.xctest */,
 				7A7F645C2560305B008B33C6 /* Tests macOS.xctest */,
 				7A7F659225618087008B33C6 /* VISCASimulator.app */,
@@ -708,7 +708,7 @@
 				7A7F653C256033B4008B33C6 /* SFSafeSymbols */,
 			);
 			productName = "CameraDashboard (macOS)";
-			productReference = 7A7F64492560305B008B33C6 /* CameraDashboard.app */;
+			productReference = 7A7F64492560305B008B33C6 /* Camera Dashboard.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7A7F64502560305B008B33C6 /* Tests iOS */ = {
@@ -1376,7 +1376,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
-				PRODUCT_NAME = CameraDashboard;
+				PRODUCT_NAME = "Camera Dashboard";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1402,7 +1402,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
-				PRODUCT_NAME = CameraDashboard;
+				PRODUCT_NAME = "Camera Dashboard";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
