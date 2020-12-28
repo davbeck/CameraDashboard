@@ -335,7 +335,7 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.timeout(.seconds(5), scheduler: DispatchQueue.main, customError: {
+			.timeout(.seconds(1), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.handleEvents(receiveCompletion: { completion in
@@ -415,7 +415,7 @@ final class VISCAConnection {
 					throw Error.unexpectedBytes
 				}
 			}
-			.timeout(.seconds(5), scheduler: DispatchQueue.main, customError: {
+			.timeout(.seconds(1), scheduler: DispatchQueue.main, customError: {
 				Error.timeout
 			})
 			.disableCancellation()
