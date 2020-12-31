@@ -2,8 +2,11 @@ import SwiftUI
 import Mixpanel
 
 #if os(macOS)
+	import Sparkle
+	
 	class AppDelegate: NSObject, NSApplicationDelegate {
 		var window: NSWindow!
+		let updater = SUUpdater.shared()
 		
 		func applicationDidFinishLaunching(_ aNotification: Notification) {}
 		
@@ -30,6 +33,15 @@ struct CameraDashboardApp: App {
 				}
 		}
 		.commands {
+			#if os(macOS)
+				CommandGroup(after: CommandGroupPlacement.appSettings) {
+					Button(action: {
+						SUUpdater.shared()?.checkForUpdates(nil)
+					}) {
+						Text("Check for Updates...")
+					}
+				}
+			#endif
 			CommandGroup(replacing: CommandGroupPlacement.newItem) {}
 		}
 	}

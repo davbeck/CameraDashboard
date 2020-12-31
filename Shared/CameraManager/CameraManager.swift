@@ -23,6 +23,7 @@ class CameraManager: ObservableObject {
 	static let shared: CameraManager = {
 		let url = try? FileManager.default
 			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			.appendingPathComponent(Bundle(for: CameraManager.self).bundleIdentifier ?? "CameraDashboard")
 			.appendingPathComponent("CameraConfig.json", isDirectory: false)
 		
 		return CameraManager(configURL: url)
