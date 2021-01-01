@@ -86,6 +86,11 @@ class CameraManager: ObservableObject {
 		queue.async {
 			do {
 				guard let configURL = self.configURL else { return }
+				try FileManager.default.createDirectory(
+					at: configURL.deletingLastPathComponent(),
+					withIntermediateDirectories: true,
+					attributes: nil
+				)
 				
 				let config = CameraConfig(
 					cameras: self.connections.map { $0.camera },
