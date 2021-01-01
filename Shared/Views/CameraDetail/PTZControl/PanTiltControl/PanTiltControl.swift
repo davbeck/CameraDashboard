@@ -14,7 +14,7 @@ struct PanTiltControl: View {
 	var body: some View {
 		ZStack {
 			Circle()
-				.fill(Color(NSColor.controlBackgroundColor))
+				.fill(Color(NSColor.controlColor))
 				.frame(width: size, height: size)
 				.shadow(color: Color.black.opacity(0.2), radius: 1, x: 0, y: 1 / displayScale)
 			
