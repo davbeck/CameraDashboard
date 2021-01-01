@@ -1,22 +1,7 @@
 import SwiftUI
 import Mixpanel
-import LetsMove
-
-#if os(macOS)
+#if canImport(Sparkle)
 	import Sparkle
-	
-	class AppDelegate: NSObject, NSApplicationDelegate {
-		var window: NSWindow!
-		let updater = SUUpdater.shared()
-		
-		func applicationWillFinishLaunching(_ notification: Notification) {
-			PFMoveToApplicationsFolderIfNecessary()
-		}
-		
-		func applicationDidFinishLaunching(_ aNotification: Notification) {}
-		
-		func applicationWillTerminate(_ aNotification: Notification) {}
-	}
 #endif
 
 @main
@@ -38,7 +23,7 @@ struct CameraDashboardApp: App {
 				}
 		}
 		.commands {
-			#if os(macOS)
+			#if canImport(Sparkle)
 				CommandGroup(after: CommandGroupPlacement.appSettings) {
 					Button(action: {
 						SUUpdater.shared()?.checkForUpdates(nil)

@@ -146,6 +146,7 @@
 		7AA7AB80259ED3700089567F /* Sparkle.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */; };
 		7AA7AB81259ED3700089567F /* Mixpanel.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */; };
 		7AA7AB82259ED3700089567F /* LetsMove.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */; };
+		7AA7AB8E259ED3F90089567F /* NSApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */; };
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867CD257693E400AA7B6E /* ConnectionRow.swift */; };
@@ -311,6 +312,7 @@
 		7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Sparkle.framework.dSYM; sourceTree = "<group>"; };
 		7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Mixpanel.framework.dSYM; sourceTree = "<group>"; };
 		7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = LetsMove.framework.dSYM; sourceTree = "<group>"; };
+		7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplicationDelegate.swift; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
 		7AA867CD257693E400AA7B6E /* ConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRow.swift; sourceTree = "<group>"; };
 		7AA8681125769EC500AA7B6E /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */,
+				7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */,
 				7A7F6489256030AC008B33C6 /* Views */,
 				7A7F647B25603092008B33C6 /* CameraManager */,
 				7A7F648A256030C3008B33C6 /* VISCA */,
@@ -1102,6 +1105,7 @@
 				7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
+				7AA7AB8E259ED3F90089567F /* NSApplicationDelegate.swift in Sources */,
 				7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */,
