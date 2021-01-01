@@ -137,6 +137,8 @@
 		7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A14256B6F550090AD5F /* DirectionButton.swift */; };
 		7A9D3A1E256B75AD0090AD5F /* FocusControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */; };
 		7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A25256B75D60090AD5F /* PropertyControl.swift */; };
+		7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB52259ECCF20089567F /* LetsMove.framework */; };
+		7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB52259ECCF20089567F /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867CD257693E400AA7B6E /* ConnectionRow.swift */; };
@@ -225,6 +227,7 @@
 			files = (
 				7AB2CBE2259E24DD00DC7483 /* Mixpanel.framework in Embed Frameworks */,
 				7AB2CBAF259E247E00DC7483 /* Sparkle.framework in Embed Frameworks */,
+				7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +318,7 @@
 		7A9D3A14256B6F550090AD5F /* DirectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionButton.swift; sourceTree = "<group>"; };
 		7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
+		7AA7AB52259ECCF20089567F /* LetsMove.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LetsMove.framework; path = Carthage/Build/Mac/LetsMove.framework; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
 		7AA867CD257693E400AA7B6E /* ConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRow.swift; sourceTree = "<group>"; };
 		7AA8681125769EC500AA7B6E /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AB2CBAE259E247E00DC7483 /* Sparkle.framework in Frameworks */,
+				7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */,
 				7AB2CBE1259E24DD00DC7483 /* Mixpanel.framework in Frameworks */,
 				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
 			);
@@ -598,6 +603,7 @@
 		7A7F6542256033C1008B33C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AA7AB52259ECCF20089567F /* LetsMove.framework */,
 				7AB2CB79259D83B800DC7483 /* Sparkle.framework */,
 			);
 			name = Frameworks;
@@ -699,6 +705,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A7F646E2560305B008B33C6 /* Build configuration list for PBXNativeTarget "CameraDashboard (macOS)" */;
 			buildPhases = (
+				7AA7AB5F259ECF120089567F /* Carthage */,
 				7A7F64452560305B008B33C6 /* Sources */,
 				7A7F64462560305B008B33C6 /* Frameworks */,
 				7A7F64472560305B008B33C6 /* Resources */,
@@ -938,6 +945,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7AA7AB5F259ECF120089567F /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which carthage >/dev/null; then\n  carthage outdated --xcode-warnings 2>/dev/null\nelse\n  echo \"warning: Carthage not installed\"\nfi\n";
+		};
 		7ADA268C25636E9F00A03CBE /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1377,6 +1402,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1408,6 +1434,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

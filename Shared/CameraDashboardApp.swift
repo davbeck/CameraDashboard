@@ -1,5 +1,6 @@
 import SwiftUI
 import Mixpanel
+import LetsMove
 
 #if os(macOS)
 	import Sparkle
@@ -7,6 +8,10 @@ import Mixpanel
 	class AppDelegate: NSObject, NSApplicationDelegate {
 		var window: NSWindow!
 		let updater = SUUpdater.shared()
+		
+		func applicationWillFinishLaunching(_ notification: Notification) {
+			PFMoveToApplicationsFolderIfNecessary()
+		}
 		
 		func applicationDidFinishLaunching(_ aNotification: Notification) {}
 		

@@ -1,0 +1,19 @@
+{
+  "Mac" : [
+    {
+      "name" : "LetsMove",
+      "hash" : "e0646fbedb43f0164debd94086ac427727116757075400939c8ae8d3dfe20dd0",
+      "linking" : "dynamic"
+    }
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "v1.25",
+  "iOS" : [
+
+  ]
+}
