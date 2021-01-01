@@ -139,6 +139,13 @@
 		7A9D3A26256B75D60090AD5F /* PropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D3A25256B75D60090AD5F /* PropertyControl.swift */; };
 		7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB52259ECCF20089567F /* LetsMove.framework */; };
 		7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB52259ECCF20089567F /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB6A259ED1200089567F /* Sparkle.framework */; };
+		7AA7AB6D259ED12C0089567F /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB6A259ED1200089567F /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7AA7AB75259ED2380089567F /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB73259ED2040089567F /* Mixpanel.framework */; };
+		7AA7AB76259ED2380089567F /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB73259ED2040089567F /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7AA7AB80259ED3700089567F /* Sparkle.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */; };
+		7AA7AB81259ED3700089567F /* Mixpanel.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */; };
+		7AA7AB82259ED3700089567F /* LetsMove.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */; };
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
 		7AA867CE257693E400AA7B6E /* ConnectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867CD257693E400AA7B6E /* ConnectionRow.swift */; };
@@ -148,10 +155,6 @@
 		7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43CA2565F63500C82EC3 /* Slider+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */; };
 		7AAF43D72565FE3800C82EC3 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7AAF43D62565FE3800C82EC3 /* Defaults */; };
-		7AB2CBAE259E247E00DC7483 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB2CB79259D83B800DC7483 /* Sparkle.framework */; };
-		7AB2CBAF259E247E00DC7483 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB2CB79259D83B800DC7483 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7AB2CBE1259E24DD00DC7483 /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB2CBD9259E24BF00DC7483 /* Mixpanel.framework */; };
-		7AB2CBE2259E24DD00DC7483 /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB2CBD9259E24BF00DC7483 /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7ABBA6E9256E1610001B4967 /* View+Extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6E8256E1610001B4967 /* View+Extend.swift */; };
 		7ABBA6EA256E1610001B4967 /* View+Extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6E8256E1610001B4967 /* View+Extend.swift */; };
 		7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */; };
@@ -188,45 +191,29 @@
 			remoteGlobalIDString = 7A7F64482560305B008B33C6;
 			remoteInfo = "CameraDashboard (macOS)";
 		};
-		7AB2CBD4259E24BF00DC7483 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E115947D1CFF1491007F8B4F;
-			remoteInfo = Mixpanel;
-		};
-		7AB2CBD6259E24BF00DC7483 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E12782B31D4AB4B30025FB05;
-			remoteInfo = Mixpanel_tvOS;
-		};
-		7AB2CBD8259E24BF00DC7483 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1F15FC91E64A10700391AE3;
-			remoteInfo = Mixpanel_macOS;
-		};
-		7AB2CBDA259E24BF00DC7483 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 86F86E81224404BD00B69832;
-			remoteInfo = Mixpanel_watchOS;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7AA7AB7C259ED3430089567F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				7AA7AB80259ED3700089567F /* Sparkle.framework.dSYM in CopyFiles */,
+				7AA7AB81259ED3700089567F /* Mixpanel.framework.dSYM in CopyFiles */,
+				7AA7AB82259ED3700089567F /* LetsMove.framework.dSYM in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA8680B25769D3700AA7B6E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7AB2CBE2259E24DD00DC7483 /* Mixpanel.framework in Embed Frameworks */,
-				7AB2CBAF259E247E00DC7483 /* Sparkle.framework in Embed Frameworks */,
+				7AA7AB6D259ED12C0089567F /* Sparkle.framework in Embed Frameworks */,
+				7AA7AB76259ED2380089567F /* Mixpanel.framework in Embed Frameworks */,
 				7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -319,12 +306,15 @@
 		7A9D3A1D256B75AD0090AD5F /* FocusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusControl.swift; sourceTree = "<group>"; };
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
 		7AA7AB52259ECCF20089567F /* LetsMove.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LetsMove.framework; path = Carthage/Build/Mac/LetsMove.framework; sourceTree = "<group>"; };
+		7AA7AB6A259ED1200089567F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Carthage/Build/Mac/Sparkle.framework; sourceTree = "<group>"; };
+		7AA7AB73259ED2040089567F /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mixpanel.framework; path = Carthage/Build/Mac/Mixpanel.framework; sourceTree = "<group>"; };
+		7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Sparkle.framework.dSYM; sourceTree = "<group>"; };
+		7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Mixpanel.framework.dSYM; sourceTree = "<group>"; };
+		7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = LetsMove.framework.dSYM; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
 		7AA867CD257693E400AA7B6E /* ConnectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRow.swift; sourceTree = "<group>"; };
 		7AA8681125769EC500AA7B6E /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
-		7AB2CB79259D83B800DC7483 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mixpanel.xcodeproj; path = "mixpanel-swift/Mixpanel.xcodeproj"; sourceTree = "<group>"; };
 		7ABBA6E8256E1610001B4967 /* View+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extend.swift"; sourceTree = "<group>"; };
 		7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCameraButton.swift; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
@@ -347,10 +337,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB2CBAE259E247E00DC7483 /* Sparkle.framework in Frameworks */,
+				7AA7AB75259ED2380089567F /* Mixpanel.framework in Frameworks */,
 				7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */,
-				7AB2CBE1259E24DD00DC7483 /* Mixpanel.framework in Frameworks */,
 				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
+				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +388,6 @@
 				7A7F645F2560305B008B33C6 /* Tests macOS */,
 				7A7F659325618087008B33C6 /* VISCASimulator */,
 				7A7F64422560305B008B33C6 /* Products */,
-				7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */,
 				7A7F6542256033C1008B33C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -603,8 +592,12 @@
 		7A7F6542256033C1008B33C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AA7AB73259ED2040089567F /* Mixpanel.framework */,
+				7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */,
 				7AA7AB52259ECCF20089567F /* LetsMove.framework */,
-				7AB2CB79259D83B800DC7483 /* Sparkle.framework */,
+				7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */,
+				7AA7AB6A259ED1200089567F /* Sparkle.framework */,
+				7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -666,17 +659,6 @@
 			path = PanTiltControl;
 			sourceTree = "<group>";
 		};
-		7AB2CBCE259E24BF00DC7483 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7AB2CBD5259E24BF00DC7483 /* Mixpanel.framework */,
-				7AB2CBD7259E24BF00DC7483 /* Mixpanel.framework */,
-				7AB2CBD9259E24BF00DC7483 /* Mixpanel.framework */,
-				7AB2CBDB259E24BF00DC7483 /* Mixpanel.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -711,6 +693,7 @@
 				7A7F64472560305B008B33C6 /* Resources */,
 				7ADA268E25636EC800A03CBE /* SwiftFormat */,
 				7AA8680B25769D3700AA7B6E /* Embed Frameworks */,
+				7AA7AB7C259ED3430089567F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -846,12 +829,6 @@
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7AB2CBCE259E24BF00DC7483 /* Products */;
-					ProjectRef = 7AB2CBCD259E24BF00DC7483 /* Mixpanel.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7A7F64402560305B008B33C6 /* CameraDashboard (iOS) */,
@@ -863,37 +840,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7AB2CBD5259E24BF00DC7483 /* Mixpanel.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Mixpanel.framework;
-			remoteRef = 7AB2CBD4259E24BF00DC7483 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7AB2CBD7259E24BF00DC7483 /* Mixpanel.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Mixpanel.framework;
-			remoteRef = 7AB2CBD6259E24BF00DC7483 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7AB2CBD9259E24BF00DC7483 /* Mixpanel.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Mixpanel.framework;
-			remoteRef = 7AB2CBD8259E24BF00DC7483 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7AB2CBDB259E24BF00DC7483 /* Mixpanel.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Mixpanel.framework;
-			remoteRef = 7AB2CBDA259E24BF00DC7483 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7A7F643F2560305B008B33C6 /* Resources */ = {

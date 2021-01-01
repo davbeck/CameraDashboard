@@ -1,3 +1,0 @@
-[submodule "mixpanel-swift"]
-	path = mixpanel-swift
-	url = git@github.com:mixpanel/mixpanel-swift.git

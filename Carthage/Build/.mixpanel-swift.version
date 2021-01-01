@@ -1,0 +1,11 @@
+{
+  "commitish" : "v2.8.1",
+  "Mac" : [
+    {
+      "hash" : "f91b0f37719ca08b170dc4baa24fc4ef0562a8fb96b657366b82dfb6232e9734",
+      "name" : "Mixpanel",
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+    }
+  ]
+}
