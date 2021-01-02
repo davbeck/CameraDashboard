@@ -3,14 +3,10 @@ import SwiftUI
 struct RemoveCameraButton: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
-	var camera: Camera
+	var removeCamera: () -> Void
 	
 	@State var window: NSWindow?
 	@State var isOpen: Bool = false
-	
-	func removeCamera() {
-		cameraManager.remove(camera: camera)
-	}
 	
 	var body: some View {
 		Button {

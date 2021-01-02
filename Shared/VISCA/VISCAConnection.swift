@@ -129,10 +129,10 @@ final class VISCAConnection {
 				self.fail(error)
 			case let .waiting(error):
 				logger.warning("❌#\(self.connectionNumber) waiting \(error as NSError, privacy: .public)")
-//				self.responses.send(completion: .failure(error))
-//				self.didFail.send(error)
-//				self.didConnect.send(completion: .failure(error))
-//				self.connection.cancel()
+				
+				if case let .posix(code) = error, code == .ECONNREFUSED {
+					self.fail(error)
+				}
 			case .setup:
 				break
 			case .preparing:

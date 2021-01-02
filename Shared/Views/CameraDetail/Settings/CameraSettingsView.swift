@@ -6,6 +6,7 @@ struct CameraConnectionSettingsView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	@State var camera: Camera
+	@State var port: UInt16?
 	@Binding var isOpen: Bool
 	
 	@State var isLoading: Bool = false
@@ -15,10 +16,60 @@ struct CameraConnectionSettingsView: View {
 		!camera.address.isEmpty
 	}
 	
+	init(camera: Camera, isOpen: Binding<Bool>) {
+		_camera = State(wrappedValue: camera)
+		_port = State(wrappedValue: camera.port)
+		_isOpen = isOpen
+	}
+	
 	var body: some View {
-		_CameraConnectionSettingsView(camera: $camera) {
+		_CameraConnectionSettingsView(name: $camera.name, address: $camera.address, port: $port) {
+			isLoading = true
+			
 			DispatchQueue.main.async {
-				cameraManager.save(camera: camera) { result in
+				cameraManager.save(camera: camera, port: port) { result in
+					isLoading = false
+					
+					switch result {
+					case .success:
+						self.isOpen = false
+					case let .failure(error):
+						self.error = error
+					}
+				}
+			}
+		} cancel: {
+			self.isOpen = false
+		} removeCamera: {
+			cameraManager.remove(camera: camera)
+		}
+		.disabled(isLoading)
+		.alert($error)
+		.id(camera.id)
+	}
+}
+
+struct AddCameraConnectionView: View {
+	@EnvironmentObject var cameraManager: CameraManager
+	
+	@State var name: String = ""
+	@State var address: String = ""
+	@State var port: UInt16?
+	@Binding var isOpen: Bool
+	
+	@State var isLoading: Bool = false
+	@State var error: Swift.Error?
+	
+	var isValid: Bool {
+		!address.isEmpty
+	}
+	
+	var body: some View {
+		_CameraConnectionSettingsView(name: $name, address: $address, port: $port) {
+			isLoading = true
+			
+			DispatchQueue.main.async {
+				cameraManager.createCamera(name: name, address: address, port: port) { result in
 					isLoading = false
 					
 					switch result {
@@ -34,17 +85,19 @@ struct CameraConnectionSettingsView: View {
 		}
 		.disabled(isLoading)
 		.alert($error)
-		.id(camera.id)
 	}
 }
 
 struct _CameraConnectionSettingsView: View {
-	@Binding var camera: Camera
+	@Binding var name: String
+	@Binding var address: String
+	@Binding var port: UInt16?
 	var save: () -> Void
 	var cancel: () -> Void
+	var removeCamera: (() -> Void)?
 	
 	var isValid: Bool {
-		!camera.address.isEmpty
+		!address.isEmpty
 	}
 	
 	var body: some View {
@@ -54,20 +107,20 @@ struct _CameraConnectionSettingsView: View {
 				HStack(spacing: 5) {
 					Text("Name:")
 						.column(0, alignment: .trailing)
-					TextField("(Optional)", text: $camera.name)
+					TextField("(Optional)", text: $name)
 				}
 				HStack(spacing: 16) {
 					HStack(spacing: 5) {
 						Text("Address:")
 							.column(0, alignment: .trailing)
-						TextField("0.0.0.0", text: $camera.address)
+						TextField("0.0.0.0", text: $address)
 					}
 					
 					HStack(spacing: 5) {
 						Text("Port:")
 						TextField(
-							"\(NSNumber(value: NWEndpoint.Port.visca.rawValue), formatter: portFormatter)",
-							value: $camera.port,
+							"auto",
+							value: $port,
 							formatter: portFormatter
 						)
 						.frame(width: 80)
@@ -76,7 +129,9 @@ struct _CameraConnectionSettingsView: View {
 			}
 			
 			HStack(spacing: 16) {
-				RemoveCameraButton(camera: camera)
+				if let removeCamera = removeCamera {
+					RemoveCameraButton(removeCamera: removeCamera)
+				}
 				
 				Spacer()
 				
@@ -106,18 +161,10 @@ struct _CameraConnectionSettingsView: View {
 }
 
 struct AddCameraView_Previews: PreviewProvider {
-	struct CameraConnectionSettingsView: View {
-		@State var camera: Camera
-		
-		var body: some View {
-			_CameraConnectionSettingsView(camera: $camera, save: {}, cancel: {})
-		}
-	}
-	
 	static var previews: some View {
 		Group {
-			CameraConnectionSettingsView(camera: Camera(address: ""))
-			CameraConnectionSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234))
+			AddCameraConnectionView(isOpen: .constant(true))
+			CameraConnectionSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234), isOpen: .constant(true))
 		}
 	}
 }
