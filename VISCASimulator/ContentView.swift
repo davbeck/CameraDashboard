@@ -25,20 +25,7 @@ struct ContentView: View {
 				Text("Connections")
 				
 				ForEach(server.connections) { connection in
-					HStack {
-						Text("\(connection.connection.endpoint.debugDescription)")
-						Spacer()
-						Button(action: {
-							connection.isActive = false
-						}, label: {
-							Text("Timeout")
-						})
-						Button(action: {
-							connection.connection.forceCancel()
-						}, label: {
-							Text("Disconnect")
-						})
-					}
+					ConnectionRow(connection: connection)
 				}
 			}
 			

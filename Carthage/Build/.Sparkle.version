@@ -1,0 +1,10 @@
+{
+  "commitish" : "1.24.0",
+  "Mac" : [
+    {
+      "name" : "Sparkle",
+      "hash" : "739d3109cb16a2795d9fc3ef12bdb60f82c7913cbdfe506ddae515dbd877413e",
+      "linking" : "dynamic"
+    }
+  ]
+}

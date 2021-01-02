@@ -11,7 +11,7 @@ struct AddCameraButton: View {
 			Image(systemSymbol: .plus)
 		})
 			.sheet(isPresented: $isAddingCamera) {
-				CameraConnectionSettingsView(camera: Camera(address: ""), isOpen: $isAddingCamera)
+				AddCameraConnectionView(isOpen: $isAddingCamera)
 					.environmentObject(cameraManager)
 			}
 	}

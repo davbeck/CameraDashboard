@@ -2,12 +2,6 @@ import Foundation
 import Network
 import Combine
 
-extension NWEndpoint.Port {
-	static var visca: NWEndpoint.Port {
-		5678
-	}
-}
-
 let throttleMS = 100
 
 extension Publisher {
@@ -453,7 +447,6 @@ class VISCAClient: ObservableObject {
 				)
 			}
 		case .none:
-			print("panTiltStop")
 			command = .panTiltStop
 		}
 		

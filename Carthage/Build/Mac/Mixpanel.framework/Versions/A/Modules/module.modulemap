@@ -1,0 +1,4 @@
+framework module Mixpanel {
+  header "Mixpanel-Swift.h"
+  requires objc
+}

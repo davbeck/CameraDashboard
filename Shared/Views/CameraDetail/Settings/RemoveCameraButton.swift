@@ -3,14 +3,10 @@ import SwiftUI
 struct RemoveCameraButton: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
-	var camera: Camera
+	var removeCamera: () -> Void
 	
 	@State var window: NSWindow?
 	@State var isOpen: Bool = false
-	
-	func removeCamera() {
-		cameraManager.remove(camera: camera)
-	}
 	
 	var body: some View {
 		Button {
@@ -22,7 +18,6 @@ struct RemoveCameraButton: View {
 				alert.alertStyle = .warning
 				if let window = window {
 					alert.beginSheetModal(for: window) { response in
-						print("response", response, response == .alertFirstButtonReturn)
 						if response == .alertFirstButtonReturn {
 							removeCamera()
 						}

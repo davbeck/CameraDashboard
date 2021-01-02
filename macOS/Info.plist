@@ -24,5 +24,9 @@
 	<string>public.app-category.video</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>SUFeedURL</key>
+	<string>https://cameradashboard.davidbeck.co/releases/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>om5UaiYOUbRvrpQQYZ7B7nBvNKOsnkQl4D+xvyvGTHs=</string>
 </dict>
 </plist>

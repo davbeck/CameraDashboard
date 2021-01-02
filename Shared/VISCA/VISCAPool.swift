@@ -93,13 +93,10 @@ class VISCAPool {
 	
 	private func getConnection(target: Target) -> VISCAConnection? {
 		if let connection = connections.first(where: { $0.canSend(command: target.commandGroup) }) {
-//			print("returning available connection")
 			return connection
-		} else if connections.count < maxConnections, !connections.contains(where: { $0.state.value != .connecting }) {
-//			print("create connection")
+		} else if connections.count < maxConnections, !connections.contains(where: { $0.state.value == .connecting }) {
 			return createConnection()
 		} else {
-//			print("no connection available")
 			return nil
 		}
 	}

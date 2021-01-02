@@ -2,7 +2,7 @@ import Foundation
 import Network
 import Combine
 
-class VISCAServerConnection {
+class VISCAServerConnection: ObservableObject {
 	enum Error: Swift.Error {
 		case unrecognizedRequest(Data)
 		case unrecognizedCommand(Data)
@@ -14,7 +14,7 @@ class VISCAServerConnection {
 	let connection: NWConnection
 	private var sequence: UInt32 = 1
 	
-	var isActive: Bool = true
+	@Published var dropNext: Int = 0
 	
 	var didStopCallback: ((VISCAServerConnection, Swift.Error?) -> Void)?
 	
@@ -56,8 +56,6 @@ class VISCAServerConnection {
 			let command = data.load(offset: 0, as: UInt16.self)
 			let size = Int(data.load(offset: 2, as: UInt16.self))
 			let sequence = data.load(offset: 4, as: UInt32.self)
-			// TODO: Send error if these don't match
-			self.sequence = sequence + 1
 			
 //			print("command", command.hexDescription, size, sequence)
 			
@@ -69,15 +67,23 @@ class VISCAServerConnection {
 				}
 				print("⬇️", data.hexDescription)
 				
-				switch command {
-				case 0x0100:
-					self.handleViscaCommand(data)
-				case 0x0110:
-					self.handleViscaInquiry(data)
-				case 0x0200:
-					self.handleControlCommand(data)
-				default:
-					self.fail()
+				if self.dropNext > 0 {
+					print("dropping")
+					self.dropNext -= 1
+				} else {
+					// TODO: Send error if these don't match
+					self.sequence = sequence + 1
+					
+					switch command {
+					case 0x0100:
+						self.handleViscaCommand(data)
+					case 0x0110:
+						self.handleViscaInquiry(data)
+					case 0x0200:
+						self.handleControlCommand(data)
+					default:
+						self.fail()
+					}
 				}
 				
 				self.receive()
@@ -288,11 +294,6 @@ class VISCAServerConnection {
 	}
 	
 	private func send(_ data: Data) {
-		guard isActive else {
-			print("not sending response")
-			return
-		}
-		
 		print("sending", data.hexDescription)
 		connection.send(content: [0x90] + data + [0xFF], completion: .contentProcessed { error in
 			if let error = error {
