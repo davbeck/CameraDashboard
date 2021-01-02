@@ -6,7 +6,7 @@ struct CameraConnectionSettingsView: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	@State var camera: Camera
-	@State var port: UInt16?
+	@State var port: String
 	@Binding var isOpen: Bool
 	
 	@State var isLoading: Bool = false
@@ -18,7 +18,7 @@ struct CameraConnectionSettingsView: View {
 	
 	init(camera: Camera, isOpen: Binding<Bool>) {
 		_camera = State(wrappedValue: camera)
-		_port = State(wrappedValue: camera.port)
+		_port = State(wrappedValue: String(camera.port))
 		_isOpen = isOpen
 	}
 	
@@ -27,6 +27,13 @@ struct CameraConnectionSettingsView: View {
 			isLoading = true
 			
 			DispatchQueue.main.async {
+				let port: UInt16?
+				if !self.port.isEmpty {
+					port = portFormatter.number(from: self.port)?.uint16Value
+				} else {
+					port = nil
+				}
+				
 				cameraManager.save(camera: camera, port: port) { result in
 					isLoading = false
 					
@@ -54,7 +61,7 @@ struct AddCameraConnectionView: View {
 	
 	@State var name: String = ""
 	@State var address: String = ""
-	@State var port: UInt16?
+	@State var port: String = ""
 	@Binding var isOpen: Bool
 	
 	@State var isLoading: Bool = false
@@ -69,6 +76,13 @@ struct AddCameraConnectionView: View {
 			isLoading = true
 			
 			DispatchQueue.main.async {
+				let port: UInt16?
+				if !self.port.isEmpty {
+					port = portFormatter.number(from: self.port)?.uint16Value
+				} else {
+					port = nil
+				}
+				
 				cameraManager.createCamera(name: name, address: address, port: port) { result in
 					isLoading = false
 					
@@ -91,7 +105,7 @@ struct AddCameraConnectionView: View {
 struct _CameraConnectionSettingsView: View {
 	@Binding var name: String
 	@Binding var address: String
-	@Binding var port: UInt16?
+	@Binding var port: String
 	var save: () -> Void
 	var cancel: () -> Void
 	var removeCamera: (() -> Void)?
@@ -118,12 +132,8 @@ struct _CameraConnectionSettingsView: View {
 					
 					HStack(spacing: 5) {
 						Text("Port:")
-						TextField(
-							"auto",
-							value: $port,
-							formatter: portFormatter
-						)
-						.frame(width: 80)
+						TextField("auto", text: $port)
+							.frame(width: 80)
 					}
 				}
 			}
@@ -133,7 +143,7 @@ struct _CameraConnectionSettingsView: View {
 					RemoveCameraButton(removeCamera: removeCamera)
 				}
 				
-				Spacer()
+				Spacer(minLength: 100)
 				
 				Button(action: {
 					self.cancel()
