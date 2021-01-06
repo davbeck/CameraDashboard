@@ -160,6 +160,8 @@
 		7ABBA6EA256E1610001B4967 /* View+Extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6E8256E1610001B4967 /* View+Extend.swift */; };
 		7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */; };
 		7ABBA6F3256E163A001B4967 /* RemoveCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */; };
+		7ABE0B5B25A563FB00FD9847 /* PanTiltColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE0B5A25A563FB00FD9847 /* PanTiltColors.swift */; };
+		7ABE0B5C25A563FB00FD9847 /* PanTiltColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE0B5A25A563FB00FD9847 /* PanTiltColors.swift */; };
 		7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 		7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA267E2563575A00A03CBE /* defaultsKey.swift */; };
 		7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA269A2563728000A03CBE /* NSWindowInspector.swift */; };
@@ -319,6 +321,7 @@
 		7AAF43BD2565E19800C82EC3 /* Slider+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Int.swift"; sourceTree = "<group>"; };
 		7ABBA6E8256E1610001B4967 /* View+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extend.swift"; sourceTree = "<group>"; };
 		7ABBA6F1256E163A001B4967 /* RemoveCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCameraButton.swift; sourceTree = "<group>"; };
+		7ABE0B5A25A563FB00FD9847 /* PanTiltColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTiltColors.swift; sourceTree = "<group>"; };
 		7ADA267E2563575A00A03CBE /* defaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultsKey.swift; sourceTree = "<group>"; };
 		7ADA26942563726500A03CBE /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		7ADA269A2563728000A03CBE /* NSWindowInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowInspector.swift; sourceTree = "<group>"; };
@@ -658,6 +661,7 @@
 				7A7F65092560315F008B33C6 /* PanTiltButton.swift */,
 				7A7F65012560315F008B33C6 /* PanTiltRelativeControl.swift */,
 				7A7F65032560315F008B33C6 /* PanTiltSeparators.swift */,
+				7ABE0B5A25A563FB00FD9847 /* PanTiltColors.swift */,
 			);
 			path = PanTiltControl;
 			sourceTree = "<group>";
@@ -1010,6 +1014,7 @@
 				7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
+				7ABE0B5B25A563FB00FD9847 /* PanTiltColors.swift in Sources */,
 				7ADA26A325638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C225603134008B33C6 /* Column.swift in Sources */,
@@ -1087,6 +1092,7 @@
 				7A7F64C325603134008B33C6 /* Column.swift in Sources */,
 				7A7F64E72560314D008B33C6 /* PresetsView.swift in Sources */,
 				7A7F648425603092008B33C6 /* Camera.swift in Sources */,
+				7ABE0B5C25A563FB00FD9847 /* PanTiltColors.swift in Sources */,
 				7A7F653225603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B125603119008B33C6 /* ReplaySubject.swift in Sources */,
@@ -1327,7 +1333,7 @@
 				PRODUCT_NAME = CameraDashboard;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -1351,7 +1357,7 @@
 				PRODUCT_NAME = CameraDashboard;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1362,6 +1368,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1394,6 +1401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1515,6 +1523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VISCASimulator/VISCASimulator.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"VISCASimulator/Preview Content\"";
@@ -1540,6 +1549,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VISCASimulator/VISCASimulator.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"VISCASimulator/Preview Content\"";

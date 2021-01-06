@@ -16,7 +16,13 @@ struct NavigationList: View {
 					Text("Presets")
 				}
 			}
-			.collapsible(false)
+			.extend {
+				#if os(macOS)
+					$0.collapsible(false)
+				#else
+					$0
+				#endif
+			}
 			
 			Section(header: Text("Cameras")) {
 				ForEach(cameraManager.connections) { connection in
@@ -32,17 +38,29 @@ struct NavigationList: View {
 					//                    }
 				}
 			}
-			.collapsible(false)
+			.extend {
+				#if os(macOS)
+					$0.collapsible(false)
+				#else
+					$0
+				#endif
+			}
 		}
 		.listStyle(SidebarListStyle())
-		.toolbar(content: {
-			ToolbarItem {
-				Spacer()
-			}
-			ToolbarItem {
-				AddCameraButton()
-			}
-		})
+		.extend {
+			#if os(macOS)
+				$0.toolbar(content: {
+					ToolbarItem {
+						Spacer()
+					}
+					ToolbarItem {
+						AddCameraButton()
+					}
+				})
+			#else
+				$0.navigationBarItems(trailing: AddCameraButton())
+			#endif
+		}
 		.frame(minWidth: 200)
 		.onReceive(cameraManager.didRemoveCamera) { camera in
 			if navigationSelection.items.contains(camera.id.uuidString) {

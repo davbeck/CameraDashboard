@@ -1,7 +1,7 @@
-import AppKit
-import SwiftUI
-
 #if os(macOS)
+	import AppKit
+	import SwiftUI
+	
 	struct NSWindowInspector: NSViewRepresentable {
 		let callback: (NSWindow) -> Void
 		

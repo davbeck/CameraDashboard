@@ -5,7 +5,9 @@ struct RemoveCameraButton: View {
 	
 	var removeCamera: () -> Void
 	
-	@State var window: NSWindow?
+	#if os(macOS)
+		@State var window: NSWindow?
+	#endif
 	@State var isOpen: Bool = false
 	
 	var body: some View {
@@ -34,19 +36,18 @@ struct RemoveCameraButton: View {
 		} label: {
 			Text("Remove")
 				.padding(.horizontal, 10)
-				.inspectWindow { window in
-					self.window = window
-				}
 		}
 		.extend {
 			#if os(macOS)
-				$0
+				$0.inspectWindow { window in
+					self.window = window
+				}
 			#else
 				$0.alert(isPresented: $isOpen) {
 					Alert(
 						title: Text("Are you sure you want to remove this camera?"),
 						primaryButton: Alert.Button.destructive(Text("Remove Camera"), action: removeCamera),
-						dismissButton: .default(Text("Cancel"))
+						secondaryButton: .default(Text("Cancel"))
 					)
 				}
 			#endif

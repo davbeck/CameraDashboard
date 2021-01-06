@@ -14,7 +14,7 @@ struct PanTiltControl: View {
 	var body: some View {
 		ZStack {
 			Circle()
-				.fill(Color(NSColor.controlColor))
+				.fill(Color.controlColor)
 				.frame(width: size, height: size)
 				.shadow(color: Color.black.opacity(0.2), radius: 1, x: 0, y: 1 / displayScale)
 			
@@ -36,7 +36,7 @@ struct PanTiltControl: View {
 				.frame(width: size, height: size)
 			
 			Circle()
-				.stroke(Color(NSColor.controlTextColor).opacity(0.15), lineWidth: 1 / displayScale)
+				.stroke(Color.controlTextColor.opacity(0.15), lineWidth: 1 / displayScale)
 				.opacity(0.5)
 			
 			PanTiltRelativeControl(vector: $vector, size: innerSize)
@@ -50,6 +50,6 @@ struct PanTiltControl_Previews: PreviewProvider {
 	static var previews: some View {
 		PanTiltControl(vector: .constant(nil))
 			.padding()
-			.background(Color(NSColor.windowBackgroundColor))
+			.background(Color.gray)
 	}
 }

@@ -1,5 +1,7 @@
 import SwiftUI
-import Mixpanel
+#if canImport(Mixpanel)
+	import Mixpanel
+#endif
 #if canImport(Sparkle)
 	import Sparkle
 #endif
@@ -11,15 +13,23 @@ struct CameraDashboardApp: App {
 	#endif
 	
 	init() {
-		Mixpanel.initialize(token: "e7cc43b7bf7e8336e2c20ccc0f744a62")
+		#if canImport(Mixpanel)
+			Mixpanel.initialize(token: "e7cc43b7bf7e8336e2c20ccc0f744a62")
+		#endif
 	}
 	
 	var body: some Scene {
 		WindowGroup {
 			ContentView()
 				.frame(minWidth: 800, minHeight: 500)
-				.inspectWindow { window in
-					window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
+				.extend {
+					#if os(macOS)
+						$0.inspectWindow { window in
+							window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
+						}
+					#else
+						$0
+					#endif
 				}
 		}
 		.commands {
