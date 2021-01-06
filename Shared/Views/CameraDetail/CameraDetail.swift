@@ -17,6 +17,13 @@ struct CameraDetail: View {
 				CameraSettingsButton(camera: connection.camera)
 			}
 		}
+		.extend {
+			#if os(macOS)
+				$0
+			#else
+				$0.navigationBarTitle(Text(connection.displayName), displayMode: .inline)
+			#endif
+		}
 		.padding()
 		.frame(
 			minWidth: 400,

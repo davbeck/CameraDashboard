@@ -8,20 +8,11 @@ struct NavigationList: View {
 	
 	var body: some View {
 		List {
-			Section {
-				NavigationLink(
-					destination: PresetsView().environmentObject(cameraManager),
-					isActive: $navigationSelection[contains: "presets"]
-				) {
-					Text("Presets")
-				}
-			}
-			.extend {
-				#if os(macOS)
-					$0.collapsible(false)
-				#else
-					$0
-				#endif
+			NavigationLink(
+				destination: PresetsView().environmentObject(cameraManager),
+				isActive: $navigationSelection[contains: "presets"]
+			) {
+				Text("Presets")
 			}
 			
 			Section(header: Text("Cameras")) {
@@ -58,7 +49,9 @@ struct NavigationList: View {
 					}
 				})
 			#else
-				$0.navigationBarItems(trailing: AddCameraButton())
+				$0
+					.navigationBarItems(trailing: AddCameraButton())
+					.navigationTitle(Text("Dashboard"))
 			#endif
 		}
 		.frame(minWidth: 200)
