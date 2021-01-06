@@ -696,6 +696,7 @@
 				7A7F64472560305B008B33C6 /* Resources */,
 				7ADA268E25636EC800A03CBE /* SwiftFormat */,
 				7AA8680B25769D3700AA7B6E /* Embed Frameworks */,
+				7ACC43F125A13B5A00D7742D /* Sign Sparkle */,
 				7AA7AB7C259ED3430089567F /* CopyFiles */,
 			);
 			buildRules = (
@@ -911,6 +912,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which carthage >/dev/null; then\n  carthage outdated --xcode-warnings 2>/dev/null\nelse\n  echo \"warning: Carthage not installed\"\nfi\n";
+		};
+		7ACC43F125A13B5A00D7742D /* Sign Sparkle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Sparkle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n\n# By default, use the configured code signing identity for the project/target\nIDENTITY=\"${EXPANDED_CODE_SIGN_IDENTITY}\"\nif [ \"$IDENTITY\" == \"\" ]\nthen\n  # If a code signing identity is not specified, use ad hoc signing\n  IDENTITY=\"-\"\nfi\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A/Resources/AutoUpdate.app\"\ncodesign --verbose --force -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n";
 		};
 		7ADA268C25636E9F00A03CBE /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
