@@ -8,7 +8,14 @@ struct PanTiltRelativeControl: View {
 		size / 2
 	}
 	
-	var thumbSize: CGFloat = 25
+	var thumbSize: CGFloat {
+		#if os(macOS)
+			return 25
+		#else
+			return 44
+		#endif
+	}
+	
 	var maxDistance: CGFloat {
 		radius - thumbSize / 2
 	}

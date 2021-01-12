@@ -5,8 +5,22 @@ struct PanTiltControl: View {
 	
 	@Binding var vector: PTZVector?
 	
-	var size: CGFloat = 200
-	var outerRingSize: CGFloat = 30
+	var size: CGFloat {
+		#if os(macOS)
+			return 200
+		#else
+			return 260
+		#endif
+	}
+	
+	var outerRingSize: CGFloat {
+		#if os(macOS)
+			return 30
+		#else
+			return 44
+		#endif
+	}
+	
 	var innerSize: CGFloat {
 		size - outerRingSize * 2
 	}
@@ -27,7 +41,7 @@ struct PanTiltControl: View {
 						} else {
 							self.vector = nil
 						}
-				}))
+				}), outerRingSize: outerRingSize)
 					.rotationEffect(.degrees(360 / 8) * Double(index))
 			}
 			

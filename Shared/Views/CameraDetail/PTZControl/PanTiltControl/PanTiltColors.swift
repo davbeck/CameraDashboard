@@ -21,7 +21,7 @@ extension Color {
 		#if os(macOS)
 			return Color(NSColor.controlColor)
 		#else
-			return Color.blue
+			return Color.white
 		#endif
 	}
 }
