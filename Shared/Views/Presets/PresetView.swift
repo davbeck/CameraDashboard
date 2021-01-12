@@ -50,6 +50,14 @@ struct PresetView: View {
 	
 	@State var isHovering: Bool = false
 	
+	var height: CGFloat {
+		#if os(macOS)
+			return 100
+		#else
+			return 120
+		#endif
+	}
+	
 	var body: some View {
 		VStack(alignment: .leading) {
 			HStack {
@@ -69,7 +77,7 @@ struct PresetView: View {
 		}
 		.padding(12)
 		.foregroundColor(.white)
-		.frame(height: 100)
+		.frame(height: height)
 		.background(LinearGradient(gradient: Gradient(colors: [
 			Color(white: 1, opacity: 0.1),
 			Color(white: 1, opacity: 0.0),

@@ -6,9 +6,17 @@ struct CameraPresetsGrid: View {
 	@ObservedObject var client: VISCAClient
 	var camera: Camera
 	
-	let columns = [
-		GridItem(.adaptive(minimum: 140, maximum: 200)),
-	]
+	var columns: [GridItem] {
+		#if os(macOS)
+			return [
+				GridItem(.adaptive(minimum: 140, maximum: 200)),
+			]
+		#else
+			return [
+				GridItem(.adaptive(minimum: 175, maximum: 220)),
+			]
+		#endif
+	}
 	
 	var body: some View {
 		ScrollView {

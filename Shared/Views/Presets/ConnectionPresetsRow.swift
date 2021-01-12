@@ -11,6 +11,14 @@ struct ConnectionPresetsRow: View {
 		VISCAPreset.allCases.prefix(51)
 	}
 	
+	var width: CGFloat {
+		#if os(macOS)
+			return 140
+		#else
+			return 175
+		#endif
+	}
+	
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: true) {
 			LazyHStack(spacing: 15) {
@@ -20,13 +28,13 @@ struct ConnectionPresetsRow: View {
 						preset: preset,
 						client: client
 					)
-					.frame(width: 140)
+					.frame(width: width)
 					.onTapGesture {
 						client.preset.local = preset
 					}
 				}
 			}
-			.frame(width: (CGFloat(presets.count) * (140 + 15)) - 15)
+			.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
 			.padding(.vertical, 5)
 			.padding(.horizontal)
 		}

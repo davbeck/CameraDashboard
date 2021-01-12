@@ -5,9 +5,7 @@ struct CameraDetail: View {
 	
 	var body: some View {
 		VStack {
-			TabView(content: {
-				CameraPTZControlTab(client: connection.client, camera: connection.camera)
-			})
+			CameraPTZControlTab(client: connection.client, camera: connection.camera)
 			HStack {
 				Text("\(connection.camera.address):\(connection.camera.port, formatter: portFormatter)")
 					.font(Font.callout.monospacedDigit())
