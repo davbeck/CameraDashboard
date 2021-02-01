@@ -4,32 +4,45 @@ struct CameraDetail: View {
 	var connection: CameraConnection
 	
 	var body: some View {
-		VStack {
-			CameraPTZControlTab(client: connection.client, camera: connection.camera)
-			HStack {
-				Text("\(connection.camera.address):\(connection.camera.port, formatter: portFormatter)")
-					.font(Font.callout.monospacedDigit())
-				
-				Spacer()
-				
-				CameraSettingsButton(camera: connection.camera)
+		#if os(macOS)
+			VStack {
+				TabView {
+					CameraPTZControlTab(client: connection.client, camera: connection.camera)
+				}
+				HStack {
+					Text("\(connection.camera.address):\(connection.camera.port, formatter: portFormatter)")
+						.font(Font.callout.monospacedDigit())
+					
+					Spacer()
+					
+					CameraSettingsButton(camera: connection.camera)
+				}
 			}
-		}
-		.extend {
-			#if os(macOS)
-				$0
-			#else
-				$0.navigationBarTitle(Text(connection.displayName), displayMode: .inline)
-			#endif
-		}
-		.padding()
-		.frame(
-			minWidth: 400,
-			maxWidth: .infinity,
-			minHeight: 300,
-			maxHeight: .infinity
-		)
-		.id(connection.id)
+			.padding()
+			.frame(
+				minWidth: 400,
+				maxWidth: .infinity,
+				minHeight: 300,
+				maxHeight: .infinity
+			)
+			.id(connection.id)
+		#else
+			CameraPTZControlTab(client: connection.client, camera: connection.camera)
+				.navigationBarTitle(Text(connection.displayName), displayMode: .inline)
+				.toolbar(content: {
+					ToolbarItem(placement: .bottomBar) {
+						Text("\(connection.camera.address):\(connection.camera.port, formatter: portFormatter)")
+							.font(Font.callout.monospacedDigit())
+					}
+					ToolbarItem(placement: .bottomBar) {
+						Spacer()
+					}
+					ToolbarItem(placement: .bottomBar) {
+						CameraSettingsButton(camera: connection.camera)
+					}
+				})
+				.id(connection.id)
+		#endif
 	}
 }
 

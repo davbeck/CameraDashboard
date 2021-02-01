@@ -5,13 +5,7 @@ struct PanTiltControl: View {
 	
 	@Binding var vector: PTZVector?
 	
-	var size: CGFloat {
-		#if os(macOS)
-			return 200
-		#else
-			return 260
-		#endif
-	}
+	var size: CGFloat
 	
 	var outerRingSize: CGFloat {
 		#if os(macOS)
@@ -62,7 +56,7 @@ struct PanTiltControl: View {
 
 struct PanTiltControl_Previews: PreviewProvider {
 	static var previews: some View {
-		PanTiltControl(vector: .constant(nil))
+		PanTiltControl(vector: .constant(nil), size: 200)
 			.padding()
 			.background(Color.gray)
 	}
