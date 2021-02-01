@@ -122,17 +122,44 @@ struct _CameraConnectionSettingsView: View {
 					Text("Name:")
 						.column(0, alignment: .trailing)
 					TextField("(Optional)", text: $name)
+						.extend {
+							#if os(macOS)
+								$0
+							#else
+								$0.autocapitalization(.words)
+							#endif
+						}
 				}
 				HStack(spacing: 16) {
 					HStack(spacing: 5) {
 						Text("Address:")
 							.column(0, alignment: .trailing)
 						TextField("0.0.0.0", text: $address)
+							.extend {
+								#if os(macOS)
+									$0
+								#else
+									$0
+										.autocapitalization(.none)
+										.keyboardType(.URL)
+								#endif
+							}
+							.disableAutocorrection(true)
 					}
 					
 					HStack(spacing: 5) {
 						Text("Port:")
 						TextField("auto", text: $port)
+							.extend {
+								#if os(macOS)
+									$0
+								#else
+									$0
+										.autocapitalization(.none)
+										.keyboardType(.numberPad)
+								#endif
+							}
+							.disableAutocorrection(true)
 							.frame(width: 80)
 					}
 				}

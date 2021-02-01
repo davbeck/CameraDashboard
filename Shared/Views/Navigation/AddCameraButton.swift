@@ -10,6 +10,7 @@ struct AddCameraButton: View {
 		}, label: {
 			Image(systemSymbol: .plus)
 		})
+			.contentShape(Rectangle())
 			.sheet(isPresented: $isAddingCamera) {
 				AddCameraConnectionView(isOpen: $isAddingCamera)
 					.environmentObject(cameraManager)
