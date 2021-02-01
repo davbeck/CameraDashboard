@@ -23,7 +23,12 @@ struct CameraConnectionSettingsView: View {
 	}
 	
 	var body: some View {
-		_CameraConnectionSettingsView(name: $camera.name, address: $camera.address, port: $port) {
+		_CameraConnectionSettingsView(
+			title: "Camera Settings",
+			name: $camera.name,
+			address: $camera.address,
+			port: $port
+		) {
 			isLoading = true
 			
 			DispatchQueue.main.async {
@@ -72,7 +77,12 @@ struct AddCameraConnectionView: View {
 	}
 	
 	var body: some View {
-		_CameraConnectionSettingsView(name: $name, address: $address, port: $port) {
+		_CameraConnectionSettingsView(
+			title: "Add Camera",
+			name: $name,
+			address: $address,
+			port: $port
+		) {
 			isLoading = true
 			
 			DispatchQueue.main.async {
@@ -103,6 +113,7 @@ struct AddCameraConnectionView: View {
 }
 
 struct _CameraConnectionSettingsView: View {
+	var title: LocalizedStringKey
 	@Binding var name: String
 	@Binding var address: String
 	@Binding var port: String
@@ -115,85 +126,101 @@ struct _CameraConnectionSettingsView: View {
 	}
 	
 	var body: some View {
-		VStack(spacing: 20) {
-			Text("Connect to a PTZ camera that supports VISCA over IP")
-			VStack {
-				HStack(spacing: 5) {
-					Text("Name:")
-						.column(0, alignment: .trailing)
-					TextField("(Optional)", text: $name)
-						.extend {
-							#if os(macOS)
-								$0
-							#else
-								$0.autocapitalization(.words)
-							#endif
+		#if os(macOS)
+			VStack(spacing: 20) {
+				Text("Connect to a PTZ camera that supports VISCA over IP")
+				VStack {
+					HStack(spacing: 5) {
+						Text("Name:")
+							.column(0, alignment: .trailing)
+						TextField("(Optional)", text: $name)
+					}
+					HStack(spacing: 16) {
+						HStack(spacing: 5) {
+							Text("Address:")
+								.column(0, alignment: .trailing)
+							TextField("0.0.0.0", text: $address)
+								.disableAutocorrection(true)
 						}
+						
+						HStack(spacing: 5) {
+							Text("Port:")
+							TextField("auto", text: $port)
+								.disableAutocorrection(true)
+								.frame(width: 80)
+						}
+					}
 				}
+				
 				HStack(spacing: 16) {
+					if let removeCamera = removeCamera {
+						RemoveCameraButton(removeCamera: removeCamera)
+					}
+					
+					Spacer(minLength: 100)
+					
+					Button(action: {
+						self.cancel()
+					}, label: {
+						Text("Cancel")
+							.padding(.horizontal, 10)
+							.column("Buttons", alignment: .center)
+					})
+						.keyboardShortcut(.cancelAction)
+					
+					Button(action: {
+						self.save()
+					}, label: {
+						Text("Save")
+							.padding(.horizontal, 10)
+							.column("Buttons", alignment: .center)
+					})
+						.keyboardShortcut(.defaultAction)
+				}
+				.columnGuide()
+			}
+			.columnGuide()
+			.padding()
+		#else
+			NavigationView {
+				Form {
+					HStack {
+						Text("Name:")
+						TextField("(Optional)", text: $name)
+							.autocapitalization(.words)
+					}
+					
 					HStack(spacing: 5) {
 						Text("Address:")
-							.column(0, alignment: .trailing)
 						TextField("0.0.0.0", text: $address)
-							.extend {
-								#if os(macOS)
-									$0
-								#else
-									$0
-										.autocapitalization(.none)
-										.keyboardType(.URL)
-								#endif
-							}
+							.autocapitalization(.none)
+							.keyboardType(.URL)
 							.disableAutocorrection(true)
 					}
 					
 					HStack(spacing: 5) {
 						Text("Port:")
 						TextField("auto", text: $port)
-							.extend {
-								#if os(macOS)
-									$0
-								#else
-									$0
-										.autocapitalization(.none)
-										.keyboardType(.numberPad)
-								#endif
-							}
+							.autocapitalization(.none)
+							.keyboardType(.numberPad)
 							.disableAutocorrection(true)
-							.frame(width: 80)
 					}
 				}
+				.navigationTitle(title)
+				.navigationBarItems(
+					leading: Button(action: {
+						self.cancel()
+					}, label: {
+						Text("Cancel")
+					}),
+					trailing: Button(action: {
+						self.save()
+					}, label: {
+						Text("Save")
+					})
+				)
 			}
-			
-			HStack(spacing: 16) {
-				if let removeCamera = removeCamera {
-					RemoveCameraButton(removeCamera: removeCamera)
-				}
-				
-				Spacer(minLength: 100)
-				
-				Button(action: {
-					self.cancel()
-				}, label: {
-					Text("Cancel")
-						.padding(.horizontal, 10)
-						.column("Buttons", alignment: .center)
-				})
-					.keyboardShortcut(.cancelAction)
-				
-				Button(action: {
-					self.save()
-				}, label: {
-					Text("Save")
-						.padding(.horizontal, 10)
-						.column("Buttons", alignment: .center)
-				})
-					.keyboardShortcut(.defaultAction)
-			}
-			.columnGuide()
-		}
-		.columnGuide()
-		.padding()
+		#endif
 	}
 }
 
