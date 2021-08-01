@@ -10,12 +10,12 @@ struct FocusControl: View {
 				Spacer()
 				Toggle(isOn: Binding(get: {
 					client.focusMode.local == .auto
-					}, set: { isOn in
-						if isOn {
-							client.focusMode.local = .auto
-						} else {
-							client.focusMode.local = .manual
-						}
+				}, set: { isOn in
+					if isOn {
+						client.focusMode.local = .auto
+					} else {
+						client.focusMode.local = .manual
+					}
 				})) {
 					Text("Auto")
 				}

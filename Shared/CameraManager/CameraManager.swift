@@ -64,7 +64,7 @@ class CameraManager: ObservableObject {
 			let data = try Data(contentsOf: configURL)
 			let config = try JSONDecoder().decode(CameraConfig.self, from: data)
 			
-			connections = config.cameras.enumerated().map { (number, camera) -> CameraConnection in
+			connections = config.cameras.enumerated().map { number, camera -> CameraConnection in
 				CameraConnection(
 					camera: camera,
 					client: VISCAClient(
@@ -113,8 +113,9 @@ class CameraManager: ObservableObject {
 	
 	func save(camera: Camera, port: UInt16?, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
 		if let index = connections.firstIndex(where: { $0.camera.id == camera.id }),
-			connections[index].camera.address == camera.address,
-			connections[index].camera.port == port {
+		   connections[index].camera.address == camera.address,
+		   connections[index].camera.port == port
+		{
 			connections[index].camera = camera
 			saveConfig()
 			return completion(.success(connections[index]))

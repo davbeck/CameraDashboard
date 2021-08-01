@@ -148,10 +148,11 @@ class VISCAServerConnection: ObservableObject {
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x06, 0x01]),
-				let panSpeed = payload.dropFirst(3).first,
-				let tiltSpeed = payload.dropFirst(4).first,
-				let panDirection = payload.dropFirst(5).first,
-				let tiltDirection = payload.dropFirst(6).first {
+			          let panSpeed = payload.dropFirst(3).first,
+			          let tiltSpeed = payload.dropFirst(4).first,
+			          let panDirection = payload.dropFirst(5).first,
+			          let tiltDirection = payload.dropFirst(6).first
+			{
 				print("pantilt", panDirection, tiltDirection)
 				
 				switch panDirection {

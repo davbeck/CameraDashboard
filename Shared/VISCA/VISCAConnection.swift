@@ -165,7 +165,7 @@ final class VISCAConnection {
 		}
 		
 		return state
-			.tryFilter { (state) -> Bool in
+			.tryFilter { state -> Bool in
 				switch state {
 				case .ready:
 					return true
@@ -350,7 +350,7 @@ final class VISCAConnection {
 			.flatMap {
 				self.responses.filter { $0 != .completion }.first()
 			}
-			.tryMap { (response) -> Void in
+			.tryMap { response -> Void in
 				switch response {
 				case .ack:
 					return
@@ -385,7 +385,7 @@ final class VISCAConnection {
 			.flatMap {
 				self.responses.filter { $0 == .completion }.first()
 			}
-			.map { (data) -> Void in }
+			.map { data -> Void in }
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
@@ -400,7 +400,7 @@ final class VISCAConnection {
 		logger.info("⬆️#\(self.connectionNumber) \(inquiry.name, privacy: .public)")
 		
 		return sendVISCAInquiry(payload: inquiry.payload)
-			.tryMap { (payload) -> Response in
+			.tryMap { payload -> Response in
 				guard let response = inquiry.parseResponse(payload) else {
 					throw Error.unexpectedBytes
 				}
@@ -436,7 +436,7 @@ final class VISCAConnection {
 			.flatMap {
 				self.responses.filter { $0 != .completion }.first()
 			}
-			.tryMap { (response) -> Data in
+			.tryMap { response -> Data in
 				switch response {
 				case let .inquiryResponse(data):
 					return data
