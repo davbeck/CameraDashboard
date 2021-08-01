@@ -1,7 +1,4 @@
 import SwiftUI
-#if canImport(Mixpanel)
-	import Mixpanel
-#endif
 #if canImport(Sparkle)
 	import Sparkle
 #endif
@@ -12,11 +9,7 @@ struct CameraDashboardApp: App {
 		@NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
 	#endif
 	
-	init() {
-		#if canImport(Mixpanel)
-			Mixpanel.initialize(token: "e7cc43b7bf7e8336e2c20ccc0f744a62")
-		#endif
-	}
+	init() {}
 	
 	var body: some Scene {
 		WindowGroup {

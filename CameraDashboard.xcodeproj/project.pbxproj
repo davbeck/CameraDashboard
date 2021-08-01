@@ -141,10 +141,7 @@
 		7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB52259ECCF20089567F /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB6A259ED1200089567F /* Sparkle.framework */; };
 		7AA7AB6D259ED12C0089567F /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB6A259ED1200089567F /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7AA7AB75259ED2380089567F /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB73259ED2040089567F /* Mixpanel.framework */; };
-		7AA7AB76259ED2380089567F /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA7AB73259ED2040089567F /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7AA7AB80259ED3700089567F /* Sparkle.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */; };
-		7AA7AB81259ED3700089567F /* Mixpanel.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */; };
 		7AA7AB82259ED3700089567F /* LetsMove.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */; };
 		7AA7AB8E259ED3F90089567F /* NSApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */; };
 		7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */; };
@@ -204,7 +201,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				7AA7AB80259ED3700089567F /* Sparkle.framework.dSYM in CopyFiles */,
-				7AA7AB81259ED3700089567F /* Mixpanel.framework.dSYM in CopyFiles */,
 				7AA7AB82259ED3700089567F /* LetsMove.framework.dSYM in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,7 +212,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7AA7AB6D259ED12C0089567F /* Sparkle.framework in Embed Frameworks */,
-				7AA7AB76259ED2380089567F /* Mixpanel.framework in Embed Frameworks */,
 				7AA7AB59259ECD070089567F /* LetsMove.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -310,9 +305,7 @@
 		7A9D3A25256B75D60090AD5F /* PropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyControl.swift; sourceTree = "<group>"; };
 		7AA7AB52259ECCF20089567F /* LetsMove.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LetsMove.framework; path = Carthage/Build/Mac/LetsMove.framework; sourceTree = "<group>"; };
 		7AA7AB6A259ED1200089567F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Carthage/Build/Mac/Sparkle.framework; sourceTree = "<group>"; };
-		7AA7AB73259ED2040089567F /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mixpanel.framework; path = Carthage/Build/Mac/Mixpanel.framework; sourceTree = "<group>"; };
 		7AA7AB7D259ED3700089567F /* Sparkle.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Sparkle.framework.dSYM; sourceTree = "<group>"; };
-		7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Mixpanel.framework.dSYM; sourceTree = "<group>"; };
 		7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = LetsMove.framework.dSYM; sourceTree = "<group>"; };
 		7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplicationDelegate.swift; sourceTree = "<group>"; };
 		7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Helpers.swift"; sourceTree = "<group>"; };
@@ -342,7 +335,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA7AB75259ED2380089567F /* Mixpanel.framework in Frameworks */,
 				7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */,
 				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
 				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
@@ -598,8 +590,6 @@
 		7A7F6542256033C1008B33C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7AA7AB73259ED2040089567F /* Mixpanel.framework */,
-				7AA7AB7E259ED3700089567F /* Mixpanel.framework.dSYM */,
 				7AA7AB52259ECCF20089567F /* LetsMove.framework */,
 				7AA7AB7F259ED3700089567F /* LetsMove.framework.dSYM */,
 				7AA7AB6A259ED1200089567F /* Sparkle.framework */,

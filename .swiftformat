@@ -1,5 +1,4 @@
 --swiftversion 5
---exclude mixpanel-swift
 --header strip
 --ranges no-space
 --disable redundantGet,redundantRawValues,sortedImports,unusedArguments,redundantSelf

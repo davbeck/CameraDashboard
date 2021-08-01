@@ -1,3 +1,2 @@
 github "potionfactory/LetsMove" ~> 1.25
 github "sparkle-project/Sparkle" ~> 1.24.0
-github "mixpanel/mixpanel-swift" ~> 2.8.1
