@@ -6,8 +6,26 @@
         "repositoryURL": "https://github.com/sindresorhus/Defaults",
         "state": {
           "branch": null,
-          "revision": "d98119fee49c893fae553103a8659ffe003b6cfe",
-          "version": "4.1.0"
+          "revision": "229dea452fee8d2205f56a12e5c21dfec00948f2",
+          "version": "4.2.2"
+        }
+      },
+      {
+        "package": "MIDIKit",
+        "repositoryURL": "git@github.com:davbeck/MIDIKit.git",
+        "state": {
+          "branch": "main",
+          "revision": "cc7a9ea00becf158d6ae92975eb33e752af7acc3",
+          "version": null
+        }
+      },
+      {
+        "package": "PersistentCacheKit",
+        "repositoryURL": "https://github.com/davbeck/PersistentCacheKit.git",
+        "state": {
+          "branch": null,
+          "revision": "5cd6979a225a76c04a2f0813bdedcea323ff3e29",
+          "version": "0.4.2"
         }
       },
       {
@@ -15,8 +33,26 @@
         "repositoryURL": "https://github.com/piknotech/SFSafeSymbols.git",
         "state": {
           "branch": null,
-          "revision": "a4c071b303cc3643b332c7cd34aac9171f5294a6",
-          "version": "2.0.2"
+          "revision": "c61de7a6e9eb1520d32316b06d5932accd974e70",
+          "version": "2.1.3"
+        }
+      },
+      {
+        "package": "swift-algorithms",
+        "repositoryURL": "https://github.com/apple/swift-algorithms.git",
+        "state": {
+          "branch": null,
+          "revision": "2327673b0e9c7e90e6b1826376526ec3627210e4",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "swift-numerics",
+        "repositoryURL": "https://github.com/apple/swift-numerics",
+        "state": {
+          "branch": null,
+          "revision": "6583ac70c326c3ee080c1d42d9ca3361dca816cd",
+          "version": "0.1.0"
         }
       }
     ]

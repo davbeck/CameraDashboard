@@ -5,6 +5,16 @@ import OSLog
 
 private let logger = Logger(category: "CameraManager")
 
+extension ConfigKey {
+	static var cameras: ConfigKey<[Camera]> {
+		.init(rawValue: "cameras", defaultValue: [])
+	}
+	
+	static func preset(cameraID: UUID, preset: VISCAPreset) -> ConfigKey<PresetConfig> {
+		.init(rawValue: "preset:\(cameraID):\(preset)", defaultValue: PresetConfig())
+	}
+}
+
 struct CameraConnection: Hashable, Identifiable {
 	var camera: Camera
 	let client: VISCAClient
@@ -21,88 +31,39 @@ struct CameraConnection: Hashable, Identifiable {
 
 class CameraManager: ObservableObject {
 	static let shared: CameraManager = {
-		let url = try? FileManager.default
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-			.appendingPathComponent(Bundle(for: CameraManager.self).bundleIdentifier ?? "CameraDashboard")
-			.appendingPathComponent("CameraConfig.json", isDirectory: false)
-		
-		return CameraManager(configURL: url)
+		CameraManager(configManager: .shared)
 	}()
 	
-	init(configURL: URL? = nil) {
-		self.configURL = configURL
+	let configManager: ConfigManager
+	
+	init(configManager: ConfigManager = ConfigManager()) {
+		self.configManager = configManager
 		
 		loadConfig()
 	}
 	
 	// MARK: - Config
 	
-	let configURL: URL?
 	let queue = DispatchQueue(label: "CameraManager")
 	
-	struct CameraConfig: Codable, Hashable {
-		var cameras: [Camera]
-		var presetConfigs: [PresetKey: PresetConfig] = [:]
-		
-		init(cameras: [Camera], presetConfigs: [PresetKey: PresetConfig] = [:]) {
-			self.cameras = cameras
-			self.presetConfigs = presetConfigs
-		}
-		
-		init(from decoder: Decoder) throws {
-			let container = try decoder.container(keyedBy: CodingKeys.self)
-			
-			cameras = try container.decodeIfPresent([Camera].self, forKey: .cameras) ?? []
-			presetConfigs = (try? container.decodeIfPresent([PresetKey: PresetConfig].self, forKey: .presetConfigs)) ?? [:]
-		}
-	}
-	
 	func loadConfig() {
-		do {
-			guard let configURL = configURL else { return }
-			
-			let data = try Data(contentsOf: configURL)
-			let config = try JSONDecoder().decode(CameraConfig.self, from: data)
-			
-			connections = config.cameras.enumerated().map { number, camera -> CameraConnection in
-				CameraConnection(
-					camera: camera,
-					client: VISCAClient(
-						host: NWEndpoint.Host(camera.address),
-						port: NWEndpoint.Port(rawValue: camera.port)!
-					),
-					cameraNumber: number
-				)
-			}
-			presetConfigs = config.presetConfigs
-			
-			Tracker.track(numberOfCameras: connections.count)
-		} catch {
-			logger.error("failed to load config: \(error as NSError, privacy: .public)")
+		let cameras = configManager[.cameras]
+		connections = cameras.enumerated().map { number, camera -> CameraConnection in
+			CameraConnection(
+				camera: camera,
+				client: VISCAClient(
+					host: NWEndpoint.Host(camera.address),
+					port: NWEndpoint.Port(rawValue: camera.port)!
+				),
+				cameraNumber: number
+			)
 		}
+		
+		Tracker.track(numberOfCameras: connections.count)
 	}
 	
 	func saveConfig() {
-		queue.async {
-			do {
-				guard let configURL = self.configURL else { return }
-				try FileManager.default.createDirectory(
-					at: configURL.deletingLastPathComponent(),
-					withIntermediateDirectories: true,
-					attributes: nil
-				)
-				
-				let config = CameraConfig(
-					cameras: self.connections.map { $0.camera },
-					presetConfigs: self.presetConfigs
-				)
-				
-				let data = try JSONEncoder().encode(config)
-				try data.write(to: configURL, options: .atomic)
-			} catch {
-				logger.error("failed to save config: \(error as NSError, privacy: .public)")
-			}
-		}
+		configManager[.cameras] = self.connections.map { $0.camera }
 	}
 	
 	// MARK: - Cameras
@@ -196,22 +157,6 @@ class CameraManager: ObservableObject {
 		didRemoveCamera.send(camera)
 		
 		Tracker.track(numberOfCameras: self.connections.count)
-	}
-	
-	// MARK: - Preset Config
-	
-	@Published private var presetConfigs: [PresetKey: PresetConfig] = [:]
-	
-	subscript(camera: Camera, preset: VISCAPreset) -> PresetConfig {
-		get {
-			presetConfigs[PresetKey(cameraID: camera.id, preset: preset)] ??
-				PresetConfig()
-		}
-		set(newValue) {
-			presetConfigs[PresetKey(cameraID: camera.id, preset: preset)] = newValue
-			
-			saveConfig()
-		}
 	}
 }
 

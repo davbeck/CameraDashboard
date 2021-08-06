@@ -38,17 +38,21 @@ struct PresetStateOverlay: View {
 }
 
 struct PresetView: View {
-	@EnvironmentObject var cameraManager: CameraManager
-	
 	var camera: Camera
 	var preset: VISCAPreset
 	@ObservedObject var client: VISCAClient
 	
-	var presetConfig: PresetConfig {
-		cameraManager[camera, preset]
-	}
+	@Config var presetConfig: PresetConfig
 	
 	@State var isHovering: Bool = false
+	
+	init(camera: Camera, preset: VISCAPreset, client: VISCAClient) {
+		self.camera = camera
+		self.preset = preset
+		self.client = client
+		
+		_presetConfig = Config(key: .preset(cameraID: camera.id, preset: preset))
+	}
 	
 	var height: CGFloat {
 		#if os(macOS)

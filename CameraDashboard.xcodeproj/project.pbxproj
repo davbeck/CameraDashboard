@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61179B9126B9E12F00ADA6A4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61179B9026B9E12F00ADA6A4 /* MIDIKit */; };
+		61179B9326B9E13800ADA6A4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61179B9226B9E13800ADA6A4 /* MIDIKit */; };
+		61179B9A26BA08C500ADA6A4 /* SwitcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179B9926BA08C500ADA6A4 /* SwitcherManager.swift */; };
+		61179B9B26BA08C500ADA6A4 /* SwitcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179B9926BA08C500ADA6A4 /* SwitcherManager.swift */; };
+		61179BA526BAE47200ADA6A4 /* SwitchersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BA426BAE47200ADA6A4 /* SwitchersSection.swift */; };
+		61179BA626BAE47200ADA6A4 /* SwitchersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BA426BAE47200ADA6A4 /* SwitchersSection.swift */; };
+		61179BA926BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BA826BAE4E800ADA6A4 /* SwitcherDetail.swift */; };
+		61179BAA26BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BA826BAE4E800ADA6A4 /* SwitcherDetail.swift */; };
+		61179BAD26BAE82200ADA6A4 /* SwitcherNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BAC26BAE82200ADA6A4 /* SwitcherNavigationRow.swift */; };
+		61179BAE26BAE82200ADA6A4 /* SwitcherNavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61179BAC26BAE82200ADA6A4 /* SwitcherNavigationRow.swift */; };
+		6147CBA726BDB70D00C37D64 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBA626BDB70D00C37D64 /* Algorithms */; };
+		6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBA826BDB71500C37D64 /* Algorithms */; };
+		6147CBB026BDDC3700C37D64 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */; };
+		6147CBB126BDDC3700C37D64 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */; };
+		6147CBB426BDDCF300C37D64 /* PersistentCacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBB326BDDCF300C37D64 /* PersistentCacheKit */; };
+		6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBB526BDDD0400C37D64 /* PersistentCacheKit */; };
+		6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
+		6147CBB926BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
 		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */; };
@@ -220,6 +238,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		61179B9926BA08C500ADA6A4 /* SwitcherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherManager.swift; sourceTree = "<group>"; };
+		61179BA426BAE47200ADA6A4 /* SwitchersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchersSection.swift; sourceTree = "<group>"; };
+		61179BA826BAE4E800ADA6A4 /* SwitcherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherDetail.swift; sourceTree = "<group>"; };
+		61179BAC26BAE82200ADA6A4 /* SwitcherNavigationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherNavigationRow.swift; sourceTree = "<group>"; };
+		6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Helpers.swift"; sourceTree = "<group>"; };
 		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
 		7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
 		7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDashboardApp.swift; sourceTree = "<group>"; };
@@ -327,6 +351,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6147CBB426BDDCF300C37D64 /* PersistentCacheKit in Frameworks */,
+				6147CBA726BDB70D00C37D64 /* Algorithms in Frameworks */,
+				61179B9326B9E13800ADA6A4 /* MIDIKit in Frameworks */,
 				7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +364,9 @@
 			files = (
 				7AA7AB58259ECD070089567F /* LetsMove.framework in Frameworks */,
 				7A7F653D256033B4008B33C6 /* SFSafeSymbols in Frameworks */,
+				61179B9126B9E12F00ADA6A4 /* MIDIKit in Frameworks */,
+				6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */,
+				6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */,
 				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +403,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61179BA726BAE4D000ADA6A4 /* SwitcherDetail */ = {
+			isa = PBXGroup;
+			children = (
+				61179BA826BAE4E800ADA6A4 /* SwitcherDetail.swift */,
+			);
+			path = SwitcherDetail;
+			sourceTree = "<group>";
+		};
+		61179BAB26BAE7FA00ADA6A4 /* Switchers */ = {
+			isa = PBXGroup;
+			children = (
+				61179BA426BAE47200ADA6A4 /* SwitchersSection.swift */,
+				61179BAC26BAE82200ADA6A4 /* SwitcherNavigationRow.swift */,
+			);
+			path = Switchers;
+			sourceTree = "<group>";
+		};
 		7A7F64342560305A008B33C6 = {
 			isa = PBXGroup;
 			children = (
@@ -458,6 +505,8 @@
 				7A7F647D25603092008B33C6 /* CameraManager.swift */,
 				7A7F647C25603092008B33C6 /* PresetConfig.swift */,
 				7A7F647E25603092008B33C6 /* Camera.swift */,
+				61179B9926BA08C500ADA6A4 /* SwitcherManager.swift */,
+				6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */,
 			);
 			path = CameraManager;
 			sourceTree = "<group>";
@@ -468,6 +517,7 @@
 				7A7F643B2560305A008B33C6 /* ContentView.swift */,
 				7A7F652925603169008B33C6 /* Navigation */,
 				7A7F64FB2560315F008B33C6 /* CameraDetail */,
+				61179BA726BAE4D000ADA6A4 /* SwitcherDetail */,
 				7A7F64DD2560314D008B33C6 /* Presets */,
 				7A7F64BD25603134008B33C6 /* Shared */,
 			);
@@ -507,6 +557,7 @@
 				7A8ABC062566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift */,
 				7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */,
 				7AA8681125769EC500AA7B6E /* Tracking.swift */,
+				6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -583,6 +634,7 @@
 				7A7F655C25603677008B33C6 /* AddCameraButton.swift */,
 				7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */,
 				7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */,
+				61179BAB26BAE7FA00ADA6A4 /* Switchers */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -675,6 +727,9 @@
 			name = "CameraDashboard (iOS)";
 			packageProductDependencies = (
 				7A7F6543256033C1008B33C6 /* SFSafeSymbols */,
+				61179B9226B9E13800ADA6A4 /* MIDIKit */,
+				6147CBA626BDB70D00C37D64 /* Algorithms */,
+				6147CBB326BDDCF300C37D64 /* PersistentCacheKit */,
 			);
 			productName = "CameraDashboard (iOS)";
 			productReference = 7A7F64412560305B008B33C6 /* CameraDashboard.app */;
@@ -700,6 +755,9 @@
 			name = "CameraDashboard (macOS)";
 			packageProductDependencies = (
 				7A7F653C256033B4008B33C6 /* SFSafeSymbols */,
+				61179B9026B9E12F00ADA6A4 /* MIDIKit */,
+				6147CBA826BDB71500C37D64 /* Algorithms */,
+				6147CBB526BDDD0400C37D64 /* PersistentCacheKit */,
 			);
 			productName = "CameraDashboard (macOS)";
 			productReference = 7A7F64492560305B008B33C6 /* Camera Dashboard.app */;
@@ -824,6 +882,9 @@
 			packageReferences = (
 				7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */,
+				61179B8F26B9E12F00ADA6A4 /* XCRemoteSwiftPackageReference "MIDIKit" */,
+				6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */,
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
@@ -998,9 +1059,11 @@
 				7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651B2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
 				7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
+				61179BA926BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */,
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
 				7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
+				6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */,
 				7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
 				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
@@ -1009,6 +1072,7 @@
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C225603134008B33C6 /* Column.swift in Sources */,
 				7A7F64E62560314D008B33C6 /* PresetsView.swift in Sources */,
+				6147CBB026BDDC3700C37D64 /* ConfigManager.swift in Sources */,
 				7A7F648325603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653125603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF725661D8700617A70 /* VISCACommand.swift in Sources */,
@@ -1021,6 +1085,7 @@
 				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
+				61179B9A26BA08C500ADA6A4 /* SwitcherManager.swift in Sources */,
 				7A7F65732560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649B256030F1008B33C6 /* Formatters.swift in Sources */,
 				7A9D3A15256B6F550090AD5F /* DirectionButton.swift in Sources */,
@@ -1031,6 +1096,7 @@
 				7A7F65152560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
 				7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */,
 				7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */,
+				61179BAD26BAE82200ADA6A4 /* SwitcherNavigationRow.swift in Sources */,
 				7A7F650F2560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65172560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
 				7A7F650D2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
@@ -1039,6 +1105,7 @@
 				7A7F6492256030C3008B33C6 /* VISCAPreset.swift in Sources */,
 				7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */,
 				7A7F64C825603134008B33C6 /* acceptsFirstMouse.swift in Sources */,
+				61179BA526BAE47200ADA6A4 /* SwitchersSection.swift in Sources */,
 				7A7F651D2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650B2560315F008B33C6 /* CameraDetail.swift in Sources */,
 				7A7F64632560305B008B33C6 /* CameraDashboardApp.swift in Sources */,
@@ -1070,6 +1137,7 @@
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				61179BAA26BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */,
 				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
@@ -1081,8 +1149,10 @@
 				7A7F64E92560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C325603134008B33C6 /* Column.swift in Sources */,
 				7A7F64E72560314D008B33C6 /* PresetsView.swift in Sources */,
+				6147CBB126BDDC3700C37D64 /* ConfigManager.swift in Sources */,
 				7A7F648425603092008B33C6 /* Camera.swift in Sources */,
 				7ABE0B5C25A563FB00FD9847 /* PanTiltColors.swift in Sources */,
+				61179BA626BAE47200ADA6A4 /* SwitchersSection.swift in Sources */,
 				7A7F653225603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B125603119008B33C6 /* ReplaySubject.swift in Sources */,
@@ -1115,13 +1185,16 @@
 				7A7F651E2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650C2560315F008B33C6 /* CameraDetail.swift in Sources */,
 				7A7F64642560305B008B33C6 /* CameraDashboardApp.swift in Sources */,
+				61179B9B26BA08C500ADA6A4 /* SwitcherManager.swift in Sources */,
 				7A7F65142560315F008B33C6 /* FocusControl.swift in Sources */,
 				7A7F64E52560314D008B33C6 /* PresetColorControl.swift in Sources */,
 				7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
 				7AA7AB8E259ED3F90089567F /* NSApplicationDelegate.swift in Sources */,
+				61179BAE26BAE82200ADA6A4 /* SwitcherNavigationRow.swift in Sources */,
 				7A8ABC002566C86E00617A70 /* VISCAInquiry.swift in Sources */,
+				6147CBB926BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */,
 				7A7F64A3256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269C2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				7ABBA6EA256E1610001B4967 /* View+Extend.swift in Sources */,
@@ -1672,6 +1745,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		61179B8F26B9E12F00ADA6A4 /* XCRemoteSwiftPackageReference "MIDIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:davbeck/MIDIKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+		6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davbeck/PersistentCacheKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.2;
+			};
+		};
 		7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
@@ -1691,6 +1788,36 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		61179B9026B9E12F00ADA6A4 /* MIDIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61179B8F26B9E12F00ADA6A4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKit;
+		};
+		61179B9226B9E13800ADA6A4 /* MIDIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61179B8F26B9E12F00ADA6A4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKit;
+		};
+		6147CBA626BDB70D00C37D64 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		6147CBA826BDB71500C37D64 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		6147CBB326BDDCF300C37D64 /* PersistentCacheKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */;
+			productName = PersistentCacheKit;
+		};
+		6147CBB526BDDD0400C37D64 /* PersistentCacheKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */;
+			productName = PersistentCacheKit;
+		};
 		7A7F653C256033B4008B33C6 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;

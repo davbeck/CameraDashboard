@@ -36,6 +36,8 @@ struct NavigationList: View {
 					$0
 				#endif
 			}
+			
+			SwitchersSection(navigationSelection: $navigationSelection)
 		}
 		.listStyle(SidebarListStyle())
 		.extend {
