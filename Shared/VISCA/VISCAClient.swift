@@ -62,13 +62,6 @@ class VISCAClient: ObservableObject {
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port) {
 		pool = VISCAPool(host: host, port: port)
 		
-		$preset
-			.filterUserEvents()
-			.sink { [weak self] value in
-				self?.recall(preset: value)
-			}
-			.store(in: &observers)
-		
 		$zoomPosition
 			.filterUserEvents()
 			.sink { [weak self] zoomPosition in
@@ -200,7 +193,7 @@ class VISCAClient: ObservableObject {
 	
 	// MARK: - Presets
 	
-	@Published var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
+	@Published private(set) var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
 	
 	func inquirePreset() {
 		pool.send(inquiry: .preset)
@@ -212,7 +205,9 @@ class VISCAClient: ObservableObject {
 			.store(in: &observers)
 	}
 	
-	private func recall(preset: VISCAPreset) {
+	func recall(preset: VISCAPreset) {
+		self.preset.local = preset
+		
 		pool.send(command: .recall(preset))
 			.sink { completion in
 				if self.handle(completion) != .cancelled {

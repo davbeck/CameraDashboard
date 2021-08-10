@@ -49,11 +49,35 @@ class SwitcherClient: ObservableObject, Identifiable {
 				try container.encodeNil()
 			}
 		}
+		
+		var cameraID: UUID? {
+			switch self {
+			case .unassigned:
+				return nil
+			case let .camera(id):
+				return id
+			}
+		}
 	}
 	
 	@Published var inputs: [Input] {
 		didSet {
 			configManager[.switcher(id: device.uniqueID)] = inputs
+		}
+	}
+
+	@Published private(set) var selectedInput: Int? = nil
+	var selectedCameraID: UUID? {
+		guard
+			let selectedInput = selectedInput,
+			inputs.indices.contains(selectedInput)
+		else { return nil }
+		
+		switch inputs[selectedInput] {
+		case .unassigned:
+			return nil
+		case let .camera(id):
+			return id
 		}
 	}
 	
@@ -113,6 +137,18 @@ class SwitcherClient: ObservableObject, Identifiable {
 			try! outputPort.send(packet, to: endpoint)
 		}
 	}
+	
+	func selectCamera(id: UUID) {
+		guard let number = inputs.firstIndex(of: .camera(id)) else { return }
+		self.send(
+			status: .controlChange,
+			channel: 0,
+			note: 0b0000_1110,
+			intensity: UInt8(number)
+		)
+		
+		self.selectedInput = number
+	}
 }
 
 class SwitcherManager: ObservableObject {
@@ -123,6 +159,11 @@ class SwitcherManager: ObservableObject {
 	let client: MIDIClient
 	
 	@Published var switchers: [MIDIUniqueID: SwitcherClient] = [:]
+	private var switcherObservers: [AnyCancellable] = []
+	@Published private var cameraSelections: [MIDIUniqueID: UUID] = [:]
+	var selectedCameraIDs: Set<UUID> {
+		Set(cameraSelections.values)
+	}
 	
 	static let shared: SwitcherManager = {
 		SwitcherManager(configManager: .shared)
@@ -142,11 +183,45 @@ class SwitcherManager: ObservableObject {
 					.filter { $0.isSwitcher }
 				var switchers: [MIDIUniqueID: SwitcherClient] = [:]
 				for device in devices {
-					switchers[device.uniqueID] = self.switchers[device.uniqueID] ?? SwitcherClient(device: device, client: self.client, configManager: configManager)
+					if let client = self.switchers[device.uniqueID] {
+						switchers[device.uniqueID] = client
+					} else {
+						let client = SwitcherClient(device: device, client: self.client, configManager: configManager)
+						client.publisher(for: \.selectedCameraID)
+							.sink { [weak self] cameraID in
+								self?.cameraSelections[device.uniqueID] = cameraID
+							}
+							.store(in: &self.observers)
+						switchers[device.uniqueID] = client
+					}
+				}
+				
+				self.cameraSelections = [:]
+				self.switcherObservers = switchers.values.map { client in
+					client.publisher(for: \.selectedCameraID)
+						.sink { [weak self] id in
+							self?.cameraSelections[client.id] = id
+						}
 				}
 				
 				self.switchers = switchers
 			}
 			.store(in: &observers)
+	}
+	
+	func selectCamera(id: UUID) {
+		switchers.values
+			.first(where: { $0.inputs.contains(where: { $0.cameraID == id }) })?
+			.selectCamera(id: id)
+	}
+}
+
+extension ObservableObject {
+	func publisher<Value>(for keyPath: KeyPath<Self, Value>) -> AnyPublisher<Value, Never> {
+		self.objectWillChange
+			.throttle(for: 0, scheduler: RunLoop.main, latest: true)
+			.compactMap { [weak self] _ in self?[keyPath: keyPath] }
+			.prepend(self[keyPath: keyPath])
+			.eraseToAnyPublisher()
 	}
 }

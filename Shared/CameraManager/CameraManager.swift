@@ -11,7 +11,7 @@ extension ConfigKey {
 	}
 	
 	static func preset(cameraID: UUID, preset: VISCAPreset) -> ConfigKey<PresetConfig> {
-		.init(rawValue: "preset:\(cameraID):\(preset)", defaultValue: PresetConfig())
+		.init(rawValue: "preset:\(cameraID):\(preset.rawValue)", defaultValue: PresetConfig())
 	}
 }
 

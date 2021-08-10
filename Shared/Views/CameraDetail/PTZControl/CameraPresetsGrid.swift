@@ -29,7 +29,7 @@ struct CameraPresetsGrid: View {
 					)
 					.frame(maxWidth: .infinity)
 					.onTapGesture {
-						client.preset.local = preset
+						client.recall(preset: preset)
 					}
 					// this causing a crash
 					// .acceptsFirstMouse()

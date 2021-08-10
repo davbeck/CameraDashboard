@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct PresetSwitchingOverlay: View {
+	var color: Color
+	
 	@State private var animatedOff: Bool = false
 	
 	var body: some View {
 		RoundedRectangle(cornerRadius: 15)
-			.stroke(Color.blue, lineWidth: 4)
+			.stroke(color, lineWidth: 4)
 			.opacity(animatedOff ? 0 : 1)
 			.onAppear {
 				withAnimation(Animation.linear(duration: 0.2)
@@ -18,9 +20,11 @@ struct PresetSwitchingOverlay: View {
 }
 
 struct PresetActiveOverlay: View {
+	var color: Color
+	
 	var body: some View {
 		RoundedRectangle(cornerRadius: 15)
-			.stroke(Color.blue, lineWidth: 4)
+			.stroke(color, lineWidth: 4)
 	}
 }
 
@@ -28,16 +32,20 @@ struct PresetStateOverlay: View {
 	var preset: VISCAPreset
 	var selection: VISCAClient.RemoteValue<VISCAPreset?>
 	
+	var color: Color
+	
 	var body: some View {
 		if preset == selection.remote {
-			PresetActiveOverlay()
+			PresetActiveOverlay(color: color)
 		} else if preset == selection.local {
-			PresetSwitchingOverlay()
+			PresetSwitchingOverlay(color: color)
 		}
 	}
 }
 
 struct PresetView: View {
+	@EnvironmentObject var switcherManager: SwitcherManager
+	
 	var camera: Camera
 	var preset: VISCAPreset
 	@ObservedObject var client: VISCAClient
@@ -91,7 +99,8 @@ struct PresetView: View {
 		.overlay(
 			PresetStateOverlay(
 				preset: preset,
-				selection: client.preset
+				selection: client.preset,
+				color: switcherManager.selectedCameraIDs.contains(camera.id) ? .red : .blue
 			)
 		)
 		.onHover(perform: { hovering in

@@ -3,6 +3,7 @@ import Combine
 
 struct ConnectionPresetsRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
+	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
 	@ObservedObject var client: VISCAClient
 	var camera: Camera
@@ -30,7 +31,10 @@ struct ConnectionPresetsRow: View {
 					)
 					.frame(width: width)
 					.onTapGesture {
-						client.preset.local = preset
+						if client.preset.local == preset {
+							switcherManager.selectCamera(id: camera.id)
+						}
+						client.recall(preset: preset)
 					}
 				}
 			}
