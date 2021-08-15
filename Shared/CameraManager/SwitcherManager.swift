@@ -79,6 +79,7 @@ class SwitcherClient: ObservableObject, Identifiable {
 	@Published private(set) var selectedInput: Int? = nil
 	var selectedCameraID: UUID? {
 		guard
+			!isOffline,
 			let selectedInput = selectedInput,
 			inputs.indices.contains(selectedInput)
 		else { return nil }
@@ -100,8 +101,9 @@ class SwitcherClient: ObservableObject, Identifiable {
 		self.inputs = configManager[.switcher(id: device.uniqueID)]
 		self.channel = configManager[.switcherChannel(id: device.uniqueID)]
 		
-		client.setupChanged
+		client.propertyChanged
 			.receive(on: RunLoop.main)
+			.filter { $0.propertyName.takeUnretainedValue() == kMIDIPropertyOffline }
 			.map { [device] _ in device.isOffline }
 			.removeDuplicates()
 			.assign(to: &$isOffline)
