@@ -8,6 +8,12 @@ struct SwitcherDetail: View {
 	
 	var body: some View {
 		VStack {
+			Picker(selection: $client.channel, label: Text("Channel")) {
+				ForEach(UInt8(0)..<16, id: \.self) { channel in
+					Text("\(channel + 1)")
+				}
+			}
+			
 			ForEach(Array(client.inputs.indexed()), id: \.index) { index, input in
 				HStack {
 					Picker(selection: $client.inputs[index], label: Text("Input \(index + 1):"), content: {

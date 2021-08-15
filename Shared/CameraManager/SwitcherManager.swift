@@ -7,6 +7,10 @@ extension ConfigKey {
 	static func switcher(id: MIDIUniqueID) -> ConfigKey<[SwitcherClient.Input]> {
 		.init(rawValue: "switcher:\(id)", defaultValue: (0..<4).map { _ in .unassigned })
 	}
+
+	static func switcherChannel(id: MIDIUniqueID) -> ConfigKey<MIDIChannelNumber> {
+		.init(rawValue: "switcher:channel:\(id)", defaultValue: 0)
+	}
 }
 
 extension MIDIDevice {
@@ -65,6 +69,12 @@ class SwitcherClient: ObservableObject, Identifiable {
 			configManager[.switcher(id: device.uniqueID)] = inputs
 		}
 	}
+	
+	@Published var channel: MIDIChannelNumber {
+		didSet {
+			configManager[.switcherChannel(id: device.uniqueID)] = channel
+		}
+	}
 
 	@Published private(set) var selectedInput: Int? = nil
 	var selectedCameraID: UUID? {
@@ -88,6 +98,7 @@ class SwitcherClient: ObservableObject, Identifiable {
 		self.configManager = configManager
 		
 		self.inputs = configManager[.switcher(id: device.uniqueID)]
+		self.channel = configManager[.switcherChannel(id: device.uniqueID)]
 		
 		client.setupChanged
 			.receive(on: RunLoop.main)
@@ -107,11 +118,10 @@ class SwitcherClient: ObservableObject, Identifiable {
 			.store(in: &observers)
 		
 		inputPort.packetRecieved
+			.filter { $0.status == .controlChange && $0.control == 0b0000_1110 }
+			.map { Int($0.data.2) }
 			.receive(on: RunLoop.main)
-			.sink { packet in
-//				self.receivedPackets.append(packet)
-			}
-			.store(in: &observers)
+			.assign(to: &$selectedInput)
 	}
 	
 	var id: MIDIUniqueID {
@@ -142,7 +152,7 @@ class SwitcherClient: ObservableObject, Identifiable {
 		guard let number = inputs.firstIndex(of: .camera(id)) else { return }
 		self.send(
 			status: .controlChange,
-			channel: 0,
+			channel: channel,
 			note: 0b0000_1110,
 			intensity: UInt8(number)
 		)
