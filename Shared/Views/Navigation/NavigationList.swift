@@ -15,6 +15,13 @@ struct NavigationList: View {
 				Text("Presets")
 			}
 			
+			NavigationLink(
+				destination: ActionsView().environmentObject(cameraManager),
+				isActive: $navigationSelection[contains: "actions"]
+			) {
+				Text("Actions")
+			}
+			
 			Section(header: Text("Cameras")) {
 				ForEach(cameraManager.connections) { connection in
 					NavigationLink(
