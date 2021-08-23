@@ -102,10 +102,10 @@ class SwitcherClient: ObservableObject, Identifiable {
 		self.channel = configManager[.switcherChannel(id: device.uniqueID)]
 		
 		client.propertyChanged
-			.receive(on: RunLoop.main)
 			.filter { $0.propertyName.takeUnretainedValue() == kMIDIPropertyOffline }
 			.map { [device] _ in device.isOffline }
 			.removeDuplicates()
+			.receive(on: RunLoop.main)
 			.assign(to: &$isOffline)
 		
 		$isOffline
