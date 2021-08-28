@@ -5,7 +5,7 @@ import CoreMIDI
 
 extension MIDIStatus: Codable {}
 
-struct Action: Codable {
+struct Action: Codable, Equatable {
 	var name: String = ""
 	var status: MIDIStatus = .noteOn
 	var channel: UInt8 = 0

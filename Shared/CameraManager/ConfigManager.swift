@@ -91,7 +91,9 @@ final class ConfigManager {
 					
 					try statement.reset()
 					
-					return try data.map { try self.decoder.decode(T.self, from: $0) } ?? key.defaultValue
+					let value = try data.map { try self.decoder.decode(T.self, from: $0) } ?? key.defaultValue
+					values[key.rawValue] = value
+					return value
 				} catch {
 					log.error("error retrieving data from SQLite: \(String(describing: error))")
 					return key.defaultValue
@@ -139,7 +141,7 @@ extension EnvironmentValues {
 }
 
 @propertyWrapper
-struct Config<Value: Codable>: DynamicProperty {
+struct Config<Value: Codable & Equatable>: DynamicProperty {
 	class Coordinator: ObservableObject {
 		// just used to trigger a state update
 		@Published var value: Value?
@@ -152,6 +154,7 @@ struct Config<Value: Codable>: DynamicProperty {
 	func update() {
 		configManager.valueChanged(for: key)
 			.map { $0 as Value? }
+			.removeDuplicates()
 			.assign(to: &coordinator.$value)
 	}
 	
