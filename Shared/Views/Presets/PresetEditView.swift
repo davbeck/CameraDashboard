@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PresetEditView: View {
-	@Config var presetConfig: PresetConfig
+	@Config<PresetConfigKey> var presetConfig: PresetConfig
 	
 	var camera: Camera
 	var preset: VISCAPreset
@@ -15,7 +15,7 @@ struct PresetEditView: View {
 		self.preset = preset
 		self.client = client
 		
-		_presetConfig = Config(key: .preset(cameraID: camera.id, preset: preset))
+		_presetConfig = Config(key: PresetConfigKey(cameraID: camera.id, preset: preset))
 	}
 	
 	var body: some View {

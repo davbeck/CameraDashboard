@@ -6,15 +6,11 @@ import Combine
 
 private let log = Logger(category: "ConfigManager")
 
-struct ConfigKey<T: Codable> {
-	var rawValue: String
-	var defaultValue: T
-}
-
-extension ConfigKey {
-	init<Wrapped>(rawValue: String) where T == Wrapped? {
-		self.init(rawValue: rawValue, defaultValue: nil)
-	}
+protocol ConfigKey {
+	associatedtype Value: Codable
+	
+	static var defaultValue: Value { get }
+	var rawValue: String { get }
 }
 
 final class ConfigManager {
@@ -62,20 +58,20 @@ final class ConfigManager {
 		}
 	}
 	
-	public func valueChanged<T: Codable>(for key: ConfigKey<T>) -> AnyPublisher<T, Never> {
+	public func valueChanged<Key: ConfigKey>(for key: Key) -> AnyPublisher<Key.Value, Never> {
 		self.valueChanged
 			.filter { $0.rawKey == key.rawValue }
-			.compactMap { $0.value as? T }
+			.compactMap { $0.value as? Key.Value }
 			.eraseToAnyPublisher()
 	}
 	
-	public subscript<T: Codable>(key: ConfigKey<T>) -> T {
+	public subscript<Key: ConfigKey>(key: Key) -> Key.Value {
 		get {
-			if let value = values[key.rawValue] as? T {
+			if let value = values[key.rawValue] as? Key.Value {
 				return value
 			}
 			
-			guard let db = db else { return key.defaultValue }
+			guard let db = db else { return Key.defaultValue }
 			return self.queue.sync {
 				var data: Data?
 				
@@ -91,12 +87,12 @@ final class ConfigManager {
 					
 					try statement.reset()
 					
-					let value = try data.map { try self.decoder.decode(T.self, from: $0) } ?? key.defaultValue
+					let value = try data.map { try self.decoder.decode(Key.Value.self, from: $0) } ?? Key.defaultValue
 					values[key.rawValue] = value
 					return value
 				} catch {
 					log.error("error retrieving data from SQLite: \(String(describing: error))")
-					return key.defaultValue
+					return Key.defaultValue
 				}
 			}
 		}
@@ -141,26 +137,28 @@ extension EnvironmentValues {
 }
 
 @propertyWrapper
-struct Config<Value: Codable & Equatable>: DynamicProperty {
-	class Coordinator: ObservableObject {
-		// just used to trigger a state update
-		@Published var value: Value?
+struct Config<Key: ConfigKey>: DynamicProperty where Key.Value: Equatable {
+	private final class Coordinator: ObservableObject {
+		var observer: AnyCancellable?
 	}
 	
 	@Environment(\.configManager) var configManager
 	
-	@StateObject var coordinator = Coordinator()
+	@StateObject private var coordinator = Coordinator()
 	
 	func update() {
-		configManager.valueChanged(for: key)
-			.map { $0 as Value? }
+		guard coordinator.observer == nil else { return }
+		coordinator.observer = configManager.valueChanged(for: key)
 			.removeDuplicates()
-			.assign(to: &coordinator.$value)
+			.print(key.rawValue)
+			.sink { value in
+				coordinator.objectWillChange.send()
+			}
 	}
 	
-	let key: ConfigKey<Value>
+	let key: Key
 	
-	var wrappedValue: Value {
+	var wrappedValue: Key.Value {
 		get {
 			configManager[key]
 		}
@@ -169,7 +167,7 @@ struct Config<Value: Codable & Equatable>: DynamicProperty {
 		}
 	}
 	
-	var projectedValue: Binding<Value> {
+	var projectedValue: Binding<Key.Value> {
 		Binding(
 			get: { wrappedValue },
 			set: { wrappedValue = $0 }

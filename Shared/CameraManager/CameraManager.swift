@@ -5,14 +5,23 @@ import OSLog
 
 private let logger = Logger(category: "CameraManager")
 
-extension ConfigKey {
-	static var cameras: ConfigKey<[Camera]> {
-		.init(rawValue: "cameras", defaultValue: [])
+struct CamerasKey: ConfigKey {
+	static let defaultValue: [Camera] = []
+
+	var rawValue: String {
+		"cameras"
+	}
+}
+
+struct PresetConfigKey: ConfigKey {
+	static let defaultValue = PresetConfig()
+
+	var rawValue: String {
+		"preset:\(cameraID):\(preset.rawValue)"
 	}
 	
-	static func preset(cameraID: UUID, preset: VISCAPreset) -> ConfigKey<PresetConfig> {
-		.init(rawValue: "preset:\(cameraID):\(preset.rawValue)", defaultValue: PresetConfig())
-	}
+	var cameraID: UUID
+	var preset: VISCAPreset
 }
 
 struct CameraConnection: Hashable, Identifiable {
@@ -47,7 +56,7 @@ class CameraManager: ObservableObject {
 	let queue = DispatchQueue(label: "CameraManager")
 	
 	func loadConfig() {
-		let cameras = configManager[.cameras]
+		let cameras = configManager[CamerasKey()]
 		connections = cameras.enumerated().map { number, camera -> CameraConnection in
 			CameraConnection(
 				camera: camera,
@@ -63,7 +72,7 @@ class CameraManager: ObservableObject {
 	}
 	
 	func saveConfig() {
-		configManager[.cameras] = self.connections.map { $0.camera }
+		configManager[CamerasKey()] = self.connections.map { $0.camera }
 	}
 	
 	// MARK: - Cameras

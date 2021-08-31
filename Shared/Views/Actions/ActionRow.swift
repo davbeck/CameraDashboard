@@ -4,10 +4,18 @@ import MIDIKit
 struct ActionRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
-	@Config var action: Action
+	@Config<ActionKey> var action: Action
 	
 	init(actionID: UUID) {
-		_action = Config(key: .action(id: actionID))
+		_action = Config(key: ActionKey(id: actionID))
+	}
+	
+	var backgroundColor: Color {
+		#if os(macOS)
+			Color(.alternatingContentBackgroundColors[1])
+		#else
+			Color(.secondarySystemGroupedBackground)
+		#endif
 	}
 	
 	var body: some View {
@@ -56,7 +64,7 @@ struct ActionRow: View {
 			}
 			.padding()
 		}
-		.background(Color(.alternatingContentBackgroundColors[1]))
+		.background(backgroundColor)
 		.cornerRadius(10)
 	}
 }

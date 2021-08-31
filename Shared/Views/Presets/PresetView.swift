@@ -50,7 +50,7 @@ struct PresetView: View {
 	var preset: VISCAPreset
 	@ObservedObject var client: VISCAClient
 	
-	@Config var presetConfig: PresetConfig
+	@Config<PresetConfigKey> var presetConfig: PresetConfig
 	
 	@State var isHovering: Bool = false
 	
@@ -59,7 +59,7 @@ struct PresetView: View {
 		self.preset = preset
 		self.client = client
 		
-		_presetConfig = Config(key: .preset(cameraID: camera.id, preset: preset))
+		_presetConfig = Config(key: PresetConfigKey(cameraID: camera.id, preset: preset))
 	}
 	
 	var height: CGFloat {

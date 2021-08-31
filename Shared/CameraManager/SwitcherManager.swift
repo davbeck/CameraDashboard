@@ -3,14 +3,24 @@ import MIDIKit
 import Combine
 import CoreMIDI
 
-extension ConfigKey {
-	static func switcher(id: MIDIUniqueID) -> ConfigKey<[SwitcherClient.Input]> {
-		.init(rawValue: "switcher:\(id)", defaultValue: (0..<4).map { _ in .unassigned })
-	}
+struct SwitcherKey: ConfigKey {
+	static let defaultValue: [SwitcherClient.Input] = (0..<4).map { _ in .unassigned }
 
-	static func switcherChannel(id: MIDIUniqueID) -> ConfigKey<MIDIChannelNumber> {
-		.init(rawValue: "switcher:channel:\(id)", defaultValue: 0)
+	var rawValue: String {
+		"switcher:\(id)"
 	}
+	
+	var id: MIDIUniqueID
+}
+
+struct SwitcherChannelKey: ConfigKey {
+	static let defaultValue: MIDIChannelNumber = 0
+
+	var rawValue: String {
+		"switcher:channel:\(id)"
+	}
+	
+	var id: MIDIUniqueID
 }
 
 extension MIDIDevice {
@@ -66,13 +76,13 @@ class SwitcherClient: ObservableObject, Identifiable {
 	
 	@Published var inputs: [Input] {
 		didSet {
-			configManager[.switcher(id: device.uniqueID)] = inputs
+			configManager[SwitcherKey(id: device.uniqueID)] = inputs
 		}
 	}
 	
 	@Published var channel: MIDIChannelNumber {
 		didSet {
-			configManager[.switcherChannel(id: device.uniqueID)] = channel
+			configManager[SwitcherChannelKey(id: device.uniqueID)] = channel
 		}
 	}
 
@@ -98,8 +108,8 @@ class SwitcherClient: ObservableObject, Identifiable {
 		self.inputPort = try! MIDIInputPort(client: client, name: "SwitcherClient Input Port")
 		self.configManager = configManager
 		
-		self.inputs = configManager[.switcher(id: device.uniqueID)]
-		self.channel = configManager[.switcherChannel(id: device.uniqueID)]
+		self.inputs = configManager[SwitcherKey(id: device.uniqueID)]
+		self.channel = configManager[SwitcherChannelKey(id: device.uniqueID)]
 		
 		client.propertyChanged
 			.filter { $0.propertyName.takeUnretainedValue() == kMIDIPropertyOffline }

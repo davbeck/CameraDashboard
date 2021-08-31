@@ -14,7 +14,7 @@ struct MIDICommandControl: View {
 	}
 	
 	var body: some View {
-		Picker(selection: $status, label: Text("Command")) {
+		return Picker(selection: $status, label: Text("Command")) {
 			ForEach(options, id: \.self) { status in
 				Text(status.localizedDescription)
 			}

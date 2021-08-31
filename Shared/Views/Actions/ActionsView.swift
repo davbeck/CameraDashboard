@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ActionsView: View {
-	@Config(key: .actionIDs()) var actionIDs
+	@Config(key: ActionIDsKey()) var actionIDs
 	
 	var body: some View {
 		ScrollView {

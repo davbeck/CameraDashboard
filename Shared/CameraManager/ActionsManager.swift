@@ -20,14 +20,22 @@ struct Action: Codable, Equatable {
 	}
 }
 
-extension ConfigKey {
-	static func actionIDs() -> ConfigKey<[UUID]> {
-		.init(rawValue: "actionIDs", defaultValue: [])
-	}
+struct ActionIDsKey: ConfigKey {
+	static let defaultValue: [UUID] = []
 
-	static func action(id: UUID) -> ConfigKey<Action> {
-		.init(rawValue: "action:\(id)", defaultValue: Action())
+	var rawValue: String {
+		"actionIDs"
 	}
+}
+
+struct ActionKey: ConfigKey {
+	static let defaultValue = Action()
+
+	var rawValue: String {
+		"action:\(id)"
+	}
+	
+	var id: UUID
 }
 
 class ActionsManager: ObservableObject {
@@ -83,8 +91,8 @@ class ActionsManager: ObservableObject {
 	}
 	
 	private func action(for packet: MIDIPacket) -> Action? {
-		for id in configManager[.actionIDs()] {
-			let action = configManager[.action(id: id)]
+		for id in configManager[ActionIDsKey()] {
+			let action = configManager[ActionKey(id: id)]
 			if action.matches(packet) {
 				return action
 			}
