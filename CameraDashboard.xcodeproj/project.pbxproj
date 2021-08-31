@@ -37,6 +37,10 @@
 		6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBB526BDDD0400C37D64 /* PersistentCacheKit */; };
 		6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
 		6147CBB926BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
+		61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
+		61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
+		61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
+		61CE0FF126DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
 		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */; };
@@ -262,6 +266,8 @@
 		61288FB626CC03460077CF58 /* ActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsManager.swift; sourceTree = "<group>"; };
 		6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Helpers.swift"; sourceTree = "<group>"; };
+		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
+		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
 		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
 		7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
 		7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDashboardApp.swift; sourceTree = "<group>"; };
@@ -443,6 +449,8 @@
 			children = (
 				61288F6D26C95AC80077CF58 /* ActionsView.swift */,
 				61288F7026C95BF30077CF58 /* ActionRow.swift */,
+				61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */,
+				61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */,
 				61288FAD26CB1CEA0077CF58 /* MIDICommandControl.swift */,
 				61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */,
 				61288FB026CB1DDC0077CF58 /* MIDINoteControl.swift */,
@@ -1097,6 +1105,7 @@
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
 				7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
+				61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */,
 				6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */,
 				7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
@@ -1155,6 +1164,7 @@
 				7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
+				61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */,
 				7ABBA6E9256E1610001B4967 /* View+Extend.swift in Sources */,
 				7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
@@ -1175,6 +1185,7 @@
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
+				61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */,
 				61179BAA26BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */,
 				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
@@ -1208,6 +1219,7 @@
 				7A7F656D2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
 				7A7F65742560CA88008B33C6 /* VISCAConnection.swift in Sources */,
 				7A7F649C256030F1008B33C6 /* Formatters.swift in Sources */,
+				61CE0FF126DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */,
 				7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */,
 				7A7F651A2560315F008B33C6 /* ZoomControl.swift in Sources */,
 				7A7F64662560305B008B33C6 /* ContentView.swift in Sources */,

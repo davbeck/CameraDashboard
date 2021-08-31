@@ -92,6 +92,7 @@ final class ConfigManager {
 					return value
 				} catch {
 					log.error("error retrieving data from SQLite: \(String(describing: error))")
+					values[key.rawValue] = Key.defaultValue
 					return Key.defaultValue
 				}
 			}
@@ -150,7 +151,6 @@ struct Config<Key: ConfigKey>: DynamicProperty where Key.Value: Equatable {
 		guard coordinator.observer == nil else { return }
 		coordinator.observer = configManager.valueChanged(for: key)
 			.removeDuplicates()
-			.print(key.rawValue)
 			.sink { value in
 				coordinator.objectWillChange.send()
 			}
