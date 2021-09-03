@@ -47,6 +47,8 @@
 		61CE0FFB26E26EE100AA1553 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FFA26E26EE100AA1553 /* Defaults */; };
 		61CE0FFF26E280BA00AA1553 /* MessagePack in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FFE26E280BA00AA1553 /* MessagePack */; };
 		61CE100126E280C200AA1553 /* MessagePack in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE100026E280C200AA1553 /* MessagePack */; };
+		61CE100326E2850700AA1553 /* ActionPresetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE100226E2850700AA1553 /* ActionPresetControl.swift */; };
+		61CE100426E2850700AA1553 /* ActionPresetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE100226E2850700AA1553 /* ActionPresetControl.swift */; };
 		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */; };
@@ -275,6 +277,7 @@
 		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
 		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
 		61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsSettingsView.swift; sourceTree = "<group>"; };
+		61CE100226E2850700AA1553 /* ActionPresetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPresetControl.swift; sourceTree = "<group>"; };
 		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
 		7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
 		7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDashboardApp.swift; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 				61288FAD26CB1CEA0077CF58 /* MIDICommandControl.swift */,
 				61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */,
 				61288FB026CB1DDC0077CF58 /* MIDINoteControl.swift */,
+				61CE100226E2850700AA1553 /* ActionPresetControl.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1142,6 +1146,7 @@
 				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
 				7A8ABBE22566105100617A70 /* ToggleButton.swift in Sources */,
 				7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */,
+				61CE100326E2850700AA1553 /* ActionPresetControl.swift in Sources */,
 				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
@@ -1199,6 +1204,7 @@
 				7A7F64EB2560314D008B33C6 /* PresetEditView.swift in Sources */,
 				7AA8681325769EC500AA7B6E /* Tracking.swift in Sources */,
 				7A7F64F625603158008B33C6 /* ErrorReporter.swift in Sources */,
+				61CE100426E2850700AA1553 /* ActionPresetControl.swift in Sources */,
 				7A7F65202560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,

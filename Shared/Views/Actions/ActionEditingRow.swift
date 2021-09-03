@@ -57,12 +57,7 @@ struct ActionEditingRow: View {
 							.tag(connection.id as UUID?)
 					}
 				}
-				Picker(selection: $action.preset, label: Text("Preset")) {
-					ForEach(VISCAPreset.allCases) { preset in
-						Text("Preset \(preset.rawValue)")
-							.tag(preset)
-					}
-				}
+				ActionPresetControl(cameraID: action.cameraID, selection: $action.preset)
 				
 				Toggle("Switch Input", isOn: $action.switchInput)
 			}
