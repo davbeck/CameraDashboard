@@ -45,6 +45,8 @@
 		61CE0FF726E269CB00AA1553 /* ActionsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */; };
 		61CE0FF926E26ED300AA1553 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FF826E26ED300AA1553 /* Defaults */; };
 		61CE0FFB26E26EE100AA1553 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FFA26E26EE100AA1553 /* Defaults */; };
+		61CE0FFF26E280BA00AA1553 /* MessagePack in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FFE26E280BA00AA1553 /* MessagePack */; };
+		61CE100126E280C200AA1553 /* MessagePack in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE100026E280C200AA1553 /* MessagePack */; };
 		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */; };
@@ -385,6 +387,7 @@
 				61179B9326B9E13800ADA6A4 /* MIDIKit in Frameworks */,
 				7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */,
 				61CE0FFB26E26EE100AA1553 /* Defaults in Frameworks */,
+				61CE100126E280C200AA1553 /* MessagePack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +402,7 @@
 				6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */,
 				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
 				61CE0FF926E26ED300AA1553 /* Defaults in Frameworks */,
+				61CE0FFF26E280BA00AA1553 /* MessagePack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +783,7 @@
 				6147CBA626BDB70D00C37D64 /* Algorithms */,
 				6147CBB326BDDCF300C37D64 /* PersistentCacheKit */,
 				61CE0FFA26E26EE100AA1553 /* Defaults */,
+				61CE100026E280C200AA1553 /* MessagePack */,
 			);
 			productName = "CameraDashboard (iOS)";
 			productReference = 7A7F64412560305B008B33C6 /* CameraDashboard.app */;
@@ -808,6 +813,7 @@
 				6147CBA826BDB71500C37D64 /* Algorithms */,
 				6147CBB526BDDD0400C37D64 /* PersistentCacheKit */,
 				61CE0FF826E26ED300AA1553 /* Defaults */,
+				61CE0FFE26E280BA00AA1553 /* MessagePack */,
 			);
 			productName = "CameraDashboard (macOS)";
 			productReference = 7A7F64492560305B008B33C6 /* Camera Dashboard.app */;
@@ -935,6 +941,7 @@
 				61179B8F26B9E12F00ADA6A4 /* XCRemoteSwiftPackageReference "MIDIKit" */,
 				6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */,
+				61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */,
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
@@ -1837,6 +1844,14 @@
 				minimumVersion = 0.4.2;
 			};
 		};
+		61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flight-School/MessagePack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.4;
+			};
+		};
 		7A7F653B256033B4008B33C6 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
@@ -1895,6 +1910,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
+		};
+		61CE0FFE26E280BA00AA1553 /* MessagePack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */;
+			productName = MessagePack;
+		};
+		61CE100026E280C200AA1553 /* MessagePack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */;
+			productName = MessagePack;
 		};
 		7A7F653C256033B4008B33C6 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

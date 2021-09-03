@@ -3,6 +3,7 @@ import PersistentCacheKit
 import os.log
 import SwiftUI
 import Combine
+import MessagePack
 
 private let log = Logger(category: "ConfigManager")
 
@@ -28,8 +29,9 @@ final class ConfigManager {
 	private var values: [String: Any] = [:]
 	private let db: SQLiteDB?
 	
-	private let endcoder = JSONEncoder()
-	private let decoder = JSONDecoder()
+	private let endcoder = MessagePackEncoder()
+	private let decoder = MessagePackDecoder()
+	private let legacyDecoder = JSONDecoder()
 	
 	private let valueChanged = PassthroughSubject<(rawKey: String, value: Any), Never>()
 	
@@ -87,7 +89,17 @@ final class ConfigManager {
 					
 					try statement.reset()
 					
-					let value = try data.map { try self.decoder.decode(Key.Value.self, from: $0) } ?? Key.defaultValue
+					let value: Key.Value
+					if let data = data {
+						do {
+							value = try self.legacyDecoder.decode(Key.Value.self, from: data)
+						} catch {
+							value = try self.decoder.decode(Key.Value.self, from: data)
+						}
+					} else {
+						value = Key.defaultValue
+					}
+					
 					values[key.rawValue] = value
 					return value
 				} catch {
