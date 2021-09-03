@@ -38,7 +38,7 @@ class SwitcherClient: ObservableObject, Identifiable {
 	private let outputPort: MIDIOutputPort
 	private let inputPort: MIDIInputPort
 	
-	@Published var isOffline: Bool = true
+	@Published var isOffline: Bool
 	
 	enum Input: Hashable, Codable {
 		case unassigned
@@ -104,6 +104,7 @@ class SwitcherClient: ObservableObject, Identifiable {
 	
 	init(device: MIDIDevice, client: MIDIClient, configManager: ConfigManager = ConfigManager()) {
 		self.device = device
+		self.isOffline = device.isOffline
 		self.outputPort = try! MIDIOutputPort(client: client, name: "SwitcherClient Output Port")
 		self.inputPort = try! MIDIInputPort(client: client, name: "SwitcherClient Input Port")
 		self.configManager = configManager
