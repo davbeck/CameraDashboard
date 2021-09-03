@@ -9,6 +9,7 @@ struct ContentView: View {
 		.environmentObject(CameraManager.shared)
 		.environmentObject(ErrorReporter.shared)
 		.environmentObject(SwitcherManager.shared)
+		.environmentObject(ActionsManager.shared)
 		.environment(\.configManager, .shared)
 		.onAppear {
 			ActionsManager.shared.connect()

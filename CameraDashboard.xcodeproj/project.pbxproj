@@ -41,6 +41,10 @@
 		61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
 		61CE0FF126DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
+		61CE0FF626E269CB00AA1553 /* ActionsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */; };
+		61CE0FF726E269CB00AA1553 /* ActionsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */; };
+		61CE0FF926E26ED300AA1553 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FF826E26ED300AA1553 /* Defaults */; };
+		61CE0FFB26E26EE100AA1553 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 61CE0FFA26E26EE100AA1553 /* Defaults */; };
 		7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */; };
 		7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */; };
@@ -268,6 +272,7 @@
 		6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Helpers.swift"; sourceTree = "<group>"; };
 		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
 		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
+		61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsSettingsView.swift; sourceTree = "<group>"; };
 		7A6D840D2568A1FC00731653 /* VISCAFocusMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VISCAFocusMode.swift; sourceTree = "<group>"; };
 		7A7B5EFC2574975400E6EF0C /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
 		7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDashboardApp.swift; sourceTree = "<group>"; };
@@ -379,6 +384,7 @@
 				6147CBA726BDB70D00C37D64 /* Algorithms in Frameworks */,
 				61179B9326B9E13800ADA6A4 /* MIDIKit in Frameworks */,
 				7A7F6544256033C1008B33C6 /* SFSafeSymbols in Frameworks */,
+				61CE0FFB26E26EE100AA1553 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +398,7 @@
 				6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */,
 				6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */,
 				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
+				61CE0FF926E26ED300AA1553 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				61288F6D26C95AC80077CF58 /* ActionsView.swift */,
+				61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */,
 				61288F7026C95BF30077CF58 /* ActionRow.swift */,
 				61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */,
 				61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */,
@@ -770,6 +778,7 @@
 				61179B9226B9E13800ADA6A4 /* MIDIKit */,
 				6147CBA626BDB70D00C37D64 /* Algorithms */,
 				6147CBB326BDDCF300C37D64 /* PersistentCacheKit */,
+				61CE0FFA26E26EE100AA1553 /* Defaults */,
 			);
 			productName = "CameraDashboard (iOS)";
 			productReference = 7A7F64412560305B008B33C6 /* CameraDashboard.app */;
@@ -798,6 +807,7 @@
 				61179B9026B9E12F00ADA6A4 /* MIDIKit */,
 				6147CBA826BDB71500C37D64 /* Algorithms */,
 				6147CBB526BDDD0400C37D64 /* PersistentCacheKit */,
+				61CE0FF826E26ED300AA1553 /* Defaults */,
 			);
 			productName = "CameraDashboard (macOS)";
 			productReference = 7A7F64492560305B008B33C6 /* Camera Dashboard.app */;
@@ -1166,6 +1176,7 @@
 				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
 				61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */,
 				7ABBA6E9256E1610001B4967 /* View+Extend.swift in Sources */,
+				61CE0FF626E269CB00AA1553 /* ActionsSettingsView.swift in Sources */,
 				7A7F657A2560CAA9008B33C6 /* VISCAPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1213,6 +1224,7 @@
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
 				7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */,
+				61CE0FF726E269CB00AA1553 /* ActionsSettingsView.swift in Sources */,
 				7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F653025603169008B33C6 /* NavigationList.swift in Sources */,
@@ -1873,6 +1885,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */;
 			productName = PersistentCacheKit;
+		};
+		61CE0FF826E26ED300AA1553 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		61CE0FFA26E26EE100AA1553 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 		7A7F653C256033B4008B33C6 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

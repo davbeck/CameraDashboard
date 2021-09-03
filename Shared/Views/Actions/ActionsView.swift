@@ -10,6 +10,9 @@ struct ActionsView: View {
 	var body: some View {
 		ScrollView {
 			LazyVStack {
+				ActionsSettingsView()
+					.padding(.bottom, 10)
+				
 				ForEach(actionIDs, id: \.self) { actionID in
 					ActionRow(actionID: actionID, isEditing: $editingID.equalTo(actionID))
 				}
@@ -48,5 +51,6 @@ struct ActionsView: View {
 struct ActionsView_Previews: PreviewProvider {
 	static var previews: some View {
 		ActionsView()
+			.environmentObject(ActionsManager.shared)
 	}
 }
