@@ -6,8 +6,7 @@ struct PresetSwitchingOverlay: View {
 	@State private var animatedOff: Bool = false
 	
 	var body: some View {
-		RoundedRectangle(cornerRadius: 15)
-			.stroke(color, lineWidth: 4)
+		PresetActiveOverlay(color: color)
 			.opacity(animatedOff ? 0 : 1)
 			.onAppear {
 				withAnimation(Animation.linear(duration: 0.2)
@@ -23,8 +22,13 @@ struct PresetActiveOverlay: View {
 	var color: Color
 	
 	var body: some View {
-		RoundedRectangle(cornerRadius: 15)
-			.stroke(color, lineWidth: 4)
+		ZStack {
+			RoundedRectangle(cornerRadius: 15)
+				.inset(by: -4)
+				.strokeBorder(color, lineWidth: 5)
+			RoundedRectangle(cornerRadius: 15)
+				.strokeBorder(Color.white, lineWidth: 1)
+		}
 	}
 }
 
@@ -53,18 +57,6 @@ struct PresetView: View {
 	
 	@State var isHovering: Bool = false
 	
-	init(
-		presetConfig: PresetConfig,
-		camera: Camera,
-		preset: VISCAPreset,
-		client: VISCAClient
-	) {
-		self.presetConfig = presetConfig
-		self.camera = camera
-		self.preset = preset
-		self.client = client
-	}
-	
 	var height: CGFloat {
 		#if os(macOS)
 			return 100
@@ -87,7 +79,12 @@ struct PresetView: View {
 					.font(.subheadline)
 				Spacer()
 				
-				EditPresetButton(isHovering: isHovering, camera: camera, preset: preset, client: client)
+				EditPresetButton(
+					isHovering: isHovering,
+					camera: camera,
+					preset: preset,
+					client: client
+				)
 			}
 		}
 		.padding(12)
@@ -112,9 +109,18 @@ struct PresetView: View {
 	}
 }
 
-// struct PresetView_Previews: PreviewProvider {
-//	static var previews: some View {
-//		Group {
+struct PresetView_Previews: PreviewProvider {
+	static var previews: some View {
+		Group {
+			PresetView(
+				presetConfig: .init(
+					name: "Stage Left",
+					color: .red
+				), camera: Camera(address: "192.168.1.1"),
+				preset: VISCAPreset.allCases[1],
+				client: VISCAClient(Camera(address: "192.168.1.1"))
+			)
+			
 //			PresetView(
 //				preset: VISCAPreset.allCases[1],
 //				presetConfig: .constant(PresetConfig()),
@@ -138,6 +144,8 @@ struct PresetView: View {
 //				isSwitching: false
 //			)
 //			.padding()
-//		}
-//	}
-// }
+		}
+		.environmentObject(SwitcherManager.shared)
+		.previewLayout(.sizeThatFits)
+	}
+}
