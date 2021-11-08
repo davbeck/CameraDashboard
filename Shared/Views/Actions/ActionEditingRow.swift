@@ -24,7 +24,7 @@ struct ActionEditingRow: View {
 			}, label: {
 				Text("Done")
 			})
-				.disabled(action.cameraID == nil)
+			.disabled(action.cameraID == nil)
 		}
 		.padding()
 		

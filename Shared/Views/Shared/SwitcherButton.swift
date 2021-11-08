@@ -48,8 +48,8 @@ struct SwitcherButton: View {
 				withAnimation(Animation.linear(duration: 0.2)
 					.delay(0.2)
 					.repeatForever(autoreverses: true)) {
-					self.animatedOff = true
-				}
+						self.animatedOff = true
+					}
 			}
 		}
 		.frame(width: 50, height: 50)

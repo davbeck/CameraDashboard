@@ -42,7 +42,7 @@ struct ActionsView: View {
 				}, label: {
 					Image(systemSymbol: .plus)
 				})
-					.disabled(cameras.isEmpty)
+				.disabled(cameras.isEmpty)
 			}
 		}
 	}

@@ -32,19 +32,19 @@ struct EditPresetButton: View {
 						#endif
 					}
 			})
-				.buttonStyle(PlainButtonStyle())
-				.contentShape(Rectangle())
-				.popover(
-					isPresented: $isShowingEdit,
-					arrowEdge: .bottom
-				) {
-					PresetEditView(
-						camera: camera,
-						preset: preset,
-						client: client
-					)
-					.environmentObject(cameraManager)
-				}
+			.buttonStyle(PlainButtonStyle())
+			.contentShape(Rectangle())
+			.popover(
+				isPresented: $isShowingEdit,
+				arrowEdge: .bottom
+			) {
+				PresetEditView(
+					camera: camera,
+					preset: preset,
+					client: client
+				)
+				.environmentObject(cameraManager)
+			}
 		}
 	}
 }

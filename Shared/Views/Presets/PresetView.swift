@@ -13,8 +13,8 @@ struct PresetSwitchingOverlay: View {
 				withAnimation(Animation.linear(duration: 0.2)
 					.delay(0.2)
 					.repeatForever(autoreverses: true)) {
-					self.animatedOff = true
-				}
+						self.animatedOff = true
+					}
 			}
 	}
 }
