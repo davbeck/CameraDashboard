@@ -5,8 +5,17 @@ struct ConnectionPresetsRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
+	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
+	
 	@ObservedObject var client: VISCAClient
 	var camera: Camera
+	
+	init(client: VISCAClient, camera: Camera) {
+		self.client = client
+		self.camera = camera
+		
+		_presetConfigs = Config(key: PresetConfigsKey(cameraID: camera.id))
+	}
 	
 	var presets: Array<VISCAPreset>.SubSequence {
 		VISCAPreset.allCases.prefix(51)
@@ -25,6 +34,7 @@ struct ConnectionPresetsRow: View {
 			LazyHStack(spacing: 15) {
 				ForEach(presets) { preset in
 					PresetView(
+						presetConfig: presetConfigs[preset],
 						camera: camera,
 						preset: preset,
 						client: client

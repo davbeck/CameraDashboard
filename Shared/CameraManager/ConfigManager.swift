@@ -33,6 +33,7 @@ final class ConfigManager {
 	private let decoder = MessagePackDecoder()
 	private let legacyDecoder = JSONDecoder()
 	
+	private let valueWillChange = PassthroughSubject<(rawKey: String, value: Any), Never>()
 	private let valueChanged = PassthroughSubject<(rawKey: String, value: Any), Never>()
 	
 	init(configURL: URL? = nil) {
@@ -110,6 +111,8 @@ final class ConfigManager {
 			}
 		}
 		set {
+			valueWillChange.send((key.rawValue, newValue))
+			
 			self.values[key.rawValue] = newValue
 			
 			self.queue.async {
@@ -136,6 +139,44 @@ final class ConfigManager {
 			self.valueChanged.send((key.rawValue, newValue))
 		}
 	}
+	
+	class ConfigObserver<Key: ConfigKey>: ObservableObject {
+		let key: Key
+		private weak var manager: ConfigManager?
+		private var observer: AnyCancellable?
+		
+		init(key: Key, manager: ConfigManager) {
+			self.key = key
+			self.manager = manager
+			
+			observer = manager.valueWillChange
+				.filter { $0.rawKey == key.rawValue }
+				.compactMap { $0.value as? Key.Value }
+				.sink(receiveValue: { [weak self] _ in
+					self?.objectWillChange.send()
+				})
+		}
+		
+		var value: Key.Value {
+			get {
+				manager?[key] ?? Key.defaultValue
+			}
+			set {
+				manager?[key] = newValue
+			}
+		}
+	}
+
+	private var configObservers: [String: AnyObject] = [:]
+	public func observer<Key: ConfigKey>(for key: Key) -> ConfigObserver<Key> {
+		if let observer = configObservers[key.rawValue] as? ConfigObserver<Key> {
+			return observer
+		}
+		
+		let observer = ConfigObserver(key: key, manager: self)
+		configObservers[key.rawValue] = observer
+		return observer
+	}
 }
 
 private struct ConfigManagerKey: EnvironmentKey {
@@ -151,38 +192,28 @@ extension EnvironmentValues {
 
 @propertyWrapper
 struct Config<Key: ConfigKey>: DynamicProperty where Key.Value: Equatable {
-	private final class Coordinator: ObservableObject {
-		var observer: AnyCancellable?
-	}
-	
-	@Environment(\.configManager) var configManager
-	
-	@StateObject private var coordinator = Coordinator()
-	
-	func update() {
-		guard coordinator.observer == nil else { return }
-		coordinator.observer = configManager.valueChanged(for: key)
-			.removeDuplicates()
-			.sink { value in
-				coordinator.objectWillChange.send()
-			}
-	}
-	
 	let key: Key
+	let store: ConfigManager
+	
+	@StateObject var observer: ConfigManager.ConfigObserver<Key>
+	
+	init(key: Key, store: ConfigManager = .shared) {
+		self.key = key
+		self.store = store
+		
+		_observer = StateObject(wrappedValue: store.observer(for: key))
+	}
 	
 	var wrappedValue: Key.Value {
 		get {
-			configManager[key]
+			observer.value
 		}
 		nonmutating set {
-			configManager[key] = newValue
+			observer.value = newValue
 		}
 	}
 	
 	var projectedValue: Binding<Key.Value> {
-		Binding(
-			get: { wrappedValue },
-			set: { wrappedValue = $0 }
-		)
+		$observer.value
 	}
 }

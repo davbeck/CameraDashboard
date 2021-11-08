@@ -13,15 +13,14 @@ struct CamerasKey: ConfigKey {
 	}
 }
 
-struct PresetConfigKey: ConfigKey {
-	static let defaultValue = PresetConfig()
+struct PresetConfigsKey: ConfigKey {
+	static let defaultValue = PresetConfigs()
 
 	var rawValue: String {
-		"preset:\(cameraID):\(preset.rawValue)"
+		"preset:\(cameraID)"
 	}
 	
 	var cameraID: UUID
-	var preset: VISCAPreset
 }
 
 struct CameraConnection: Hashable, Identifiable {

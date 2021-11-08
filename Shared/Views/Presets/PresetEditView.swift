@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PresetEditView: View {
-	@Config<PresetConfigKey> var presetConfig: PresetConfig
+	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
 	
 	var camera: Camera
 	var preset: VISCAPreset
@@ -15,7 +15,7 @@ struct PresetEditView: View {
 		self.preset = preset
 		self.client = client
 		
-		_presetConfig = Config(key: PresetConfigKey(cameraID: camera.id, preset: preset))
+		_presetConfigs = Config(key: PresetConfigsKey(cameraID: camera.id))
 	}
 	
 	var body: some View {
@@ -23,13 +23,13 @@ struct PresetEditView: View {
 			HStack {
 				Text("Name:")
 					.column("label", alignment: .trailing)
-				TextField("(Optional)", text: $presetConfig.name)
+				TextField("(Optional)", text: $presetConfigs[preset].name)
 			}
 			HStack {
 				Text("Color:")
 					.column("label", alignment: .trailing)
 				
-				PresetColorPicker(presetColor: $presetConfig.color)
+				PresetColorPicker(presetColor: $presetConfigs[preset].color)
 			}
 			
 			HStack {

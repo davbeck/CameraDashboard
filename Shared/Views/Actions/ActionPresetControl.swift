@@ -1,22 +1,26 @@
 import SwiftUI
 
-struct ActionPresetOption: View {
-	@Config<PresetConfigKey> var presetConfig: PresetConfig
-	var preset: VISCAPreset
+struct ActionPresetOptions: View {
+	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
 	
-	init(cameraID: UUID, preset: VISCAPreset) {
-		self.preset = preset
-		_presetConfig = Config(key: PresetConfigKey(
-			cameraID: cameraID,
-			preset: preset
+	var cameraID: UUID
+	
+	init(cameraID: UUID) {
+		self.cameraID = cameraID
+		_presetConfigs = Config(key: PresetConfigsKey(
+			cameraID: cameraID
 		))
 	}
 	
 	var body: some View {
-		if presetConfig.name.isEmpty {
-			Text("Preset \(preset.rawValue)")
-		} else {
-			Text(presetConfig.name)
+		ForEach(VISCAPreset.allCases) { preset in
+			Group {
+				if presetConfigs[preset].name.isEmpty {
+					Text("Preset \(preset.rawValue)")
+				} else {
+					Text(presetConfigs[preset].name)
+				}
+			}
 		}
 	}
 }
@@ -27,17 +31,16 @@ struct ActionPresetControl: View {
 	
 	var body: some View {
 		Picker(selection: $selection, label: Text("Preset")) {
-			ForEach(VISCAPreset.allCases) { preset in
-				Group {
-					if let cameraID = cameraID {
-						ActionPresetOption(cameraID: cameraID, preset: preset)
-					} else {
+			Group {
+				if let cameraID = cameraID {
+					ActionPresetOptions(cameraID: cameraID)
+				} else {
+					ForEach(VISCAPreset.allCases) { preset in
 						Text("Preset \(preset.rawValue)")
 					}
 				}
-				.font(.body.monospacedDigit())
-				.tag(preset)
 			}
+			.font(.body.monospacedDigit())
 		}
 	}
 }

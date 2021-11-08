@@ -44,3 +44,16 @@ struct PresetConfig: Codable, Hashable {
 	var name: String = ""
 	var color: PresetColor = .gray
 }
+
+struct PresetConfigs: Codable, Hashable {
+	var presets: [VISCAPreset: PresetConfig] = [:]
+	
+	subscript(preset: VISCAPreset) -> PresetConfig {
+		get {
+			presets[preset] ?? PresetConfig()
+		}
+		set(newValue) {
+			presets[preset] = newValue
+		}
+	}
+}

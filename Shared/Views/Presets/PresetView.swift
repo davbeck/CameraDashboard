@@ -46,20 +46,23 @@ struct PresetStateOverlay: View {
 struct PresetView: View {
 	@EnvironmentObject var switcherManager: SwitcherManager
 	
+	var presetConfig: PresetConfig
 	var camera: Camera
 	var preset: VISCAPreset
 	@ObservedObject var client: VISCAClient
 	
-	@Config<PresetConfigKey> var presetConfig: PresetConfig
-	
 	@State var isHovering: Bool = false
 	
-	init(camera: Camera, preset: VISCAPreset, client: VISCAClient) {
+	init(
+		presetConfig: PresetConfig,
+		camera: Camera,
+		preset: VISCAPreset,
+		client: VISCAClient
+	) {
+		self.presetConfig = presetConfig
 		self.camera = camera
 		self.preset = preset
 		self.client = client
-		
-		_presetConfig = Config(key: PresetConfigKey(cameraID: camera.id, preset: preset))
 	}
 	
 	var height: CGFloat {
