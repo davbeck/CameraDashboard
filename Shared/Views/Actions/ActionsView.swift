@@ -29,11 +29,12 @@ struct ActionsView: View {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: {
 					let action = Action(context: context)
-					action.setup = setup
+					setup.actions.add(action)
 					if let camera = setup.cameras.first, let preset = VISCAPreset.allCases.first {
-						// prefer a preset that has actually been set
-						action.preset = camera.presetConfigs?.first(where: { !$0.name.isEmpty || $0.color != .gray }) ?? camera[preset]
+						action.preset = camera[preset]
 					}
+					
+					try? context.saveOrRollback()
 					
 					editingAction = action
 				}, label: {

@@ -2,6 +2,7 @@ import SwiftUI
 import CoreData
 
 struct ActionEditingRow: View {
+	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
 	@FetchedSetup var setup: Setup
 	
@@ -15,17 +16,15 @@ struct ActionEditingRow: View {
 			Button(action: {
 				guard let context = action.managedObjectContext else { return }
 				context.delete(action)
-				do {
-					try context.save()
-				} catch {
-					context.rollback()
-				}
+				try? context.saveOrRollback()
 			}, label: {
 				Image(systemSymbol: .trashFill)
 			})
 			
 			Button(action: {
 				isEditing = false
+				
+				try? context.saveOrRollback()
 			}, label: {
 				Text("Done")
 			})
