@@ -19,13 +19,9 @@ struct PresetsView: View {
 			}
 			.padding(.vertical)
 		})
-		.extend {
-			#if os(macOS)
-				$0
-			#else
-				$0.navigationBarTitle(Text("Presets"), displayMode: .inline)
-			#endif
-		}
+		#if os(iOS)
+			.navigationBarTitle(Text("Presets"), displayMode: .inline)
+		#endif
 	}
 }
 

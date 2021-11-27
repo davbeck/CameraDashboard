@@ -37,33 +37,26 @@ struct NavigationList: View {
 					//                    }
 				}
 			}
-			.extend {
-				#if os(macOS)
-					$0.collapsible(false)
-				#else
-					$0
-				#endif
-			}
+			#if os(macOS)
+				.collapsible(false)
+			#endif
 			
 			SwitchersSection(navigationSelection: $navigationSelection)
 		}
 		.listStyle(SidebarListStyle())
-		.extend {
-			#if os(macOS)
-				$0.toolbar(content: {
-					ToolbarItem {
-						Spacer()
-					}
-					ToolbarItem {
-						AddCameraButton()
-					}
-				})
-			#else
-				$0
-					.navigationBarItems(trailing: AddCameraButton())
-					.navigationTitle(Text("Dashboard"))
-			#endif
-		}
+		#if os(macOS)
+			.toolbar(content: {
+				ToolbarItem {
+					Spacer()
+				}
+				ToolbarItem {
+					AddCameraButton()
+				}
+			})
+		#else
+			.navigationBarItems(trailing: AddCameraButton())
+			.navigationTitle(Text("Dashboard"))
+		#endif
 		.frame(minWidth: 200)
 //		.onReceive(cameraManager.didRemoveCamera) { camera in
 //			if navigationSelection.items.contains(camera.id.uuidString) {

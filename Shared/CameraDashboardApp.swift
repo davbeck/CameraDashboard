@@ -15,16 +15,12 @@ struct CameraDashboardApp: App {
 		WindowGroup {
 			ContentView()
 				.frame(minWidth: 800, minHeight: 500)
-				.extend {
-					#if os(macOS)
-						$0.inspectWindow { window in
-							window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
-						}
-					#else
-						$0
-					#endif
+			#if os(macOS)
+				.inspectWindow { window in
+					window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
 				}
-				.environment(\.managedObjectContext, PersistentContainer.shared.viewContext)
+			#endif
+			.environment(\.managedObjectContext, PersistentContainer.shared.viewContext)
 		}
 		.commands {
 			#if canImport(Sparkle)

@@ -37,20 +37,18 @@ struct RemoveCameraButton: View {
 			Text("Remove")
 				.padding(.horizontal, 10)
 		}
-		.extend {
-			#if os(macOS)
-				$0.inspectWindow { window in
-					self.window = window
-				}
-			#else
-				$0.alert(isPresented: $isOpen) {
-					Alert(
-						title: Text("Are you sure you want to remove this camera?"),
-						primaryButton: Alert.Button.destructive(Text("Remove Camera"), action: removeCamera),
-						secondaryButton: .default(Text("Cancel"))
-					)
-				}
-			#endif
-		}
+		#if os(macOS)
+			.inspectWindow { window in
+				self.window = window
+			}
+		#else
+			.alert(isPresented: $isOpen) {
+				Alert(
+					title: Text("Are you sure you want to remove this camera?"),
+					primaryButton: Alert.Button.destructive(Text("Remove Camera"), action: removeCamera),
+					secondaryButton: .default(Text("Cancel"))
+				)
+			}
+		#endif
 	}
 }

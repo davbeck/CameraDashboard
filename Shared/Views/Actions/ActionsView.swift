@@ -22,13 +22,9 @@ struct ActionsView: View {
 			}
 			.padding()
 		}
-		.extend {
-			#if os(macOS)
-				$0
-			#else
-				$0.navigationBarTitle(Text("Actions"), displayMode: .inline)
-			#endif
-		}
+		#if os(iOS)
+			.navigationBarTitle(Text("Actions"), displayMode: .inline)
+		#endif
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: {

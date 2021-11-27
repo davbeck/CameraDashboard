@@ -23,13 +23,9 @@ struct EditPresetButton: View {
 				self.isShowingEdit = true
 			}, label: {
 				Image(systemName: "ellipsis.circle.fill")
-					.extend {
-						#if os(macOS)
-							$0
-						#else
-							$0.font(.system(size: 26))
-						#endif
-					}
+				#if os(iOS)
+					.font(.system(size: 26))
+				#endif
 			})
 			.buttonStyle(PlainButtonStyle())
 			.contentShape(Rectangle())
