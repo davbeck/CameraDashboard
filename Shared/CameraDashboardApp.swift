@@ -24,6 +24,7 @@ struct CameraDashboardApp: App {
 						$0
 					#endif
 				}
+				.environment(\.managedObjectContext, PersistentContainer.shared.viewContext)
 		}
 		.commands {
 			#if canImport(Sparkle)

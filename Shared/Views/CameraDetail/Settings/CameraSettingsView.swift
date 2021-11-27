@@ -1,25 +1,27 @@
 import SwiftUI
 import Network
 import Dispatch
+import CoreData
 
 struct CameraConnectionSettingsView: View {
+	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
+	@Environment(\.presentationMode) var presentationMode
 	
-	@State var camera: Camera
+	@ObservedObject var camera: Camera
+	// using separate state in order to manually parse
 	@State var port: String
-	@Binding var isOpen: Bool
 	
-	@State var isLoading: Bool = false
-	@State var error: Swift.Error?
+	@State private var isLoading: Bool = false
+	@State private var error: Swift.Error?
 	
 	var isValid: Bool {
 		!camera.address.isEmpty
 	}
 	
-	init(camera: Camera, isOpen: Binding<Bool>) {
-		_camera = State(wrappedValue: camera)
-		_port = State(wrappedValue: String(camera.port))
-		_isOpen = isOpen
+	init(camera: Camera) {
+		self.camera = camera
+		_port = State(wrappedValue: camera.port.map { String($0) } ?? "")
 	}
 	
 	var body: some View {
@@ -31,29 +33,30 @@ struct CameraConnectionSettingsView: View {
 		) {
 			isLoading = true
 			
-			DispatchQueue.main.async {
-				let port: UInt16?
+			do {
 				if !self.port.isEmpty {
-					port = portFormatter.number(from: self.port)?.uint16Value
+					camera.port = portFormatter.number(from: self.port)?.uint16Value
 				} else {
-					port = nil
+					camera.port = nil
 				}
 				
-				cameraManager.save(camera: camera, port: port) { result in
-					isLoading = false
-					
-					switch result {
-					case .success:
-						self.isOpen = false
-					case let .failure(error):
-						self.error = error
-					}
-				}
+				try context.save()
+				try context.parent?.saveOrRollback()
+				
+				presentationMode.wrappedValue.dismiss()
+			} catch {
+				self.error = error
 			}
 		} cancel: {
-			self.isOpen = false
+			presentationMode.wrappedValue.dismiss()
 		} removeCamera: {
-			cameraManager.remove(camera: camera)
+			do {
+				context.delete(camera)
+				try context.save()
+				try context.parent?.saveOrRollback()
+			} catch {
+				self.error = error
+			}
 		}
 		.disabled(isLoading)
 		.alert($error)
@@ -62,12 +65,13 @@ struct CameraConnectionSettingsView: View {
 }
 
 struct AddCameraConnectionView: View {
+	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
+	@Environment(\.presentationMode) var presentationMode
 	
 	@State var name: String = ""
 	@State var address: String = ""
 	@State var port: String = ""
-	@Binding var isOpen: Bool
 	
 	@State var isLoading: Bool = false
 	@State var error: Swift.Error?
@@ -83,29 +87,30 @@ struct AddCameraConnectionView: View {
 			address: $address,
 			port: $port
 		) {
-			isLoading = true
-			
 			DispatchQueue.main.async {
-				let port: UInt16?
-				if !self.port.isEmpty {
-					port = portFormatter.number(from: self.port)?.uint16Value
-				} else {
-					port = nil
-				}
-				
-				cameraManager.createCamera(name: name, address: address, port: port) { result in
-					isLoading = false
-					
-					switch result {
-					case .success:
-						self.isOpen = false
-					case let .failure(error):
-						self.error = error
+				do {
+					let port: UInt16?
+					if !self.port.isEmpty {
+						port = portFormatter.number(from: self.port)?.uint16Value
+					} else {
+						port = nil
 					}
+					_ = Camera.create(
+						in: context,
+						name: name,
+						address: address,
+						port: port
+					)
+					
+					try context.saveOrRollback()
+					
+					presentationMode.wrappedValue.dismiss()
+				} catch {
+					self.error = error
 				}
 			}
 		} cancel: {
-			self.isOpen = false
+			presentationMode.wrappedValue.dismiss()
 		}
 		.disabled(isLoading)
 		.alert($error)
@@ -224,11 +229,11 @@ struct _CameraConnectionSettingsView: View {
 	}
 }
 
-struct AddCameraView_Previews: PreviewProvider {
-	static var previews: some View {
-		Group {
-			AddCameraConnectionView(isOpen: .constant(true))
-			CameraConnectionSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234), isOpen: .constant(true))
-		}
-	}
-}
+// struct AddCameraView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		Group {
+//			AddCameraConnectionView(isOpen: .constant(true))
+//			CameraConnectionSettingsView(camera: Camera(name: "Stage right", address: "192.168.0.102", port: 1234), isOpen: .constant(true))
+//		}
+//	}
+// }

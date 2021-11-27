@@ -12,7 +12,7 @@ struct AddCameraButton: View {
 				.contentShape(Rectangle())
 		})
 		.sheet(isPresented: $isAddingCamera) {
-			AddCameraConnectionView(isOpen: $isAddingCamera)
+			AddCameraConnectionView()
 				.environmentObject(cameraManager)
 		}
 	}

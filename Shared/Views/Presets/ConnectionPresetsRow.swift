@@ -5,16 +5,13 @@ struct ConnectionPresetsRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
-	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
 	
 	@ObservedObject var client: VISCAClient
-	var camera: Camera
+	@ObservedObject var camera: Camera
 	
 	init(client: VISCAClient, camera: Camera) {
 		self.client = client
 		self.camera = camera
-		
-		_presetConfigs = Config(key: PresetConfigsKey(cameraID: camera.id))
 	}
 	
 	var presets: Array<VISCAPreset>.SubSequence {
@@ -30,27 +27,31 @@ struct ConnectionPresetsRow: View {
 	}
 	
 	var body: some View {
-		ScrollView(.horizontal, showsIndicators: true) {
-			LazyHStack(spacing: 15) {
-				ForEach(presets) { preset in
-					PresetView(
-						presetConfig: presetConfigs[preset],
-						camera: camera,
-						preset: preset,
-						client: client
-					)
-					.frame(width: width)
-					.onTapGesture {
-						if client.preset.local == preset {
-							switcherManager.selectCamera(id: camera.id)
+		VStack(alignment: .leading, spacing: 0) {
+			Text(camera.displayName)
+				.font(.headline)
+				.padding(.horizontal)
+				
+			ScrollView(.horizontal, showsIndicators: true) {
+				LazyHStack(spacing: 15) {
+					ForEach(presets) { preset in
+						PresetView(
+							presetConfig: camera[preset],
+							client: client
+						)
+						.frame(width: width)
+						.onTapGesture {
+							if client.preset.local == preset {
+								switcherManager.select(camera)
+							}
+							client.recall(preset: preset)
 						}
-						client.recall(preset: preset)
 					}
 				}
+				.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
+				.padding(.vertical, 5)
+				.padding(.horizontal)
 			}
-			.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
-			.padding(.vertical, 5)
-			.padding(.horizontal)
 		}
 		.onAppear {
 			client.inquirePreset()

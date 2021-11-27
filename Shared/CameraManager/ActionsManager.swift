@@ -11,43 +11,16 @@ private extension Defaults.Keys {
 
 extension MIDIStatus: Codable {}
 
-struct Action: Codable, Equatable {
-	var name: String = ""
-	var status: MIDIStatus = .noteOn
-	var channel: UInt8 = 0
-	var note: UInt8 = 0
-	
-	var cameraID: UUID?
-	var preset = VISCAPreset.allCases[0]
-	var switchInput: Bool = true
-	
+extension Action {
 	func matches(_ packet: MIDIPacket) -> Bool {
 		return status == packet.status && channel == packet.channel && note == packet.note
 	}
 }
 
-struct ActionIDsKey: ConfigKey {
-	static let defaultValue: [UUID] = []
-
-	var rawValue: String {
-		"actionIDs"
-	}
-}
-
-struct ActionKey: ConfigKey {
-	static let defaultValue = Action()
-
-	var rawValue: String {
-		"action:\(id)"
-	}
-	
-	var id: UUID
-}
-
 class ActionsManager: ObservableObject {
 	private var observers: Set<AnyCancellable> = []
 	
-	let configManager: ConfigManager
+	let persistentContainer: PersistentContainer
 	let cameraManager: CameraManager
 	let switcherManager: SwitcherManager
 	
@@ -77,17 +50,17 @@ class ActionsManager: ObservableObject {
 	@Published var inputError: Swift.Error?
 	
 	static let shared = ActionsManager(
-		configManager: .shared,
+		persistentContainer: .shared,
 		cameraManager: .shared,
 		switcherManager: .shared
 	)
 	
 	init(
-		configManager: ConfigManager,
+		persistentContainer: PersistentContainer,
 		cameraManager: CameraManager,
 		switcherManager: SwitcherManager
 	) {
-		self.configManager = configManager
+		self.persistentContainer = persistentContainer
 		self.cameraManager = cameraManager
 		self.switcherManager = switcherManager
 		
@@ -140,8 +113,7 @@ class ActionsManager: ObservableObject {
 	}
 	
 	private func action(for packet: MIDIPacket) -> Action? {
-		for id in configManager[ActionIDsKey()] {
-			let action = configManager[ActionKey(id: id)]
+		for action in persistentContainer.viewContext.setup.actions {
 			if action.matches(packet) {
 				return action
 			}
@@ -156,13 +128,17 @@ class ActionsManager: ObservableObject {
 	}
 	
 	func perform(_ action: Action) {
-		guard let connection = cameraManager.connections.first(where: { $0.id == action.cameraID }) else { return }
-		connection.client.recall(preset: action.preset)
+		guard
+			let presetConfig = action.preset,
+			let client = cameraManager.connections[presetConfig.camera]
+		else { return }
 		
-		connection.client.$preset.filter { $0.remote == action.preset }.first()
+		client.recall(preset: presetConfig.preset)
+		
+		client.$preset.filter { $0.remote == presetConfig.preset }.first()
 			.sink { [switcherManager] _ in
-				if action.switchInput, let cameraID = action.cameraID {
-					switcherManager.selectCamera(id: cameraID)
+				if action.switchInput {
+					switcherManager.select(presetConfig.camera)
 				}
 			}
 			.store(in: &observers)

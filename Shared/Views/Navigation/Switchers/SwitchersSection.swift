@@ -9,7 +9,7 @@ struct SwitchersSection: View {
 		Section(header: Text("Switchers")) {
 			ForEach(Array(switcherManager.switchers.values)) { client in
 				NavigationLink(
-					destination: SwitcherDetail(client: client),
+					destination: SwitcherDetail(switcher: client.switcher),
 					isActive: $navigationSelection[contains: "Switchers-\(client.id)"]
 				) {
 					SwitcherNavigationRow(client: client)

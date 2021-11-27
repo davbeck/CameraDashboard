@@ -3,6 +3,7 @@ import SFSafeSymbols
 
 struct NavigationList: View {
 	@EnvironmentObject var cameraManager: CameraManager
+	@FetchedSetup var setup: Setup
 	
 	@SceneStorage("NavigationSelection") var navigationSelection: NavigationSelection = ["presets"]
 	
@@ -23,12 +24,12 @@ struct NavigationList: View {
 			}
 			
 			Section(header: Text("Cameras")) {
-				ForEach(cameraManager.connections) { connection in
+				ForEach(setup.cameras) { camera in
 					NavigationLink(
-						destination: CameraDetail(connection: connection),
-						isActive: $navigationSelection[contains: connection.id.uuidString]
+						destination: CameraDetail(camera: camera),
+						isActive: $navigationSelection[contains: camera.objectID.uriRepresentation().absoluteString]
 					) {
-						CameraNavigationRow(connection: connection)
+						CameraNavigationRow(camera: camera)
 					}
 					// TODO: open new window
 					//                    .onTapGesture(count: 2) {
@@ -64,18 +65,18 @@ struct NavigationList: View {
 			#endif
 		}
 		.frame(minWidth: 200)
-		.onReceive(cameraManager.didRemoveCamera) { camera in
-			if navigationSelection.items.contains(camera.id.uuidString) {
-				navigationSelection.items.remove(camera.id.uuidString)
-				
-				if navigationSelection.items.isEmpty {
-					navigationSelection = ["presets"]
-				}
-			}
-		}
-		.onReceive(cameraManager.didAddCamera) { camera in
-			navigationSelection = [camera.id.uuidString]
-		}
+//		.onReceive(cameraManager.didRemoveCamera) { camera in
+//			if navigationSelection.items.contains(camera.id.uuidString) {
+//				navigationSelection.items.remove(camera.id.uuidString)
+//
+//				if navigationSelection.items.isEmpty {
+//					navigationSelection = ["presets"]
+//				}
+//			}
+//		}
+//		.onReceive(cameraManager.didAddCamera) { camera in
+//			navigationSelection = [camera.id.uuidString]
+//		}
 	}
 }
 

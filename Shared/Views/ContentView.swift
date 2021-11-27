@@ -10,7 +10,6 @@ struct ContentView: View {
 		.environmentObject(ErrorReporter.shared)
 		.environmentObject(SwitcherManager.shared)
 		.environmentObject(ActionsManager.shared)
-		.environment(\.configManager, .shared)
 		.onAppear {
 			ActionsManager.shared.connect()
 		}

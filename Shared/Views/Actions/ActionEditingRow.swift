@@ -1,11 +1,11 @@
 import SwiftUI
+import CoreData
 
 struct ActionEditingRow: View {
-	@Environment(\.configManager) var configManager
 	@EnvironmentObject var cameraManager: CameraManager
+	@FetchedSetup var setup: Setup
 	
-	var actionID: UUID
-	@Binding var action: Action
+	@ObservedObject var action: Action
 	@Binding var isEditing: Bool
 	
 	var body: some View {
@@ -13,8 +13,13 @@ struct ActionEditingRow: View {
 			TextField("Name", text: $action.name)
 			
 			Button(action: {
-				configManager[ActionIDsKey()]
-					.removeAll(where: { $0 == actionID })
+				guard let context = action.managedObjectContext else { return }
+				context.delete(action)
+				do {
+					try context.save()
+				} catch {
+					context.rollback()
+				}
 			}, label: {
 				Image(systemSymbol: .trashFill)
 			})
@@ -24,7 +29,7 @@ struct ActionEditingRow: View {
 			}, label: {
 				Text("Done")
 			})
-			.disabled(action.cameraID == nil)
+			.disabled(action.preset == nil)
 		}
 		.padding()
 		
@@ -51,13 +56,14 @@ struct ActionEditingRow: View {
 				.font(.footnote)
 			
 			HStack {
-				Picker(selection: $action.cameraID, label: Text("Camera")) {
-					ForEach(cameraManager.connections) { connection in
-						Text(cameraManager.connections.first(where: { $0.id == connection.id })?.displayName ?? "")
-							.tag(connection.id as UUID?)
+				Menu("Camera") {
+					ForEach(setup.cameras) { camera in
+						ActionPresetControl(
+							camera: camera,
+							selection: $action.preset
+						)
 					}
 				}
-				ActionPresetControl(cameraID: action.cameraID, selection: $action.preset)
 				
 				Toggle("Switch Input", isOn: $action.switchInput)
 			}
@@ -66,9 +72,9 @@ struct ActionEditingRow: View {
 	}
 }
 
-struct ActionEditingRow_Previews: PreviewProvider {
-	static var previews: some View {
-		ActionEditingRow(actionID: UUID(), action: .constant(Action()), isEditing: .constant(true))
-			.environmentObject(CameraManager.shared)
-	}
-}
+// struct ActionEditingRow_Previews: PreviewProvider {
+//	static var previews: some View {
+//		ActionEditingRow(actionID: UUID(), action: .constant(Action()), isEditing: .constant(true))
+//			.environmentObject(CameraManager.shared)
+//	}
+// }

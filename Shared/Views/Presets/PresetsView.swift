@@ -2,16 +2,17 @@ import SwiftUI
 
 struct PresetsView: View {
 	@EnvironmentObject var cameraManager: CameraManager
+	@FetchedSetup var setup: Setup
 	
 	var body: some View {
 		ScrollView(.vertical, showsIndicators: true, content: {
 			VStack(alignment: .leading, spacing: 10) {
-				ForEach(cameraManager.connections) { connection in
-					VStack(alignment: .leading, spacing: 0) {
-						Text(connection.displayName)
-							.font(.headline)
-							.padding(.horizontal)
-						ConnectionPresetsRow(client: connection.client, camera: connection.camera)
+				ForEach(setup.cameras) { camera in
+					if let client = cameraManager.connections[camera] {
+						ConnectionPresetsRow(
+							client: client,
+							camera: camera
+						)
 					}
 				}
 				Spacer()

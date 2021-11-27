@@ -1,7 +1,9 @@
 import Foundation
+import CoreData
 import SwiftUI
 
-enum PresetColor: String, Codable, CaseIterable, Hashable {
+@objc
+enum PresetColor: Int16, Codable, CaseIterable, Hashable {
 	case gray
 	case red
 	case orange
@@ -35,25 +37,21 @@ extension Color {
 	}
 }
 
-struct PresetKey: Codable, Hashable {
-	var cameraID: UUID
-	var preset: VISCAPreset
-}
-
-struct PresetConfig: Codable, Hashable {
-	var name: String = ""
-	var color: PresetColor = .gray
-}
-
-struct PresetConfigs: Codable, Hashable {
-	var presets: [VISCAPreset: PresetConfig] = [:]
-	
-	subscript(preset: VISCAPreset) -> PresetConfig {
+extension PresetConfig {
+	var preset: VISCAPreset {
 		get {
-			presets[preset] ?? PresetConfig()
+			VISCAPreset(rawValue: UInt8(clamping: rawPreset))
 		}
-		set(newValue) {
-			presets[preset] = newValue
+		set {
+			rawPreset = Int16(newValue.rawValue)
+		}
+	}
+	
+	var displayName: String {
+		if name.isEmpty {
+			return "Preset \(preset.rawValue)"
+		} else {
+			return name
 		}
 	}
 }

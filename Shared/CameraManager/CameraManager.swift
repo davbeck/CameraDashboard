@@ -2,189 +2,113 @@ import Foundation
 import Network
 import Combine
 import OSLog
+import CoreData
+
+private let possiblePorts: [UInt16] = [5678, 1259, 52381]
 
 private let logger = Logger(category: "CameraManager")
 
-struct CamerasKey: ConfigKey {
-	static let defaultValue: [Camera] = []
-
-	var rawValue: String {
-		"cameras"
-	}
-}
-
-struct PresetConfigsKey: ConfigKey {
-	static let defaultValue = PresetConfigs()
-
-	var rawValue: String {
-		"preset:\(cameraID)"
-	}
-	
-	var cameraID: UUID
-}
-
-struct CameraConnection: Hashable, Identifiable {
-	var camera: Camera
-	let client: VISCAClient
-	var cameraNumber: Int
-	
-	var id: UUID {
-		camera.id
-	}
-	
-	var displayName: String {
-		camera.name.isEmpty ? "Camera \(cameraNumber + 1)" : camera.name
-	}
-}
-
 class CameraManager: ObservableObject {
+	private var observers: Set<AnyCancellable> = []
+	
 	static let shared: CameraManager = {
-		CameraManager(configManager: .shared)
+		CameraManager(persistentContainer: .shared)
 	}()
 	
-	let configManager: ConfigManager
+	let persistentContainer: PersistentContainer
 	
-	init(configManager: ConfigManager = ConfigManager()) {
-		self.configManager = configManager
+	init(persistentContainer: PersistentContainer = PersistentContainer()) {
+		self.persistentContainer = persistentContainer
 		
 		loadConfig()
 	}
 	
 	// MARK: - Config
 	
-	let queue = DispatchQueue(label: "CameraManager")
-	
-	func loadConfig() {
-		let cameras = configManager[CamerasKey()]
-		connections = cameras.enumerated().map { number, camera -> CameraConnection in
-			CameraConnection(
-				camera: camera,
-				client: VISCAClient(
-					host: NWEndpoint.Host(camera.address),
-					port: NWEndpoint.Port(rawValue: camera.port)!
-				),
-				cameraNumber: number
-			)
-		}
+	private func loadConfig() {
+		let context = persistentContainer.viewContext
 		
-		Tracker.track(numberOfCameras: connections.count)
-	}
-	
-	func saveConfig() {
-		configManager[CamerasKey()] = self.connections.map { $0.camera }
+		NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave, object: context)
+			.map { _ in () }.prepend(()) // add initial state
+			.map { context.setup.cameras }
+			.removeDuplicates()
+			.sink { [weak self] cameras in
+				guard let self = self else { return }
+				
+				let previous = self.connections.keys
+				let added = cameras.set.subtracting(previous)
+				let removed = Set(previous).subtracting(cameras)
+				
+				for camera in removed {
+					self.connections[camera]?.stop()
+					self.connections[camera] = nil
+				}
+				
+				for camera in added {
+					self.createConnection(for: camera)
+				}
+				
+				Tracker.track(numberOfCameras: self.connections.count)
+			}
+			.store(in: &observers)
 	}
 	
 	// MARK: - Cameras
 	
-	@Published private(set) var connections: [CameraConnection] = []
+	@Published private(set) var connections: [Camera: VISCAClient] = [:]
 	
-	let didAddCamera = PassthroughSubject<Camera, Never>()
+	private func createConnection(for camera: Camera) {
+		let ports = camera.port.map { [$0] } ?? possiblePorts
+		self.createConnection(for: camera, ports: ports)
+	}
 	
-	func save(camera: Camera, port: UInt16?, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
-		if let index = connections.firstIndex(where: { $0.camera.id == camera.id }),
-		   connections[index].camera.address == camera.address,
-		   connections[index].camera.port == port
-		{
-			connections[index].camera = camera
-			saveConfig()
-			return completion(.success(connections[index]))
-		}
+	private func createConnection(
+		for camera: Camera,
+		ports: [UInt16] = possiblePorts
+	) {
+		guard
+			let portNumber = ports.first,
+			let port = NWEndpoint.Port(rawValue: portNumber)
+		else { return }
 		
-		if let port = port {
-			createConnection(id: camera.id, name: camera.name, address: camera.address, ports: [port], completion: completion)
-		} else {
-			createConnection(id: camera.id, name: camera.name, address: camera.address, completion: completion)
-		}
-	}
-	
-	func createCamera(name: String, address: String, port: UInt16?, completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
-		if let port = port {
-			createConnection(name: name, address: address, ports: [port], completion: completion)
-		} else {
-			createConnection(name: name, address: address, completion: completion)
-		}
-	}
-	
-	private func createConnection(id: UUID = UUID(), name: String, address: String, ports: [UInt16] = [5678, 1259, 52381], completion: @escaping (Result<CameraConnection, Swift.Error>) -> Void) {
-		let camera = Camera(id: id, name: name, address: address, port: ports[0])
-		let client = VISCAClient(camera)
+		let client = VISCAClient(
+			host: NWEndpoint.Host(camera.address),
+			port: port
+		)
+		self.connections[camera] = client
 		
 		client.inquireVersion { result in
 			switch result {
 			case let .success(version):
-				var connection = CameraConnection(
-					camera: camera,
-					client: client,
-					cameraNumber: self.connections.count
-				)
-				
-				if let index = self.connections.firstIndex(where: { $0.camera.id == camera.id }) {
-					connection.cameraNumber = index
-					self.connections[index].client.stop()
-					self.connections[index] = connection
+				if let oldClient = self.connections[camera] {
+					oldClient.stop()
 				} else {
-					self.connections.append(connection)
-					self.didAddCamera.send(camera)
-					
-					Tracker.track(numberOfCameras: self.connections.count)
+					Tracker.trackCameraAdd(version: version, port: portNumber)
 				}
 				
-				self.saveConfig()
+				camera.port = portNumber
+				try? camera.managedObjectContext?.saveOrRollback()
 				
-				Tracker.trackCameraAdd(version: version, port: camera.port)
+				Tracker.track(numberOfCameras: self.connections.count)
 				
-				completion(.success(connection))
+				camera.objectWillChange
+					.throttle(for: 0, scheduler: RunLoop.main, latest: true)
+					.first()
+					.sink {
+						guard camera.port != portNumber else { return }
+						
+						self.createConnection(for: camera)
+					}
+					.store(in: &self.observers)
 			case let .failure(error):
 				client.stop()
 				Tracker.trackCameraAddFailed(error)
 				
-				guard ports.count > 1 else {
-					completion(.failure(error))
-					return
-				}
 				self.createConnection(
-					name: name,
-					address: address,
-					ports: Array(ports.dropFirst()),
-					completion: completion
+					for: camera,
+					ports: Array(ports.dropFirst())
 				)
 			}
 		}
 	}
-	
-	let didRemoveCamera = PassthroughSubject<Camera, Never>()
-	
-	func remove(camera: Camera) {
-		for connection in connections.filter({ $0.camera.id == camera.id }) {
-			connection.client.stop()
-		}
-		
-		connections.removeAll(where: { $0.camera.id == camera.id })
-		saveConfig()
-		
-		didRemoveCamera.send(camera)
-		
-		Tracker.track(numberOfCameras: self.connections.count)
-	}
 }
-
-extension VISCAClient {
-	convenience init(_ camera: Camera) {
-		self.init(
-			host: NWEndpoint.Host(camera.address),
-			port: NWEndpoint.Port(rawValue: camera.port)!
-		)
-	}
-}
-
-#if DEBUG
-	extension CameraConnection {
-		init() {
-			self.init(
-				camera: Camera(address: ""),
-				client: VISCAClient(host: "0.0.0.0", port: 1234),
-				cameraNumber: 2
-			)
-		}
-	}
-#endif

@@ -3,7 +3,6 @@ import MIDIKit
 
 struct ActionDisplayRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
-	@Config(key: CamerasKey()) var cameras
 	
 	var action: Action
 	@Binding var isEditing: Bool
@@ -38,10 +37,12 @@ struct ActionDisplayRow: View {
 					.font(.footnote)
 					.foregroundColor(.secondary)
 				
-				HStack {
-					Text(cameraManager.connections.first(where: { $0.id == action.cameraID })?.displayName ?? "")
-			  
-					Text("Preset \(action.preset.rawValue)")
+				if let presetConfig = action.preset {
+					HStack {
+						Text(presetConfig.camera.displayName)
+			   
+						Text("Preset \(presetConfig.preset.rawValue)")
+					}
 				}
 			}
 			
@@ -80,17 +81,17 @@ struct ActionDisplayRow: View {
 	}
 }
 
-struct ActionDisplayRow_Previews: PreviewProvider {
-	static var previews: some View {
-		ActionDisplayRow(action: Action(
-			name: "Welcome",
-			status: .noteOn,
-			channel: 2,
-			note: 4,
-			cameraID: CameraManager.shared.connections.randomElement()?.id,
-			preset: VISCAPreset.allCases.randomElement()!,
-			switchInput: true
-		), isEditing: .constant(false))
-			.environmentObject(CameraManager.shared)
-	}
-}
+// struct ActionDisplayRow_Previews: PreviewProvider {
+//	static var previews: some View {
+//		ActionDisplayRow(action: Action(
+//			name: "Welcome",
+//			status: .noteOn,
+//			channel: 2,
+//			note: 4,
+//			cameraID: CameraManager.shared.connections.randomElement()?.id,
+//			preset: VISCAPreset.allCases.randomElement()!,
+//			switchInput: true
+//		), isEditing: .constant(false))
+//			.environmentObject(CameraManager.shared)
+//	}
+// }

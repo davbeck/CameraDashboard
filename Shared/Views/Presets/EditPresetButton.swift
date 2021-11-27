@@ -4,8 +4,7 @@ struct EditPresetButton: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	var isHovering: Bool
-	var camera: Camera
-	var preset: VISCAPreset
+	var presetConfig: PresetConfig
 	var client: VISCAClient
 	
 	@State var isShowingEdit: Bool = false
@@ -39,8 +38,7 @@ struct EditPresetButton: View {
 				arrowEdge: .bottom
 			) {
 				PresetEditView(
-					camera: camera,
-					preset: preset,
+					presetConfig: presetConfig,
 					client: client
 				)
 				.environmentObject(cameraManager)

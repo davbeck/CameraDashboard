@@ -3,8 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
+
+/* Begin PBXAggregateTarget section */
+		615525DD273EF9CC00B2EC34 /* SwiftGen */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 615525DE273EF9CC00B2EC34 /* Build configuration list for PBXAggregateTarget "SwiftGen" */;
+			buildPhases = (
+				615525E1273EF9D100B2EC34 /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = SwiftGen;
+			productName = SwiftGen;
+		};
+/* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		61179B9126B9E12F00ADA6A4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61179B9026B9E12F00ADA6A4 /* MIDIKit */; };
@@ -29,14 +43,44 @@
 		61288FB526CB1F680077CF58 /* MIDIChannelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */; };
 		61288FB726CC03460077CF58 /* ActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61288FB626CC03460077CF58 /* ActionsManager.swift */; };
 		61288FB826CC03460077CF58 /* ActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61288FB626CC03460077CF58 /* ActionsManager.swift */; };
+		61380567273B040200D81F54 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61380565273B040200D81F54 /* Model.xcdatamodeld */; };
+		61380568273CD42600D81F54 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61380565273B040200D81F54 /* Model.xcdatamodeld */; };
+		6138056A273CD5E100D81F54 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61380569273CD5E100D81F54 /* PersistentContainer.swift */; };
+		613CF8C7274BF13C00955F59 /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613CF8C6274BF13C00955F59 /* Switcher.swift */; };
+		613CF8C8274BF13C00955F59 /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613CF8C6274BF13C00955F59 /* Switcher.swift */; };
+		613CF8CA274C02F900955F59 /* NSManagedObjectContext+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613CF8C9274C02F900955F59 /* NSManagedObjectContext+Helpers.swift */; };
+		613CF8CB274C02F900955F59 /* NSManagedObjectContext+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613CF8C9274C02F900955F59 /* NSManagedObjectContext+Helpers.swift */; };
 		6147CBA726BDB70D00C37D64 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBA626BDB70D00C37D64 /* Algorithms */; };
 		6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBA826BDB71500C37D64 /* Algorithms */; };
-		6147CBB026BDDC3700C37D64 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */; };
-		6147CBB126BDDC3700C37D64 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */; };
 		6147CBB426BDDCF300C37D64 /* PersistentCacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBB326BDDCF300C37D64 /* PersistentCacheKit */; };
 		6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6147CBB526BDDD0400C37D64 /* PersistentCacheKit */; };
 		6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
 		6147CBB926BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */; };
+		615525D9273EF54600B2EC34 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61380569273CD5E100D81F54 /* PersistentContainer.swift */; };
+		615525DB273EF73B00B2EC34 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525DA273EF73B00B2EC34 /* Model.swift */; };
+		615525DC273EF73B00B2EC34 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525DA273EF73B00B2EC34 /* Model.swift */; };
+		615525E7273EFB2400B2EC34 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525E6273EFB2400B2EC34 /* Action.swift */; };
+		615525E8273EFB2400B2EC34 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525E6273EFB2400B2EC34 /* Action.swift */; };
+		615525EA273EFB4800B2EC34 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525E9273EFB4800B2EC34 /* Camera.swift */; };
+		615525EB273EFB4800B2EC34 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525E9273EFB4800B2EC34 /* Camera.swift */; };
+		615525F0273F2F2A00B2EC34 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 615525EF273F2F2A00B2EC34 /* Collections */; };
+		615525F2273F2F3E00B2EC34 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 615525F1273F2F3E00B2EC34 /* Collections */; };
+		615525F4273F2F6900B2EC34 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F3273F2F6900B2EC34 /* Setup.swift */; };
+		615525F5273F2F6900B2EC34 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F3273F2F6900B2EC34 /* Setup.swift */; };
+		615525F7273F35FB00B2EC34 /* OrderedSetWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F6273F35FB00B2EC34 /* OrderedSetWrapper.swift */; };
+		615525F8273F35FB00B2EC34 /* OrderedSetWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F6273F35FB00B2EC34 /* OrderedSetWrapper.swift */; };
+		615525FA273F365D00B2EC34 /* FetchedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F9273F365D00B2EC34 /* FetchedSetup.swift */; };
+		615525FB273F365D00B2EC34 /* FetchedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525F9273F365D00B2EC34 /* FetchedSetup.swift */; };
+		615525FD273F37EA00B2EC34 /* NSManagedObject+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525FC273F37EA00B2EC34 /* NSManagedObject+Helpers.swift */; };
+		615525FE273F37EA00B2EC34 /* NSManagedObject+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525FC273F37EA00B2EC34 /* NSManagedObject+Helpers.swift */; };
+		61552600273F387F00B2EC34 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525FF273F387F00B2EC34 /* PresetConfig.swift */; };
+		61552601273F387F00B2EC34 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615525FF273F387F00B2EC34 /* PresetConfig.swift */; };
+		61679105274C18EC00EA33F8 /* UnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61679104274C18EC00EA33F8 /* UnexpectedError.swift */; };
+		61679106274C18EC00EA33F8 /* UnexpectedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61679104274C18EC00EA33F8 /* UnexpectedError.swift */; };
+		61679108274C1A6F00EA33F8 /* AssociatedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61679107274C1A6F00EA33F8 /* AssociatedProperty.swift */; };
+		61679109274C1A6F00EA33F8 /* AssociatedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61679107274C1A6F00EA33F8 /* AssociatedProperty.swift */; };
+		6167910B27513E1600EA33F8 /* SwitcherInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167910A27513E1600EA33F8 /* SwitcherInput.swift */; };
+		6167910C27513E1600EA33F8 /* SwitcherInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167910A27513E1600EA33F8 /* SwitcherInput.swift */; };
 		61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
@@ -61,12 +105,8 @@
 		7A7F64662560305B008B33C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F643B2560305A008B33C6 /* ContentView.swift */; };
 		7A7F64672560305B008B33C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F643C2560305B008B33C6 /* Assets.xcassets */; };
 		7A7F64682560305B008B33C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F643C2560305B008B33C6 /* Assets.xcassets */; };
-		7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647C25603092008B33C6 /* PresetConfig.swift */; };
-		7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647C25603092008B33C6 /* PresetConfig.swift */; };
 		7A7F648125603092008B33C6 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647D25603092008B33C6 /* CameraManager.swift */; };
 		7A7F648225603092008B33C6 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647D25603092008B33C6 /* CameraManager.swift */; };
-		7A7F648325603092008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647E25603092008B33C6 /* Camera.swift */; };
-		7A7F648425603092008B33C6 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F647E25603092008B33C6 /* Camera.swift */; };
 		7A7F648E256030C3008B33C6 /* VISCAClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F648B256030C3008B33C6 /* VISCAClient.swift */; };
 		7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F648B256030C3008B33C6 /* VISCAClient.swift */; };
 		7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F648C256030C3008B33C6 /* PTZDirection.swift */; };
@@ -129,8 +169,6 @@
 		7A7F65202560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65082560315F008B33C6 /* PanTiltDirectionShape.swift */; };
 		7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65092560315F008B33C6 /* PanTiltButton.swift */; };
 		7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F65092560315F008B33C6 /* PanTiltButton.swift */; };
-		7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F650A2560315F008B33C6 /* CameraContentView.swift */; };
-		7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F650A2560315F008B33C6 /* CameraContentView.swift */; };
 		7A7F652D25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */; };
 		7A7F652E25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */; };
 		7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F652B25603169008B33C6 /* NavigationList.swift */; };
@@ -212,6 +250,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		615525E2273EFA0000B2EC34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 615525DD273EF9CC00B2EC34;
+			remoteInfo = SwiftGen;
+		};
+		615525E4273EFA0500B2EC34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 615525DD273EF9CC00B2EC34;
+			remoteInfo = SwiftGen;
+		};
 		7A7F64522560305B008B33C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A7F64352560305A008B33C6 /* Project object */;
@@ -272,8 +324,22 @@
 		61288FB026CB1DDC0077CF58 /* MIDINoteControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDINoteControl.swift; sourceTree = "<group>"; };
 		61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIChannelControl.swift; sourceTree = "<group>"; };
 		61288FB626CC03460077CF58 /* ActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsManager.swift; sourceTree = "<group>"; };
-		6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		61380566273B040200D81F54 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		61380569273CD5E100D81F54 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
+		613CF8C6274BF13C00955F59 /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
+		613CF8C9274C02F900955F59 /* NSManagedObjectContext+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Helpers.swift"; sourceTree = "<group>"; };
 		6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Helpers.swift"; sourceTree = "<group>"; };
+		615525DA273EF73B00B2EC34 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		615525E6273EFB2400B2EC34 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		615525E9273EFB4800B2EC34 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		615525F3273F2F6900B2EC34 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		615525F6273F35FB00B2EC34 /* OrderedSetWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSetWrapper.swift; sourceTree = "<group>"; };
+		615525F9273F365D00B2EC34 /* FetchedSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedSetup.swift; sourceTree = "<group>"; };
+		615525FC273F37EA00B2EC34 /* NSManagedObject+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Helpers.swift"; sourceTree = "<group>"; };
+		615525FF273F387F00B2EC34 /* PresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetConfig.swift; sourceTree = "<group>"; };
+		61679104274C18EC00EA33F8 /* UnexpectedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedError.swift; sourceTree = "<group>"; };
+		61679107274C1A6F00EA33F8 /* AssociatedProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedProperty.swift; sourceTree = "<group>"; };
+		6167910A27513E1600EA33F8 /* SwitcherInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherInput.swift; sourceTree = "<group>"; };
 		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
 		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
 		61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsSettingsView.swift; sourceTree = "<group>"; };
@@ -294,9 +360,7 @@
 		7A7F645C2560305B008B33C6 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7F64602560305B008B33C6 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		7A7F64622560305B008B33C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A7F647C25603092008B33C6 /* PresetConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetConfig.swift; sourceTree = "<group>"; };
 		7A7F647D25603092008B33C6 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		7A7F647E25603092008B33C6 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7A7F648B256030C3008B33C6 /* VISCAClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VISCAClient.swift; sourceTree = "<group>"; };
 		7A7F648C256030C3008B33C6 /* PTZDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTZDirection.swift; sourceTree = "<group>"; };
 		7A7F648D256030C3008B33C6 /* VISCAPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VISCAPreset.swift; sourceTree = "<group>"; };
@@ -328,7 +392,6 @@
 		7A7F65072560315F008B33C6 /* PanTiltControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanTiltControl.swift; sourceTree = "<group>"; };
 		7A7F65082560315F008B33C6 /* PanTiltDirectionShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanTiltDirectionShape.swift; sourceTree = "<group>"; };
 		7A7F65092560315F008B33C6 /* PanTiltButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanTiltButton.swift; sourceTree = "<group>"; };
-		7A7F650A2560315F008B33C6 /* CameraContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
 		7A7F652A25603169008B33C6 /* ConnectionStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionStatusIndicator.swift; sourceTree = "<group>"; };
 		7A7F652B25603169008B33C6 /* NavigationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationList.swift; sourceTree = "<group>"; };
 		7A7F652C25603169008B33C6 /* CameraNavigationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraNavigationRow.swift; sourceTree = "<group>"; };
@@ -385,6 +448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				615525F0273F2F2A00B2EC34 /* Collections in Frameworks */,
 				6147CBB426BDDCF300C37D64 /* PersistentCacheKit in Frameworks */,
 				6147CBA726BDB70D00C37D64 /* Algorithms in Frameworks */,
 				61179B9326B9E13800ADA6A4 /* MIDIKit in Frameworks */,
@@ -404,6 +468,7 @@
 				6147CBB626BDDD0400C37D64 /* PersistentCacheKit in Frameworks */,
 				6147CBA926BDB71500C37D64 /* Algorithms in Frameworks */,
 				7AA7AB6C259ED12C0089567F /* Sparkle.framework in Frameworks */,
+				615525F2273F2F3E00B2EC34 /* Collections in Frameworks */,
 				61CE0FF926E26ED300AA1553 /* Defaults in Frameworks */,
 				61CE0FFF26E280BA00AA1553 /* MessagePack in Frameworks */,
 			);
@@ -474,6 +539,26 @@
 			path = Actions;
 			sourceTree = "<group>";
 		};
+		61380564273B03E400D81F54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				61380569273CD5E100D81F54 /* PersistentContainer.swift */,
+				61380565273B040200D81F54 /* Model.xcdatamodeld */,
+				615525DA273EF73B00B2EC34 /* Model.swift */,
+				615525F3273F2F6900B2EC34 /* Setup.swift */,
+				615525E6273EFB2400B2EC34 /* Action.swift */,
+				615525E9273EFB4800B2EC34 /* Camera.swift */,
+				613CF8C6274BF13C00955F59 /* Switcher.swift */,
+				6167910A27513E1600EA33F8 /* SwitcherInput.swift */,
+				615525FF273F387F00B2EC34 /* PresetConfig.swift */,
+				615525FC273F37EA00B2EC34 /* NSManagedObject+Helpers.swift */,
+				613CF8C9274C02F900955F59 /* NSManagedObjectContext+Helpers.swift */,
+				615525F6273F35FB00B2EC34 /* OrderedSetWrapper.swift */,
+				615525F9273F365D00B2EC34 /* FetchedSetup.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7A7F64342560305A008B33C6 = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +581,7 @@
 			children = (
 				7A7F643A2560305A008B33C6 /* CameraDashboardApp.swift */,
 				7AA7AB8D259ED3F90089567F /* NSApplicationDelegate.swift */,
+				61380564273B03E400D81F54 /* Models */,
 				7A7F6489256030AC008B33C6 /* Views */,
 				7A7F647B25603092008B33C6 /* CameraManager */,
 				7A7F648A256030C3008B33C6 /* VISCA */,
@@ -557,11 +643,8 @@
 			isa = PBXGroup;
 			children = (
 				7A7F647D25603092008B33C6 /* CameraManager.swift */,
-				7A7F647C25603092008B33C6 /* PresetConfig.swift */,
-				7A7F647E25603092008B33C6 /* Camera.swift */,
 				61179B9926BA08C500ADA6A4 /* SwitcherManager.swift */,
 				61288FB626CC03460077CF58 /* ActionsManager.swift */,
-				6147CBAF26BDDC3700C37D64 /* ConfigManager.swift */,
 			);
 			path = CameraManager;
 			sourceTree = "<group>";
@@ -614,6 +697,8 @@
 				7AA867C42575FC6600AA7B6E /* Logger+Helpers.swift */,
 				7AA8681125769EC500AA7B6E /* Tracking.swift */,
 				6147CBB726BDDDE400C37D64 /* OSLog+Helpers.swift */,
+				61679104274C18EC00EA33F8 /* UnexpectedError.swift */,
+				61679107274C1A6F00EA33F8 /* AssociatedProperty.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -654,7 +739,6 @@
 				7A7F64FC2560315F008B33C6 /* CameraDetail.swift */,
 				7A7F64FD2560315F008B33C6 /* Settings */,
 				7A7F65002560315F008B33C6 /* PTZControl */,
-				7A7F650A2560315F008B33C6 /* CameraContentView.swift */,
 			);
 			path = CameraDetail;
 			sourceTree = "<group>";
@@ -779,6 +863,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				615525E5273EFA0500B2EC34 /* PBXTargetDependency */,
 			);
 			name = "CameraDashboard (iOS)";
 			packageProductDependencies = (
@@ -788,6 +873,7 @@
 				6147CBB326BDDCF300C37D64 /* PersistentCacheKit */,
 				61CE0FFA26E26EE100AA1553 /* Defaults */,
 				61CE100026E280C200AA1553 /* MessagePack */,
+				615525EF273F2F2A00B2EC34 /* Collections */,
 			);
 			productName = "CameraDashboard (iOS)";
 			productReference = 7A7F64412560305B008B33C6 /* CameraDashboard.app */;
@@ -809,6 +895,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				615525E3273EFA0000B2EC34 /* PBXTargetDependency */,
 			);
 			name = "CameraDashboard (macOS)";
 			packageProductDependencies = (
@@ -818,6 +905,7 @@
 				6147CBB526BDDD0400C37D64 /* PersistentCacheKit */,
 				61CE0FF826E26ED300AA1553 /* Defaults */,
 				61CE0FFE26E280BA00AA1553 /* MessagePack */,
+				615525F1273F2F3E00B2EC34 /* Collections */,
 			);
 			productName = "CameraDashboard (macOS)";
 			productReference = 7A7F64492560305B008B33C6 /* Camera Dashboard.app */;
@@ -907,6 +995,9 @@
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
+					615525DD273EF9CC00B2EC34 = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					7A7F64402560305B008B33C6 = {
 						CreatedOnToolsVersion = 12.3;
 					};
@@ -946,6 +1037,7 @@
 				6147CBA526BDB70D00C37D64 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */,
 				61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */,
+				615525EE273F2F2A00B2EC34 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 7A7F64422560305B008B33C6 /* Products */;
 			projectDirPath = "";
@@ -957,6 +1049,7 @@
 				7A7F645B2560305B008B33C6 /* Tests macOS */,
 				7A7F659125618087008B33C6 /* VISCASimulator */,
 				7A9D39B9256A104D0090AD5F /* CameraDashboardTests */,
+				615525DD273EF9CC00B2EC34 /* SwiftGen */,
 			);
 		};
 /* End PBXProject section */
@@ -1011,6 +1104,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		615525E1273EF9D100B2EC34 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Shared/Models/Model.xcdatamodeld",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Shared/Models/Model.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftgen >/dev/null; then\n  swiftgen config run --config \"${SRCROOT}/swiftgen.yml\"\nelse\n  echo \"warning: SwiftGen not installed: https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+		};
 		7AA7AB5F259ECF120089567F /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1110,43 +1224,47 @@
 			files = (
 				7A7F64D725603142008B33C6 /* SwitcherButton.swift in Sources */,
 				61288FB726CC03460077CF58 /* ActionsManager.swift in Sources */,
+				6138056A273CD5E100D81F54 /* PersistentContainer.swift in Sources */,
 				61288FB426CB1F680077CF58 /* MIDIChannelControl.swift in Sources */,
 				7A7F652D25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */,
 				7A7F64EE2560314E008B33C6 /* PresetView.swift in Sources */,
 				7ADA267F2563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EA2560314D008B33C6 /* PresetEditView.swift in Sources */,
+				613CF8CA274C02F900955F59 /* NSManagedObjectContext+Helpers.swift in Sources */,
 				7AA8681225769EC500AA7B6E /* Tracking.swift in Sources */,
 				7A7F64F525603158008B33C6 /* ErrorReporter.swift in Sources */,
 				7A7F651F2560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
 				7A7F64A925603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */,
+				6167910B27513E1600EA33F8 /* SwitcherInput.swift in Sources */,
 				7A7F651B2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
 				7A8ABC072566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
+				615525F4273F2F6900B2EC34 /* Setup.swift in Sources */,
 				61179BA926BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */,
 				7A7F65812560E052008B33C6 /* VISCAVersion.swift in Sources */,
+				615525F7273F35FB00B2EC34 /* OrderedSetWrapper.swift in Sources */,
 				7A6D840E2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
 				7AA867C52575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
 				61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */,
 				6147CBB826BDDDE400C37D64 /* OSLog+Helpers.swift in Sources */,
 				7ABBA6F2256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B72560311E008B33C6 /* Uncancellable.swift in Sources */,
-				7A7F647F25603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ABE0B5B25A563FB00FD9847 /* PanTiltColors.swift in Sources */,
 				7ADA26A325638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E82560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C225603134008B33C6 /* Column.swift in Sources */,
+				61679108274C1A6F00EA33F8 /* AssociatedProperty.swift in Sources */,
 				7A7F64E62560314D008B33C6 /* PresetsView.swift in Sources */,
-				6147CBB026BDDC3700C37D64 /* ConfigManager.swift in Sources */,
-				7A7F648325603092008B33C6 /* Camera.swift in Sources */,
 				7A7F653125603169008B33C6 /* CameraNavigationRow.swift in Sources */,
 				7A8ABBF725661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B025603119008B33C6 /* ReplaySubject.swift in Sources */,
 				7A7F6490256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64EC2560314D008B33C6 /* ConnectionPresetsRow.swift in Sources */,
-				7A7F65232560315F008B33C6 /* CameraContentView.swift in Sources */,
+				615525EA273EFB4800B2EC34 /* Camera.swift in Sources */,
 				7A8ABBE22566105100617A70 /* ToggleButton.swift in Sources */,
 				7AAF43BE2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				61CE100326E2850700AA1553 /* ActionPresetControl.swift in Sources */,
+				615525FA273F365D00B2EC34 /* FetchedSetup.swift in Sources */,
 				7A7F65D32561DD2F008B33C6 /* Data+Helpers.swift in Sources */,
 				7A7F652F25603169008B33C6 /* NavigationList.swift in Sources */,
 				7A7F656C2560CA5E008B33C6 /* NWConnection+Combine.swift in Sources */,
@@ -1155,6 +1273,8 @@
 				7A7F649B256030F1008B33C6 /* Formatters.swift in Sources */,
 				7A9D3A15256B6F550090AD5F /* DirectionButton.swift in Sources */,
 				7A7F65192560315F008B33C6 /* ZoomControl.swift in Sources */,
+				615525FD273F37EA00B2EC34 /* NSManagedObject+Helpers.swift in Sources */,
+				613CF8C7274BF13C00955F59 /* Switcher.swift in Sources */,
 				7A7F64652560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65882560E968008B33C6 /* await.swift in Sources */,
 				7A7F65112560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
@@ -1174,15 +1294,20 @@
 				7A8ABBEF256612B800617A70 /* Binding+Helpers.swift in Sources */,
 				7A7F64C825603134008B33C6 /* acceptsFirstMouse.swift in Sources */,
 				61179BA526BAE47200ADA6A4 /* SwitchersSection.swift in Sources */,
+				61679105274C18EC00EA33F8 /* UnexpectedError.swift in Sources */,
 				7A7F651D2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650B2560315F008B33C6 /* CameraDetail.swift in Sources */,
 				7A7F64632560305B008B33C6 /* CameraDashboardApp.swift in Sources */,
 				7A7F65132560315F008B33C6 /* FocusControl.swift in Sources */,
+				61380567273B040200D81F54 /* Model.xcdatamodeld in Sources */,
 				7A7F64E42560314D008B33C6 /* PresetColorControl.swift in Sources */,
 				7A7F648E256030C3008B33C6 /* VISCAClient.swift in Sources */,
 				7A7F64C625603134008B33C6 /* ErrorAlert.swift in Sources */,
+				61552600273F387F00B2EC34 /* PresetConfig.swift in Sources */,
+				615525E7273EFB2400B2EC34 /* Action.swift in Sources */,
 				7A9D39D7256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
 				61288FB126CB1DDC0077CF58 /* MIDINoteControl.swift in Sources */,
+				615525DB273EF73B00B2EC34 /* Model.swift in Sources */,
 				7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */,
 				7A7F64A2256030F9008B33C6 /* IntegerFormatting.swift in Sources */,
 				7ADA269B2563728000A03CBE /* NSWindowInspector.swift in Sources */,
@@ -1203,29 +1328,30 @@
 				7ADA26802563575A00A03CBE /* defaultsKey.swift in Sources */,
 				7A7F64EB2560314D008B33C6 /* PresetEditView.swift in Sources */,
 				7AA8681325769EC500AA7B6E /* Tracking.swift in Sources */,
+				615525EB273EFB4800B2EC34 /* Camera.swift in Sources */,
 				7A7F64F625603158008B33C6 /* ErrorReporter.swift in Sources */,
 				61CE100426E2850700AA1553 /* ActionPresetControl.swift in Sources */,
 				7A7F65202560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
+				61679109274C1A6F00EA33F8 /* AssociatedProperty.swift in Sources */,
 				7A7F64AA25603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65222560315F008B33C6 /* PanTiltButton.swift in Sources */,
 				7A7F651C2560315F008B33C6 /* PanTiltThumb.swift in Sources */,
 				61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */,
 				61179BAA26BAE4E800ADA6A4 /* SwitcherDetail.swift in Sources */,
 				7A8ABC082566CA3F00617A70 /* Data+ExpressibleByArrayLiteral.swift in Sources */,
+				615525FB273F365D00B2EC34 /* FetchedSetup.swift in Sources */,
 				7A7F65822560E052008B33C6 /* VISCAVersion.swift in Sources */,
 				61288FB826CC03460077CF58 /* ActionsManager.swift in Sources */,
 				7A6D840F2568A1FC00731653 /* VISCAFocusMode.swift in Sources */,
+				615525E8273EFB2400B2EC34 /* Action.swift in Sources */,
 				7AA867C62575FC6600AA7B6E /* Logger+Helpers.swift in Sources */,
 				7ABBA6F3256E163A001B4967 /* RemoveCameraButton.swift in Sources */,
 				7A7F64B82560311E008B33C6 /* Uncancellable.swift in Sources */,
 				61288FAF26CB1CEA0077CF58 /* MIDICommandControl.swift in Sources */,
-				7A7F648025603092008B33C6 /* PresetConfig.swift in Sources */,
 				7ADA26A425638A1F00A03CBE /* NavigationSelection.swift in Sources */,
 				7A7F64E92560314D008B33C6 /* PresetColorPicker.swift in Sources */,
 				7A7F64C325603134008B33C6 /* Column.swift in Sources */,
 				7A7F64E72560314D008B33C6 /* PresetsView.swift in Sources */,
-				6147CBB126BDDC3700C37D64 /* ConfigManager.swift in Sources */,
-				7A7F648425603092008B33C6 /* Camera.swift in Sources */,
 				61288FB526CB1F680077CF58 /* MIDIChannelControl.swift in Sources */,
 				7ABE0B5C25A563FB00FD9847 /* PanTiltColors.swift in Sources */,
 				61288F6F26C95AC80077CF58 /* ActionsView.swift in Sources */,
@@ -1235,8 +1361,9 @@
 				7A7F64B125603119008B33C6 /* ReplaySubject.swift in Sources */,
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
-				7A7F65242560315F008B33C6 /* CameraContentView.swift in Sources */,
 				7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */,
+				61552601273F387F00B2EC34 /* PresetConfig.swift in Sources */,
+				6167910C27513E1600EA33F8 /* SwitcherInput.swift in Sources */,
 				61CE0FF726E269CB00AA1553 /* ActionsSettingsView.swift in Sources */,
 				7AAF43BF2565E19800C82EC3 /* Slider+Int.swift in Sources */,
 				7A7F65CD2561DD2E008B33C6 /* Data+Helpers.swift in Sources */,
@@ -1251,24 +1378,33 @@
 				7A7F65892560E968008B33C6 /* await.swift in Sources */,
 				7A7F65122560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				61288F7226C95BF30077CF58 /* ActionRow.swift in Sources */,
+				613CF8CB274C02F900955F59 /* NSManagedObjectContext+Helpers.swift in Sources */,
 				7A7F65162560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
 				7A7B5EFE2574975400E6EF0C /* EditPresetButton.swift in Sources */,
 				7A7F655E25603677008B33C6 /* AddCameraButton.swift in Sources */,
+				615525D9273EF54600B2EC34 /* PersistentContainer.swift in Sources */,
 				7A7F65102560315F008B33C6 /* CameraSettingsView.swift in Sources */,
 				7A7F65182560315F008B33C6 /* CameraPTZControlTab.swift in Sources */,
+				615525FE273F37EA00B2EC34 /* NSManagedObject+Helpers.swift in Sources */,
+				61679106274C18EC00EA33F8 /* UnexpectedError.swift in Sources */,
+				61380568273CD42600D81F54 /* Model.xcdatamodeld in Sources */,
 				7A7F650E2560315F008B33C6 /* CameraSettingsButton.swift in Sources */,
 				7ADE9857257465F100227332 /* Errors.swift in Sources */,
 				7A7F648225603092008B33C6 /* CameraManager.swift in Sources */,
 				7A7F6493256030C3008B33C6 /* VISCAPreset.swift in Sources */,
+				615525DC273EF73B00B2EC34 /* Model.swift in Sources */,
 				7A8ABBF0256612B800617A70 /* Binding+Helpers.swift in Sources */,
 				7A7F64C925603134008B33C6 /* acceptsFirstMouse.swift in Sources */,
+				615525F8273F35FB00B2EC34 /* OrderedSetWrapper.swift in Sources */,
 				7A7F651E2560315F008B33C6 /* PanTiltControl.swift in Sources */,
 				7A7F650C2560315F008B33C6 /* CameraDetail.swift in Sources */,
 				7A7F64642560305B008B33C6 /* CameraDashboardApp.swift in Sources */,
+				613CF8C8274BF13C00955F59 /* Switcher.swift in Sources */,
 				61179B9B26BA08C500ADA6A4 /* SwitcherManager.swift in Sources */,
 				7A7F65142560315F008B33C6 /* FocusControl.swift in Sources */,
 				7A7F64E52560314D008B33C6 /* PresetColorControl.swift in Sources */,
 				7A7F648F256030C3008B33C6 /* VISCAClient.swift in Sources */,
+				615525F5273F2F6900B2EC34 /* Setup.swift in Sources */,
 				7A7F64C725603134008B33C6 /* ErrorAlert.swift in Sources */,
 				7A9D39D8256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
 				61288FB226CB1DDC0077CF58 /* MIDINoteControl.swift in Sources */,
@@ -1328,6 +1464,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		615525E3273EFA0000B2EC34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 615525DD273EF9CC00B2EC34 /* SwiftGen */;
+			targetProxy = 615525E2273EFA0000B2EC34 /* PBXContainerItemProxy */;
+		};
+		615525E5273EFA0500B2EC34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 615525DD273EF9CC00B2EC34 /* SwiftGen */;
+			targetProxy = 615525E4273EFA0500B2EC34 /* PBXContainerItemProxy */;
+		};
 		7A7F64532560305B008B33C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7A7F64402560305B008B33C6 /* CameraDashboard (iOS) */;
@@ -1346,6 +1492,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		615525DF273EF9CC00B2EC34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		615525E0273EF9CC00B2EC34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7TR2B85D62;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		7A7F64692560305B008B33C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1530,7 +1694,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
 				PRODUCT_NAME = "Camera Dashboard";
@@ -1563,7 +1727,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.davidbeck.CameraDashboard;
 				PRODUCT_NAME = "Camera Dashboard";
@@ -1760,6 +1924,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		615525DE273EF9CC00B2EC34 /* Build configuration list for PBXAggregateTarget "SwiftGen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				615525DF273EF9CC00B2EC34 /* Debug */,
+				615525E0273EF9CC00B2EC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7A7F64382560305A008B33C6 /* Build configuration list for PBXProject "CameraDashboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1850,6 +2023,14 @@
 				minimumVersion = 0.4.2;
 			};
 		};
+		615525EE273F2F2A00B2EC34 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 		61CE0FFD26E280BA00AA1553 /* XCRemoteSwiftPackageReference "MessagePack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Flight-School/MessagePack.git";
@@ -1907,6 +2088,16 @@
 			package = 6147CBB226BDDCF300C37D64 /* XCRemoteSwiftPackageReference "PersistentCacheKit" */;
 			productName = PersistentCacheKit;
 		};
+		615525EF273F2F2A00B2EC34 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 615525EE273F2F2A00B2EC34 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		615525F1273F2F3E00B2EC34 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 615525EE273F2F2A00B2EC34 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
 		61CE0FF826E26ED300AA1553 /* Defaults */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7AAF43D52565FE3800C82EC3 /* XCRemoteSwiftPackageReference "Defaults" */;
@@ -1943,6 +2134,19 @@
 			productName = Defaults;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		61380565273B040200D81F54 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61380566273B040200D81F54 /* Model.xcdatamodel */,
+			);
+			currentVersion = 61380566273B040200D81F54 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7A7F64352560305A008B33C6 /* Project object */;
 }

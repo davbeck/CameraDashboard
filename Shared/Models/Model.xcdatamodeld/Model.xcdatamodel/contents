@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19571" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Action" representedClassName=".Action" syncable="YES">
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="rawChannel" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rawNote" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rawStatus" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="switchInput" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PresetConfig" inverseName="actions" inverseEntity="PresetConfig"/>
+        <relationship name="setup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setup" inverseName="rawActions" inverseEntity="Setup"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="rawChannel"/>
+                <constraint value="rawNote"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Camera" representedClassName=".Camera" syncable="YES">
+        <attribute name="address" attributeType="String" defaultValueString=""/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="rawPort" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <relationship name="presetConfigs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PresetConfig" inverseName="camera" inverseEntity="PresetConfig"/>
+        <relationship name="setup" maxCount="1" deletionRule="Nullify" destinationEntity="Setup" inverseName="rawCameras" inverseEntity="Setup"/>
+        <relationship name="switcherInput" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SwitcherInput" inverseName="camera" inverseEntity="SwitcherInput"/>
+    </entity>
+    <entity name="PresetConfig" representedClassName=".PresetConfig" syncable="YES">
+        <attribute name="color" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES">
+            <userInfo>
+                <entry key="RawType" value="PresetColor"/>
+                <entry key="unwrapOptional" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="rawPreset" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="preset" inverseEntity="Action"/>
+        <relationship name="camera" maxCount="1" deletionRule="Cascade" destinationEntity="Camera" inverseName="presetConfigs" inverseEntity="Camera"/>
+    </entity>
+    <entity name="Setup" representedClassName=".Setup" syncable="YES">
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="rawActions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Action" inverseName="setup" inverseEntity="Action"/>
+        <relationship name="rawCameras" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Camera" inverseName="setup" inverseEntity="Camera"/>
+    </entity>
+    <entity name="Switcher" representedClassName=".Switcher" syncable="YES">
+        <attribute name="rawChannel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rawMIDIID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="rawInputs" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SwitcherInput" inverseName="switcher" inverseEntity="SwitcherInput"/>
+    </entity>
+    <entity name="SwitcherInput" representedClassName=".SwitcherInput" syncable="YES">
+        <relationship name="camera" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Camera" inverseName="switcherInput" inverseEntity="Camera"/>
+        <relationship name="switcher" maxCount="1" deletionRule="Cascade" destinationEntity="Switcher" inverseName="rawInputs" inverseEntity="Switcher"/>
+    </entity>
+    <elements>
+        <element name="Action" positionX="0" positionY="45" width="128" height="134"/>
+        <element name="Camera" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="PresetConfig" positionX="-54" positionY="18" width="128" height="104"/>
+        <element name="Setup" positionX="-36" positionY="72" width="128" height="74"/>
+        <element name="Switcher" positionX="-36" positionY="18" width="128" height="74"/>
+        <element name="SwitcherInput" positionX="-18" positionY="27" width="128" height="59"/>
+    </elements>
+</model>

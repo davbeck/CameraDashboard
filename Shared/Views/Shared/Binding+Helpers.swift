@@ -13,3 +13,27 @@ extension Binding {
 		})
 	}
 }
+
+func == <Value: Equatable>(_ lhs: Binding<Value?>, _ rhs: Value?) -> Binding<Bool> {
+	Binding<Bool>(get: {
+		lhs.wrappedValue == rhs
+	}, set: { isActive in
+		if isActive {
+			lhs.wrappedValue = rhs
+		} else {
+			lhs.wrappedValue = nil
+		}
+	})
+}
+
+prefix func ! (_ binding: Binding<Bool>) -> Binding<Bool> {
+	Binding {
+		!binding.wrappedValue
+	} set: { newValue in
+		binding.wrappedValue = !newValue
+	}
+}
+
+func != <Value: Equatable>(_ lhs: Binding<Value?>, _ rhs: Value?) -> Binding<Bool> {
+	!(lhs == rhs)
+}

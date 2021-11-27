@@ -3,16 +3,13 @@ import SwiftUI
 struct CameraPresetsGrid: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var errorReporter: ErrorReporter
-	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
 	
 	@ObservedObject var client: VISCAClient
-	var camera: Camera
+	@ObservedObject var camera: Camera
 	
 	init(client: VISCAClient, camera: Camera) {
 		self.client = client
 		self.camera = camera
-		
-		_presetConfigs = Config(key: PresetConfigsKey(cameraID: camera.id))
 	}
 	
 	var columns: [GridItem] {
@@ -32,9 +29,7 @@ struct CameraPresetsGrid: View {
 			LazyVGrid(columns: columns) {
 				ForEach(VISCAPreset.allCases) { preset in
 					PresetView(
-						presetConfig: presetConfigs[preset],
-						camera: camera,
-						preset: preset,
+						presetConfig: camera[preset],
 						client: client
 					)
 					.frame(maxWidth: .infinity)

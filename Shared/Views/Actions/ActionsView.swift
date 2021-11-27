@@ -1,11 +1,11 @@
 import SwiftUI
+import CoreData
 
 struct ActionsView: View {
-	@Environment(\.configManager) var configManager
-	@Config(key: ActionIDsKey()) var actionIDs
-	@Config(key: CamerasKey()) var cameras
+	@Environment(\.managedObjectContext) private var context
+	@FetchedSetup private var setup: Setup
 	
-	@State var editingID: UUID?
+	@State private var editingAction: Action? = nil
 	
 	var body: some View {
 		ScrollView {
@@ -13,8 +13,11 @@ struct ActionsView: View {
 				ActionsSettingsView()
 					.padding(.bottom, 10)
 				
-				ForEach(actionIDs, id: \.self) { actionID in
-					ActionRow(actionID: actionID, isEditing: $editingID.equalTo(actionID))
+				ForEach(setup.actions) { action in
+					ActionRow(
+						action: action,
+						isEditing: $editingAction == action
+					)
 				}
 			}
 			.padding()
@@ -29,28 +32,26 @@ struct ActionsView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: {
-					let id = UUID()
-					let action = Action(
-						cameraID: cameras.first?.id
-					)
+					let action = Action(context: context)
+					action.setup = setup
+					if let camera = setup.cameras.first, let preset = VISCAPreset.allCases.first {
+						// prefer a preset that has actually been set
+						action.preset = camera.presetConfigs?.first(where: { !$0.name.isEmpty || $0.color != .gray }) ?? camera[preset]
+					}
 					
-					configManager[ActionKey(id: id)] = action
-					
-					actionIDs.append(id)
-					
-					editingID = id
+					editingAction = action
 				}, label: {
 					Image(systemSymbol: .plus)
 				})
-				.disabled(cameras.isEmpty)
+				.disabled(setup.cameras.isEmpty)
 			}
 		}
 	}
 }
 
-struct ActionsView_Previews: PreviewProvider {
-	static var previews: some View {
-		ActionsView()
-			.environmentObject(ActionsManager.shared)
-	}
-}
+// struct ActionsView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		ActionsView()
+//			.environmentObject(ActionsManager.shared)
+//	}
+// }

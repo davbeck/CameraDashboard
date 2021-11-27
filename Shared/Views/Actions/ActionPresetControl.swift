@@ -1,43 +1,23 @@
 import SwiftUI
 
-struct ActionPresetOptions: View {
-	@Config<PresetConfigsKey> var presetConfigs: PresetConfigs
-	
-	var cameraID: UUID
-	
-	init(cameraID: UUID) {
-		self.cameraID = cameraID
-		_presetConfigs = Config(key: PresetConfigsKey(
-			cameraID: cameraID
-		))
-	}
+struct ActionPresetOption: View {
+	@ObservedObject var presetConfig: PresetConfig
 	
 	var body: some View {
-		ForEach(VISCAPreset.allCases) { preset in
-			Group {
-				if presetConfigs[preset].name.isEmpty {
-					Text("Preset \(preset.rawValue)")
-				} else {
-					Text(presetConfigs[preset].name)
-				}
-			}
-		}
+		Text(presetConfig.displayName)
+			.tag(presetConfig as PresetConfig?)
 	}
 }
 
 struct ActionPresetControl: View {
-	var cameraID: UUID?
-	@Binding var selection: VISCAPreset
+	@ObservedObject var camera: Camera
+	@Binding var selection: PresetConfig?
 	
 	var body: some View {
 		Picker(selection: $selection, label: Text("Preset")) {
-			Group {
-				if let cameraID = cameraID {
-					ActionPresetOptions(cameraID: cameraID)
-				} else {
-					ForEach(VISCAPreset.allCases) { preset in
-						Text("Preset \(preset.rawValue)")
-					}
+			ForEach(VISCAPreset.allCases) { preset in
+				Group {
+					ActionPresetOption(presetConfig: camera[preset])
 				}
 			}
 			.font(.body.monospacedDigit())
@@ -45,8 +25,8 @@ struct ActionPresetControl: View {
 	}
 }
 
-struct ActionPresetControl_Previews: PreviewProvider {
-	static var previews: some View {
-		ActionPresetControl(selection: .constant(VISCAPreset(rawValue: 3)))
-	}
-}
+// struct ActionPresetControl_Previews: PreviewProvider {
+//	static var previews: some View {
+//		ActionPresetControl(selection: .constant(VISCAPreset(rawValue: 3)))
+//	}
+// }

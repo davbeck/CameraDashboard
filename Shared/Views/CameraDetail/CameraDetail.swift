@@ -1,21 +1,34 @@
 import SwiftUI
 
 struct CameraDetail: View {
-	var connection: CameraConnection
+	@EnvironmentObject var cameraManager: CameraManager
+	
+	@ObservedObject var camera: Camera
 	
 	var body: some View {
 		#if os(macOS)
 			VStack {
 				TabView {
-					CameraPTZControlTab(client: connection.client, camera: connection.camera)
+					if let client = cameraManager.connections[camera] {
+						CameraPTZControlTab(
+							client: client,
+							camera: camera
+						)
+					}
 				}
 				HStack {
-					Text("\(connection.camera.address):\(connection.camera.port, formatter: portFormatter)")
-						.font(Font.callout.monospacedDigit())
+					Group {
+						if let port = camera.port {
+							Text("\(camera.address):\(port, formatter: portFormatter)")
+						} else {
+							Text("\(camera.address) (connecting...)")
+						}
+					}
+					.font(Font.callout.monospacedDigit())
 					
 					Spacer()
 					
-					CameraSettingsButton(camera: connection.camera)
+					CameraSettingsButton(camera: camera)
 				}
 			}
 			.padding()
@@ -25,7 +38,6 @@ struct CameraDetail: View {
 				minHeight: 300,
 				maxHeight: .infinity
 			)
-			.id(connection.id)
 		#else
 			CameraPTZControlTab(client: connection.client, camera: connection.camera)
 				.navigationBarTitle(Text(connection.displayName), displayMode: .inline)
@@ -46,10 +58,10 @@ struct CameraDetail: View {
 	}
 }
 
-#if DEBUG
-	struct CameraDetail_Previews: PreviewProvider {
-		static var previews: some View {
-			CameraDetail(connection: CameraConnection())
-		}
-	}
-#endif
+// #if DEBUG
+//	struct CameraDetail_Previews: PreviewProvider {
+//		static var previews: some View {
+//			CameraDetail(connection: CameraConnection())
+//		}
+//	}
+// #endif

@@ -50,9 +50,7 @@ struct PresetStateOverlay: View {
 struct PresetView: View {
 	@EnvironmentObject var switcherManager: SwitcherManager
 	
-	var presetConfig: PresetConfig
-	var camera: Camera
-	var preset: VISCAPreset
+	@ObservedObject var presetConfig: PresetConfig
 	@ObservedObject var client: VISCAClient
 	
 	@State var isHovering: Bool = false
@@ -75,14 +73,13 @@ struct PresetView: View {
 			}
 			Spacer(minLength: 0)
 			HStack(alignment: .bottom) {
-				Text("Preset \(preset.rawValue)")
+				Text("Preset \(presetConfig.preset.rawValue)")
 					.font(.subheadline)
 				Spacer()
 				
 				EditPresetButton(
 					isHovering: isHovering,
-					camera: camera,
-					preset: preset,
+					presetConfig: presetConfig,
 					client: client
 				)
 			}
@@ -98,9 +95,9 @@ struct PresetView: View {
 		.cornerRadius(15)
 		.overlay(
 			PresetStateOverlay(
-				preset: preset,
+				preset: presetConfig.preset,
 				selection: client.preset,
-				color: switcherManager.selectedCameraIDs.contains(camera.id) ? .red : .blue
+				color: switcherManager.selectedInputs.contains(where: { $0.camera == presetConfig.camera }) ? .red : .blue
 			)
 		)
 		.onHover(perform: { hovering in
@@ -112,14 +109,14 @@ struct PresetView: View {
 struct PresetView_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
-			PresetView(
-				presetConfig: .init(
-					name: "Stage Left",
-					color: .red
-				), camera: Camera(address: "192.168.1.1"),
-				preset: VISCAPreset.allCases[1],
-				client: VISCAClient(Camera(address: "192.168.1.1"))
-			)
+//			PresetView(
+//				presetConfig: .init(
+//					name: "Stage Left",
+//					color: .red
+//				), camera: Camera(address: "192.168.1.1"),
+//				preset: VISCAPreset.allCases[1],
+//				client: VISCAClient(Camera(address: "192.168.1.1"))
+//			)
 			
 //			PresetView(
 //				preset: VISCAPreset.allCases[1],

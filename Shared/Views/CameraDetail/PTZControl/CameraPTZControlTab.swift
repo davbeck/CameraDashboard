@@ -40,8 +40,8 @@ struct CameraPTZControlTab: View {
 	}
 }
 
-struct CameraPTZControlTab_Previews: PreviewProvider {
-	static var previews: some View {
-		CameraPTZControlTab(client: VISCAClient(Camera(address: "")), camera: Camera(address: ""))
-	}
-}
+// struct CameraPTZControlTab_Previews: PreviewProvider {
+//	static var previews: some View {
+//		CameraPTZControlTab(client: VISCAClient(Camera(address: "")), camera: Camera(address: ""))
+//	}
+// }

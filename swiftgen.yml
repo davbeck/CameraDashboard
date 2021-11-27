@@ -1,0 +1,5 @@
+coredata:
+  inputs: Shared/Models/Model.xcdatamodeld
+  outputs:
+    templateName: swift5
+    output: Shared/Models/Model.swift
