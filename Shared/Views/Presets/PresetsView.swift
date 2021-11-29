@@ -5,7 +5,7 @@ struct PresetsView: View {
 	@FetchedSetup var setup: Setup
 	
 	var body: some View {
-		ScrollView(.vertical, showsIndicators: true, content: {
+		ScrollView([.vertical, .horizontal], showsIndicators: true) {
 			VStack(alignment: .leading, spacing: 10) {
 				ForEach(setup.cameras) { camera in
 					if let client = cameraManager.connections[camera] {
@@ -18,7 +18,9 @@ struct PresetsView: View {
 				Spacer()
 			}
 			.padding(.vertical)
-		})
+			.background(Color.red)
+		}
+		.coordinateSpace(name: "scrollView")
 		#if os(iOS)
 			.navigationBarTitle(Text("Presets"), displayMode: .inline)
 		#endif

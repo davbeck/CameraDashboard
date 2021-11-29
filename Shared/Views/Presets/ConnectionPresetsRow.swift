@@ -27,31 +27,32 @@ struct ConnectionPresetsRow: View {
 	}
 	
 	var body: some View {
-		VStack(alignment: .leading, spacing: 0) {
-			Text(camera.displayName)
-				.font(.headline)
-				.padding(.horizontal)
-				
-			ScrollView(.horizontal, showsIndicators: true) {
-				LazyHStack(spacing: 15) {
-					ForEach(presets) { preset in
-						PresetView(
-							presetConfig: camera[preset],
-							client: client
-						)
-						.frame(width: width)
-						.onTapGesture {
-							if client.preset.local == preset {
-								switcherManager.select(camera)
-							}
-							client.recall(preset: preset)
+		VStack(alignment: .leading, spacing: 5) {
+			GeometryReader { proxy in
+				Text(camera.displayName)
+					.font(.headline)
+					.padding(.horizontal)
+					.padding(.leading, max(-proxy.frame(in: .named("scrollView")).minX, 0))
+			}
+			
+			LazyHStack(spacing: 15) {
+				ForEach(presets) { preset in
+					PresetView(
+						presetConfig: camera[preset],
+						client: client
+					)
+					.frame(width: width)
+					.onTapGesture {
+						if client.preset.local == preset {
+							switcherManager.select(camera)
 						}
+						client.recall(preset: preset)
 					}
 				}
-				.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
-				.padding(.vertical, 5)
-				.padding(.horizontal)
 			}
+			.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
+			.padding(.vertical, 5)
+			.padding(.horizontal)
 		}
 		.onAppear {
 			client.inquirePreset()
