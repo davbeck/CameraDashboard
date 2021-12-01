@@ -1,18 +1,13 @@
 import SwiftUI
 import Combine
 
-struct ConnectionPresetsRow: View {
+struct ConnectionPresetsRow<PresetContent: View>: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
 	
-	@ObservedObject var client: VISCAClient
 	@ObservedObject var camera: Camera
-	
-	init(client: VISCAClient, camera: Camera) {
-		self.client = client
-		self.camera = camera
-	}
+	var presetContent: (_ presetConfig: PresetConfig) -> PresetContent
 	
 	var presets: Array<VISCAPreset>.SubSequence {
 		VISCAPreset.allCases.prefix(51)
@@ -37,25 +32,13 @@ struct ConnectionPresetsRow: View {
 			
 			LazyHStack(spacing: 15) {
 				ForEach(presets) { preset in
-					PresetView(
-						presetConfig: camera[preset],
-						client: client
-					)
-					.frame(width: width)
-					.onTapGesture {
-						if client.preset.local == preset {
-							switcherManager.select(camera)
-						}
-						client.recall(preset: preset)
-					}
+					presetContent(camera[preset])
+						.frame(width: width)
 				}
 			}
 			.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
 			.padding(.vertical, 5)
 			.padding(.horizontal)
-		}
-		.onAppear {
-			client.inquirePreset()
 		}
 	}
 }

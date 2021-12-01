@@ -1,24 +1,30 @@
 import SwiftUI
 
-struct PresetsView: View {
-	@EnvironmentObject var cameraManager: CameraManager
+struct PresetsView<PresetContent: View>: View {
 	@FetchedSetup var setup: Setup
 	
+	var axes: Axis.Set = .horizontal
+	@ViewBuilder var presetContent: (_ presetConfig: PresetConfig) -> PresetContent
+	
+	init(
+		_ axes: Axis.Set = .horizontal,
+		@ViewBuilder presetContent: @escaping (PresetConfig) -> PresetContent
+	) {
+		self.axes = axes
+		self.presetContent = presetContent
+	}
+	
 	var body: some View {
-		ScrollView([.vertical, .horizontal], showsIndicators: true) {
+		ScrollView([.horizontal, .vertical], showsIndicators: true) {
 			VStack(alignment: .leading, spacing: 10) {
 				ForEach(setup.cameras) { camera in
-					if let client = cameraManager.connections[camera] {
-						ConnectionPresetsRow(
-							client: client,
-							camera: camera
-						)
-					}
+					ConnectionPresetsRow(
+						camera: camera,
+						presetContent: presetContent
+					)
 				}
-				Spacer()
 			}
 			.padding(.vertical)
-			.background(Color.red)
 		}
 		.coordinateSpace(name: "scrollView")
 		#if os(iOS)
@@ -27,8 +33,10 @@ struct PresetsView: View {
 	}
 }
 
-struct PresetsView_Previews: PreviewProvider {
-	static var previews: some View {
-		PresetsView()
-	}
-}
+// struct PresetsView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		PresetsView() {
+//			CorePresetView(presetConfig: <#T##PresetConfig#>, presetState: <#T##PresetState#>)
+//		}
+//	}
+// }

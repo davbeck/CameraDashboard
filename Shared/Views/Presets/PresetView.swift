@@ -32,28 +32,53 @@ struct PresetActiveOverlay: View {
 	}
 }
 
+enum PresetState {
+	case inactive
+	case active(Color)
+	case switching(Color)
+}
+
 struct PresetStateOverlay: View {
-	var preset: VISCAPreset
-	var selection: VISCAClient.RemoteValue<VISCAPreset?>
-	
-	var color: Color
+	var presetState: PresetState
 	
 	var body: some View {
-		if preset == selection.remote {
+		switch presetState {
+		case .inactive:
+			EmptyView()
+		case let .active(color):
 			PresetActiveOverlay(color: color)
-		} else if preset == selection.local {
+		case let .switching(color):
 			PresetSwitchingOverlay(color: color)
 		}
 	}
 }
 
-struct PresetView: View {
-	@EnvironmentObject var switcherManager: SwitcherManager
-	
+struct CorePresetView<MoreButton: View>: View {
 	@ObservedObject var presetConfig: PresetConfig
-	@ObservedObject var client: VISCAClient
+	var presetState: PresetState
+	var moreButton: () -> MoreButton
 	
-	@State var isHovering: Bool = false
+	init(
+		presetConfig: PresetConfig,
+		presetState: PresetState,
+		moreButton: @escaping () -> MoreButton
+	) {
+		self.presetConfig = presetConfig
+		self.presetState = presetState
+		self.moreButton = moreButton
+	}
+	
+	init(
+		presetConfig: PresetConfig,
+		presetState: PresetState
+	) where MoreButton == EmptyView {
+		self.init(
+			presetConfig: presetConfig,
+			presetState: presetState
+		) {
+			EmptyView()
+		}
+	}
 	
 	var height: CGFloat {
 		#if os(macOS)
@@ -65,23 +90,18 @@ struct PresetView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading) {
-			HStack {
-				Text(presetConfig.name)
-					.lineLimit(2)
-					.font(.headline)
-				Spacer()
-			}
+			Text(presetConfig.name)
+				.lineLimit(2)
+				.font(.headline)
+			
 			Spacer(minLength: 0)
+			
 			HStack(alignment: .bottom) {
 				Text("Preset \(presetConfig.preset.rawValue)")
 					.font(.subheadline)
 				Spacer()
 				
-				EditPresetButton(
-					isHovering: isHovering,
-					presetConfig: presetConfig,
-					client: client
-				)
+				moreButton()
 			}
 		}
 		.padding(12)
@@ -94,12 +114,45 @@ struct PresetView: View {
 		.background(Color(presetConfig.color))
 		.cornerRadius(15)
 		.overlay(
-			PresetStateOverlay(
-				preset: presetConfig.preset,
-				selection: client.preset,
-				color: switcherManager.selectedInputs.contains(where: { $0.camera == presetConfig.camera }) ? .red : .blue
-			)
+			PresetStateOverlay(presetState: presetState)
 		)
+	}
+}
+
+struct PresetView: View {
+	@EnvironmentObject var switcherManager: SwitcherManager
+	
+	@ObservedObject var presetConfig: PresetConfig
+	@ObservedObject var client: VISCAClient
+	
+	@State var isHovering: Bool = false
+	
+	var highlightColor: Color {
+		switcherManager.selectedInputs.contains(where: { $0.camera == presetConfig.camera }) ? .red : .blue
+	}
+	
+	var presetState: PresetState {
+		switch presetConfig.preset {
+		case client.preset.remote:
+			return .active(highlightColor)
+		case client.preset.local:
+			return .switching(highlightColor)
+		default:
+			return .inactive
+		}
+	}
+	
+	var body: some View {
+		CorePresetView(
+			presetConfig: presetConfig,
+			presetState: presetState
+		) {
+			EditPresetButton(
+				isHovering: isHovering,
+				presetConfig: presetConfig,
+				client: client
+			)
+		}
 		.onHover(perform: { hovering in
 			isHovering = hovering
 		})

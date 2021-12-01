@@ -10,64 +10,70 @@ struct ActionEditingRow: View {
 	@Binding var isEditing: Bool
 	
 	var body: some View {
-		HStack {
-			TextField("Name", text: $action.name)
-			
-			Button(action: {
-				guard let context = action.managedObjectContext else { return }
-				context.delete(action)
-				try? context.saveOrRollback()
-			}, label: {
-				Image(systemSymbol: .trashFill)
-			})
-			
-			Button(action: {
-				isEditing = false
-				
-				try? context.saveOrRollback()
-			}, label: {
-				Text("Done")
-			})
-			.disabled(action.preset == nil)
-		}
-		.padding()
-		
-		Divider()
-		
-		VStack(alignment: .leading) {
-			Text("Trigger")
-				.font(.footnote)
-			
+		VStack(spacing: 0) {
 			HStack {
-				MIDICommandControl(status: $action.status)
+				TextField("Name", text: $action.name)
+			
+				Button(action: {
+					guard let context = action.managedObjectContext else { return }
+					context.delete(action)
+					try? context.saveOrRollback()
+				}, label: {
+					Image(systemSymbol: .trashFill)
+				})
+			
+				Button(action: {
+					isEditing = false
 				
-				MIDIChannelControl(channel: $action.channel)
-				
-				MIDINoteControl(status: action.status, note: $action.note)
+					try? context.saveOrRollback()
+				}, label: {
+					Text("Done")
+				})
+				.disabled(action.preset == nil)
 			}
-		}
-		.padding()
+			.padding()
 		
-		Divider()
+			Divider()
 		
-		VStack(alignment: .leading) {
-			Text("Behavior")
-				.font(.footnote)
+			VStack(alignment: .leading) {
+				Text("Trigger")
+					.font(.footnote)
 			
-			HStack {
-				Menu("Camera") {
-					ForEach(setup.cameras) { camera in
-						ActionPresetControl(
-							camera: camera,
-							selection: $action.preset
-						)
+				HStack {
+					MIDICommandControl(status: $action.status)
+				
+					MIDIChannelControl(channel: $action.channel)
+				
+					MIDINoteControl(status: action.status, note: $action.note)
+				}
+			}
+			.padding()
+		
+			Divider()
+		
+			VStack(alignment: .leading, spacing: 0) {
+				HStack {
+					Text("Behavior")
+						.font(.footnote)
+					
+					Spacer()
+					
+					Toggle("Switch Input", isOn: $action.switchInput)
+				}
+				.padding(.horizontal)
+				
+				PresetsView { presetConfig in
+					CorePresetView(
+						presetConfig: presetConfig,
+						presetState: action.preset == presetConfig ? .active(Color.green) : .inactive
+					)
+					.onTapGesture {
+						action.preset = presetConfig
 					}
 				}
-				
-				Toggle("Switch Input", isOn: $action.switchInput)
 			}
+			.padding(.top)
 		}
-		.padding()
 	}
 }
 

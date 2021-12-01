@@ -4,7 +4,7 @@ import MIDIKit
 struct ActionDisplayRow: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	
-	var action: Action
+	@ObservedObject var action: Action
 	@Binding var isEditing: Bool
 	
 	var body: some View {
@@ -41,7 +41,14 @@ struct ActionDisplayRow: View {
 					HStack {
 						Text(presetConfig.camera.displayName)
 			   
-						Text("Preset \(presetConfig.preset.rawValue)")
+						HStack(spacing: 3) {
+							if presetConfig.color != .gray {
+								Circle()
+									.fill(Color(presetConfig.color))
+									.frame(width: 10, height: 10)
+							}
+							Text(presetConfig.displayName)
+						}
 					}
 				}
 			}

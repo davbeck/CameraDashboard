@@ -15,7 +15,7 @@ struct ActionRow: View {
 	}
 	
 	var body: some View {
-		VStack(spacing: 0) {
+		Group {
 			if isEditing || action.preset == nil {
 				ActionEditingRow(action: action, isEditing: $isEditing)
 			} else {

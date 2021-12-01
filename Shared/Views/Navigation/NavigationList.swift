@@ -10,7 +10,7 @@ struct NavigationList: View {
 	var body: some View {
 		List {
 			NavigationLink(
-				destination: PresetsView().environmentObject(cameraManager),
+				destination: PresetsControlView().environmentObject(cameraManager),
 				isActive: $navigationSelection[contains: "presets"]
 			) {
 				Text("Presets")

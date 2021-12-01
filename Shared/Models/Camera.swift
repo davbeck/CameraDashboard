@@ -1,6 +1,20 @@
 import CoreData
 
 extension Camera {
+	override func awakeFromInsert() {
+		super.awakeFromInsert()
+		
+		guard let context = managedObjectContext else { return }
+		
+		for preset in VISCAPreset.allCases {
+			let config = PresetConfig(entity: PresetConfig.entity(), insertInto: context)
+			config.preset = preset
+			config.camera = self
+		}
+		
+		context.setup.cameras.add(self)
+	}
+	
 	static func create(
 		in context: NSManagedObjectContext,
 		name: String,
@@ -11,14 +25,6 @@ extension Camera {
 		newObject.name = name
 		newObject.address = address
 		newObject.port = port
-		
-		for preset in VISCAPreset.allCases {
-			let config = PresetConfig(entity: PresetConfig.entity(), insertInto: context)
-			config.preset = preset
-			config.camera = newObject
-		}
-		
-		context.setup.cameras.add(newObject)
 		
 		return newObject
 	}
