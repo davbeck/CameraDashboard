@@ -85,6 +85,10 @@
 		61CDBE2B2755E8570029A789 /* PresetsControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE292755E8570029A789 /* PresetsControlView.swift */; };
 		61CDBE2D2757E3630029A789 /* ActionDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */; };
 		61CDBE2E2757E3630029A789 /* ActionDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */; };
+		61CDBE302757FAC70029A789 /* ActionTriggerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2F2757FAC70029A789 /* ActionTriggerEditView.swift */; };
+		61CDBE312757FAC70029A789 /* ActionTriggerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2F2757FAC70029A789 /* ActionTriggerEditView.swift */; };
+		61CDBE332757FC330029A789 /* ActionBehaviorEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE322757FC330029A789 /* ActionBehaviorEditView.swift */; };
+		61CDBE342757FC330029A789 /* ActionBehaviorEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE322757FC330029A789 /* ActionBehaviorEditView.swift */; };
 		61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
@@ -342,6 +346,8 @@
 		6167910A27513E1600EA33F8 /* SwitcherInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherInput.swift; sourceTree = "<group>"; };
 		61CDBE292755E8570029A789 /* PresetsControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsControlView.swift; sourceTree = "<group>"; };
 		61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDeleteButton.swift; sourceTree = "<group>"; };
+		61CDBE2F2757FAC70029A789 /* ActionTriggerEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTriggerEditView.swift; sourceTree = "<group>"; };
+		61CDBE322757FC330029A789 /* ActionBehaviorEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBehaviorEditView.swift; sourceTree = "<group>"; };
 		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
 		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
 		61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsSettingsView.swift; sourceTree = "<group>"; };
@@ -532,6 +538,8 @@
 				61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */,
 				61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */,
 				61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */,
+				61CDBE2F2757FAC70029A789 /* ActionTriggerEditView.swift */,
+				61CDBE322757FC330029A789 /* ActionBehaviorEditView.swift */,
 				61288FAD26CB1CEA0077CF58 /* MIDICommandControl.swift */,
 				61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */,
 				61288FB026CB1DDC0077CF58 /* MIDINoteControl.swift */,
@@ -1233,6 +1241,7 @@
 				613CF8CA274C02F900955F59 /* NSManagedObjectContext+Helpers.swift in Sources */,
 				7AA8681225769EC500AA7B6E /* Tracking.swift in Sources */,
 				7A7F64F525603158008B33C6 /* ErrorReporter.swift in Sources */,
+				61CDBE302757FAC70029A789 /* ActionTriggerEditView.swift in Sources */,
 				7A7F651F2560315F008B33C6 /* PanTiltDirectionShape.swift in Sources */,
 				7A7F64A925603101008B33C6 /* Angle+Additions.swift in Sources */,
 				7A7F65212560315F008B33C6 /* PanTiltButton.swift in Sources */,
@@ -1307,6 +1316,7 @@
 				61552600273F387F00B2EC34 /* PresetConfig.swift in Sources */,
 				615525E7273EFB2400B2EC34 /* Action.swift in Sources */,
 				7A9D39D7256B21120090AD5F /* CameraPresetsGrid.swift in Sources */,
+				61CDBE332757FC330029A789 /* ActionBehaviorEditView.swift in Sources */,
 				61288FB126CB1DDC0077CF58 /* MIDINoteControl.swift in Sources */,
 				615525DB273EF73B00B2EC34 /* Model.swift in Sources */,
 				7A8ABBFF2566C86E00617A70 /* VISCAInquiry.swift in Sources */,
@@ -1360,6 +1370,7 @@
 				7A8ABBF825661D8700617A70 /* VISCACommand.swift in Sources */,
 				7A7F64B125603119008B33C6 /* ReplaySubject.swift in Sources */,
 				7A7F6491256030C3008B33C6 /* PTZDirection.swift in Sources */,
+				61CDBE342757FC330029A789 /* ActionBehaviorEditView.swift in Sources */,
 				7A7F64ED2560314E008B33C6 /* ConnectionPresetsRow.swift in Sources */,
 				7A8ABBE32566105100617A70 /* ToggleButton.swift in Sources */,
 				61552601273F387F00B2EC34 /* PresetConfig.swift in Sources */,
@@ -1375,6 +1386,7 @@
 				61CE0FF126DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */,
 				7A9D3A16256B6F550090AD5F /* DirectionButton.swift in Sources */,
 				7A7F651A2560315F008B33C6 /* ZoomControl.swift in Sources */,
+				61CDBE312757FAC70029A789 /* ActionTriggerEditView.swift in Sources */,
 				7A7F64662560305B008B33C6 /* ContentView.swift in Sources */,
 				7A7F65892560E968008B33C6 /* await.swift in Sources */,
 				7A7F65122560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,

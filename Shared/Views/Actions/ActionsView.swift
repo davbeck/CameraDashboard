@@ -28,12 +28,18 @@ struct ActionsView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: {
+					guard
+						let presetConfig = setup.cameras.first?
+						.presetConfigs?
+						.min(by: { $0.rawPreset < $1.rawPreset })
+					else { return }
+					
 					let action = NSEntityDescription.insertNewObject(
 						forEntityName: Action.entityName,
 						into: context
 					) as! Action
 					setup.actions.add(action)
-					action.preset = setup.cameras.first?.presetConfigs?.min(by: { $0.rawPreset < $1.rawPreset })
+					action.preset = presetConfig
 					
 					var actions = setup.actions.filter { $0.status == action.status }
 					

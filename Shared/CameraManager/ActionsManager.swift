@@ -128,8 +128,8 @@ class ActionsManager: ObservableObject {
 	}
 	
 	func perform(_ action: Action) {
+		let presetConfig = action.preset
 		guard
-			let presetConfig = action.preset,
 			let client = cameraManager.connections[presetConfig.camera]
 		else { return }
 		

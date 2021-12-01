@@ -35,7 +35,7 @@ internal class Action: NSManagedObject {
   @NSManaged internal var rawNote: Int16
   @NSManaged internal var rawStatus: Int16
   @NSManaged internal var switchInput: Bool
-  @NSManaged internal var preset: PresetConfig?
+  @NSManaged internal var preset: PresetConfig
   @NSManaged internal var setup: Setup
   // swiftlint:enable discouraged_optional_boolean discouraged_optional_collection
 }
