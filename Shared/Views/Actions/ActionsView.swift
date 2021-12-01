@@ -28,19 +28,31 @@ struct ActionsView: View {
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(action: {
-					let action = Action(context: context)
+					let action = NSEntityDescription.insertNewObject(
+						forEntityName: Action.entityName,
+						into: context
+					) as! Action
 					setup.actions.add(action)
-					if let camera = setup.cameras.first, let preset = VISCAPreset.allCases.first {
-						action.preset = camera[preset]
-					}
+					action.preset = setup.cameras.first?.presetConfigs?.min(by: { $0.rawPreset < $1.rawPreset })
 					
+					var actions = setup.actions.filter { $0.status == action.status }
+					
+					action.channel = actions.map { $0.channel }.max() ?? 0
+					actions = actions.filter { $0.channel == action.channel }
+					
+					if let note = actions.map({ $0.note }).max() {
+						action.note = note + 1
+					} else {
+						action.note = 0
+					}
+
 					try? context.saveOrRollback()
 					
 					editingAction = action
 				}, label: {
 					Image(systemSymbol: .plus)
 				})
-				.disabled(setup.cameras.isEmpty)
+					.disabled(setup.cameras.isEmpty)
 			}
 		}
 	}

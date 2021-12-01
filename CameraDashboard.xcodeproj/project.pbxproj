@@ -83,6 +83,8 @@
 		6167910C27513E1600EA33F8 /* SwitcherInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167910A27513E1600EA33F8 /* SwitcherInput.swift */; };
 		61CDBE2A2755E8570029A789 /* PresetsControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE292755E8570029A789 /* PresetsControlView.swift */; };
 		61CDBE2B2755E8570029A789 /* PresetsControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE292755E8570029A789 /* PresetsControlView.swift */; };
+		61CDBE2D2757E3630029A789 /* ActionDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */; };
+		61CDBE2E2757E3630029A789 /* ActionDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */; };
 		61CE0FED26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FEE26DE9EF100AA1553 /* ActionEditingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */; };
 		61CE0FF026DEA0A100AA1553 /* ActionDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */; };
@@ -339,6 +341,7 @@
 		61679107274C1A6F00EA33F8 /* AssociatedProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedProperty.swift; sourceTree = "<group>"; };
 		6167910A27513E1600EA33F8 /* SwitcherInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherInput.swift; sourceTree = "<group>"; };
 		61CDBE292755E8570029A789 /* PresetsControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsControlView.swift; sourceTree = "<group>"; };
+		61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDeleteButton.swift; sourceTree = "<group>"; };
 		61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditingRow.swift; sourceTree = "<group>"; };
 		61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDisplayRow.swift; sourceTree = "<group>"; };
 		61CE0FF526E269CB00AA1553 /* ActionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsSettingsView.swift; sourceTree = "<group>"; };
@@ -528,6 +531,7 @@
 				61288F7026C95BF30077CF58 /* ActionRow.swift */,
 				61CE0FEF26DEA0A100AA1553 /* ActionDisplayRow.swift */,
 				61CE0FEC26DE9EF100AA1553 /* ActionEditingRow.swift */,
+				61CDBE2C2757E3630029A789 /* ActionDeleteButton.swift */,
 				61288FAD26CB1CEA0077CF58 /* MIDICommandControl.swift */,
 				61288FB326CB1F680077CF58 /* MIDIChannelControl.swift */,
 				61288FB026CB1DDC0077CF58 /* MIDINoteControl.swift */,
@@ -1276,6 +1280,7 @@
 				7A7F65112560315F008B33C6 /* PanTiltRelativeControl.swift in Sources */,
 				7A7F65152560315F008B33C6 /* PanTiltSeparators.swift in Sources */,
 				7A7B5EFD2574975400E6EF0C /* EditPresetButton.swift in Sources */,
+				61CDBE2D2757E3630029A789 /* ActionDeleteButton.swift in Sources */,
 				7A7F655D25603677008B33C6 /* AddCameraButton.swift in Sources */,
 				61179BAD26BAE82200ADA6A4 /* SwitcherNavigationRow.swift in Sources */,
 				61288FAE26CB1CEA0077CF58 /* MIDICommandControl.swift in Sources */,
@@ -1317,6 +1322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61CDBE2E2757E3630029A789 /* ActionDeleteButton.swift in Sources */,
 				7A7F64D825603142008B33C6 /* SwitcherButton.swift in Sources */,
 				7A7F652E25603169008B33C6 /* ConnectionStatusIndicator.swift in Sources */,
 				7A7F64EF2560314E008B33C6 /* PresetView.swift in Sources */,

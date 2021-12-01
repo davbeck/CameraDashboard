@@ -7,9 +7,10 @@
         <attribute name="rawStatus" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="switchInput" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PresetConfig" inverseName="actions" inverseEntity="PresetConfig"/>
-        <relationship name="setup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setup" inverseName="rawActions" inverseEntity="Setup"/>
+        <relationship name="setup" maxCount="1" deletionRule="Nullify" destinationEntity="Setup" inverseName="rawActions" inverseEntity="Setup"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
+                <constraint value="rawStatus"/>
                 <constraint value="rawChannel"/>
                 <constraint value="rawNote"/>
             </uniquenessConstraint>

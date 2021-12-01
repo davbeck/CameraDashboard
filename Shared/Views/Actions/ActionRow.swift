@@ -8,7 +8,7 @@ struct ActionRow: View {
 	
 	var backgroundColor: Color {
 		#if os(macOS)
-			Color(.alternatingContentBackgroundColors[1])
+			Color.secondary.opacity(0.05)
 		#else
 			Color(.secondarySystemGroupedBackground)
 		#endif
@@ -18,10 +18,10 @@ struct ActionRow: View {
 		VStack(spacing: 0) {
 			ActionDisplayRow(action: action, isEditing: $isEditing)
 			
-			if isEditing || action.preset == nil {
+			if isEditing {
 				Divider()
 				
-				ActionEditingRow(action: action, isEditing: $isEditing)
+				ActionEditingRow(action: action)
 			}
 		}
 		.background(backgroundColor)

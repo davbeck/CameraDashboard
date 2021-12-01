@@ -7,20 +7,13 @@ struct ActionEditingRow: View {
 	@FetchedSetup var setup: Setup
 	
 	@ObservedObject var action: Action
-	@Binding var isEditing: Bool
 	
 	var body: some View {
 		VStack(spacing: 0) {
 			HStack {
 				TextField("Name", text: $action.name)
 			
-				Button(action: {
-					guard let context = action.managedObjectContext else { return }
-					context.delete(action)
-					try? context.saveOrRollback()
-				}, label: {
-					Image(systemSymbol: .trashFill)
-				})
+				ActionDeleteButton(action: action)
 			}
 			.padding()
 		
