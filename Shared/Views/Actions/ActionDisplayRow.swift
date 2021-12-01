@@ -2,6 +2,7 @@ import SwiftUI
 import MIDIKit
 
 struct ActionDisplayRow: View {
+	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
 	
 	@ObservedObject var action: Action
@@ -9,10 +10,9 @@ struct ActionDisplayRow: View {
 	
 	var body: some View {
 		HStack(alignment: .bottom, spacing: 15) {
-			if !action.name.isEmpty {
-				Text(action.name)
-					.font(.headline)
-			}
+			Text(action.name)
+				.font(.headline)
+				.frame(maxWidth: 150, alignment: .leading)
 			
 			VStack(alignment: .leading) {
 				Text("Trigger")
@@ -31,6 +31,7 @@ struct ActionDisplayRow: View {
 					MIDINoteLabel(status: action.status, note: action.note)
 				}
 			}
+			.frame(maxWidth: .infinity, alignment: .leading)
 			
 			VStack(alignment: .leading) {
 				Text("Behavior")
@@ -52,15 +53,28 @@ struct ActionDisplayRow: View {
 					}
 				}
 			}
-			
-			Spacer()
+			.frame(maxWidth: .infinity, alignment: .leading)
 			
 			Button(action: {
-				isEditing = true
+				withAnimation {
+					isEditing.toggle()
+				}
+				
+				try? context.saveOrRollback()
 			}, label: {
-				Image(systemSymbol: .sliderHorizontal3)
+				ZStack {
+					// include both in layout so the button doesn't change size
+					
+					Text("Done")
+						.opacity(isEditing ? 1 : 0)
+					
+					Image(systemSymbol: .sliderHorizontal3)
+						.opacity(isEditing ? 0 : 1)
+				}
 			})
+				.disabled(isEditing && action.preset == nil)
 		}
+		.lineLimit(1)
 		.padding()
 	}
 	

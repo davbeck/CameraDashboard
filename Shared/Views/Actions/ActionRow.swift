@@ -15,11 +15,13 @@ struct ActionRow: View {
 	}
 	
 	var body: some View {
-		Group {
+		VStack(spacing: 0) {
+			ActionDisplayRow(action: action, isEditing: $isEditing)
+			
 			if isEditing || action.preset == nil {
+				Divider()
+				
 				ActionEditingRow(action: action, isEditing: $isEditing)
-			} else {
-				ActionDisplayRow(action: action, isEditing: $isEditing)
 			}
 		}
 		.background(backgroundColor)

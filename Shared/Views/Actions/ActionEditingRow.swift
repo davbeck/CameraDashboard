@@ -21,15 +21,6 @@ struct ActionEditingRow: View {
 				}, label: {
 					Image(systemSymbol: .trashFill)
 				})
-			
-				Button(action: {
-					isEditing = false
-				
-					try? context.saveOrRollback()
-				}, label: {
-					Text("Done")
-				})
-				.disabled(action.preset == nil)
 			}
 			.padding()
 		
