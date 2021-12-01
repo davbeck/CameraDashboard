@@ -11,12 +11,12 @@ struct PresetsControlView: View {
 					presetConfig: presetConfig,
 					client: client
 				)
-				.onTapGesture {
-					if client.preset.local == presetConfig.preset {
-						switcherManager.select(presetConfig.camera)
+					.onTapGesture {
+						if client.preset.local == presetConfig.preset {
+							switcherManager.select(presetConfig.camera)
+						}
+						client.recall(preset: presetConfig.preset)
 					}
-					client.recall(preset: presetConfig.preset)
-				}
 			}
 		}
 		.onAppear {

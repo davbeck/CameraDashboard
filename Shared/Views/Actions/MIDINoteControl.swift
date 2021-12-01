@@ -37,7 +37,7 @@ private struct _MIDINoteControl: View {
 			}
 		} else {
 			Picker(selection: $note, label: Text("Control")) {
-				ForEach(UInt8(0)...127, id: \.self) { note in
+				ForEach(UInt8(0) ... 127, id: \.self) { note in
 					if !excludedNotes.contains(note) {
 						Text("\(note)")
 					}

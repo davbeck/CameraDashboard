@@ -26,7 +26,7 @@ extension Switcher {
 	static func create(in context: NSManagedObjectContext, withMIDIID midiID: MIDIUniqueID) -> Switcher {
 		let newObject = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! Switcher
 		newObject.midiID = midiID
-		newObject.inputs = OrderedSetWrapper((0..<4).map { _ in NSEntityDescription.insertNewObject(forEntityName: SwitcherInput.entityName, into: context) as! SwitcherInput })
+		newObject.inputs = OrderedSetWrapper((0 ..< 4).map { _ in NSEntityDescription.insertNewObject(forEntityName: SwitcherInput.entityName, into: context) as! SwitcherInput })
 		
 		return newObject
 	}

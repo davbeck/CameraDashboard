@@ -10,7 +10,7 @@ struct SwitcherDetail: View {
 	var body: some View {
 		VStack {
 			Picker(selection: $switcher.channel, label: Text("Channel")) {
-				ForEach(UInt8(0)..<16, id: \.self) { channel in
+				ForEach(UInt8(0) ..< 16, id: \.self) { channel in
 					Text("\(channel + 1)")
 				}
 			}

@@ -25,13 +25,8 @@
         <relationship name="switcherInput" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SwitcherInput" inverseName="camera" inverseEntity="SwitcherInput"/>
     </entity>
     <entity name="PresetConfig" representedClassName=".PresetConfig" syncable="YES">
-        <attribute name="color" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES">
-            <userInfo>
-                <entry key="RawType" value="PresetColor"/>
-                <entry key="unwrapOptional" value="true"/>
-            </userInfo>
-        </attribute>
         <attribute name="name" attributeType="String" defaultValueString=""/>
+        <attribute name="rawColor" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rawPreset" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="preset" inverseEntity="Action"/>
         <relationship name="camera" maxCount="1" deletionRule="Cascade" destinationEntity="Camera" inverseName="presetConfigs" inverseEntity="Camera"/>

@@ -27,7 +27,7 @@ struct FocusControl: View {
 				}
 				
 				if client.allowDirectControl {
-					Slider(value: $client.focusPosition.local, in: 0...VISCAClient.maxFocus)
+					Slider(value: $client.focusPosition.local, in: 0 ... VISCAClient.maxFocus)
 				} else {
 					Spacer()
 				}

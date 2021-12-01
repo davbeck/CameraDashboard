@@ -171,7 +171,7 @@ struct _CameraConnectionSettingsView: View {
 							.padding(.horizontal, 10)
 							.column("Buttons", alignment: .center)
 					})
-					.keyboardShortcut(.cancelAction)
+						.keyboardShortcut(.cancelAction)
 					
 					Button(action: {
 						self.save()
@@ -180,7 +180,7 @@ struct _CameraConnectionSettingsView: View {
 							.padding(.horizontal, 10)
 							.column("Buttons", alignment: .center)
 					})
-					.keyboardShortcut(.defaultAction)
+						.keyboardShortcut(.defaultAction)
 				}
 				.columnGuide()
 			}

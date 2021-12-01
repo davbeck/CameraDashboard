@@ -5,7 +5,9 @@ struct ActionBehaviorEditView: View {
 	@Binding var presetConfig: PresetConfig
 	
 	var body: some View {
-		VStack(alignment: .leading, spacing: 0) {
+		print(Self._printChanges())
+		
+		return VStack(alignment: .leading, spacing: 0) {
 			HStack {
 				Text("Behavior")
 					.font(.footnote)
@@ -21,9 +23,9 @@ struct ActionBehaviorEditView: View {
 					presetConfig: presetConfig,
 					presetState: self.presetConfig == presetConfig ? .active(Color.green) : .inactive
 				)
-				.onTapGesture {
-					self.presetConfig = presetConfig
-				}
+					.onTapGesture {
+						self.presetConfig = presetConfig
+					}
 			}
 		}
 	}

@@ -16,7 +16,7 @@ struct ZoomControl: View {
 				}
 				
 				if client.allowDirectControl {
-					Slider(value: $client.zoomPosition.local, in: 0...VISCAClient.maxZoom)
+					Slider(value: $client.zoomPosition.local, in: 0 ... VISCAClient.maxZoom)
 				} else {
 					Spacer()
 				}

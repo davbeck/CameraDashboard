@@ -10,7 +10,7 @@ struct VISCAPreset: Codable, Hashable, RawRepresentable {
 
 extension VISCAPreset: CaseIterable {
 	static var allCases: [Self] {
-		(UInt8.min...UInt8.max).map { Self(rawValue: $0) }
+		(UInt8.min ... UInt8.max).map { Self(rawValue: $0) }
 	}
 }
 

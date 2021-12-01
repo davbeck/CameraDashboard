@@ -12,7 +12,7 @@ extension Data {
 		var result: T = 0
 		let size = MemoryLayout<T>.size * 2
 		let data = dropFirst(offset).prefix(size)
-		for i in 0..<size {
+		for i in 0 ..< size {
 			guard let bit = data.dropLast(i).last else { break }
 			result = result | T(bit) << (4 * i)
 		}
@@ -25,7 +25,7 @@ extension FixedWidthInteger {
 	var bitPadded: Data {
 		let data = withUnsafePointer(to: bigEndian) { pointer in
 			pointer.withMemoryRebound(to: UInt8.self, capacity: MemoryLayout<Self>.size) { pointer in
-				(0..<MemoryLayout<Self>.size)
+				(0 ..< MemoryLayout<Self>.size)
 					.flatMap { [(pointer[$0] & 0xF0) >> 4, pointer[$0] & 0x0F] }
 			}
 		}

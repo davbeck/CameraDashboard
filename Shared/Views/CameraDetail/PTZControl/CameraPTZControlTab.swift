@@ -22,7 +22,7 @@ struct CameraPTZControlTab: View {
 			
 			VStack {
 				PanTiltControl(vector: $client.vector, size: controlColumnSize)
-				Slider(value: $vectorSpeed, in: 0...1) {
+				Slider(value: $vectorSpeed, in: 0 ... 1) {
 					Text("Speed:")
 				}
 				

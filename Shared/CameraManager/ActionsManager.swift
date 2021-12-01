@@ -93,7 +93,7 @@ class ActionsManager: ObservableObject {
 	private var endpoint: MIDIVirtualDestination?
 	func connect() {
 		do {
-			let id = Defaults[.virtualID] ?? MIDIUniqueID.random(in: MIDIUniqueID.min...MIDIUniqueID.max)
+			let id = Defaults[.virtualID] ?? MIDIUniqueID.random(in: MIDIUniqueID.min ... MIDIUniqueID.max)
 	  
 			let endpoint = try client.createDestination(name: "CameraDashboard")
 			try endpoint.setUniqueID(id)

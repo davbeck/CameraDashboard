@@ -72,7 +72,7 @@ struct ActionDisplayRow: View {
 						.opacity(isEditing ? 0 : 1)
 				}
 			})
-			.disabled(isEditing && action.preset == nil)
+				.disabled(isEditing && action.preset == nil)
 		}
 		.lineLimit(1)
 		.padding()

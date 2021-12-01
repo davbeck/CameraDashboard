@@ -11,10 +11,10 @@ struct AddCameraButton: View {
 			Image(systemSymbol: .plus)
 				.contentShape(Rectangle())
 		})
-		.sheet(isPresented: $isAddingCamera) {
-			AddCameraConnectionView()
-				.environmentObject(cameraManager)
-		}
+			.sheet(isPresented: $isAddingCamera) {
+				AddCameraConnectionView()
+					.environmentObject(cameraManager)
+			}
 	}
 }
 

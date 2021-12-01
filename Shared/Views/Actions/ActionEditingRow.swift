@@ -20,7 +20,7 @@ struct ActionEditingRow: View {
 				channel: $action.channel,
 				note: $action.note
 			)
-			.padding()
+				.padding()
 		
 			Divider()
 		
@@ -28,7 +28,7 @@ struct ActionEditingRow: View {
 				switchInput: $action.switchInput,
 				presetConfig: $action.preset
 			)
-			.padding(.top)
+				.padding(.top)
 		}
 	}
 }

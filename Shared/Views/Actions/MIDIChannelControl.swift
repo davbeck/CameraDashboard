@@ -5,7 +5,7 @@ struct MIDIChannelControl: View {
 	
 	var body: some View {
 		Picker(selection: $channel, label: Text("Channel")) {
-			ForEach(UInt8(0)..<16, id: \.self) { channel in
+			ForEach(UInt8(0) ..< 16, id: \.self) { channel in
 				Text("\(channel + 1)")
 			}
 		}

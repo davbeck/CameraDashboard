@@ -10,9 +10,9 @@ struct PresetColorPicker: View {
 					presetColor: presetColor,
 					isSelected: self.presetColor == presetColor
 				)
-				.onTapGesture {
-					self.presetColor = presetColor
-				}
+					.onTapGesture {
+						self.presetColor = presetColor
+					}
 			}
 		}
 	}

@@ -6,7 +6,7 @@ extension BinaryInteger {
 		var internalNumber = self
 		var counter = 0
 		
-		for _ in 1...bitWidth {
+		for _ in 1 ... bitWidth {
 			binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
 			internalNumber >>= 1
 			counter += 1

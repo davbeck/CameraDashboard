@@ -10,7 +10,7 @@ struct PanTiltSeparators: Shape {
 		
 		var path = Path()
 		
-		for index in 0..<8 {
+		for index in 0 ..< 8 {
 			let angle = Angle.degrees(360 * Double(index) / 8) + .degrees(22.5)
 			
 			path.move(to: CGPoint(

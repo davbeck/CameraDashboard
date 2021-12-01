@@ -7,7 +7,7 @@ struct ContentView: View {
 	var body: some View {
 		VStack(alignment: .leading, spacing: 10) {
 			Picker(selection: $camera.preset, label: Text("Preset")) {
-				ForEach(0...UInt8(255), id: \.self) { preset in
+				ForEach(0 ... UInt8(255), id: \.self) { preset in
 					Text("\(preset)")
 						.foregroundColor(camera.presets.keys.contains(preset) ? Color.primary : Color.gray)
 						.font(Font.body.monospacedDigit())

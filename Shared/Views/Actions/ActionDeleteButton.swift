@@ -11,14 +11,19 @@ struct ActionDeleteButton: View {
 		}, label: {
 			Image(systemSymbol: .trashFill)
 		})
-		.alert(Text("Are you sure you want to delete this action?"), isPresented: $isConfirming) {
-			Button("Cancel", role: .cancel) {}
-			Button(action.name.isEmpty ? "Delete Action" : "Delete \(action.name)", role: .destructive) {
-				guard let context = action.managedObjectContext else { return }
-				context.delete(action)
-				try? context.saveOrRollback()
+			.alert(Text("Are you sure you want to delete this action?"), isPresented: $isConfirming) {
+				Button("Cancel", role: .cancel) {}
+				Button(action.name.isEmpty ? "Delete Action" : "Delete \(action.name)", role: .destructive) {
+					guard let context = action.managedObjectContext else { return }
+				
+					// fix for race condition crash
+					action.setValue(nil, forKey: "setup")
+					context.perform {
+						context.delete(action)
+						try? context.saveOrRollback()
+					}
+				}
 			}
-		}
 	}
 }
 

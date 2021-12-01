@@ -26,6 +26,7 @@ struct ActionRow: View {
 		}
 		.background(backgroundColor)
 		.cornerRadius(10)
+		.id(action.objectID)
 	}
 }
 

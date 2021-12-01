@@ -12,7 +12,7 @@ extension Slider {
 			}, set: {
 				value.wrappedValue = V($0)
 			}),
-			in: Double(bounds.lowerBound)...Double(bounds.upperBound),
+			in: Double(bounds.lowerBound) ... Double(bounds.upperBound),
 			onEditingChanged: onEditingChanged
 		)
 	}

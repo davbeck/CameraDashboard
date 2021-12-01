@@ -27,18 +27,18 @@ struct EditPresetButton: View {
 					.font(.system(size: 26))
 				#endif
 			})
-			.buttonStyle(PlainButtonStyle())
-			.contentShape(Rectangle())
-			.popover(
-				isPresented: $isShowingEdit,
-				arrowEdge: .bottom
-			) {
-				PresetEditView(
-					presetConfig: presetConfig,
-					client: client
-				)
-				.environmentObject(cameraManager)
-			}
+				.buttonStyle(PlainButtonStyle())
+				.contentShape(Rectangle())
+				.popover(
+					isPresented: $isShowingEdit,
+					arrowEdge: .bottom
+				) {
+					PresetEditView(
+						presetConfig: presetConfig,
+						client: client
+					)
+						.environmentObject(cameraManager)
+				}
 		}
 	}
 }

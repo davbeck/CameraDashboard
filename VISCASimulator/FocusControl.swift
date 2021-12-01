@@ -13,7 +13,7 @@ struct FocusControl: View {
 					Text("Auto")
 				}
 			}
-			Slider(value: $property.value, in: property.minValue...property.maxValue)
+			Slider(value: $property.value, in: property.minValue ... property.maxValue)
 		}
 	}
 }

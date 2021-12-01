@@ -122,27 +122,8 @@ internal class PresetConfig: NSManagedObject {
   }
 
   // swiftlint:disable discouraged_optional_boolean discouraged_optional_collection
-  internal var color: PresetColor {
-    get {
-      let key = "color"
-      willAccessValue(forKey: key)
-      defer { didAccessValue(forKey: key) }
-
-      guard let value = primitiveValue(forKey: key) as? PresetColor.RawValue,
-        let result = PresetColor(rawValue: value) else {
-        fatalError("Could not convert value for key '\(key)' to type 'PresetColor'")
-      }
-      return result
-    }
-    set {
-      let key = "color"
-      willChangeValue(forKey: key)
-      defer { didChangeValue(forKey: key) }
-
-      setPrimitiveValue(newValue.rawValue, forKey: key)
-    }
-  }
   @NSManaged internal var name: String
+  @NSManaged internal var rawColor: Int16
   @NSManaged internal var rawPreset: Int16
   @NSManaged internal var actions: Set<Action>?
   @NSManaged internal var camera: Camera
