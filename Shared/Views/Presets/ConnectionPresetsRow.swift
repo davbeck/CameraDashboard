@@ -5,12 +5,22 @@ struct ConnectionPresetsRow<PresetContent: View>: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
+	@FetchRequest var presetConfigs: FetchedResults<PresetConfig>
 	
 	@ObservedObject var camera: Camera
 	var presetContent: (_ presetConfig: PresetConfig) -> PresetContent
 	
-	var presets: Array<VISCAPreset>.SubSequence {
-		VISCAPreset.allCases.prefix(51)
+	init(
+		camera: Camera,
+		presetContent: @escaping (PresetConfig) -> PresetContent
+	) {
+		self.camera = camera
+		self.presetContent = presetContent
+		
+		_presetConfigs = FetchRequest(
+			sortDescriptors: [SortDescriptor(\.rawPreset)],
+			predicate: NSPredicate(format: "camera = %@", camera)
+		)
 	}
 	
 	var width: CGFloat {
@@ -31,12 +41,12 @@ struct ConnectionPresetsRow<PresetContent: View>: View {
 			}
 			
 			LazyHStack(spacing: 15) {
-				ForEach(presets) { preset in
-					presetContent(camera[preset])
+				ForEach(presetConfigs) { presetConfig in
+					presetContent(presetConfig)
 						.frame(width: width)
 				}
 			}
-			.frame(width: (CGFloat(presets.count) * (width + 15)) - 15)
+			.frame(width: (CGFloat(presetConfigs.count) * (width + 15)) - 15)
 			.padding(.vertical, 5)
 			.padding(.horizontal)
 		}
