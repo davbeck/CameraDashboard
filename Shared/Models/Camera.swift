@@ -32,7 +32,7 @@ extension Camera {
 	var displayName: String {
 		if name.isEmpty {
 			if let number = self.setup.cameras.firstIndex(of: self) {
-				return String(localized: "Camera \(number)")
+				return String(localized: "Camera \(number + 1)")
 			} else {
 				return String(localized: "Camera")
 			}

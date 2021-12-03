@@ -23,9 +23,9 @@ struct ActionBehaviorEditView: View {
 						.active(Color.green) :
 						.inactive
 				)
-				.onTapGesture {
-					self.presetConfig = presetConfig
-				}
+					.onTapGesture {
+						self.presetConfig = presetConfig
+					}
 			}
 		}
 	}
