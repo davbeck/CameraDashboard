@@ -1,29 +1,29 @@
-import SwiftUI
-import Network
-import Dispatch
 import CoreData
+import Dispatch
+import Network
+import SwiftUI
 
 struct CameraConnectionSettingsView: View {
 	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
 	@Environment(\.presentationMode) var presentationMode
-	
+
 	@ObservedObject var camera: Camera
 	// using separate state in order to manually parse
 	@State var port: String
-	
+
 	@State private var isLoading: Bool = false
 	@State private var error: Swift.Error?
-	
+
 	var isValid: Bool {
 		!camera.address.isEmpty
 	}
-	
+
 	init(camera: Camera) {
 		self.camera = camera
 		_port = State(wrappedValue: camera.port.map { String($0) } ?? "")
 	}
-	
+
 	var body: some View {
 		_CameraConnectionSettingsView(
 			title: "Camera Settings",
@@ -32,17 +32,17 @@ struct CameraConnectionSettingsView: View {
 			port: $port
 		) {
 			isLoading = true
-			
+
 			do {
 				if !self.port.isEmpty {
 					camera.port = portFormatter.number(from: self.port)?.uint16Value
 				} else {
 					camera.port = nil
 				}
-				
+
 				try context.save()
 				try context.parent?.saveOrRollback()
-				
+
 				presentationMode.wrappedValue.dismiss()
 			} catch {
 				self.error = error
@@ -68,18 +68,18 @@ struct AddCameraConnectionView: View {
 	@Environment(\.managedObjectContext) var context
 	@EnvironmentObject var cameraManager: CameraManager
 	@Environment(\.presentationMode) var presentationMode
-	
+
 	@State var name: String = ""
 	@State var address: String = ""
 	@State var port: String = ""
-	
+
 	@State var isLoading: Bool = false
 	@State var error: Swift.Error?
-	
+
 	var isValid: Bool {
 		!address.isEmpty
 	}
-	
+
 	var body: some View {
 		_CameraConnectionSettingsView(
 			title: "Add Camera",
@@ -101,9 +101,9 @@ struct AddCameraConnectionView: View {
 						address: address,
 						port: port
 					)
-					
+
 					try context.saveOrRollback()
-					
+
 					presentationMode.wrappedValue.dismiss()
 				} catch {
 					self.error = error
@@ -125,11 +125,11 @@ struct _CameraConnectionSettingsView: View {
 	var save: () -> Void
 	var cancel: () -> Void
 	var removeCamera: (() -> Void)?
-	
+
 	var isValid: Bool {
 		!address.isEmpty
 	}
-	
+
 	var body: some View {
 		#if os(macOS)
 			VStack(spacing: 20) {
@@ -147,7 +147,7 @@ struct _CameraConnectionSettingsView: View {
 							TextField("0.0.0.0", text: $address)
 								.disableAutocorrection(true)
 						}
-						
+
 						HStack(spacing: 5) {
 							Text("Port:")
 							TextField("auto", text: $port)
@@ -156,14 +156,14 @@ struct _CameraConnectionSettingsView: View {
 						}
 					}
 				}
-				
+
 				HStack(spacing: 16) {
-					if let removeCamera = removeCamera {
+					if let removeCamera {
 						RemoveCameraButton(removeCamera: removeCamera)
 					}
-					
+
 					Spacer(minLength: 100)
-					
+
 					Button(action: {
 						self.cancel()
 					}, label: {
@@ -171,8 +171,8 @@ struct _CameraConnectionSettingsView: View {
 							.padding(.horizontal, 10)
 							.column("Buttons", alignment: .center)
 					})
-						.keyboardShortcut(.cancelAction)
-					
+					.keyboardShortcut(.cancelAction)
+
 					Button(action: {
 						self.save()
 					}, label: {
@@ -180,7 +180,7 @@ struct _CameraConnectionSettingsView: View {
 							.padding(.horizontal, 10)
 							.column("Buttons", alignment: .center)
 					})
-						.keyboardShortcut(.defaultAction)
+					.keyboardShortcut(.defaultAction)
 				}
 				.columnGuide()
 			}
@@ -194,7 +194,7 @@ struct _CameraConnectionSettingsView: View {
 						TextField("(Optional)", text: $name)
 							.autocapitalization(.words)
 					}
-					
+
 					HStack(spacing: 5) {
 						Text("Address:")
 						TextField("0.0.0.0", text: $address)
@@ -202,7 +202,7 @@ struct _CameraConnectionSettingsView: View {
 							.keyboardType(.URL)
 							.disableAutocorrection(true)
 					}
-					
+
 					HStack(spacing: 5) {
 						Text("Port:")
 						TextField("auto", text: $port)

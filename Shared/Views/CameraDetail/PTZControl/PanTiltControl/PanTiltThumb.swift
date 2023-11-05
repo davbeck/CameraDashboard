@@ -2,9 +2,9 @@ import SwiftUI
 
 struct PanTiltThumb: View {
 	@Environment(\.displayScale) var displayScale
-	
+
 	var size: CGFloat
-	
+
 	var body: some View {
 		Circle()
 			.fill(Color.selectedContentBackgroundColor)

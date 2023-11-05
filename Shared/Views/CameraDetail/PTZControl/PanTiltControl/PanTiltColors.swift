@@ -8,7 +8,7 @@ extension Color {
 			return Color.blue
 		#endif
 	}
-	
+
 	static var controlTextColor: Color {
 		#if os(macOS)
 			return Color(NSColor.controlTextColor)
@@ -16,7 +16,7 @@ extension Color {
 			return Color.blue
 		#endif
 	}
-	
+
 	static var controlColor: Color {
 		#if os(macOS)
 			return Color(NSColor.controlColor)

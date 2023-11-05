@@ -2,9 +2,9 @@ import SwiftUI
 
 struct ToggleButton<Content: View>: View {
 	@Binding var isPressed: Bool
-	
+
 	let content: () -> Content
-	
+
 	var body: some View {
 		content()
 			.gesture(
@@ -22,7 +22,7 @@ struct ToggleButton<Content: View>: View {
 struct ToggleButton_Previews: PreviewProvider {
 	struct ContentView: View {
 		@State var isPressed: Bool = false
-		
+
 		var body: some View {
 			ToggleButton(isPressed: $isPressed) {
 				Text("Press Me")
@@ -30,7 +30,7 @@ struct ToggleButton_Previews: PreviewProvider {
 			}
 		}
 	}
-	
+
 	static var previews: some View {
 		ContentView()
 	}

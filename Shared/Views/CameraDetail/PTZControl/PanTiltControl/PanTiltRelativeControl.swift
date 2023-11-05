@@ -3,11 +3,11 @@ import SwiftUI
 struct PanTiltRelativeControl: View {
 	@Binding var vector: PTZVector?
 	var size: CGFloat
-	
+
 	var radius: CGFloat {
 		size / 2
 	}
-	
+
 	var thumbSize: CGFloat {
 		#if os(macOS)
 			return 25
@@ -15,11 +15,11 @@ struct PanTiltRelativeControl: View {
 			return 44
 		#endif
 	}
-	
+
 	var maxDistance: CGFloat {
 		radius - thumbSize / 2
 	}
-	
+
 	var body: some View {
 		ZStack {
 			if let vector = self.vector, case let PTZVector.relative(angle: angle, speed: speed) = vector {

@@ -5,13 +5,13 @@ extension BinaryInteger {
 		var binaryString = ""
 		var internalNumber = self
 		var counter = 0
-		
+
 		for _ in 1 ... bitWidth {
 			binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
 			internalNumber >>= 1
 			counter += 1
 		}
-		
+
 		return binaryString
 	}
 }
@@ -36,6 +36,6 @@ extension UInt32 {
 
 extension Data {
 	var hexDescription: String {
-		map { $0.hexDescription }.joined(separator: " ")
+		map(\.hexDescription).joined(separator: " ")
 	}
 }

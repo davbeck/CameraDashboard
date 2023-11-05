@@ -2,9 +2,9 @@ import SwiftUI
 
 struct CameraDetail: View {
 	@EnvironmentObject var cameraManager: CameraManager
-	
+
 	@ObservedObject var camera: Camera
-	
+
 	var body: some View {
 		#if os(macOS)
 			VStack {
@@ -25,9 +25,9 @@ struct CameraDetail: View {
 						}
 					}
 					.font(Font.callout.monospacedDigit())
-					
+
 					Spacer()
-					
+
 					CameraSettingsButton(camera: camera)
 				}
 			}

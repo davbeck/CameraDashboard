@@ -2,14 +2,14 @@ import SwiftUI
 
 struct RemoveCameraButton: View {
 	@EnvironmentObject var cameraManager: CameraManager
-	
+
 	var removeCamera: () -> Void
-	
+
 	#if os(macOS)
 		@State var window: NSWindow?
 	#endif
 	@State var isOpen: Bool = false
-	
+
 	var body: some View {
 		Button {
 			#if os(macOS)
@@ -18,7 +18,7 @@ struct RemoveCameraButton: View {
 				alert.addButton(withTitle: "Remove Camera")
 				alert.addButton(withTitle: "Cancel")
 				alert.alertStyle = .warning
-				if let window = window {
+				if let window {
 					alert.beginSheetModal(for: window) { response in
 						if response == .alertFirstButtonReturn {
 							removeCamera()
@@ -38,17 +38,17 @@ struct RemoveCameraButton: View {
 				.padding(.horizontal, 10)
 		}
 		#if os(macOS)
-			.inspectWindow { window in
-				self.window = window
-			}
+		.inspectWindow { window in
+			self.window = window
+		}
 		#else
-			.alert(isPresented: $isOpen) {
-				Alert(
-					title: Text("Are you sure you want to remove this camera?"),
-					primaryButton: Alert.Button.destructive(Text("Remove Camera"), action: removeCamera),
-					secondaryButton: .default(Text("Cancel"))
-				)
-			}
+		.alert(isPresented: $isOpen) {
+					Alert(
+						title: Text("Are you sure you want to remove this camera?"),
+						primaryButton: Alert.Button.destructive(Text("Remove Camera"), action: removeCamera),
+						secondaryButton: .default(Text("Cancel"))
+					)
+				}
 		#endif
 	}
 }

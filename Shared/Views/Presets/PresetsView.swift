@@ -2,10 +2,10 @@ import SwiftUI
 
 struct PresetsView<PresetContent: View>: View {
 	@FetchedSetup var setup: Setup
-	
+
 	var axes: Axis.Set = .horizontal
 	@ViewBuilder var presetContent: (_ presetConfig: PresetConfig) -> PresetContent
-	
+
 	init(
 		_ axes: Axis.Set = .horizontal,
 		@ViewBuilder presetContent: @escaping (PresetConfig) -> PresetContent
@@ -13,7 +13,7 @@ struct PresetsView<PresetContent: View>: View {
 		self.axes = axes
 		self.presetContent = presetContent
 	}
-	
+
 	var body: some View {
 		ScrollView([.horizontal, .vertical], showsIndicators: true) {
 			VStack(alignment: .leading, spacing: 10) {

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PresetColorPicker: View {
 	@Binding var presetColor: PresetColor
-	
+
 	var body: some View {
 		HStack {
 			ForEach(PresetColor.allCases, id: \.self) { presetColor in
@@ -10,9 +10,9 @@ struct PresetColorPicker: View {
 					presetColor: presetColor,
 					isSelected: self.presetColor == presetColor
 				)
-					.onTapGesture {
-						self.presetColor = presetColor
-					}
+				.onTapGesture {
+					self.presetColor = presetColor
+				}
 			}
 		}
 	}

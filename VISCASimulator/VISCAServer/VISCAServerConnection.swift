@@ -1,30 +1,30 @@
+import Combine
 import Foundation
 import Network
-import Combine
 
 class VISCAServerConnection: ObservableObject {
 	enum Error: Swift.Error {
 		case unrecognizedRequest(Data)
 		case unrecognizedCommand(Data)
 	}
-	
+
 	private var observers: Set<AnyCancellable> = []
-	
+
 	let camera: Camera
 	let connection: NWConnection
 	private var sequence: UInt32 = 1
-	
-	@Published var dropNext: Int = 0
-	
+
+	@Published var dropNext = 0
+
 	var didStopCallback: ((VISCAServerConnection, Swift.Error?) -> Void)?
-	
+
 	init(camera: Camera, connection: NWConnection) {
 		self.camera = camera
 		self.connection = connection
-		
+
 		connection.stateUpdateHandler = { [weak self] state in
 			print("VISCAServerConnection.stateUpdateHandler", state)
-			guard let self = self else { return }
+			guard let self else { return }
 			switch state {
 			case .cancelled:
 				self.didStopCallback?(self, nil)
@@ -38,42 +38,42 @@ class VISCAServerConnection: ObservableObject {
 		}
 		connection.start(queue: .main)
 	}
-	
+
 	private func fail(_ error: Swift.Error? = nil) {
 		print("fail", error as Any)
 		connection.cancel()
 	}
-	
+
 	private func receive() {
 		connection.receive(minimumIncompleteLength: 8, maximumLength: 8) { [weak self] data, _, isComplete, error in
-			guard let self = self else { return }
-			guard let data = data else {
+			guard let self else { return }
+			guard let data else {
 				self.fail(error)
 				return
 			}
 //			print("⬇️📦", data.hexDescription)
-			
+
 			let command = data.load(offset: 0, as: UInt16.self)
 			let size = Int(data.load(offset: 2, as: UInt16.self))
 			let sequence = data.load(offset: 4, as: UInt32.self)
-			
+
 //			print("command", command.hexDescription, size, sequence)
-			
+
 			self.connection.receive(minimumIncompleteLength: size, maximumLength: size) { [weak self] data, context, isComplete, error in
-				guard let self = self else { return }
-				guard let data = data else {
+				guard let self else { return }
+				guard let data else {
 					self.fail(error)
 					return
 				}
 				print("⬇️", data.hexDescription)
-				
+
 				if self.dropNext > 0 {
 					print("dropping")
 					self.dropNext -= 1
 				} else {
 					// TODO: Send error if these don't match
 					self.sequence = sequence + 1
-					
+
 					switch command {
 					case 0x0100:
 						self.handleViscaCommand(data)
@@ -85,50 +85,50 @@ class VISCAServerConnection: ObservableObject {
 						self.fail()
 					}
 				}
-				
+
 				self.receive()
 			}
 		}
 	}
-	
+
 	private func handleControlCommand(_ data: Data) {
 		if data == Data([0x01]) {
 			print("resetting sequence")
 			sequence = 1
 		}
 	}
-	
+
 	private func handleViscaCommand(_ data: Data) {
 		do {
 			let payload = data.dropFirst().dropLast()
-			
+
 			if payload.prefix(4) == Data([0x01, 0x04, 0x3F, 0x02]), let memoryNumber = payload.dropFirst(4).first {
 				print("recall", memoryNumber)
-				
+
 				guard let preset = camera.presets[memoryNumber] else {
 					sendNotExecutable()
 					return
 				}
 				camera.preset = memoryNumber
-				
+
 				camera.zoom.destination = .init(direction: .direct(preset.zoom), speed: 0x0F * 5)
 				camera.pan.destination = .init(direction: .direct(preset.pan), speed: 0x18 * 10)
 				camera.tilt.destination = .init(direction: .direct(preset.tilt), speed: 0x14 * 10)
-				
+
 				sendAck()
-				
+
 				let pan = camera.pan.$destination
 					.dropFirst()
 					.first()
-				
+
 				let tilt = camera.tilt.$destination
 					.dropFirst()
 					.first()
-				
+
 				let zoom = camera.zoom.$destination
 					.dropFirst()
 					.first()
-				
+
 				pan
 					.combineLatest(tilt)
 					.combineLatest(zoom)
@@ -144,7 +144,7 @@ class VISCAServerConnection: ObservableObject {
 					zoom: camera.zoom.value
 				)
 				camera.preset = memoryNumber
-				
+
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x06, 0x01]),
@@ -154,7 +154,7 @@ class VISCAServerConnection: ObservableObject {
 			          let tiltDirection = payload.dropFirst(6).first
 			{
 				print("pantilt", panDirection, tiltDirection)
-				
+
 				switch panDirection {
 				case 0x01:
 					camera.pan.destination = .init(direction: .down, speed: Int(panSpeed) * 10)
@@ -165,7 +165,7 @@ class VISCAServerConnection: ObservableObject {
 				default:
 					sendError()
 				}
-				
+
 				switch tiltDirection {
 				case 0x01:
 					camera.tilt.destination = .init(direction: .up, speed: Int(tiltSpeed) * 10)
@@ -176,7 +176,7 @@ class VISCAServerConnection: ObservableObject {
 				default:
 					sendError()
 				}
-				
+
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x47]) {
@@ -184,7 +184,7 @@ class VISCAServerConnection: ObservableObject {
 				print("setting zoom", zoomPosition)
 				zoomPosition = min(zoomPosition, UInt16(camera.zoom.maxValue))
 				camera.zoom.destination = .init(direction: .direct(Int(zoomPosition)), speed: 0x0F * 5)
-				
+
 				sendAck()
 				camera.zoom.$destination
 					.dropFirst()
@@ -205,7 +205,7 @@ class VISCAServerConnection: ObservableObject {
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
-				
+
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x48]) {
@@ -213,7 +213,7 @@ class VISCAServerConnection: ObservableObject {
 				print("CAM_Focus Direct", position)
 				position = min(position, UInt16(camera.focus.maxValue))
 				camera.focus.destination = .init(direction: .direct(Int(position)), speed: 0x0F)
-				
+
 				sendAck()
 				camera.focus.$destination
 					.dropFirst()
@@ -234,7 +234,7 @@ class VISCAServerConnection: ObservableObject {
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
-				
+
 				sendAck()
 				sendCompletion()
 			} else if payload.prefix(3) == Data([0x01, 0x04, 0x38]), let modeBit = payload.dropFirst(3).first {
@@ -247,7 +247,7 @@ class VISCAServerConnection: ObservableObject {
 				default:
 					throw Error.unrecognizedCommand(data)
 				}
-				
+
 				sendAck()
 				sendCompletion()
 			} else {
@@ -257,7 +257,7 @@ class VISCAServerConnection: ObservableObject {
 			sendError()
 		}
 	}
-	
+
 	private func handleViscaInquiry(_ data: Data) {
 		let payload = data.dropFirst().dropLast()
 		if payload == Data([0x09, 0x00, 0x02]) {
@@ -293,28 +293,28 @@ class VISCAServerConnection: ObservableObject {
 			fail()
 		}
 	}
-	
+
 	private func send(_ data: Data) {
 		print("sending", data.hexDescription)
 		connection.send(content: [0x90] + data + [0xFF], completion: .contentProcessed { error in
-			if let error = error {
+			if let error {
 				self.fail(error)
 			}
 		})
 	}
-	
+
 	private func sendAck() {
 		send(Data([0x41]))
 	}
-	
+
 	private func sendCompletion() {
 		send(Data([0x51]))
 	}
-	
+
 	private func sendError() {
 		send(Data([0x60, 0x02]))
 	}
-	
+
 	private func sendNotExecutable() {
 		send(Data([0x61, 0x41]))
 	}
@@ -322,9 +322,9 @@ class VISCAServerConnection: ObservableObject {
 
 extension VISCAServerConnection: Hashable {
 	static func == (lhs: VISCAServerConnection, rhs: VISCAServerConnection) -> Bool {
-		return lhs === rhs
+		lhs === rhs
 	}
-	
+
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(ObjectIdentifier(self))
 	}
@@ -332,6 +332,6 @@ extension VISCAServerConnection: Hashable {
 
 extension VISCAServerConnection: Identifiable {
 	var id: ObjectIdentifier {
-		return ObjectIdentifier(self)
+		ObjectIdentifier(self)
 	}
 }

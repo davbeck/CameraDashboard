@@ -1,12 +1,12 @@
-import SwiftUI
-import MIDIKit
 import Algorithms
+import MIDIKit
+import SwiftUI
 
 struct SwitcherDetail: View {
 	@EnvironmentObject var cameraManager: CameraManager
-	
+
 	@ObservedObject var switcher: Switcher
-	
+
 	var body: some View {
 		VStack {
 			Picker(selection: $switcher.channel, label: Text("Channel")) {
@@ -14,19 +14,19 @@ struct SwitcherDetail: View {
 					Text("\(channel + 1)")
 				}
 			}
-			
+
 			ForEach(switcher.inputs) { input in
 				InputRow(input: input)
 			}
 		}
 		.padding()
 	}
-	
+
 	struct InputRow: View {
 		@FetchedSetup var setup: Setup
-		
+
 		@ObservedObject var input: SwitcherInput
-		
+
 		var body: some View {
 			HStack {
 				Picker(
@@ -43,13 +43,13 @@ struct SwitcherDetail: View {
 			}
 		}
 	}
-	
+
 	struct InputCameraRow: View {
 		@ObservedObject var input: SwitcherInput
 		@ObservedObject var camera: Camera
-		
+
 		var body: some View {
-			if camera.switcherInput == nil || camera.switcherInput == input {
+			if camera.switcherInput == nil || camera.switcherInput == input || camera.switcherInput?.switcher != input.switcher {
 				Text(camera.displayName)
 			}
 		}

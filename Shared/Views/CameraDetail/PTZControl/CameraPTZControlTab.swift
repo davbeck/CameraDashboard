@@ -4,7 +4,7 @@ struct CameraPTZControlTab: View {
 	@ObservedObject var client: VISCAClient
 	@AppStorage(VISCAClient.vectorSpeedKey) var vectorSpeed: Double = 0.5
 	var camera: Camera
-	
+
 	var controlColumnSize: CGFloat {
 		#if os(macOS)
 			return 200
@@ -12,22 +12,22 @@ struct CameraPTZControlTab: View {
 			return 260
 		#endif
 	}
-	
+
 	var body: some View {
 		HStack {
 			CameraPresetsGrid(client: client, camera: camera)
 				.layoutPriority(1)
-			
+
 			Spacer()
-			
+
 			VStack {
 				PanTiltControl(vector: $client.vector, size: controlColumnSize)
 				Slider(value: $vectorSpeed, in: 0 ... 1) {
 					Text("Speed:")
 				}
-				
+
 				Spacer()
-				
+
 				ZoomControl(client: client)
 				FocusControl(client: client)
 			}

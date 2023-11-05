@@ -1,19 +1,19 @@
-import SwiftUI
 import MIDIKit
+import SwiftUI
 
 struct MIDINoteControl: View {
 	@FetchRequest(sortDescriptors: [SortDescriptor(\Action.rawNote)]) var actions
-	
+
 	var status: MIDIStatus
 	var channel: UInt8
 	@Binding var note: UInt8
-	
+
 	var excludedNotes: [UInt8] {
 		actions
 			.filter { $0.status == status && $0.channel == channel && $0.note != note }
-			.map { $0.note }
+			.map(\.note)
 	}
-	
+
 	var body: some View {
 		_MIDINoteControl(status: status, channel: channel, excludedNotes: excludedNotes, note: $note)
 	}
@@ -24,7 +24,7 @@ private struct _MIDINoteControl: View {
 	var channel: UInt8
 	var excludedNotes: [UInt8]
 	@Binding var note: UInt8
-	
+
 	var body: some View {
 		if status.usesNote {
 			Picker(selection: $note, label: Text("Note")) {

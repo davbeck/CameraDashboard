@@ -10,7 +10,7 @@ extension Action {
 			rawStatus = Int16(newValue.rawValue)
 		}
 	}
-	
+
 	var channel: UInt8 {
 		get {
 			UInt8(clamping: rawChannel)
@@ -19,7 +19,7 @@ extension Action {
 			rawChannel = Int16(newValue)
 		}
 	}
-	
+
 	var note: UInt8 {
 		get {
 			UInt8(clamping: rawNote)

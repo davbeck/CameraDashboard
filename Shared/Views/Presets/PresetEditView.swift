@@ -1,13 +1,13 @@
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct PresetEditView: View {
 	@ObservedObject var presetConfig: PresetConfig
 	var client: VISCAClient
-	
+
 	@State var isLoading: Bool = false
 	@State var error: Swift.Error?
-	
+
 	var body: some View {
 		VStack(alignment: .leading) {
 			HStack {
@@ -18,10 +18,10 @@ struct PresetEditView: View {
 			HStack {
 				Text("Color:")
 					.column("label", alignment: .trailing)
-				
+
 				PresetColorPicker(presetColor: $presetConfig.color)
 			}
-			
+
 			HStack {
 				Spacer()
 				Button {

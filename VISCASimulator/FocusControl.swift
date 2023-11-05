@@ -3,7 +3,7 @@ import SwiftUI
 struct FocusControl: View {
 	@ObservedObject var camera: Camera
 	@ObservedObject var property: Camera.Property
-	
+
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
 			HStack {

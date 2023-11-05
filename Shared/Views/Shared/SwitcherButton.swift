@@ -4,19 +4,19 @@ struct SwitcherButton: View {
 	var isOn: Bool
 	var isTransitioning: Bool
 	@State private var animatedOff: Bool = false
-	
+
 	var isActive: Bool {
 		!animatedOff && (isOn || isTransitioning)
 	}
-	
+
 	var shadowColor: Color {
 		if isActive {
-			return Color(#colorLiteral(red: 1, green: 0, blue: 0, alpha: 0.7))
+			Color(#colorLiteral(red: 1, green: 0, blue: 0, alpha: 0.7))
 		} else {
-			return Color(white: 0, opacity: 0.3)
+			Color(white: 0, opacity: 0.3)
 		}
 	}
-	
+
 	var body: some View {
 		ZStack {
 			RoundedRectangle(cornerRadius: 4)
@@ -47,9 +47,10 @@ struct SwitcherButton: View {
 			if self.isTransitioning {
 				withAnimation(Animation.linear(duration: 0.2)
 					.delay(0.2)
-					.repeatForever(autoreverses: true)) {
-						self.animatedOff = true
-					}
+					.repeatForever(autoreverses: true))
+				{
+					self.animatedOff = true
+				}
 			}
 		}
 		.frame(width: 50, height: 50)

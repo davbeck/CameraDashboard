@@ -1,15 +1,19 @@
+--acronyms ID,URL,UUID
 --allman false
 --assetliterals visual-width
+--asynccapturing 
 --beforemarks 
 --binarygrouping 4,8
 --categorymark "MARK: %c"
 --classthreshold 0
 --closingparen balanced
+--closurevoid remove
 --commas always
 --conflictmarkers reject
 --decimalgrouping 3,6
 --elseposition same-line
 --emptybraces no-space
+--enumnamespaces always
 --enumthreshold 0
 --exponentcase lowercase
 --exponentgrouping disabled
@@ -19,17 +23,21 @@
 --fractiongrouping disabled
 --fragment false
 --funcattributes preserve
+--generictypes 
 --groupedextension "MARK: %c"
 --guardelse auto
 --header strip
 --hexgrouping 4,8
 --hexliteralcase uppercase
 --ifdef indent
---importgrouping alpha
+--importgrouping testable-last
 --indent tab
 --indentcase false
+--indentstrings false
 --lifecycle 
+--lineaftermarks true
 --linebreaks lf
+--markcategories true
 --markextensions always
 --marktypes always
 --maxwidth none
@@ -42,26 +50,35 @@
 --organizetypes class,enum,struct
 --patternlet hoist
 --ranges spaced
---redundanttype inferred
---self insert
+--redundanttype infer-locals-only
+--self remove
 --selfrequired 
 --semicolons inline
 --shortoptionals always
 --smarttabs enabled
+--someany true
 --stripunusedargs always
 --structthreshold 0
+--swiftversion 5.9
 --tabwidth 4
+--throwcapturing 
 --trailingclosures 
---trimwhitespace nonblank-lines
+--trimwhitespace always
 --typeattributes preserve
+--typeblanklines remove
 --typemark "MARK: - %t"
 --varattributes preserve
 --voidtype void
 --wraparguments preserve
 --wrapcollections preserve
 --wrapconditions preserve
+--wrapeffects preserve
+--wrapenumcases always
 --wrapparameters preserve
 --wrapreturntype preserve
+--wrapternary default
+--wraptypealiases preserve
 --xcodeindentation enabled
 --yodaswap always
---disable andOperator,hoistPatternLet,redundantGet,redundantRawValues,redundantSelf,sortedImports,unusedArguments
+--disable andOperator,conditionalAssignment,redundantRawValues,redundantSelf,unusedArguments
+--enable blankLineAfterImports,isEmpty

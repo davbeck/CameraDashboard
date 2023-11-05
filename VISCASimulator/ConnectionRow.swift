@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ConnectionRow: View {
 	@ObservedObject var connection: VISCAServerConnection
-	
+
 	var body: some View {
 		HStack {
 			Text("\(connection.connection.endpoint.debugDescription)")

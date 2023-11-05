@@ -10,15 +10,15 @@ public extension objc_AssociationPolicy {
 
 public struct AssociatedProperty<T: Any> {
 	fileprivate let key = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
-	
+
 	public let defaultValue: T
 	public let policy: objc_AssociationPolicy
-	
+
 	public init(defaultValue: T, policy: objc_AssociationPolicy = .retain) {
 		self.defaultValue = defaultValue
 		self.policy = policy
 	}
-	
+
 	public init<Wrapped>(policy: objc_AssociationPolicy = .retain) where T == Wrapped? {
 		self.defaultValue = nil
 		self.policy = policy
@@ -28,13 +28,13 @@ public struct AssociatedProperty<T: Any> {
 public extension NSObjectProtocol {
 	subscript<T>(property: AssociatedProperty<T>) -> T {
 		get {
-			return objc_getAssociatedObject(self, property.key) as? T ?? property.defaultValue
+			objc_getAssociatedObject(self, property.key) as? T ?? property.defaultValue
 		}
 		set {
 			objc_setAssociatedObject(self, property.key, newValue, property.policy)
 		}
 	}
-	
+
 	func lazyLoad<T>(_ property: AssociatedProperty<T>, fallback load: () -> T) -> T {
 		if let value = objc_getAssociatedObject(self, property.key) as? T {
 			return value

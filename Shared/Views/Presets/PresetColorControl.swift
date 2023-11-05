@@ -3,7 +3,7 @@ import SwiftUI
 struct PresetColorControl: View {
 	var presetColor: PresetColor
 	var isSelected: Bool
-	
+
 	var body: some View {
 		Circle()
 			.fill(Color(presetColor))

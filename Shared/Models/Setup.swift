@@ -12,7 +12,7 @@ extension NSManagedObjectContext {
 		} else {
 			let setup = NSEntityDescription.insertNewObject(forEntityName: Setup.entityName, into: self) as! Setup
 			self[setupProperty] = setup
-			
+
 			return setup
 		}
 	}
@@ -27,7 +27,7 @@ extension Setup {
 			rawCameras = newValue.rawValue
 		}
 	}
-	
+
 	var actions: OrderedSetWrapper<Action> {
 		get {
 			OrderedSetWrapper(rawValue: rawActions ?? NSOrderedSet())

@@ -1,6 +1,6 @@
+import Combine
 import Foundation
 import Network
-import Combine
 
 let throttleMS = 100
 
@@ -12,16 +12,16 @@ extension Publisher {
 
 extension Publisher where Failure == Never {
 	func filterUserEvents<T>() -> AnyPublisher<T, Never> where Output == VISCAClient.RemoteValue<T> {
-		filter { $0.needsUpdate }
-			.compactMap { $0.local }
+		filter(\.needsUpdate)
+			.map(\.local)
 			.removeDuplicates()
 			.viscaThrottle()
 			.eraseToAnyPublisher()
 	}
-	
+
 	func filterUserEvents<T>() -> AnyPublisher<T, Never> where Output == VISCAClient.RemoteValue<T?> {
-		filter { $0.needsUpdate }
-			.compactMap { $0.local }
+		filter(\.needsUpdate)
+			.compactMap(\.local)
 			.removeDuplicates()
 			.viscaThrottle()
 			.eraseToAnyPublisher()
@@ -36,32 +36,32 @@ class VISCAClient: ObservableObject {
 		case missingCompletion
 		case notReady
 		case timeout
-		
+
 		var errorDescription: String? {
 			switch self {
 			case .invalidInitialResponseByte:
-				return "Received an invalid response from the camera."
+				"Received an invalid response from the camera."
 			case .unexpectedBytes:
-				return "Received unexpected data from the camera."
+				"Received unexpected data from the camera."
 			case .missingAck:
-				return "The camera did not respond."
+				"The camera did not respond."
 			case .missingCompletion:
-				return "The camera did not respond after updating."
+				"The camera did not respond after updating."
 			case .notReady:
-				return "The camera is not connected."
+				"The camera is not connected."
 			case .timeout:
-				return "The operation timed out."
+				"The operation timed out."
 			}
 		}
 	}
-	
+
 	private var observers: Set<AnyCancellable> = []
-	
+
 	let pool: VISCAPool
-	
+
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port) {
 		pool = VISCAPool(host: host, port: port)
-		
+
 		$zoomPosition
 			.filterUserEvents()
 			.sink { [weak self] zoomPosition in
@@ -76,7 +76,7 @@ class VISCAClient: ObservableObject {
 				self?.zoom(value)
 			}
 			.store(in: &observers)
-		
+
 		$focusPosition
 			.filterUserEvents()
 			.sink { [weak self] value in
@@ -97,7 +97,7 @@ class VISCAClient: ObservableObject {
 				self?.set(value)
 			}
 			.store(in: &observers)
-		
+
 		$vector
 			.dropFirst()
 			.removeDuplicates()
@@ -107,58 +107,58 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	func stop() {
 		pool.stop()
 	}
-	
+
 	// when we have presets, we can turn this on
-	var allowDirectControl: Bool = false
-	
+	var allowDirectControl = false
+
 	struct RemoteValue<T: Equatable>: Equatable {
 		var remote: T
 		var local: T
-		
+
 		init(remote: T) {
 			self.remote = remote
 			local = remote
 		}
-		
+
 		var needsUpdate: Bool {
-			return local != remote
+			local != remote
 		}
 	}
-	
+
 	@Published var error: Swift.Error?
-	
+
 	enum Response: Equatable {
 		static func == (lhs: VISCAClient.Response, rhs: VISCAClient.Response) -> Bool {
 			switch (lhs, rhs) {
 			case (.finished, .finished):
-				return true
+				true
 			case (.failure, .failure):
-				return true
+				true
 			case (.cancelled, .cancelled):
-				return true
+				true
 			default:
-				return false
+				false
 			}
 		}
-		
+
 		case finished
 		case failure(Swift.Error)
 		case cancelled
-		
+
 		var error: Swift.Error? {
 			switch self {
 			case let .failure(error):
-				return error
+				error
 			default:
-				return nil
+				nil
 			}
 		}
 	}
-	
+
 	@discardableResult
 	private func handle(_ completion: Subscribers.Completion<Swift.Error>) -> Response {
 		switch completion {
@@ -174,11 +174,11 @@ class VISCAClient: ObservableObject {
 			}
 		}
 	}
-	
+
 	// MARK: - Version
-	
+
 	@Published var version: VISCAVersion?
-	
+
 	func inquireVersion(completion: @escaping (Result<VISCAVersion, Swift.Error>) -> Void) {
 		pool.send(inquiry: .version)
 			.sink { result in
@@ -190,11 +190,11 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	// MARK: - Presets
-	
+
 	@Published private(set) var preset: RemoteValue<VISCAPreset?> = .init(remote: nil)
-	
+
 	func inquirePreset() {
 		pool.send(inquiry: .preset)
 			.sink { sink in
@@ -204,10 +204,10 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	func recall(preset: VISCAPreset) {
 		self.preset.local = preset
-		
+
 		pool.send(command: .recall(preset))
 			.sink { completion in
 				if self.handle(completion) != .cancelled {
@@ -217,7 +217,7 @@ class VISCAClient: ObservableObject {
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
-	
+
 	func set(_ preset: VISCAPreset) {
 		pool.send(command: .set(preset))
 			.sink { completion in
@@ -227,28 +227,28 @@ class VISCAClient: ObservableObject {
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
-	
+
 	// MARK: - Zoom
-	
+
 	static let maxZoom: UInt16 = 0x6000
-	
+
 	@Published var zoomPosition: RemoteValue<UInt16> = .init(remote: 0)
-	
+
 	enum ZoomDirection {
 		case tele
 		case wide
 	}
-	
+
 	@Published var zoomDirection: ZoomDirection?
 	private var zoomTimer: Timer? {
 		didSet {
 			oldValue?.invalidate()
 		}
 	}
-	
+
 	func inquireZoomPosition() {
 		guard allowDirectControl else { return }
-		
+
 		pool.send(inquiry: .zoomPosition)
 			.sink { completion in
 				if self.handle(completion) != .cancelled, self.zoomDirection != nil {
@@ -261,7 +261,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	private func setZoom(zoomPosition: UInt16) {
 		pool.send(command: .zoomDirect(zoomPosition))
 			.sink { completion in
@@ -272,7 +272,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	private func zoom(_ direction: ZoomDirection?) {
 		let command: VISCACommand
 		switch direction {
@@ -283,7 +283,7 @@ class VISCAClient: ObservableObject {
 		case .none:
 			command = .zoomStop
 		}
-		
+
 		pool.send(command: command)
 			.sink { completion in
 				if self.handle(completion) != .cancelled {
@@ -292,29 +292,29 @@ class VISCAClient: ObservableObject {
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
-	
+
 	// MARK: - Focus
-	
+
 	static let maxFocus: UInt16 = 0xF000
-	
+
 	@Published var focusPosition: RemoteValue<UInt16> = .init(remote: 0)
 	@Published var focusMode: RemoteValue<VISCAFocusMode> = .init(remote: .auto)
-	
+
 	enum FocusDirection {
 		case far
 		case near
 	}
-	
+
 	@Published var focusDirection: FocusDirection?
 	private var focusTimer: Timer? {
 		didSet {
 			oldValue?.invalidate()
 		}
 	}
-	
+
 	func inquireFocusPosition() {
 		guard allowDirectControl else { return }
-		
+
 		pool.send(inquiry: .focusPosition)
 			.sink { completion in
 				if self.handle(completion) != .cancelled, self.focusDirection != nil {
@@ -327,7 +327,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	func inquireFocusMode() {
 		pool.send(inquiry: .focusMode)
 			.sink { completion in
@@ -337,7 +337,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	private func setFocus(focusPosition: UInt16) {
 		pool.send(command: .focusDirect(focusPosition))
 			.sink { completion in
@@ -348,7 +348,7 @@ class VISCAClient: ObservableObject {
 			}
 			.store(in: &observers)
 	}
-	
+
 	private func focus(_ direction: FocusDirection?) {
 		let command: VISCACommand
 		switch direction {
@@ -359,7 +359,7 @@ class VISCAClient: ObservableObject {
 		case .none:
 			command = .focusStop
 		}
-		
+
 		pool.send(command: command)
 			.sink { completion in
 				if self.handle(completion) != .cancelled {
@@ -368,7 +368,7 @@ class VISCAClient: ObservableObject {
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
-	
+
 	private func set(_ focusMode: VISCAFocusMode) {
 		let command: VISCACommand
 		switch focusMode {
@@ -377,7 +377,7 @@ class VISCAClient: ObservableObject {
 		case .manual:
 			command = .setManualFocus
 		}
-		
+
 		pool.send(command: command)
 			.sink { completion in
 				if self.handle(completion) != .cancelled {
@@ -386,19 +386,19 @@ class VISCAClient: ObservableObject {
 			} receiveValue: { _ in }
 			.store(in: &observers)
 	}
-	
+
 	// MARK: - PTZ
-	
+
 	@Published var vector: PTZVector?
-	
+
 	static let vectorSpeedKey: String = defaultsKey("VISCAClient.vectorSpeed", default: 0.5)
 	var vectorSpeed: Double {
-		return UserDefaults.standard.double(forKey: Self.vectorSpeedKey)
+		UserDefaults.standard.double(forKey: Self.vectorSpeedKey)
 	}
-	
+
 	private func updateVector(vector: PTZVector?) {
 		let command: VISCACommand
-		
+
 		switch vector {
 		case let .direction(direction):
 			command = .panTilt(
@@ -409,11 +409,11 @@ class VISCAClient: ObservableObject {
 		case let .relative(angle: angle, speed: speed):
 			let x = cos(angle.radians)
 			let y = sin(angle.radians)
-			
+
 			// use speed to control angle
 			let panSpeed = UInt8(vectorSpeed * speed * 0x18 * abs(x))
 			let tiltSpeed = UInt8(vectorSpeed * speed * 0x18 * abs(y))
-			
+
 			// pick a direction based on quadrant
 			switch (x > 0, y > 0) {
 			case (true, true): // downRight
@@ -444,7 +444,7 @@ class VISCAClient: ObservableObject {
 		case .none:
 			command = .panTiltStop
 		}
-		
+
 		pool.send(command: command)
 			.sink { completion in
 				self.handle(completion)
@@ -455,9 +455,9 @@ class VISCAClient: ObservableObject {
 
 extension VISCAClient: Hashable {
 	static func == (lhs: VISCAClient, rhs: VISCAClient) -> Bool {
-		return lhs === rhs
+		lhs === rhs
 	}
-	
+
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(ObjectIdentifier(self))
 	}

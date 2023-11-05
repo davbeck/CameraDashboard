@@ -7,7 +7,7 @@ extension Data {
 		_ = Swift.withUnsafeMutableBytes(of: &value) { data.copyBytes(to: $0) }
 		return T(bigEndian: value)
 	}
-	
+
 	func loadBitPadded<T: FixedWidthInteger>(offset: Int = 0, as: T.Type = T.self) -> T {
 		var result: T = 0
 		let size = MemoryLayout<T>.size * 2
@@ -16,7 +16,7 @@ extension Data {
 			guard let bit = data.dropLast(i).last else { break }
 			result = result | T(bit) << (4 * i)
 		}
-		
+
 		return T(result)
 	}
 }
@@ -29,7 +29,7 @@ extension FixedWidthInteger {
 					.flatMap { [(pointer[$0] & 0xF0) >> 4, pointer[$0] & 0x0F] }
 			}
 		}
-		
+
 		return Data(data)
 	}
 }

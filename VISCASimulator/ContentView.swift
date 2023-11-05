@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
 	@EnvironmentObject var camera: Camera
 	@EnvironmentObject var server: VISCAServer
-	
+
 	var body: some View {
 		VStack(alignment: .leading, spacing: 10) {
 			Picker(selection: $camera.preset, label: Text("Preset")) {
@@ -13,22 +13,22 @@ struct ContentView: View {
 						.font(Font.body.monospacedDigit())
 				}
 			}
-			
+
 			PropertyControl(label: "Pan", property: camera.pan)
 			PropertyControl(label: "Tilt", property: camera.tilt)
-			
+
 			PropertyControl(label: "Zoom", property: camera.zoom)
-			
+
 			FocusControl(camera: camera, property: camera.focus)
-			
+
 			VStack(alignment: .leading) {
 				Text("Connections")
-				
+
 				ForEach(server.connections) { connection in
 					ConnectionRow(connection: connection)
 				}
 			}
-			
+
 			Spacer()
 		}
 		.font(Font.body.monospacedDigit())

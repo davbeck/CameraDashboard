@@ -2,7 +2,7 @@ import Foundation
 
 struct VISCAPreset: Codable, Hashable, RawRepresentable {
 	var rawValue: UInt8
-	
+
 	init(rawValue: UInt8) {
 		self.rawValue = rawValue
 	}
@@ -16,6 +16,6 @@ extension VISCAPreset: CaseIterable {
 
 extension VISCAPreset: Identifiable {
 	var id: UInt8 {
-		return rawValue
+		rawValue
 	}
 }

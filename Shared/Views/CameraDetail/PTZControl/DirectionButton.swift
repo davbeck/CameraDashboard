@@ -3,7 +3,7 @@ import SwiftUI
 struct DirectionButton<Content: View>: View {
 	@Binding var isActive: Bool
 	var content: () -> Content
-	
+
 	var body: some View {
 		ToggleButton(isPressed: $isActive) {
 			ZStack {

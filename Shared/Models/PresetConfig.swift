@@ -1,5 +1,5 @@
-import Foundation
 import CoreData
+import Foundation
 import SwiftUI
 
 enum PresetColor: Int16, Codable, CaseIterable, Hashable {
@@ -45,15 +45,15 @@ extension PresetConfig {
 			rawPreset = Int16(newValue.rawValue)
 		}
 	}
-	
+
 	var displayName: String {
 		if name.isEmpty {
-			return "Preset \(preset.rawValue)"
+			"Preset \(preset.rawValue)"
 		} else {
-			return name
+			name
 		}
 	}
-	
+
 	var color: PresetColor {
 		get {
 			PresetColor(rawValue: rawColor) ?? .gray

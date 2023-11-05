@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 import Network
 import OSLog
 
@@ -39,77 +39,77 @@ final class VISCAConnection {
 		case commandInProgress
 		case requestInProgress
 		case connectionClosed
-		
+
 		var errorDescription: String? {
 			switch self {
 			case .invalidInitialResponseByte:
-				return "Received an invalid response from the camera."
+				"Received an invalid response from the camera."
 			case .unexpectedBytes:
-				return "Received unexpected data from the camera."
+				"Received unexpected data from the camera."
 			case .missingAck:
-				return "The camera did not respond."
+				"The camera did not respond."
 			case .missingCompletion:
-				return "The camera did not respond after updating."
+				"The camera did not respond after updating."
 			case .notReady:
-				return "The camera is not connected."
+				"The camera is not connected."
 			case .timeout:
-				return "The operation timed out."
+				"The operation timed out."
 			case .commandInProgress:
-				return "Command already in progress."
+				"Command already in progress."
 			case .requestInProgress:
-				return "Request already in progress."
+				"Request already in progress."
 			case .syntaxError:
-				return "Something went wrong."
+				"Something went wrong."
 			case .notExecutable:
-				return "The camera does not support this feature."
+				"The camera does not support this feature."
 			case .connectionClosed:
-				return "The connection was closed."
+				"The connection was closed."
 			}
 		}
 	}
-	
+
 	private var observers: Set<AnyCancellable> = []
-	
+
 	private let connection: NWConnection
 	let connectionNumber: Int
-	
+
 	var didCancel: ((VISCAConnection) -> Void)?
 	var didExecute: ((VISCAConnection) -> Void)?
 	var didCompleteCommand: ((VISCAConnection) -> Void)?
-	
+
 	enum State: Equatable {
 		static func == (lhs: VISCAConnection.State, rhs: VISCAConnection.State) -> Bool {
 			switch (lhs, rhs) {
 			case (.notReady, .notReady):
-				return true
+				true
 			case (.connecting, .connecting):
-				return true
+				true
 			case (.ready, .ready):
-				return true
+				true
 			case (.failed, .failed):
-				return true
+				true
 			default:
-				return false
+				false
 			}
 		}
-		
+
 		case notReady
 		case connecting
 		case ready
 		case failed(Swift.Error)
 	}
-	
+
 	// Published fires before the value is set, which is problematic
 	let state = CurrentValueSubject<State, Never>(.notReady)
-	
+
 	init(host: NWEndpoint.Host, port: NWEndpoint.Port, connectionNumber: Int) {
 		connection = NWConnection(host: host, port: port, using: .tcp)
-		
+
 		self.connectionNumber = connectionNumber
-		
+
 		connection.stateUpdateHandler = { [weak self] state in
-			guard let self = self else { return }
-			
+			guard let self else { return }
+
 			logger.debug("🔄#\(connectionNumber) \(state)")
 			switch state {
 			case .ready:
@@ -129,7 +129,7 @@ final class VISCAConnection {
 				self.fail(error)
 			case let .waiting(error):
 				logger.warning("❌#\(self.connectionNumber) waiting \(error as NSError, privacy: .public)")
-				
+
 				if case let .posix(code) = error, code == .ECONNREFUSED {
 					self.fail(error)
 				}
@@ -144,7 +144,7 @@ final class VISCAConnection {
 			}
 		}
 	}
-	
+
 	func fail(_ error: Swift.Error) {
 		switch state.value {
 		case .failed:
@@ -153,17 +153,17 @@ final class VISCAConnection {
 			state.value = .failed(error)
 			responses.send(completion: .failure(error))
 			didCancel?(self)
-			
+
 			connection.cancel()
 		}
 	}
-	
+
 	func start() -> AnyPublisher<Void, Swift.Error> {
 		if state.value == .notReady {
 			state.value = .connecting
 			connection.start(queue: .main)
 		}
-		
+
 		return state
 			.tryFilter { state -> Bool in
 				switch state {
@@ -179,20 +179,20 @@ final class VISCAConnection {
 			.first()
 			.eraseToAnyPublisher()
 	}
-	
+
 	func stop() {
 		logger.warning("❌#\(self.connectionNumber) stopping")
 		connection.cancel()
 	}
-	
+
 	private var sequence: UInt32 = 1
-	
+
 	enum PayloadType {
 		case viscaCommand
 		case viscaInquery
 		case controlCommand
 	}
-	
+
 	private func send(_ type: PayloadType, payload: Data) -> AnyPublisher<Void, Swift.Error> {
 		var message = Data()
 		// payload type
@@ -215,24 +215,24 @@ final class VISCAConnection {
 		withUnsafeBytes(of: sequence.bigEndian) { pointer in
 			message.append(contentsOf: pointer)
 		}
-		
+
 		message.append(payload)
-		
+
 		logger.info("⬆️#\(self.connectionNumber) \(message.hexDescription, privacy: .public)")
-		
+
 		return connection.send(content: message)
 			.mapError { $0 as Swift.Error }
 			.eraseToAnyPublisher()
 	}
-	
+
 	enum ResponsePacket: Equatable {
 		case ack
 		case completion
 		case syntaxError
 		case notExecutable
-		
+
 		case inquiryResponse(Data)
-		
+
 		init(_ data: Data) {
 			if data == Data([0x41]) {
 				self = .ack
@@ -247,16 +247,16 @@ final class VISCAConnection {
 			}
 		}
 	}
-	
+
 	private let responses = PassthroughSubject<ResponsePacket, Swift.Error>()
 	private func receive() {
 		let connection = self.connection
-		
+
 		var responsePacket = Data()
-		
+
 		func readByte(completion: @escaping (UInt8) -> Void) {
 			connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { data, context, isComplete, error in
-				if let error = error {
+				if let error {
 					logger.error("❌#\(self.connectionNumber) receive failed \(error as NSError, privacy: .public)")
 					self.fail(Error.unexpectedBytes)
 					return
@@ -265,16 +265,16 @@ final class VISCAConnection {
 					logger.warning("#\(self.connectionNumber) receive nothing")
 					return
 				}
-				
+
 				completion(byte)
 			}
 		}
-		
+
 		func getNext() {
 			readByte { byte in
 				if byte == 0xFF {
 					logger.info("⬇️#\(self.connectionNumber) \(responsePacket.hexDescription, privacy: .public)")
-					
+
 					self.responses.send(ResponsePacket(responsePacket))
 					self.receive()
 				} else {
@@ -283,35 +283,35 @@ final class VISCAConnection {
 				}
 			}
 		}
-		
+
 		readByte { byte in
 			guard byte == 0x90 else {
 				logger.error("❌#\(self.connectionNumber) receive failed")
 				self.fail(Error.unexpectedBytes)
 				return
 			}
-			
+
 			getNext()
 		}
 	}
-	
-	private(set) var isExecuting: Bool = false
-	
+
+	private(set) var isExecuting = false
+
 	private var current: (sequence: UInt32, command: VISCACommand.Group?)?
 	private var currentCommandGroup: VISCACommand.Group? {
-		return current?.command
+		current?.command
 	}
-	
+
 	func canSend(command: VISCACommand.Group?) -> Bool {
 		guard state.value == .ready, !isExecuting else { return false }
-		
-		if let command = command {
+
+		if let command {
 			return currentCommandGroup == nil || currentCommandGroup == command
 		} else {
 			return true
 		}
 	}
-	
+
 	func send(command: VISCACommand) -> AnyPublisher<Void, Swift.Error> {
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
@@ -321,18 +321,18 @@ final class VISCAConnection {
 			return Fail(error: Error.commandInProgress)
 				.eraseToAnyPublisher()
 		}
-		
+
 		let sequence = self.sequence
 		current = (sequence, command.group)
-		
+
 		logger.info("⬆️#\(self.connectionNumber) \(command.name, privacy: .public)")
-		
+
 		return sendVISCACommand(payload: command.payload)
 			.handleEvents(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
 					Tracker.track(error: error, operation: command.name, payload: command.payload)
 				}
-				
+
 				guard self.current?.sequence == sequence else { return }
 				self.current = nil
 				self.didCompleteCommand?(self)
@@ -340,17 +340,17 @@ final class VISCAConnection {
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
-	
+
 	private func sendVISCACommand(payload: Data) -> AnyPublisher<Void, Swift.Error> {
 		isExecuting = true
-		
+
 		let payload = Data([0x81]) + payload + Data([0xFF])
-		
+
 		return send(.viscaCommand, payload: payload)
 			.flatMap {
 				self.responses.filter { $0 != .completion }.first()
 			}
-			.tryMap { response -> Void in
+			.tryMap { response in
 				switch response {
 				case .ack:
 					return
@@ -377,7 +377,7 @@ final class VISCAConnection {
 						}
 					}
 				}
-				
+
 				self.sequence += 1
 				self.isExecuting = false
 				self.didExecute?(self)
@@ -385,20 +385,20 @@ final class VISCAConnection {
 			.flatMap {
 				self.responses.filter { $0 == .completion }.first()
 			}
-			.map { data -> Void in }
+			.map { data in }
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
-	
+
 	func send<Response>(inquiry: VISCAInquiry<Response>) -> AnyPublisher<Response, Swift.Error> {
 		guard !isExecuting else {
 			return Fail(error: Error.requestInProgress)
 				.eraseToAnyPublisher()
 		}
 		isExecuting = true
-		
+
 		logger.info("⬆️#\(self.connectionNumber) \(inquiry.name, privacy: .public)")
-		
+
 		return sendVISCAInquiry(payload: inquiry.payload)
 			.tryMap { payload -> Response in
 				guard let response = inquiry.parseResponse(payload) else {
@@ -417,10 +417,10 @@ final class VISCAConnection {
 							return
 						}
 					}
-					
+
 					Tracker.track(error: error, operation: inquiry.name, payload: inquiry.payload)
 				}
-				
+
 				self.sequence += 1
 				self.isExecuting = false
 				self.didExecute?(self)
@@ -428,10 +428,10 @@ final class VISCAConnection {
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
-	
+
 	private func sendVISCAInquiry(payload: Data) -> AnyPublisher<Data, Swift.Error> {
 		let payload = Data([0x81]) + payload + Data([0xFF])
-		
+
 		return send(.viscaInquery, payload: payload)
 			.flatMap {
 				self.responses.filter { $0 != .completion }.first()
@@ -454,7 +454,7 @@ final class VISCAConnection {
 			.disableCancellation()
 			.eraseToAnyPublisher()
 	}
-	
+
 	private func resetSequence() -> AnyPublisher<Void, Swift.Error> {
 		send(.controlCommand, payload: Data([0x01]))
 			.handleEvents(receiveCompletion: { _ in
@@ -468,9 +468,9 @@ final class VISCAConnection {
 
 extension VISCAConnection: Hashable {
 	static func == (lhs: VISCAConnection, rhs: VISCAConnection) -> Bool {
-		return lhs === rhs
+		lhs === rhs
 	}
-	
+
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(ObjectIdentifier(self))
 	}

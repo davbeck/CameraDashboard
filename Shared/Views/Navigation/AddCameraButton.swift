@@ -3,7 +3,7 @@ import SwiftUI
 struct AddCameraButton: View {
 	@State var isAddingCamera: Bool = false
 	@ObservedObject var cameraManager = CameraManager.shared
-	
+
 	var body: some View {
 		Button(action: {
 			isAddingCamera.toggle()
@@ -11,10 +11,10 @@ struct AddCameraButton: View {
 			Image(systemSymbol: .plus)
 				.contentShape(Rectangle())
 		})
-			.sheet(isPresented: $isAddingCamera) {
-				AddCameraConnectionView()
-					.environmentObject(cameraManager)
-			}
+		.sheet(isPresented: $isAddingCamera) {
+			AddCameraConnectionView()
+				.environmentObject(cameraManager)
+		}
 	}
 }
 

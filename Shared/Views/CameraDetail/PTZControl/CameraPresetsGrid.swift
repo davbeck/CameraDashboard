@@ -3,15 +3,15 @@ import SwiftUI
 struct CameraPresetsGrid: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var errorReporter: ErrorReporter
-	
+
 	@ObservedObject var client: VISCAClient
 	@ObservedObject var camera: Camera
-	
+
 	init(client: VISCAClient, camera: Camera) {
 		self.client = client
 		self.camera = camera
 	}
-	
+
 	var columns: [GridItem] {
 		#if os(macOS)
 			return [
@@ -23,7 +23,7 @@ struct CameraPresetsGrid: View {
 			]
 		#endif
 	}
-	
+
 	var body: some View {
 		ScrollView {
 			LazyVGrid(columns: columns) {
@@ -32,10 +32,10 @@ struct CameraPresetsGrid: View {
 						presetConfig: camera[preset],
 						client: client
 					)
-						.frame(maxWidth: .infinity)
-						.onTapGesture {
-							client.recall(preset: preset)
-						}
+					.frame(maxWidth: .infinity)
+					.onTapGesture {
+						client.recall(preset: preset)
+					}
 					// this causing a crash
 					// .acceptsFirstMouse()
 				}

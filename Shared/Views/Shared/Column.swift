@@ -7,9 +7,9 @@ struct ColumnWidthPreference: Equatable {
 
 struct ColumnWidthPreferenceKey: PreferenceKey {
 	typealias Value = [ColumnWidthPreference]
-	
+
 	static var defaultValue: [ColumnWidthPreference] = []
-	
+
 	static func reduce(value: inout [ColumnWidthPreference], nextValue: () -> [ColumnWidthPreference]) {
 		value.append(contentsOf: nextValue())
 	}
@@ -21,11 +21,11 @@ struct ColumnCell<Content: View, ColumnIdentifier: Hashable>: View {
 	var content: Content
 	@State var width: CGFloat?
 	@Environment(\.maxColumnWidths) var maxWidths: [AnyHashable: CGFloat]
-	
+
 	var body: some View {
 		ZStack(alignment: alignment) {
 			Spacer().frame(width: maxWidths[identifier])
-			
+
 			content
 				.background(GeometryReader { geometry in
 					Rectangle()
@@ -39,7 +39,7 @@ struct ColumnCell<Content: View, ColumnIdentifier: Hashable>: View {
 		.onPreferenceChange(ColumnWidthPreferenceKey.self) { preferences in
 			self.width = preferences
 				.filter { $0.identifier == self.identifier as AnyHashable }
-				.map { $0.width }.reduce(0, +)
+				.map(\.width).reduce(0, +)
 		}
 	}
 }
@@ -51,7 +51,7 @@ struct MaxColumnWidthKey: EnvironmentKey {
 extension EnvironmentValues {
 	var maxColumnWidths: [AnyHashable: CGFloat] {
 		get {
-			return self[MaxColumnWidthKey.self]
+			self[MaxColumnWidthKey.self]
 		}
 		set {
 			self[MaxColumnWidthKey.self] = newValue
@@ -62,14 +62,14 @@ extension EnvironmentValues {
 struct ColumnContainer<Content: View>: View {
 	var content: Content
 	@State var maxWidths: [AnyHashable: CGFloat] = [:]
-	
+
 	var body: some View {
 		content
 			.onPreferenceChange(ColumnWidthPreferenceKey.self) { preferences in
-				for identifier in Set(preferences.map { $0.identifier }) {
+				for identifier in Set(preferences.map(\.identifier)) {
 					self.maxWidths[identifier] = preferences
 						.filter { $0.identifier == identifier }
-						.map { $0.width }.max()
+						.map(\.width).max()
 				}
 			}
 			.environment(\.maxColumnWidths, maxWidths)
@@ -80,8 +80,8 @@ extension View {
 	func columnGuide() -> some View {
 		ColumnContainer(content: self)
 	}
-	
-	func column<ColumnIdentifier: Hashable>(_ identifier: ColumnIdentifier, alignment: Alignment = .leading) -> some View {
+
+	func column(_ identifier: some Hashable, alignment: Alignment = .leading) -> some View {
 		ColumnCell(identifier: identifier, alignment: alignment, content: self)
 	}
 }

@@ -1,28 +1,28 @@
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct ConnectionPresetsRow<PresetContent: View>: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@EnvironmentObject var switcherManager: SwitcherManager
 	@EnvironmentObject var errorReporter: ErrorReporter
 	@FetchRequest var presetConfigs: FetchedResults<PresetConfig>
-	
+
 	@ObservedObject var camera: Camera
 	var presetContent: (_ presetConfig: PresetConfig) -> PresetContent
-	
+
 	init(
 		camera: Camera,
 		presetContent: @escaping (PresetConfig) -> PresetContent
 	) {
 		self.camera = camera
 		self.presetContent = presetContent
-		
+
 		_presetConfigs = FetchRequest(
 			sortDescriptors: [SortDescriptor(\.rawPreset)],
 			predicate: NSPredicate(format: "camera = %@", camera)
 		)
 	}
-	
+
 	var width: CGFloat {
 		#if os(macOS)
 			return 140
@@ -30,7 +30,7 @@ struct ConnectionPresetsRow<PresetContent: View>: View {
 			return 175
 		#endif
 	}
-	
+
 	var body: some View {
 		VStack(alignment: .leading, spacing: 5) {
 			GeometryReader { proxy in
@@ -39,7 +39,7 @@ struct ConnectionPresetsRow<PresetContent: View>: View {
 					.padding(.horizontal)
 					.padding(.leading, max(-proxy.frame(in: .named("scrollView")).minX, 0))
 			}
-			
+
 			LazyHStack(spacing: 15) {
 				ForEach(presetConfigs) { presetConfig in
 					presetContent(presetConfig)

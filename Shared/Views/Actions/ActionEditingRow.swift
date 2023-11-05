@@ -1,34 +1,34 @@
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct ActionEditingRow: View {
 	@ObservedObject var action: Action
-	
+
 	var body: some View {
 		VStack(spacing: 0) {
 			HStack {
 				TextField("Name", text: $action.name)
-				
+
 				ActionDeleteButton(action: action)
 			}
 			.padding()
-		
+
 			Divider()
-		
+
 			ActionTriggerEditView(
 				status: $action.status,
 				channel: $action.channel,
 				note: $action.note
 			)
-				.padding()
-		
+			.padding()
+
 			Divider()
-		
+
 			ActionBehaviorEditView(
 				switchInput: $action.switchInput,
 				presetConfig: $action.preset
 			)
-				.padding(.top)
+			.padding(.top)
 		}
 	}
 }

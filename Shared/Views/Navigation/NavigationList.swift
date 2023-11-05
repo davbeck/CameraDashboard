@@ -1,12 +1,12 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct NavigationList: View {
 	@EnvironmentObject var cameraManager: CameraManager
 	@FetchedSetup var setup: Setup
-	
+
 	@SceneStorage("NavigationSelection") var navigationSelection: NavigationSelection = ["presets"]
-	
+
 	var body: some View {
 		List {
 			NavigationLink(
@@ -15,14 +15,14 @@ struct NavigationList: View {
 			) {
 				Text("Presets")
 			}
-			
+
 			NavigationLink(
 				destination: ActionsView().environmentObject(cameraManager),
 				isActive: $navigationSelection[contains: "actions"]
 			) {
 				Text("Actions")
 			}
-			
+
 			Section(header: Text("Cameras")) {
 				ForEach(setup.cameras) { camera in
 					NavigationLink(
@@ -38,9 +38,9 @@ struct NavigationList: View {
 				}
 			}
 			#if os(macOS)
-				.collapsible(false)
+			.collapsible(false)
 			#endif
-			
+
 			SwitchersSection(navigationSelection: $navigationSelection)
 		}
 		.listStyle(SidebarListStyle())
@@ -54,10 +54,10 @@ struct NavigationList: View {
 				}
 			})
 		#else
-			.navigationBarItems(trailing: AddCameraButton())
-			.navigationTitle(Text("Dashboard"))
+				.navigationBarItems(trailing: AddCameraButton())
+				.navigationTitle(Text("Dashboard"))
 		#endif
-		.frame(minWidth: 200)
+				.frame(minWidth: 200)
 //		.onReceive(cameraManager.didRemoveCamera) { camera in
 //			if navigationSelection.items.contains(camera.id.uuidString) {
 //				navigationSelection.items.remove(camera.id.uuidString)

@@ -13,16 +13,16 @@ extension Double: ReferenceConvertible {
 
 extension Int: ReferenceConvertible {
 	public var debugDescription: String {
-		return description
+		description
 	}
-	
+
 	public typealias ReferenceType = NSNumber
 }
 
 extension UInt16: ReferenceConvertible {
 	public var debugDescription: String {
-		return description
+		description
 	}
-	
+
 	public typealias ReferenceType = NSNumber
 }

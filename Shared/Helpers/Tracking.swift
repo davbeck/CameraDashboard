@@ -6,7 +6,7 @@ enum Tracker {
 //			Mixpanel.mainInstance().people.set(properties: ["Number of Cameras": count])
 //		#endif
 	}
-	
+
 	static func trackCameraAdd(version: VISCAVersion, port: UInt16) {
 //		#if canImport(Mixpanel)
 //			Mixpanel.mainInstance().track(event: "Camera Added", properties: [
@@ -19,7 +19,7 @@ enum Tracker {
 //			])
 //		#endif
 	}
-	
+
 	static func trackCameraAddFailed(_ error: Swift.Error) {
 //		#if canImport(Mixpanel)
 //			let nsError = error as NSError
@@ -32,7 +32,7 @@ enum Tracker {
 //			])
 //		#endif
 	}
-	
+
 	static func track(error: Swift.Error, operation: String, payload: Data) {
 //		#if canImport(Mixpanel)
 //			let nsError = error as NSError

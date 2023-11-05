@@ -2,9 +2,9 @@ import SwiftUI
 
 struct SwitchersSection: View {
 	@EnvironmentObject var switcherManager: SwitcherManager
-	
+
 	@Binding var navigationSelection: NavigationSelection
-	
+
 	var body: some View {
 		Section(header: Text("Switchers")) {
 			ForEach(Array(switcherManager.switchers.values)) { client in

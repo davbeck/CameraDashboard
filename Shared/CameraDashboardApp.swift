@@ -8,9 +8,9 @@ struct CameraDashboardApp: App {
 	#if os(macOS)
 		@NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
 	#endif
-	
+
 	init() {}
-	
+
 	var body: some Scene {
 		WindowGroup {
 			ContentView()
@@ -20,7 +20,7 @@ struct CameraDashboardApp: App {
 					window.standardWindowButton(NSWindow.ButtonType.closeButton)?.isEnabled = false
 				}
 			#endif
-			.environment(\.managedObjectContext, PersistentContainer.shared.viewContext)
+				.environment(\.managedObjectContext, PersistentContainer.shared.viewContext)
 		}
 		.commands {
 			#if canImport(Sparkle)

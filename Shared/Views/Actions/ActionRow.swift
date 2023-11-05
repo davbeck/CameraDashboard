@@ -1,11 +1,11 @@
-import SwiftUI
-import MIDIKit
 import CoreData
+import MIDIKit
+import SwiftUI
 
 struct ActionRow: View {
 	@ObservedObject var action: Action
 	@Binding var isEditing: Bool
-	
+
 	var backgroundColor: Color {
 		#if os(macOS)
 			Color.secondary.opacity(0.05)
@@ -13,14 +13,14 @@ struct ActionRow: View {
 			Color(.secondarySystemGroupedBackground)
 		#endif
 	}
-	
+
 	var body: some View {
 		VStack(spacing: 0) {
 			ActionDisplayRow(action: action, isEditing: $isEditing)
-			
+
 			if isEditing {
 				Divider()
-				
+
 				ActionEditingRow(action: action)
 			}
 		}

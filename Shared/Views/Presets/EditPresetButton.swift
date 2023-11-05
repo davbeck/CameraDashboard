@@ -2,13 +2,13 @@ import SwiftUI
 
 struct EditPresetButton: View {
 	@EnvironmentObject var cameraManager: CameraManager
-	
+
 	var isHovering: Bool
 	var presetConfig: PresetConfig
 	var client: VISCAClient
-	
+
 	@State var isShowingEdit: Bool = false
-	
+
 	var isVisible: Bool {
 		#if os(macOS)
 			return isShowingEdit || isHovering
@@ -16,7 +16,7 @@ struct EditPresetButton: View {
 			return true
 		#endif
 	}
-	
+
 	var body: some View {
 		if isVisible {
 			Button(action: {
@@ -27,18 +27,18 @@ struct EditPresetButton: View {
 					.font(.system(size: 26))
 				#endif
 			})
-				.buttonStyle(PlainButtonStyle())
-				.contentShape(Rectangle())
-				.popover(
-					isPresented: $isShowingEdit,
-					arrowEdge: .bottom
-				) {
-					PresetEditView(
-						presetConfig: presetConfig,
-						client: client
-					)
-						.environmentObject(cameraManager)
-				}
+			.buttonStyle(PlainButtonStyle())
+			.contentShape(Rectangle())
+			.popover(
+				isPresented: $isShowingEdit,
+				arrowEdge: .bottom
+			) {
+				PresetEditView(
+					presetConfig: presetConfig,
+					client: client
+				)
+				.environmentObject(cameraManager)
+			}
 		}
 	}
 }

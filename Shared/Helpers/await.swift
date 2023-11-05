@@ -11,7 +11,7 @@ extension Publisher {
 		var error: Failure?
 		var output: Output?
 		var completed = false
-		
+
 		let observer = receive(on: RunLoop.current)
 			.sink(receiveCompletion: { completion in
 				switch completion {
@@ -20,30 +20,30 @@ extension Publisher {
 				case .finished:
 					break
 				}
-				
+
 				completed = true
 			}, receiveValue: { o in
 				output = o
 			})
-		
+
 		let timeoutEnd = Date(timeIntervalSinceNow: timeout)
 		while !completed {
 			let until = delay.map { Date(timeIntervalSinceNow: $0) } ?? Date()
 			RunLoop.current.run(until: until)
-			
+
 			if timeoutEnd.timeIntervalSinceNow < 0 {
 				throw TimeoutError(timeout: timeout)
 			}
 		}
-		
+
 		observer.cancel()
-		
-		if let error = error {
+
+		if let error {
 			throw error
 		}
-		
+
 		guard let finalOutput = output else { throw MissingOutputError() }
-		
+
 		return finalOutput
 	}
 }

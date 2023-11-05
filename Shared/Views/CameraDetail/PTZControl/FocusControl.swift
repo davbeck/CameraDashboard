@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FocusControl: View {
 	@ObservedObject var client: VISCAClient
-	
+
 	var body: some View {
 		VStack {
 			HStack {
@@ -20,18 +20,18 @@ struct FocusControl: View {
 					Text("Auto")
 				}
 			}
-			
+
 			HStack {
 				DirectionButton(isActive: $client.focusDirection.equalTo(.far)) {
 					Image(systemSymbol: .minus)
 				}
-				
+
 				if client.allowDirectControl {
 					Slider(value: $client.focusPosition.local, in: 0 ... VISCAClient.maxFocus)
 				} else {
 					Spacer()
 				}
-				
+
 				DirectionButton(isActive: $client.focusDirection.equalTo(.near)) {
 					Image(systemSymbol: .plus)
 				}
