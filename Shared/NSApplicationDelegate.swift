@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(macOS)
-	import LetsMove
+//	import LetsMove
 	import Sparkle
 
 	class AppDelegate: NSObject, NSApplicationDelegate {
@@ -11,7 +11,7 @@ import Foundation
 		func applicationWillFinishLaunching(_ notification: Notification) {
 			updater?.delegate = self
 
-			PFMoveToApplicationsFolderIfNecessary()
+//			PFMoveToApplicationsFolderIfNecessary()
 		}
 
 		func applicationDidFinishLaunching(_ aNotification: Notification) {}
