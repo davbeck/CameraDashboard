@@ -12,7 +12,7 @@ struct CameraDashboardApp: App {
 	init() {}
 
 	var body: some Scene {
-		WindowGroup {
+		Window(Text("Camera Dashboard"), id: "camera-dashboard") {
 			ContentView()
 				.frame(minWidth: 800, minHeight: 500)
 			#if os(macOS)
@@ -32,7 +32,6 @@ struct CameraDashboardApp: App {
 					}
 				}
 			#endif
-			CommandGroup(replacing: CommandGroupPlacement.newItem) {}
 		}
 	}
 }
